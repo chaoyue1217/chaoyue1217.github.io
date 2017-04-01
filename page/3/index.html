@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Sunshine Girl</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Sunshine Girl">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
+<meta property="og:site_name" content="Sunshine Girl">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sunshine Girl">
+  
+    <link rel="alternate" href="/atom.xml" title="Sunshine Girl" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Sunshine Girl</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-C05-CSS3background和border " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/12/C05-CSS3background和border /" class="article-date">
+  <time datetime="2016-04-11T16:00:00.000Z" itemprop="datePublished">2016-04-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/12/C05-CSS3background和border /">CSS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="background新属性"><a href="#background新属性" class="headerlink" title="background新属性"></a>background新属性</h1><blockquote>
+<p>background支持多个属性复合，多个属性之间使用逗号隔开</p>
+<h3 id="background-size"><a href="#background-size" class="headerlink" title="background-size"></a>background-size</h3><ul>
+<li>设置背景图片的大小</li>
+<li>可以直接设置像素值 例如：<code>100px 200px</code></li>
+<li>cover : 等比例缩放图片，图片的宽高只要有一个与盒子的相等，就停止缩放；图片有可能超出盒子的范围，超出部分不显示</li>
+<li>contain : 等比例缩放图片，图片的宽高都至少等于盒子的宽高时，停止缩放，所以图片不会超出盒子的范围<h3 id="background-origin"><a href="#background-origin" class="headerlink" title="background-origin"></a>background-origin</h3>设置背景图片开始显示的位置</li>
+</ul>
+<p>如果不设置no-repeat，该属性无效</p>
+<ul>
+<li>content-box  从内容开始，不包括border和padding。默认值</li>
+<li>padding-box  从padding开始(包括padding)，不包括border</li>
+<li>border-box   从border开始(包括border)<h3 id="background-clip"><a href="#background-clip" class="headerlink" title="background-clip"></a>background-clip</h3>设置背景图片开始裁剪的位置</li>
+</ul>
+<p>如果不设置no-repeat，该属性无效</p>
+<ul>
+<li>content-box: 从内容开始裁剪，只显示内容部分的背景</li>
+<li>padding-box: 从padding开始裁剪，只显示内容+padding部分的背景</li>
+<li>border-box: 从border开始裁剪，默认值<h3 id="background属性联写"><a href="#background属性联写" class="headerlink" title="background属性联写"></a>background属性联写</h3></li>
+<li>background-size属性要写在background-position属性后面，并使用<code>/</code>分隔，background-origin写在末尾即可<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">.pic&#123;</div><div class="line">    width:200px;</div><div class="line">    height:200px;</div><div class="line">    background:</div><div class="line">        url('img/lyf.jpg') top left / 100px 100px no-repeat ,</div><div class="line">        url('img/lyf.jpg') no-repeat top center / 100px 100px ,</div><div class="line">        url('img/lyf.jpg') no-repeat top right / 100px 100px,</div><div class="line">        skyblue ;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pic"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h2 id="图片边框border"><a href="#图片边框border" class="headerlink" title="图片边框border"></a>图片边框border</h2><blockquote>
+<p>就是给border设置背景   **要设置border的背景，必须先设置border<br>图片边框的默认宽度是border的宽度</p>
+<ul>
+<li><code>border-image-source</code>设置图片的路径</li>
+<li><code>border-image-slice</code>设置图片的切割位置。例如： <code>border-image-slice: 27 27</code>是将图片的四个角取27 x 27的范围切割出去，剩余的部分进行平铺的设置</li>
+<li><code>border-image-repeat</code>设置图片的平铺方式<br>stretch ： 直接拉伸图片，会导致图片失真<br>round :  平铺，会考虑图片的完整性，进行压缩<br>repeat ： 平铺，不会考虑图片的完整性</li>
+<li><code>border-image-width</code> 设置边框背景的宽度，不会影响盒子的大小<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">div&#123;</div><div class="line">      width: 150px;</div><div class="line">      height: 200px;</div><div class="line">      border:10px dashed white;</div><div class="line">      float: left;</div><div class="line">      margin-left: 50px;</div><div class="line">      background: url('img/csc.jpg') no-repeat center/ cover;</div><div class="line">      border-image-source: url('img/border_box.png');</div><div class="line">      border-image-slice: 27 27;</div><div class="line">      border-image-width: 30px;</div><div class="line">      border-image-repeat:round;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"man"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>效果图：</p>
+<ul>
+<li>设置 border-image-repeat:round时;<br><img src="../img\csc.png" alt="csc"></li>
+</ul>
+<ul>
+<li><p>设置border-image-repeat:repeat时;</p>
+<p><img src="../img\csc2.png" alt="csc2"></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/12/C05-CSS3background和border /" data-id="cj0z7j53n0005e8d9e7g76x4t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-C04-CSS3盒子属性及阴影" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/09/C04-CSS3盒子属性及阴影/" class="article-date">
+  <time datetime="2016-04-08T16:00:00.000Z" itemprop="datePublished">2016-04-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/09/C04-CSS3盒子属性及阴影/">CSS</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CSS3盒模型新属性"><a href="#CSS3盒模型新属性" class="headerlink" title="CSS3盒模型新属性"></a>CSS3盒模型新属性</h1><h3 id="盒模型属性"><a href="#盒模型属性" class="headerlink" title="盒模型属性"></a>盒模型属性</h3><ul>
+<li><code>box-sizing:border-box</code>  在添加border或者padding时，首先保证盒子通过width和height属性设置的尺寸，通过压缩内容来实现 </li>
+<li><code>box-sizing:content-box</code>默认值，盒子大小按照设置的来计算；即首先保证盒子的内容尺寸不变<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">     div&#123;</div><div class="line">     width: 200px;</div><div class="line">     height: 200px;</div><div class="line">     border:10px solid #000;</div><div class="line">     margin-top: 10px;</div><div class="line">     &#125;</div><div class="line">     div:first-child&#123;</div><div class="line">     /*优先元素自身的尺寸不变，通过压缩内容来实现</div><div class="line">     所以设置完该属性后，该元素的宽高为200px</div><div class="line">     */</div><div class="line">     box-sizing: border-box;</div><div class="line">     &#125;</div><div class="line">     div:last-child&#123;</div><div class="line">     /*默认的属性 优先保证内容的尺寸不变</div><div class="line">     因此该元素的宽高为220px</div><div class="line">     */</div><div class="line">     box-sizing: content-box;</div><div class="line">     &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><ul>
+<li>text-shadow: 阴影的水平偏移值,阴影的垂直偏移值，阴影模糊值(不可以有负值)，阴影的颜色</li>
+<li>box-shadow:阴影的水平偏移值,阴影的垂直偏移值，阴影模糊值(不可以有负值)，阴影的颜色<br>还可以设置inset：表示阴影向内发散，不设置时默认向外发散</li>
+<li>以上两个属性可以设置多个阴影，每个阴影之间用逗号隔开<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">   .showBox:hover&#123;</div><div class="line">       box-shadow: 0px 0px 40px orange,</div><div class="line">       0px 0px 60px red,</div><div class="line">       /*inset 向内部发散*/</div><div class="line">       inset 0px 0px 40px white;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"showBox"</span>&gt;</span>这是一个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/09/C04-CSS3盒子属性及阴影/" data-id="cj0z7j53x0007e8d9jlq7bgjp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-C03-CSS3选择器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/08/C03-CSS3选择器/" class="article-date">
+  <time datetime="2016-04-07T16:00:00.000Z" itemprop="datePublished">2016-04-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/08/C03-CSS3选择器/">CSS3</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CSS3选择器"><a href="#CSS3选择器" class="headerlink" title="CSS3选择器"></a>CSS3选择器</h1><h2 id="CSS3选择器分类"><a href="#CSS3选择器分类" class="headerlink" title="CSS3选择器分类"></a>CSS3选择器分类</h2><h3 id="兄弟选择器"><a href="#兄弟选择器" class="headerlink" title="兄弟选择器"></a>兄弟选择器</h3><ul>
+<li>~   只能获取某元素后面的兄弟元素<h3 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h3></li>
+<li><code>E[att]</code>                属性拥有某个属性</li>
+<li><code>E[att=&quot;val&quot;]</code>        属性等于某个之后</li>
+<li><code>E[att~=&quot;val&quot;]</code>      存在该属性， 属性值以空格分开</li>
+<li><code>E[att^=&quot;val&quot;]</code>      属性值以指定字符串开头</li>
+<li><code>E[att$=&quot;val&quot;]</code>      属性值以指定字符串结尾</li>
+<li><code>E[att*=&quot;val&quot;]</code>      属性值包含指定字符串<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    /*拥有某个属性*/</div><div class="line">    li[color]&#123;</div><div class="line">    	background-color: hotpink;</div><div class="line">    &#125;</div><div class="line">    /*属性等于某个值*/</div><div class="line">    li[color=yellow]&#123;</div><div class="line">    	color: #ff0;</div><div class="line">    &#125;</div><div class="line">    /*获取以空格分开的某个属性*/</div><div class="line">    li[shkill~=strong]&#123;</div><div class="line">    	background-color: brown;</div><div class="line">    &#125;</div><div class="line">    li[class~=q]&#123;</div><div class="line">    	background-color: greenyellow;</div><div class="line">    &#125;</div><div class="line">    /*开头*/</div><div class="line">    li[hot^=very]&#123;</div><div class="line">    	font-size: 50px;</div><div class="line">    &#125;</div><div class="line">    /*结尾*/</div><div class="line">    li[hot$=t]&#123;</div><div class="line">    	background-color: navajowhite;</div><div class="line">    &#125;</div><div class="line">    /*包含*/</div><div class="line">    li[hot*=o]&#123;</div><div class="line">    	border:10px solid darkgray;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">color</span>=<span class="string">"yellow"</span>&gt;</span>西兰花<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"circle white q"</span>&gt;</span>鸡蛋<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">skill</span>=<span class="string">"strong fatter bomb"</span>&gt;</span>牛肉<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">color</span>=<span class="string">"orange"</span>&gt;</span>胡萝卜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">color</span>=<span class="string">"yellowgreen"</span>&gt;</span>黄瓜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">hot</span>=<span class="string">"verylow"</span>&gt;</span>玉米<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">hot</span>=<span class="string">"veryhot"</span>&gt;</span>爆米花<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h3><ul>
+<li><code>:first-child</code>匹配父元素中的第一个子元素</li>
+<li><code>:last-child</code>匹配父元素中的最后一个子元素</li>
+<li><code>:nth-child(n)</code>匹配父元素中的第n个子元素，<strong>索引从1开始</strong>   也可以传入带n的表达式  n必须放在前面，例如n+5,不能写成5+n</li>
+<li><code>:ntn-last-child(n)</code>匹配倒数第几个子元素</li>
+<li><code>:first-of-child</code>  匹配同类元素中的第1个兄弟元素</li>
+<li><code>:last-of-child</code> 匹配同类元素中的最后一个兄弟元素</li>
+<li><code>:nth-of-type(n)</code>  匹配同类元素中的第n个兄弟元素<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">        /*  ntn-child(n)  </div><div class="line">            括号中的索引包含其他的兄弟节点</div><div class="line">        */</div><div class="line">        p:nth-child(2)&#123;/*匹配到的是黄瓜*/</div><div class="line">            background-color: gold;</div><div class="line">        &#125;</div><div class="line">        /*nth-of-type()会考虑类型</div><div class="line">        当有多种标签在同一个父元素中时</div><div class="line">        建议使用nth-of-type()</div><div class="line">        */</div><div class="line">        p:nth-of-type(1)&#123;</div><div class="line">            background-color: #0ff;</div><div class="line">        &#125;</div><div class="line">        p:first-of-type&#123;</div><div class="line">            background-color: #f0f;</div><div class="line">        &#125;</div><div class="line">        p:last-of-type&#123;</div><div class="line">            background-color: darkorange;</div><div class="line">        &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>蔬菜<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>黄瓜<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>土豆<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h3><blockquote>
+<p>推荐使用<code>::</code>为了方便和伪类区分</p>
+<ul>
+<li><code>::first-letter</code> 第一个字母</li>
+<li><code>::first-line</code>  第一行</li>
+<li><code>::placeholder</code>设置表单输入框中的占位符的样式   兼容性差，使用时需要加上浏览器前缀</li>
+<li><code>::selection</code>  设置被选中的内容的样式  只能设置color,background-color,text-shadow属性</li>
+<li><strong>重点</strong></li>
+<li><code>::before</code>和<code>::after</code>  只能给双标签设置</li>
+<li><strong>必须给伪元素设置content属性</strong></li>
+<li>给元素添加了该伪元素之后会自动在双标签内部生成<code>::before</code>和<code>::after</code>选择器</li>
+<li>生成的是一个行内元素</li>
+<li>before会添加在元素中的最前面        after会添加在元素中的最后面<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">   div::after&#123;</div><div class="line">   /*必须设置的属性*/</div><div class="line">     content: "";</div><div class="line">     width:20px;</div><div class="line">     height:20px;</div><div class="line">     background-color: hotpink;</div><div class="line">     /*display: block;*/</div><div class="line">     position: absolute;</div><div class="line">     right: -20px;</div><div class="line">     border:2px solid green;</div><div class="line">     box-sizing: border-box;</div><div class="line">  &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/08/C03-CSS3选择器/" data-id="cj0z7j53i0004e8d9vlwniq3w" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-C02-HTML5高级API" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/06/C02-HTML5高级API/" class="article-date">
+  <time datetime="2016-04-05T16:00:00.000Z" itemprop="datePublished">2016-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/06/C02-HTML5高级API/">HTML5高级API</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="HTMl5高级API"><a href="#HTMl5高级API" class="headerlink" title="HTMl5高级API"></a>HTMl5高级API</h1><h2 id="全屏效果"><a href="#全屏效果" class="headerlink" title="全屏效果"></a>全屏效果</h2><blockquote>
+<p>requestFullScreen()方法;</p>
+<ul>
+<li>该方法目前还处于测试阶段，要想正常使用必须添加前缀</li>
+<li>不同的浏览器的渲染效果不同</li>
+<li>ie的全屏方法是msRequestFullscreen(screen中的s是小写)</li>
+<li>兼容浏览器写法<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"全屏"</span>&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">documet.querySelector(<span class="string">"input"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.webkitRequestFullScreen)&#123;</div><div class="line">        <span class="comment">// 谷歌</span></div><div class="line">        <span class="keyword">this</span>.webkitRequestFullScreen();</div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.mozRequestFullScreen)&#123;</div><div class="line">        <span class="comment">// 火狐</span></div><div class="line">        <span class="keyword">this</span>.mozRequestFullScreen();</div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.msRequestFullscreen)&#123;</div><div class="line">        <span class="comment">// ie的全屏方法是msRequestFullscreen</span></div><div class="line">        <span class="comment">// 可以查MSDN</span></div><div class="line">        <span class="comment">// IE </span></div><div class="line">        <span class="keyword">this</span>.msRequestFullscreen();</div><div class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.requestFullScreen)&#123;</div><div class="line">        <span class="comment">// 其他</span></div><div class="line">        <span class="keyword">this</span>.requestFullScreen();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h2 id="拖-drag-放-drop"><a href="#拖-drag-放-drop" class="headerlink" title="拖(drag)放(drop)"></a>拖(drag)放(drop)</h2><blockquote>
+<p>有些元素默认支持鼠标拖放，例如img。但是该拖放只是一种视觉效果，元素并不会移动位置，如果实现元素的位置移动，需要使用js<br>有些不支持拖放，如div<br>设置元素可拖放,需要设置属性<code>draaable=&quot;true&quot;</code>例如：<code>&lt;div draggable=&quot;true&quot;&gt;</code></p>
+<h3 id="拖放事件"><a href="#拖放事件" class="headerlink" title="拖放事件"></a>拖放事件</h3><ul>
+<li>dragstart: 元素开始拖动事件。设置在被拖动的元素上</li>
+<li>dragend: 元素拖动结束事件。设置在被拖动的元素上<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).ondragstart = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 拖拽开始改变图片内容</span></div><div class="line">        <span class="keyword">this</span>.src = <span class="string">"img/huli.jpg"</span>;</div><div class="line">    &#125;;</div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).ondragend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">       	<span class="comment">// 拖拽结束还原图片</span></div><div class="line">       	<span class="keyword">this</span>.src = <span class="string">"img/xiang.jpg"</span>;</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>dragenter: 有元素拖入时触发</li>
+<li><p>dragleave: 元素离开时触发</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;background:yellowgreen"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="comment">// 图片拖入box时改变box的背景颜色</span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragenter = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.style.background = <span class="string">"yellow"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="comment">// 图片离开box时还原box的背景颜色</span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragleave = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.style.background =<span class="string">"yellowgreen"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>dragover: 规定在何处放置被拖动的数据</p>
+</li>
+<li><strong>注意</strong><blockquote>
+<p>默认情况下无法将元素放置到其他元素中。若要允许放置，需要阻止元素的默认行为。<br>通过调用ondragover 事件的 event.preventDefault() 方法</p>
+</blockquote>
+</li>
+<li>drop: 放置被拖动的元素时触发。只有设置了ondragover事件，drop事件才会触发<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;background:yellowgreen"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragover = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    event.preventDefault();</div><div class="line">&#125;</div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondrop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> imgObj = <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>);</div><div class="line">    <span class="keyword">this</span>.appendChild(imgObj);</div><div class="line">    <span class="comment">// 改变img的大小</span></div><div class="line">    imgObj.style.width = <span class="string">"100px"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h2><blockquote>
+<p><code>&lt;input type=&quot;file&quot;&gt;</code>可以实现文件的选取<br>选取多个文件: <code>&lt;input type=&quot;file&quot; multiple&gt;</code></p>
+<ul>
+<li>获取文件: 文件对象的files属性是一个包含所有文件的数组</li>
+<li>读取文件: 需要创建文件读取对象(FileReader)，该对象时由HTML5提供的</li>
+<li>读取文件的方法: <code>readAsDateURL()</code>读取路径; <code>readAsText()</code>读取文本</li>
+<li>文件读取完毕事件: onload<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"获取文件"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">"input[type=button"</span>).onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// 获取文件对象</span></div><div class="line">    <span class="keyword">var</span> fileObj = <span class="built_in">document</span>.querySelector(<span class="string">"input[type=file]"</span>);</div><div class="line">    <span class="comment">// 获取具体文件</span></div><div class="line">    <span class="keyword">var</span> file = fileObj.files[<span class="number">0</span>];</div><div class="line">    <span class="comment">// 创建文件读取对象</span></div><div class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</div><div class="line">    <span class="comment">// 读取文件</span></div><div class="line">    reader.readAsDataURL(file);</div><div class="line">    reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 文件读取完毕后输出文件信息        </span></div><div class="line">        <span class="built_in">console</span>.log(reader.result);</div><div class="line">        <span class="comment">// 将读取的结果设置给img</span></div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).src = reader.result;</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>头像预览案例<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>请选择你的头像<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;border:2px solid black"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"input"</span>).onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 获取文件</span></div><div class="line">        <span class="keyword">var</span> file = <span class="keyword">this</span>.files[<span class="number">0</span>];</div><div class="line">        <span class="comment">//创建对象</span></div><div class="line">        <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</div><div class="line">        <span class="comment">// 读取文件</span></div><div class="line">        reader.readAsDataURL(file);</div><div class="line">        reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">var</span> result = reader.result; </div><div class="line">            <span class="comment">// 将选择的图片显示在div中                </span></div><div class="line">            <span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).style.background = <span class="string">"url("</span>+result+<span class="string">") no-repeat center/cover"</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>细节问题</strong></p>
+<ul>
+<li>当图片直接拖入body时，默认情况下会直接打开图片</li>
+<li>可以通过event.dataTransfer对象的files属性获取当前被拖动的对象<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    *&#123;</div><div class="line">        margin: 0;</div><div class="line">        padding: 0;</div><div class="line">    &#125;</div><div class="line">    body,html&#123;</div><div class="line">        height: 100%;</div><div class="line">    &#125;</div><div class="line">    .preview&#123;</div><div class="line">        width: 300px;</div><div class="line">        height: 300px;</div><div class="line">        border: 2px dashed black;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>拖入图片<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"preview"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">        <span class="built_in">document</span>.body.ondragover = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 阻止drop的默认事件：默认情况下打开图片</span></div><div class="line">        <span class="comment">// 要想触发drop事件，必须设置ondragover阻止默认事件</span></div><div class="line">        <span class="built_in">document</span>.body.ondrop = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125;;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondragenter = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.style.background = <span class="string">"lightgray"</span>;</div><div class="line">        &#125;;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondragleave = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.style.background = <span class="string">"white"</span>;</div><div class="line">        &#125;;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondragover = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondrop = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            <span class="comment">// 获取文件:通过event.dataTransfer对象的files属性</span></div><div class="line">            <span class="keyword">var</span> file = event.dataTransfer.files[<span class="number">0</span>];</div><div class="line">            <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</div><div class="line">            reader.readAsDataURL(file);</div><div class="line">            reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="keyword">var</span> result = reader.result;</div><div class="line">                <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).style.background = <span class="string">"url("</span>+result+<span class="string">") no-repeat center/cover"</span>;</div><div class="line">            &#125;;</div><div class="line">        &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="数据存储localStorage和sessionStroage"><a href="#数据存储localStorage和sessionStroage" class="headerlink" title="数据存储localStorage和sessionStroage"></a>数据存储localStorage和sessionStroage</h2><blockquote>
+<p>区别：localStorage：关闭浏览器信息依旧存在; sessionStroage：关闭浏览器信息消失</p>
+<p>两者的调用方法完全一致</p>
+<ul>
+<li>window.localStorage.setItem(key,value);保存数据,不可以保存私密信息</li>
+<li>window.localStorage.getItem(key);获取数据</li>
+<li>window.localStorage.clear();清空数据</li>
+<li>window.localStorage.removeItem(key);清除某个数据<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>请输入你的名字<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"保存"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="comment">// 点击保存按钮 保存输入的名字</span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"input[type=button]"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 获取输入的值</span></div><div class="line">        <span class="keyword">var</span> text = <span class="built_in">document</span>.querySelector(<span class="string">"input[type=text]"</span>).value;</div><div class="line">        <span class="comment">// 将输入的值保存</span></div><div class="line">        <span class="built_in">window</span>.localStorage.setItem(<span class="string">"userName"</span>,text);</div><div class="line">    &#125;;</div><div class="line">    <span class="comment">// 页面加载完毕后获取保存的值        </span></div><div class="line">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> username = <span class="built_in">window</span>.localStorage.getItem(<span class="string">"userName"</span>);</div><div class="line">        <span class="comment">// 将输入的值设置给h1</span></div><div class="line">        <span class="keyword">if</span>(username)&#123;</div><div class="line">            <span class="built_in">document</span>.querySelector(<span class="string">"h1"</span>).innerHTML = username;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h2 id="地理位置"><a href="#地理位置" class="headerlink" title="地理位置"></a>地理位置</h2><blockquote>
+<p>经常用于移动端,PC端的定位不准确<br>该方式只能获取经纬度，若要显示地图，需要配合百度地图等使用<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"获取位置"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"input"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 获取当前的位置信息</span></div><div class="line">        <span class="built_in">window</span>.navigator.geolocation.getCurrentPosition(<span class="function"><span class="keyword">function</span>(<span class="params">position</span>)</span>&#123;</div><div class="line">            <span class="comment">// 获取位置信息</span></div><div class="line">            <span class="built_in">console</span>.log(position);</div><div class="line">            <span class="comment">// 获取纬度</span></div><div class="line">            <span class="built_in">console</span>.log(position.coords.latitude);</div><div class="line">            <span class="comment">// 获取经度</span></div><div class="line">            <span class="built_in">console</span>.log(position.coords.longitude);</div><div class="line">        &#125;);</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="video的API"><a href="#video的API" class="headerlink" title="video的API"></a>video的API</h2><ul>
+<li>video的方法:<blockquote>
+<p>play(); 播放视频<br>pause(); 暂停视频</p>
+</blockquote>
+</li>
+<li>video的事件<blockquote>
+<p>ontimeupdate: 视频播放时触发的事件</p>
+</blockquote>
+</li>
+<li>video元素的属性</li>
+<li>currentTime： 当前的播放时间</li>
+<li>duration: 视频的总时长</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/06/C02-HTML5高级API/" data-id="cj0z7j53c0002e8d9bczquy2g" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-C01-HTML5新增标签及属性" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/03/C01-HTML5新增标签及属性/" class="article-date">
+  <time datetime="2016-04-02T16:00:00.000Z" itemprop="datePublished">2016-04-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/03/C01-HTML5新增标签及属性/">HTML5</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h1><blockquote>
+<ol>
+<li><code>&lt;doctype&gt;</code>不是标签，是一种文档声明，告诉浏览器按照哪种规则解析</li>
+<li>新增语义标签：header  footer等<h2 id="新增语义标签兼容低版本IE"><a href="#新增语义标签兼容低版本IE" class="headerlink" title="新增语义标签兼容低版本IE"></a>新增语义标签兼容低版本IE</h2></li>
+</ol>
+<ul>
+<li>1.第一种：使用原生js创建标签，添加到页面中<br><strong>注意：</strong>标签创建完成后必须使其<code>display=block</code><br>示例：浏览器只有在遇到IE8及以下时才会执行其中的代码<br><strong>注意:</strong>lte  代表:  less than  equal<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--[if lte IE 8]&gt;</span></div><div class="line">&lt;script&gt;</div><div class="line">  var header = document.createElement("header");</div><div class="line">  //必须设置display</div><div class="line">  header.style.display = "block";</div><div class="line">  document.body.appendChild(header);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;![endif]--&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>2.第二种：外部引入js库实现兼容<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--[if lte IE 8]&gt;</span></div><div class="line">  &lt;script src="html5shiv.min.js"&gt;&lt;/script&gt;</div><div class="line">&lt;!--&lt;![endif]&amp;ndash;&amp;gt;--&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="多媒体标签-audio-vedio"><a href="#多媒体标签-audio-vedio" class="headerlink" title="多媒体标签  audio  vedio"></a>多媒体标签  audio  vedio</h2><ul>
+<li><p>vedio:属性：controls控制器<br>autoplay：自动播放<br>loop:循环播放<br>width/height:不会拉伸视频<br>可以vedio标签中使用source标签同时指定多个视频，目的是为了兼容浏览器</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">示例：</div><div class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">autoplay</span> <span class="attr">controls</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie/rabbit.ogg"</span> <span class="attr">type</span>=<span class="string">""</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie/move11.mp4"</span> <span class="attr">type</span>=<span class="string">""</span>&gt;</span></div><div class="line"> 亲,您的浏览器版本过低，建议更新观看</div><div class="line"><span class="tag">&lt;/<span class="name">video</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>多媒体标签可以直接被用户另存为</p>
+<h2 id="HTML5表单"><a href="#HTML5表单" class="headerlink" title="HTML5表单"></a>HTML5表单</h2><h3 id="表单新属性"><a href="#表单新属性" class="headerlink" title="表单新属性"></a>表单新属性</h3></li>
+<li>color      拾取颜色</li>
+<li>date  设置日期</li>
+<li>range范围  0-100</li>
+<li>number数字</li>
+<li>tel  email   search 这三个属性在PC端没有明显变化，但是在移动端会根据属性的不同改变键盘 email： @    tel： 九宫格数字键盘  search： 右下角是搜索或者是放大镜的外观<h3 id="表单新元素"><a href="#表单新元素" class="headerlink" title="表单新元素"></a>表单新元素</h3></li>
+<li><code>&lt;output&gt;&lt;/output&gt;</code> 用于接收输出数据，仅仅是增强了语义（可以使用span代替）</li>
+<li><code>&lt;keygen/&gt;</code> 密钥</li>
+<li><code>&lt;datalist&gt;&lt;/datalist&gt;</code>  不能单独使用，需要配合输入使用 输入框通过list属性 跟 datalist的id进行关联  选中的是option的value值<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">list</span>=<span class="string">"foodlist"</span> &gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">'foodlist'</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"vegetable"</span>&gt;</span>西兰花<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"beef"</span>&gt;</span>牛肉<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">   	<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"rice"</span>&gt;</span>泰国香米<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>注意：</strong> 以上三种基本不用</p>
+<ul>
+<li>两种进度条：<br><code>&lt;meter value=&quot;.5&quot;&gt;&lt;/meter&gt;</code><br><code>&lt;progress value=&quot;50&quot; max=&quot;100&quot;&gt;&lt;/progress&gt;</code>  需要设置value和max才能显示百分比</li>
+<li><strong>注意：</strong> 使用进度条时，一般都是自定义<h3 id="表单验证"><a href="#表单验证" class="headerlink" title="表单验证"></a>表单验证</h3></li>
+<li>表单的非空验证： required </li>
+<li>type = email 自带格式验证 必须为邮箱格式</li>
+<li>pattern  自定义验证规则：正则表达式<h3 id="表单中的事件"><a href="#表单中的事件" class="headerlink" title="表单中的事件"></a>表单中的事件</h3></li>
+<li><p>onchange 事件 会在元素的值发生改变的时候触发 会在变化停止后触发<br>示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"range"</span>  <span class="attr">id</span>=<span class="string">'myRange'</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'output'</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> 	<span class="keyword">var</span> rangeDom = <span class="built_in">document</span>.getElementById(<span class="string">'myRange'</span>);</div><div class="line">  	rangeDom.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   	 	<span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">  	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>oninput 事件会在用户输入时触发  会一直触发</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rangeDom.oninput = function()&#123;</div><div class="line">    console.log('我正在输入');</div><div class="line">    console.log(this.value);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>oninvalid 元素验证失败会触发  需要绑定给对应的表单元素<br>示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"tel"</span> <span class="attr">placeholder</span>=<span class="string">"手机号"</span> <span class="attr">pattern</span>=<span class="string">"\d&#123;4&#125;"</span> <span class="attr">id</span>=<span class="string">'tel'</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> 	<span class="built_in">document</span>.getElementById(<span class="string">'tel'</span>).oninvalid = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   		<span class="built_in">console</span>.log(<span class="string">'验证失败'</span>);</div><div class="line">    	<span class="keyword">this</span>.setCustomValidity(<span class="string">'请输入手机号'</span>);</div><div class="line"> 	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="HTML5-DOM操作扩展"><a href="#HTML5-DOM操作扩展" class="headerlink" title="HTML5 DOM操作扩展"></a>HTML5 DOM操作扩展</h2><ul>
+<li>document.querySelector() 传入的参数是选择器 还有CSS3的选择器  获取的是满足条件的第一个元素</li>
+<li>document.querySelectorAll()  获取的是一个数组<h2 id="HTML5-操作类样式"><a href="#HTML5-操作类样式" class="headerlink" title="HTML5  操作类样式"></a>HTML5  操作类样式</h2>DOM对象.classList 获取到的是一个对象</li>
+<li>方法：add()增加类样式<br>remove() 删除类样式<br>contains() 判断类样式是否存在<br>toggle() 切换类样式，有则删除，无则添加<h2 id="HTML5-自定义属性"><a href="#HTML5-自定义属性" class="headerlink" title="HTML5 自定义属性"></a>HTML5 自定义属性</h2></li>
+<li>推荐使用“data-”</li>
+<li>使用data时，如果定义的时候使用了大写字母获取的时候会变成小写,我们需要通过小写字母来获取</li>
+<li>我们使用 多个 <code>-</code> 进行分割，获取时需要使用驼峰标识<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">data-sex</span>=<span class="string">'girl'</span> <span class="attr">data-boyFriend</span>=<span class="string">'佐助'</span> <span class="attr">data-mother</span>=<span class="string">'泰罗奥特曼'</span> 		<span class="attr">data-cloth-green</span>=<span class="string">'绿裙子.绿鞋子,绿手套'</span> <span class="attr">data-cloth-red</span>=<span class="string">'红裙子,红裤子...'</span>&gt;</span>	   娜美<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	nameiLi = <span class="built_in">document</span>.querySelector(<span class="string">"li"</span>);</div><div class="line">	<span class="built_in">console</span>.log(nameiLi.dataset); <span class="comment">//dataset对象中包含中自定义的属性的内容</span></div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.mother);</div><div class="line">	<span class="built_in">console</span>.log(nameiLi.dataset.boyFriend);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.boyfriend);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.clothGreen);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset[<span class="string">'clothGreen'</span>]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/03/C01-HTML5新增标签及属性/" data-id="cj0z7j53r0006e8d90pauxcdq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-B03-jQuery" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/26/B03-jQuery/" class="article-date">
+  <time datetime="2016-03-25T16:00:00.000Z" itemprop="datePublished">2016-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/26/B03-jQuery/">jQuery</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="jquery基础"><a href="#jquery基础" class="headerlink" title="jquery基础"></a>jquery基础</h1><h2 id="jquery中的顶级对象"><a href="#jquery中的顶级对象" class="headerlink" title="jquery中的顶级对象"></a>jquery中的顶级对象</h2><ul>
+<li>DOM中的顶级对象：document</li>
+<li>BOM中的顶级对象：window</li>
+<li>jquery中的顶级对象：jQuery===$<blockquote>
+<p>在jquery中，将jQuery对象赋给了$<br>释放对$的控制权：$.noConflict();</p>
+<h2 id="jquery对象和DOM对象的相互转换"><a href="#jquery对象和DOM对象的相互转换" class="headerlink" title="jquery对象和DOM对象的相互转换"></a>jquery对象和DOM对象的相互转换</h2></blockquote>
+</li>
+<li>DOM对象——-&gt;jquery : $(DOM对象)</li>
+<li>jquery对象———-&gt;DOM对象 : jquery对象.get(0)或者 jquery对象[0];<h2 id="window-onload和-document-ready"><a href="#window-onload和-document-ready" class="headerlink" title="window.onload和$(document).ready()"></a>window.onload和$(document).ready()</h2><h3 id="window-onload"><a href="#window-onload" class="headerlink" title="window.onload"></a>window.onload</h3></li>
+<li>window.onload只能出现一次，如果出现多次会覆盖</li>
+<li>页面中所有的内容全部加载完毕后才会执行(图片，标签，引入文件……)<h3 id="document-ready-function"><a href="#document-ready-function" class="headerlink" title="$(document).ready(function(){})"></a>$(document).ready(function(){})</h3><blockquote>
+<p>可以简写为jQuery(function(){})或者$(function(){})</p>
+</blockquote>
+</li>
+<li>该页面加载事件可以出现多次</li>
+<li>页面中DOM元素加载完毕后就会执行<h2 id="jquery细节问题"><a href="#jquery细节问题" class="headerlink" title="jquery细节问题"></a>jquery细节问题</h2><h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3></li>
+<li>$(“selector”,”父元素”):  在指定的父元素下寻找指定的匹配selector的元素<h3 id="类操作"><a href="#类操作" class="headerlink" title="类操作"></a>类操作</h3></li>
+<li>removeClass();  移除类样式，当不传参数的时候，移除全部类样式<h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3></li>
+<li>width()  获取的是内容的宽度</li>
+<li>innerWidth()  获取的是content+padding的宽度</li>
+<li>outerWidth() 获取的是content+padding+border的宽度</li>
+<li>outerWidth(true) 获取的整个盒子所占的宽度，即content+padding+border+margin<h3 id="文档处理"><a href="#文档处理" class="headerlink" title="文档处理"></a>文档处理</h3></li>
+<li>创建元素：$(“html内容”) 创建的是jQuery对象</li>
+<li>复制：clone()  参数默认是false，复制的是标签和内容；传入true时，同时复制事件<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3></li>
+<li>在DOM中如果是获取文本域textarea的内容,使用value属性,如果是设置文本域的内容,最好使用innerText</li>
+<li>在jQuery中获取和设置文本域的内容最好使用text();</li>
+<li>使用.val()设置下拉菜单的选中的时候,方法中传入的是某个option的value的值<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><h3 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h3></li>
+<li>对象.事件名</li>
+<li>对象.bind(“事件名”,事件处理函数)</li>
+<li>父元素.delegate(“子元素”,”事件名”,事件处理函数)<blockquote>
+<p>无论子元素在页面中一直存在，还是动态创建的，都可以委托父元素为其绑定事件</p>
+</blockquote>
+</li>
+<li>对象.on(“事件名”,”元素”,事件处理函数)<h3 id="事件解绑"><a href="#事件解绑" class="headerlink" title="事件解绑"></a>事件解绑</h3><blockquote>
+<p>事件绑定和事件解绑事件在使用时必须对应</p>
+</blockquote>
+</li>
+<li>unbind()</li>
+<li>undelegate()</li>
+<li>off()<blockquote>
+<p>.off(“事件名”) 方法解除绑定事件的时候,如果括号中只有事件类型,那么此时,父级元素和子级元素所有的 该事件都会解除绑定<br>.off(“事件名”,” **”) 解除所有子元素的该事件，固定写法<br>.off() 无论是父级元素还是子级元素,所有绑定的事件全部被解除绑定</p>
+<h3 id="事件触发"><a href="#事件触发" class="headerlink" title="事件触发"></a>事件触发</h3></blockquote>
+</li>
+<li>对象.事件()</li>
+<li>对象.trigger(“事件”)</li>
+<li>对象.triggerHandler(“事件”)<br><strong>区别</strong></li>
+<li>前两种相同，</li>
+<li>trigger会触发浏览器的默认行为</li>
+<li>triggerHandler不会触发浏览器的默认行为</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/26/B03-jQuery/" data-id="cj0z7j53g0003e8d90pte9gmx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-B02-正则表达式" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/20/B02-正则表达式/" class="article-date">
+  <time datetime="2016-03-19T16:00:00.000Z" itemprop="datePublished">2016-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/20/B02-正则表达式/">正则表达式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><blockquote>
+<p>匹配字符串</p>
+<ul>
+<li>将字符串中的数组找出来，并且存到数组中<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"ahdjdg123fagsv432dasf4231gayf54ahsdv"</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNumber</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> arr = [];</div><div class="line">  <span class="keyword">if</span>(str)&#123;</div><div class="line">      <span class="keyword">var</span> temp = <span class="string">""</span>;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;str.length;i++)&#123;</div><div class="line">          <span class="keyword">var</span> char = str.charAt(i);</div><div class="line">          <span class="keyword">if</span>(char&gt;=<span class="number">0</span>&amp;&amp;char&lt;=<span class="number">9</span>)&#123;</div><div class="line">              temp+=char;</div><div class="line">          &#125;<span class="keyword">else</span>&#123;</div><div class="line">              <span class="keyword">if</span>(temp)&#123;</div><div class="line">                  arr.push(temp);</div><div class="line">                  temp = <span class="string">""</span>;</div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="comment">//最后是数字的判断</span></div><div class="line">    <span class="comment">//如果最后是数字，在循环完毕后只是将数字存进了临时变量temp中，并没有放进数组中</span></div><div class="line">      <span class="keyword">if</span>(temp)&#123;</div><div class="line">          arr.push(temp);</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> arr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result = getNumber(str);</div><div class="line"><span class="built_in">console</span>.log(result);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h2 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h2><h3 id="正则对象中的API"><a href="#正则对象中的API" class="headerlink" title="正则对象中的API"></a>正则对象中的API</h3><ul>
+<li><p>test()： 匹配成功则返回true，匹配失败返回false</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d/</span>;</div><div class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"123"</span>));<span class="comment">//true</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>exec()：返回一个数组，数组中只显示匹配成功的第一个元素</p>
+<ul>
+<li>数组中有两个属性：index，匹配到的元素的索引；input，进行匹配的字符串 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"sgfsdfkgbal4232hiesothear4523hfbasiegru"</span>;</div><div class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d+/g</span>;</div><div class="line"><span class="comment">//只返回第一次匹配到的结果</span></div><div class="line"><span class="keyword">var</span> ret =  reg.exec(str);</div><div class="line"><span class="built_in">console</span>.log(ret);</div><div class="line"><span class="comment">//["4232", index: 11, input: "sgfsdfkgbal4232hiesothear4523hfbasiegru"]</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong> 如果想要全局匹配,可以使用exec进行遍历</strong><br><strong>在非全局匹配模式下，exec()和字符串的match()方法作用相同</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"sgfsdfkgbal4232hieso764thear4523hfbasiegru"</span>;</div><div class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d+/g</span>;</div><div class="line"><span class="keyword">while</span> ((result = reg.exec(str))!=<span class="literal">null</span>)&#123;</div><div class="line">	<span class="built_in">console</span>.log(result);</div><div class="line">&#125;</div><div class="line"><span class="comment">//["4232", index: 11, input:"sgfsdfkgbal4232hieso764thear4523hfbasiegru"]</span></div><div class="line"><span class="comment">//["764",index:20,input:"sgfsdfkgbal4232hieso764thear4523hfbasiegru"]</span></div><div class="line"><span class="comment">//["4523", index: 28, input:"sgfsdfkgbal4232hieso764thear4523hfbasiegru"]</span></div></pre></td></tr></table></figure></p>
+<h3 id="字符串中的API"><a href="#字符串中的API" class="headerlink" title="字符串中的API"></a>字符串中的API</h3><ul>
+<li><p>match()：返回匹配成功的数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"ahdjdg123fagsv432dasf4231gayf54ahsdv"</span>;</div><div class="line"><span class="comment">//全局模式下</span></div><div class="line"><span class="built_in">console</span>.log(str.match(<span class="regexp">/\d+/g</span>));</div><div class="line"><span class="comment">//["4232", "764", "4523"]</span></div><div class="line"><span class="comment">//非全局模式,返回的结果与exec相同</span></div><div class="line"><span class="built_in">console</span>.log(str.match(<span class="regexp">/\d+/</span>));</div><div class="line"><span class="comment">//["4232", index: 11, input:"sgfsdfkgbal4232hieso764thear4523hfbasiegru"]</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>replace()：字符串替换，不修改原来的字符串，返回替换后的字符串</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"sgfsdfkgbal4232hiesothear4523hfbasiegru"</span>;</div><div class="line">str = str.replace(<span class="regexp">/\d+/g</span>,<span class="string">"***"</span>);</div><div class="line"><span class="built_in">console</span>.log(str);</div><div class="line"><span class="comment">//sgfsdfkgbal***hiesothear***hfbasiegru</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>split()：分隔字符串，返回数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">'zhangsan:12:male;lisi:13:female'</span>;</div><div class="line"><span class="keyword">var</span> arr = str.split(<span class="string">';'</span>);</div><div class="line"><span class="built_in">console</span>.log(arr);</div><div class="line"><span class="comment">//["zhangsan:12:male", "lisi:13:female"]</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</div><div class="line">	<span class="keyword">var</span> item = arr[i].split(<span class="string">':'</span>);</div><div class="line">	<span class="built_in">console</span>.log(item[<span class="number">0</span>]);</div><div class="line">	<span class="built_in">console</span>.log(item[<span class="number">1</span>]);</div><div class="line">	<span class="built_in">console</span>.log(item[<span class="number">2</span>]);</div><div class="line">&#125;</div><div class="line"><span class="comment">// zhangsan 12 male lisi 13 female</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>search()：返回匹配成功的元素所在的索引</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"javascript is 234the best language"</span>;</div><div class="line"><span class="built_in">console</span>.log(str.search(<span class="regexp">/\d+/</span>));<span class="comment">//14</span></div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/20/B02-正则表达式/" data-id="cj0z7j5360001e8d9fjcjodok" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-B01-三大系列" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/02/B01-三大系列/" class="article-date">
+  <time datetime="2016-03-01T16:00:00.000Z" itemprop="datePublished">2016-03-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/02/B01-三大系列/">JS三大系列</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="三大系列"><a href="#三大系列" class="headerlink" title="三大系列"></a>三大系列</h1><h2 id="client系列"><a href="#client系列" class="headerlink" title="client系列"></a>client系列</h2><blockquote>
+<p>获取页面可视区域的值</p>
+<ul>
+<li>clientX: 可视区域的横坐标，通过事件对象调用</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>clientY: 可视区域的纵坐标，通过事件对象调用</p>
+</li>
+<li><p>clientWidth: 对象在可视区域的宽，不包括border，通过对象调用</p>
+</li>
+<li><p>clientHeight:  对象在可视区域的高，不包括border，通过对象调用</p>
+</li>
+</ul>
+<h2 id="scroll系列"><a href="#scroll系列" class="headerlink" title="scroll系列"></a>scroll系列</h2><blockquote>
+<p>获取页面卷曲的值</p>
+<ul>
+<li>scrollWidth:获取的元素内容的实际宽度(如果元素内容很少，则就是元素的宽度，不包括border；如果有滚动条,则去掉滚动挑的宽度)</li>
+<li>scrollHeight::获取的元素内容的实际高度(如果元素内容很少，则就是元素的高度，不包括border；如果有滚动条,则去掉滚动挑的高度)</li>
+<li>scrollLeft:获取元素向左卷曲出去的距离</li>
+<li>scrollTop:获取元素向上卷曲出去的距离<br><strong>获取页面卷曲距离的兼容代码</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//有的浏览器的页面卷曲距离是通过body获取的，有的是通过html获取的，有的是通过浏览器获取的</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getScroll</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">  	<span class="attr">left</span>: <span class="built_in">window</span>.pageXOffset || <span class="built_in">document</span>.body.scrollLeft || 	<span class="built_in">document</span>.documentElement.scrollLeft || <span class="number">0</span>,</div><div class="line">  	<span class="attr">top</span>: <span class="built_in">window</span>.pageYOffset || <span class="built_in">document</span>.body.scrollTop || 	<span class="built_in">document</span>.documentElement.scrollTop || <span class="number">0</span></div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<h2 id="offset系列"><a href="#offset系列" class="headerlink" title="offset系列"></a>offset系列</h2><ul>
+<li>offsetWidth:获取当前元素的宽度 = width+padding+border<blockquote>
+<p>元素.style.width也是获取当前对象的宽度=width+padding+border；<br><strong>区别：</strong></p>
+<pre><code>1、style.width 获取到的值带有单位
+2、如果对象的宽度设置是百分比，无论页面大小如何改变，style.width获取的都是设置的值，offsetWidth获取到的是具体的宽度值
+3、如果没有给html元素设置width样式，style.width获取到的是空字符串
+</code></pre></blockquote>
+</li>
+<li>offsetHeight: 获取当前元素的高度=hieght+padding+border<blockquote>
+<p>与style.height的区别同offsetWidth</p>
+<pre><code>4、如果元素的样式在style标签中设置的，则通过style.width是无法获取到的，只能通过offsetWidth获取
+</code></pre></blockquote>
+</li>
+<li>offsetLeft: 当前元素距离左边的距离<blockquote>
+<p>不能对其进行赋值，设置对象的left值要使用style.left</p>
+</blockquote>
+</li>
+<li>offsetTop: 当前元素距离上边的距离<blockquote>
+<p>不能对其进行赋值，设置对象的left值要使用style.top<br><strong>offsetLeft和offsetTop细节问题</strong></p>
+</blockquote>
+</li>
+<li>当子元素和父元素都没有设置定位的时候，子元素的offsetLeft值是元素左侧相对于body的距离</li>
+<li>当父元素设置了非static和fixed定位时，子元素的offsetLeft值是相对于父元素的距离</li>
+<li>当子元素设置了fixed定位时，子元素的offsetLeft值是相对于body的距离</li>
+<li>当父元素设置了非static和fixed定位时,子元素的offsetLeft值是相对于其非static的父元素的距离<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">  *&#123;</div><div class="line">    margin: 0;</div><div class="line">    padding: 0;</div><div class="line">  &#125;</div><div class="line">  .one&#123;</div><div class="line">    width: 300px;</div><div class="line">    height: 300px;</div><div class="line">    background: yellow;</div><div class="line">    /*position: relative;*/</div><div class="line">    /*left: 100px;*/</div><div class="line">    margin-left: 100px;</div><div class="line">  &#125;</div><div class="line">  .two&#123;</div><div class="line">    width: 100px;</div><div class="line">    height: 100px;</div><div class="line">    background: hotpink;</div><div class="line">    position: absolute;</div><div class="line">    left:  200px;</div><div class="line">  &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"one"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"two"</span> <span class="attr">id</span>=<span class="string">"div"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="keyword">var</span> left = <span class="built_in">document</span>.getElementById(<span class="string">"div"</span>).offsetLeft;</div><div class="line">	<span class="built_in">console</span>.log(left);</div><div class="line">	<span class="comment">/*当id为div的元素的父元素不设置定位时，获取到的值是相对于body的，所以为300*/</span></div><div class="line">    <span class="comment">/*当父元素设置定位时，获取到的是相对于父元素的值，所以为200*/</span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="三大系列补充"><a href="#三大系列补充" class="headerlink" title="三大系列补充"></a>三大系列补充</h2><ul>
+<li>网页可见区域宽： document.body.clientWidth;</li>
+<li>网页可见区域高： document.body.clientHeight;</li>
+<li>网页可见区域宽： document.body.offsetWidth   (包括边线的宽);</li>
+<li>网页可见区域高： document.body.offsetHeight  (包括边线的宽);</li>
+<li>网页正文全文宽： document.body.scrollWidth;</li>
+<li>网页正文全文高： document.body.scrollHeight;</li>
+<li>网页被卷去的高： document.body.scrollTop;</li>
+<li>网页被卷去的左： document.body.scrollLeft;</li>
+<li>网页正文部分上： window.screenTop;</li>
+<li>网页正文部分左： window.screenLeft;</li>
+<li>屏幕分辨率的高： window.screen.height;</li>
+<li>屏幕分辨率的宽： window.screen.width;</li>
+<li>屏幕可用工作区高度： window.screen.availHeight;</li>
+<li>屏幕可用工作区宽度：window.screen.availWidth;</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/02/B01-三大系列/" data-id="cj0z7j52t0000e8d9sxqz2w47" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/08/Z02-canvas常用API/">canvas</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/07/Z01-canvas基本使用 /">canvas</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/05/G03-requirejs/">面向对象</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/03/G02-cookie和session/">cookie</a>
+          </li>
+        
+          <li>
+            <a href="/2016/06/02/G01-git使用/">GIT</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 Qcyue<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

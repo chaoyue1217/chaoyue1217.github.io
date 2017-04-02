@@ -1,186 +1,388 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
+<!doctype html>
+
+
+
   
-  <title>JS三大系列 | Sunshine Girl</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="三大系列client系列
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="三大系列client系列
 获取页面可视区域的值
-
 clientX: 可视区域的横坐标，通过事件对象调用
-
-
-
 clientY: 可视区域的纵坐标，通过事件对象调用
-
 clientWidth: 对象在可视区域的宽，不包括border，通过对象调用
-
 clientHeight:  对象在可视区域的高，不包括border，通过对象调用
-
 
 scroll系列
 获取页面卷曲的值
-
-scrollWidth:获">
+scrollWidth:获取的元素内容的实">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS三大系列">
 <meta property="og:url" content="http://yoursite.com/2016/03/02/B01-三大系列/index.html">
 <meta property="og:site_name" content="Sunshine Girl">
 <meta property="og:description" content="三大系列client系列
 获取页面可视区域的值
-
 clientX: 可视区域的横坐标，通过事件对象调用
-
-
-
 clientY: 可视区域的纵坐标，通过事件对象调用
-
 clientWidth: 对象在可视区域的宽，不包括border，通过对象调用
-
 clientHeight:  对象在可视区域的高，不包括border，通过对象调用
-
 
 scroll系列
 获取页面卷曲的值
-
-scrollWidth:获">
-<meta property="og:updated_time" content="2017-03-14T12:24:51.005Z">
+scrollWidth:获取的元素内容的实">
+<meta property="og:updated_time" content="2017-04-01T13:16:27.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS三大系列">
 <meta name="twitter:description" content="三大系列client系列
 获取页面可视区域的值
-
 clientX: 可视区域的横坐标，通过事件对象调用
-
-
-
 clientY: 可视区域的纵坐标，通过事件对象调用
-
 clientWidth: 对象在可视区域的宽，不包括border，通过对象调用
-
 clientHeight:  对象在可视区域的高，不包括border，通过对象调用
-
 
 scroll系列
 获取页面卷曲的值
+scrollWidth:获取的元素内容的实">
 
-scrollWidth:获">
-  
-    <link rel="alternate" href="/atom.xml" title="Sunshine Girl" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
 
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/03/02/B01-三大系列/"/>
+
+
+
+
+
+  <title> JS三大系列 | Sunshine Girl </title>
 </head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Sunshine Girl</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-B01-三大系列" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/02/B01-三大系列/" class="article-date">
-  <time datetime="2016-03-01T16:00:00.000Z" itemprop="datePublished">2016-03-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      JS三大系列
-    </h1>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
   
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Sunshine Girl</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/02/B01-三大系列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunshine Girl">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JS三大系列
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-02T00:00:00+08:00">
+                2016-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
-        <h1 id="三大系列"><a href="#三大系列" class="headerlink" title="三大系列"></a>三大系列</h1><h2 id="client系列"><a href="#client系列" class="headerlink" title="client系列"></a>client系列</h2><blockquote>
-<p>获取页面可视区域的值</p>
-<ul>
+      
+
+      
+        <h1 id="三大系列"><a href="#三大系列" class="headerlink" title="三大系列"></a>三大系列</h1><h2 id="client系列"><a href="#client系列" class="headerlink" title="client系列"></a>client系列</h2><ul>
+<li>获取页面可视区域的值</li>
 <li>clientX: 可视区域的横坐标，通过事件对象调用</li>
+<li>clientY: 可视区域的纵坐标，通过事件对象调用</li>
+<li>clientWidth: 对象在可视区域的宽，不包括border，通过对象调用</li>
+<li>clientHeight:  对象在可视区域的高，不包括border，通过对象调用</li>
 </ul>
-</blockquote>
-<ul>
-<li><p>clientY: 可视区域的纵坐标，通过事件对象调用</p>
-</li>
-<li><p>clientWidth: 对象在可视区域的宽，不包括border，通过对象调用</p>
-</li>
-<li><p>clientHeight:  对象在可视区域的高，不包括border，通过对象调用</p>
-</li>
-</ul>
-<h2 id="scroll系列"><a href="#scroll系列" class="headerlink" title="scroll系列"></a>scroll系列</h2><blockquote>
-<p>获取页面卷曲的值</p>
-<ul>
+<h2 id="scroll系列"><a href="#scroll系列" class="headerlink" title="scroll系列"></a>scroll系列</h2><ul>
+<li>获取页面卷曲的值</li>
 <li>scrollWidth:获取的元素内容的实际宽度(如果元素内容很少，则就是元素的宽度，不包括border；如果有滚动条,则去掉滚动挑的宽度)</li>
 <li>scrollHeight::获取的元素内容的实际高度(如果元素内容很少，则就是元素的高度，不包括border；如果有滚动条,则去掉滚动挑的高度)</li>
 <li>scrollLeft:获取元素向左卷曲出去的距离</li>
-<li>scrollTop:获取元素向上卷曲出去的距离<br><strong>获取页面卷曲距离的兼容代码</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//有的浏览器的页面卷曲距离是通过body获取的，有的是通过html获取的，有的是通过浏览器获取的</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getScroll</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">  	<span class="attr">left</span>: <span class="built_in">window</span>.pageXOffset || <span class="built_in">document</span>.body.scrollLeft || 	<span class="built_in">document</span>.documentElement.scrollLeft || <span class="number">0</span>,</div><div class="line">  	<span class="attr">top</span>: <span class="built_in">window</span>.pageYOffset || <span class="built_in">document</span>.body.scrollTop || 	<span class="built_in">document</span>.documentElement.scrollTop || <span class="number">0</span></div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<li>scrollTop:获取元素向上卷曲出去的距离</li>
+<li><strong>获取页面卷曲距离的兼容代码</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//有的浏览器的页面卷曲距离是通过body获取的，有的是通过html获取的，有的是通过浏览器获取的</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getScroll</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">  	<span class="attr">left</span>: <span class="built_in">window</span>.pageXOffset || <span class="built_in">document</span>.body.scrollLeft || 	<span class="built_in">document</span>.documentElement.scrollLeft || <span class="number">0</span>,</div><div class="line">  	<span class="attr">top</span>: <span class="built_in">window</span>.pageYOffset || <span class="built_in">document</span>.body.scrollTop || 	<span class="built_in">document</span>.documentElement.scrollTop || <span class="number">0</span></div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-</blockquote>
 <h2 id="offset系列"><a href="#offset系列" class="headerlink" title="offset系列"></a>offset系列</h2><ul>
-<li>offsetWidth:获取当前元素的宽度 = width+padding+border<blockquote>
-<p>元素.style.width也是获取当前对象的宽度=width+padding+border；<br><strong>区别：</strong></p>
-<pre><code>1、style.width 获取到的值带有单位
-2、如果对象的宽度设置是百分比，无论页面大小如何改变，style.width获取的都是设置的值，offsetWidth获取到的是具体的宽度值
-3、如果没有给html元素设置width样式，style.width获取到的是空字符串
-</code></pre></blockquote>
+<li>offsetWidth:获取当前元素的宽度 = width+padding+border</li>
+<li>元素.style.width也是获取当前对象的宽度=width+padding+border；</li>
+<li><strong>区别：</strong></li>
+<li>1、style.width 获取到的值带有单位</li>
+<li>2、如果对象的宽度设置是百分比，无论页面大小如何改变，style.width获取的都是设置的值，offsetWidth获取到的是具体的宽度值</li>
+<li>3、如果没有给html元素设置width样式，style.width获取到的是空字符串<ul>
+<li>offsetHeight: 获取当前元素的高度=hieght+padding+border</li>
+<li>与style.height的区别同offsetWidth</li>
+</ul>
 </li>
-<li>offsetHeight: 获取当前元素的高度=hieght+padding+border<blockquote>
-<p>与style.height的区别同offsetWidth</p>
-<pre><code>4、如果元素的样式在style标签中设置的，则通过style.width是无法获取到的，只能通过offsetWidth获取
-</code></pre></blockquote>
+<li>4、如果元素的样式在style标签中设置的，则通过style.width是无法获取到的，只能通过offsetWidth获取</li>
+<li>offsetLeft: 当前元素距离左边的距离<ul>
+<li>不能对其进行赋值，设置对象的left值要使用style.left</li>
+</ul>
 </li>
-<li>offsetLeft: 当前元素距离左边的距离<blockquote>
-<p>不能对其进行赋值，设置对象的left值要使用style.left</p>
-</blockquote>
-</li>
-<li>offsetTop: 当前元素距离上边的距离<blockquote>
-<p>不能对其进行赋值，设置对象的left值要使用style.top<br><strong>offsetLeft和offsetTop细节问题</strong></p>
-</blockquote>
-</li>
+<li>offsetTop: 当前元素距离上边的距离</li>
+<li>不能对其进行赋值，设置对象的left值要使用style.top</li>
+<li><strong>offsetLeft和offsetTop细节问题</strong></li>
 <li>当子元素和父元素都没有设置定位的时候，子元素的offsetLeft值是元素左侧相对于body的距离</li>
 <li>当父元素设置了非static和fixed定位时，子元素的offsetLeft值是相对于父元素的距离</li>
 <li>当子元素设置了fixed定位时，子元素的offsetLeft值是相对于body的距离</li>
@@ -206,115 +408,336 @@ scrollWidth:获">
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/02/B01-三大系列/" data-id="cj0z7j52t0000e8d9sxqz2w47" class="article-share-link">Share</a>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/20/B02-正则表达式/" rel="prev" title="正则表达式">
+                正则表达式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
       
       
     </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
-  
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
     
-<nav id="article-nav">
-  
-    <a href="/2016/03/20/B02-正则表达式/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+  </div>
+
+
+        </div>
         
-          正则表达式
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/tx.jpg"
+               alt="Qcyue" />
+          <p class="site-author-name" itemprop="name">Qcyue</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#三大系列"><span class="nav-number">1.</span> <span class="nav-text">三大系列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#client系列"><span class="nav-number">1.1.</span> <span class="nav-text">client系列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scroll系列"><span class="nav-number">1.2.</span> <span class="nav-text">scroll系列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#offset系列"><span class="nav-number">1.3.</span> <span class="nav-text">offset系列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三大系列补充"><span class="nav-number">1.4.</span> <span class="nav-text">三大系列补充</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
         
       </div>
-    </a>
-  
-  
-</nav>
+    </main>
 
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
   
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li></ul>
-    </div>
-  </div>
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qcyue</span>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2016/06/08/Z02-canvas常用API/">canvas</a>
-          </li>
-        
-          <li>
-            <a href="/2016/06/07/Z01-canvas基本使用 /">canvas</a>
-          </li>
-        
-          <li>
-            <a href="/2016/06/05/G03-requirejs/">面向对象</a>
-          </li>
-        
-          <li>
-            <a href="/2016/06/03/G02-cookie和session/">cookie</a>
-          </li>
-        
-          <li>
-            <a href="/2016/06/02/G01-git使用/">GIT</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
 
-  
-</aside>
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
         
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 Qcyue<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>

@@ -260,6 +260,358 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/22/F03-面向对象-闭包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunshine Girl">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/22/F03-面向对象-闭包/" itemprop="url">
+                  面向对象-闭包
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-22T00:00:00+08:00">
+                2016-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="作用域与闭包"><a href="#作用域与闭包" class="headerlink" title="作用域与闭包"></a>作用域与闭包</h1><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><ul>
+<li>全局作用域</li>
+<li>函数作用域</li>
+<li><strong>没有块级作用域</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="keyword">var</span> a = <span class="number">123</span>;</div><div class="line">  <span class="built_in">console</span>.log(a);</div><div class="line">&#125;</div><div class="line"><span class="comment">//可以访问的到a</span></div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="comment">//if和for也构成代码块</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(i);<span class="comment">//5</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><ul>
+<li>函数内层作用域可以访问函数外层作用，反之则不可。</li>
+<li>平级的函数之间不可以相互访问<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> b = <span class="number">20</span>;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> c = <span class="number">30</span>;</div><div class="line">		<span class="built_in">console</span>.log(a+b+c);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> d = <span class="number">40</span>;</div><div class="line">		<span class="built_in">console</span>.log(a+b+d);</div><div class="line">	&#125;</div><div class="line">	fn();</div><div class="line">	fn1();</div><div class="line">&#125;</div><div class="line">foo();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="js运行分为两个阶段"><a href="#js运行分为两个阶段" class="headerlink" title="js运行分为两个阶段"></a>js运行分为两个阶段</h2><ul>
+<li>预解析</li>
+<li>全局预解析<ul>
+<li>所有的变量和函数声明都会提前，同名的函数和变量，函数的优先级高(即先提升变量，再提升函数)</li>
+</ul>
+</li>
+<li><p>函数内部预解析</p>
+<ul>
+<li>所有变量、函数和形参都会预解析（函数&gt;形参&gt;变量）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(a);<span class="comment">//输出的是function a()&#123;&#125;</span></div><div class="line">	<span class="keyword">var</span> a = <span class="number">123</span>;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">&#125;</div><div class="line">foo(<span class="number">123</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>执行</p>
+<ul>
+<li>先预解析全局作用域，然后执行全局作用域中的代码，再执行全局代码的过程中，遇到函数调用，就会先进行函数的预解析，再执行内部的代码</li>
+</ul>
+</li>
+</ul>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><ul>
+<li>函数的嵌套形成闭包(内层函数和内层函数所处的作用域)</li>
+<li>闭包的组成：内层函数+内层函数所处的作用域</li>
+<li>闭包的作用：延长变量的生命周期，缓存中间状态值</li>
+<li>闭包可以操作函数内部的变量(间接)</li>
+<li>一般函数在执行完毕后，所处的环境会消失，闭包不会，因为闭包中还存在着对该环境的引用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> n = <span class="built_in">Math</span>.random();</div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> n;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> inner = foo();</div><div class="line"><span class="keyword">var</span> ret = inner();</div><div class="line"><span class="keyword">var</span> ret1 = inner();</div><div class="line"><span class="comment">//两个值相同</span></div><div class="line"><span class="built_in">console</span>.log(ret);</div><div class="line"><span class="built_in">console</span>.log(ret1);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">	<span class="keyword">var</span> arr = [];</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line">		arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">          <span class="comment">//当前的环境下没有i，所以就会向上查找，当找到i时，循环已经结束，此时i=3</span></div><div class="line">			<span class="built_in">console</span>.log(i);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	arr[<span class="number">0</span>]();<span class="comment">//3</span></div><div class="line">	arr[<span class="number">1</span>]();<span class="comment">//3</span></div><div class="line">	arr[<span class="number">2</span>]();<span class="comment">//3</span></div><div class="line"><span class="comment">//下面的代码的执行结果是0,1，2</span></div><div class="line"><span class="comment">//因为i在arr[i]被调用的时候重新赋值了</span></div><div class="line">	<span class="comment">/*for(var i=0;i&lt;3;i++)&#123;</span></div><div class="line">      arr[i]();</div><div class="line">	&#125;*/</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line">	arr[i] = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="built_in">console</span>.log(num);</div><div class="line">		&#125;</div><div class="line">	&#125;)(i);</div><div class="line">&#125;</div><div class="line">arr[<span class="number">0</span>]();<span class="comment">//0</span></div><div class="line">arr[<span class="number">1</span>]();<span class="comment">//1</span></div><div class="line">arr[<span class="number">2</span>]();<span class="comment">//2</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>经典题型</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> arr = [];</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">		<span class="keyword">return</span> arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="keyword">return</span> i;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//为什么此时的i不会被重新赋值？？？</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">	<span class="built_in">console</span>.log(foo()[i]());<span class="comment">//输出为10个10</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果想要达到预期效果，可以使用闭包</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> arr = [];</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">		<span class="keyword">return</span> (<span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;</div><div class="line">			<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				<span class="keyword">return</span> n;</div><div class="line">			&#125;</div><div class="line">		&#125;)(i);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">	<span class="built_in">console</span>.log(foo()[i]());<span class="comment">//输出0-9；</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>闭包的机制领悟</strong></li>
+<li>闭包是能够有权访问其他环境中变量的函数。也就是闭包可以记住它被创建时的环境。</li>
+<li>浏览器用“栈”来维护执行上下文（也就是函数的运行环境），当前正在运行的函数会处于栈顶，当函数执行完毕后会出栈，然后将下一个元素作为当前的上下文。</li>
+<li>当遇到闭包时，外部函数并未出栈，闭包就已经进栈了，所以外部函数还在栈中占据着一块空间。实际上外部函数的闭包数据被存在了堆中，这样才能在闭包执行完毕后（已经出栈后）内部的变量还一直存在。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//函数a进栈</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> num = <span class="number">1</span>;</div><div class="line"><span class="comment">//当执行到该处时，函数a还未执行完毕，此时，闭包进栈</span></div><div class="line"><span class="comment">//由于栈遵循先入后出的原则，因此在闭包执行之前，函数a不会出栈</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    num++;</div><div class="line">    <span class="built_in">console</span>.log(num);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/20/F02-面向对象-函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sunshine Girl">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/20/F02-面向对象-函数/" itemprop="url">
+                  面向对象-函数
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-20T00:00:00+08:00">
+                2016-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><ul>
+<li><strong>window 是Window的实例</strong></li>
+<li>所有的函数都是Function的实例<ul>
+<li>Function也是一个函数</li>
+<li>所以Function也是Function的实例<h2 id="函数的三种角色"><a href="#函数的三种角色" class="headerlink" title="函数的三种角色"></a>函数的三种角色</h2></li>
+</ul>
+</li>
+<li>构造函数</li>
+<li>普通函数</li>
+<li>函数作为对象</li>
+<li><strong>函数的角色取决于函数的调用</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> Foo();<span class="comment">//作为构造函数</span></div><div class="line">Foo();<span class="comment">//作为普通函数</span></div><div class="line">Foo.info = <span class="string">"hello"</span>;<span class="comment">//函数作为对象</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数的属性"><a href="#函数的属性" class="headerlink" title="函数的属性"></a>函数的属性</h2><ul>
+<li>arguments：保存实参的类数组<ul>
+<li>arguments.callee:指向函数本身​</li>
+</ul>
+</li>
+<li>length：形参的个数</li>
+<li>caller：函数的调用者</li>
+<li>name：函数的名称<h2 id="函数声明和函数表达式的区别"><a href="#函数声明和函数表达式的区别" class="headerlink" title="函数声明和函数表达式的区别"></a>函数声明和函数表达式的区别</h2></li>
+<li>函数声明是在预解析阶段创建的，函数表达式是在程序执行阶段创建的，即函数表达式不会被预解析，只会提升变量，函数的赋值留在原地</li>
+<li>函数声明可以在全局作用域或者局部作用域中创建，函数表达式只能在表达式中定义<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//在内存中只开辟一块空间存放函数</span></div><div class="line"><span class="keyword">var</span> fn = flag?<span class="function"><span class="keyword">function</span>(<span class="params">&#123;console.log(<span class="number">123</span></span>)&#125;:<span class="title">function</span>(<span class="params">&#123;console.log(<span class="number">456</span></span>)&#125;;</span></div><div class="line">    //根据浏览器的不同有的会开辟一块空间，有的会开辟两块空间</div><div class="line">    <span class="title">if</span>(<span class="params">flag</span>)&#123;</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="number">2</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数调用的方式"><a href="#函数调用的方式" class="headerlink" title="函数调用的方式"></a>函数调用的方式</h2><ul>
+<li>函数中this的指向取决于函数的调用方式</li>
+<li>1、构造函数，在new的时候调用</li>
+<li>2、普通函数</li>
+<li>3、对象方法：对象.方法() </li>
+<li>4、call/apply/bind<ul>
+<li>bind ES5的新特性</li>
+<li>bind 也可以改变this的指向</li>
+<li>bind 在改变this的同时不调用函数</li>
+<li>bind 会返回一个新的函数，新函数中的内容还是原来的函数的内容，只是this的指向改变了<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">       <span class="built_in">console</span>.log(a+b);</div><div class="line">   &#125;</div><div class="line">   <span class="comment">//使用bind时不会调用函数</span></div><div class="line">   <span class="keyword">var</span> fn = foo.bind(&#123;<span class="attr">info</span>:<span class="string">"nihao"</span>&#125;,<span class="number">12</span>,<span class="number">13</span>);</div><div class="line">   <span class="comment">//调用函数</span></div><div class="line">   fn();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="this的不同指向"><a href="#this的不同指向" class="headerlink" title="this的不同指向"></a>this的不同指向</h3><ul>
+<li>构造函数中的this指向实例对象，原型方法中的this也指向实例对象 </li>
+<li>在非严格模式下，普通函数中的this指向window，严格模式下指向undefine</li>
+<li>对象方法中的this指向该对象，实际上就是方法的调用者</li>
+<li>事件方法中的this指的是绑定事件的对象</li>
+<li>定时函数中的this指向的是window</li>
+<li>call、apply所调用的函数中的this就是call和apply的第一个参数(该参数必须为引用类型)<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><h3 id="作为参数的函数-回调函数"><a href="#作为参数的函数-回调函数" class="headerlink" title="作为参数的函数(回调函数)"></a>作为参数的函数(回调函数)</h3><strong>模拟jQuery封装原理</strong><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params">selector</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">new</span> jQuery.prototype.init(selector);</div><div class="line">&#125;</div><div class="line"><span class="comment">//模拟jQuery中的each</span></div><div class="line">jQuery.each = <span class="function"><span class="keyword">function</span>(<span class="params">objs,callback</span>)</span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;objs.length;i++)&#123;</div><div class="line">		callback.call(objs[i],i,objs[i]);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">jQuery.fn = jQuery.prototype = &#123;</div><div class="line">	<span class="attr">init</span>:<span class="function"><span class="keyword">function</span>(<span class="params">selector</span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> elements = <span class="built_in">document</span>.getElementsByTagName(selector);</div><div class="line">		<span class="keyword">this</span>.length = elements.length;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="keyword">this</span>.length;i++)&#123;</div><div class="line">        	<span class="comment">//this指的是init的实例</span></div><div class="line">			<span class="comment">//这里是给实例添加属性</span></div><div class="line">			<span class="keyword">this</span>[i] = elements[i];</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">this</span>.showLen = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">this</span>.length;</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">showMsg</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"abc"</span>);</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">each</span>:<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</div><div class="line">		jQuery.each(<span class="keyword">this</span>,callback);</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"><span class="comment">//该操作是为了保证jQuery.prototype.init的实例可以访问jQuery.prototype中的属性</span></div><div class="line">jQuery.prototype.init.prototype = jQuery.prototype;</div><div class="line"><span class="built_in">window</span>.$ = <span class="built_in">window</span>.jQuery = jQuery;</div><div class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> divs = jQuery(<span class="string">"div"</span>);</div><div class="line">	<span class="built_in">console</span>.log(divs.length);</div><div class="line">	divs.each(<span class="function"><span class="keyword">function</span>(<span class="params">index,element</span>)</span>&#123;</div><div class="line">		<span class="keyword">this</span>.innerHTML = index;</div><div class="line">	&#125;)</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="jquery链式结构原理"><a href="#jquery链式结构原理" class="headerlink" title="jquery链式结构原理"></a>jquery链式结构原理</h3><ul>
+<li>在方法内部返会调用该方法的对象，即this<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">  $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params">selector</span>)</span>&#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">new</span> jQuery.prototype.init(selector);</div><div class="line">        &#125;</div><div class="line">        jQuery.prototype = &#123;</div><div class="line">            <span class="attr">constructor</span> : jQuery,</div><div class="line">            <span class="attr">html</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="number">123</span>);</div><div class="line"><span class="comment">//返回了实例对象，实例对象又可以通过原型链找到css，init等其他函数进行调用，因此可以链式编程</span></div><div class="line">                <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">css</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="number">456</span>);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">init</span> : <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>)</span>&#123;</div><div class="line">                <span class="comment">// 实现选择器功能</span></div><div class="line">                <span class="keyword">var</span> aDiv = <span class="built_in">document</span>.getElementsByTagName(selector);</div><div class="line">                <span class="comment">// 把每一个div都放到this中，那么this就是一个类数组</span></div><div class="line">                [].push.apply(<span class="keyword">this</span>,aDiv);</div><div class="line">                <span class="keyword">this</span>.length = aDiv.length;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        jQuery.prototype.init.prototype = jQuery.prototype;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h2><ul>
+<li>eval(): 可以把字符串转化成js代码，并执行<ul>
+<li><code>eval(&quot;var a = 123;console.log(a)&quot;)</code></li>
+</ul>
+</li>
+<li>Math 不是函数  是对象</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/18/F01-面向对象-原型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1720,335 +2072,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/12/C03-CSS3新属性/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunshine Girl">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/12/C03-CSS3新属性/" itemprop="url">
-                  CSS3新属性
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-12T00:00:00+08:00">
-                2016-04-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="CSS3盒模型新属性"><a href="#CSS3盒模型新属性" class="headerlink" title="CSS3盒模型新属性"></a>CSS3盒模型新属性</h1><h2 id="盒模型属性"><a href="#盒模型属性" class="headerlink" title="盒模型属性"></a>盒模型属性</h2><ul>
-<li><code>box-sizing:border-box</code>  在添加border或者padding时，首先保证盒子通过width和height属性设置的尺寸，通过压缩内容来实现 </li>
-<li><code>box-sizing:content-box</code>默认值，盒子大小按照设置的来计算；即首先保证盒子的内容尺寸不变</li>
-<li>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">     div&#123;</div><div class="line">     width: 200px;</div><div class="line">     height: 200px;</div><div class="line">     border:10px solid #000;</div><div class="line">     margin-top: 10px;</div><div class="line">     &#125;</div><div class="line">     div:first-child&#123;</div><div class="line">     /*优先元素自身的尺寸不变，通过压缩内容来实现</div><div class="line">     所以设置完该属性后，该元素的宽高为200px</div><div class="line">     */</div><div class="line">     box-sizing: border-box;</div><div class="line">     &#125;</div><div class="line">     div:last-child&#123;</div><div class="line">     /*默认的属性 优先保证内容的尺寸不变</div><div class="line">     因此该元素的宽高为220px</div><div class="line">     */</div><div class="line">     box-sizing: content-box;</div><div class="line">     &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><ul>
-<li>text-shadow: 阴影的水平偏移值,阴影的垂直偏移值，阴影模糊值(不可以有负值)，阴影的颜色</li>
-<li>box-shadow:阴影的水平偏移值,阴影的垂直偏移值，阴影模糊值(不可以有负值)，阴影的颜色<br>还可以设置inset：表示阴影向内发散，不设置时默认向外发散</li>
-<li>以上两个属性可以设置多个阴影，每个阴影之间用逗号隔开</li>
-<li>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">   .showBox:hover&#123;</div><div class="line">       box-shadow: 0px 0px 40px orange,</div><div class="line">       0px 0px 60px red,</div><div class="line">       /*inset 向内部发散*/</div><div class="line">       inset 0px 0px 40px white;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"showBox"</span>&gt;</span>这是一个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="background新属性"><a href="#background新属性" class="headerlink" title="background新属性"></a>background新属性</h1><ul>
-<li>background支持多个属性复合，多个属性之间使用逗号隔开<h3 id="background-size"><a href="#background-size" class="headerlink" title="background-size"></a>background-size</h3></li>
-<li>设置背景图片的大小</li>
-<li>可以直接设置像素值 例如：<code>100px 200px</code></li>
-<li>cover : 等比例缩放图片，图片的宽高只要有一个与盒子的相等，就停止缩放；图片有可能超出盒子的范围，超出部分不显示</li>
-<li>contain : 等比例缩放图片，图片的宽高都至少等于盒子的宽高时，停止缩放，所以图片不会超出盒子的范围<h3 id="background-origin"><a href="#background-origin" class="headerlink" title="background-origin"></a>background-origin</h3></li>
-<li>设置背景图片开始显示的位置</li>
-<li>如果不设置no-repeat，该属性无效</li>
-<li>content-box  从内容开始，不包括border和padding。默认值</li>
-<li>padding-box  从padding开始(包括padding)，不包括border</li>
-<li>border-box   从border开始(包括border)<h3 id="background-clip"><a href="#background-clip" class="headerlink" title="background-clip"></a>background-clip</h3></li>
-<li>设置背景图片开始裁剪的位置</li>
-<li>如果不设置no-repeat，该属性无效</li>
-<li>content-box: 从内容开始裁剪，只显示内容部分的背景</li>
-<li>padding-box: 从padding开始裁剪，只显示内容+padding部分的背景</li>
-<li>border-box: 从border开始裁剪，默认值<h3 id="background属性联写"><a href="#background属性联写" class="headerlink" title="background属性联写"></a>background属性联写</h3></li>
-<li>background-size属性要写在background-position属性后面，并使用<code>/</code>分隔，background-origin写在末尾即可<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">.pic&#123;</div><div class="line">    width:200px;</div><div class="line">    height:200px;</div><div class="line">    background:</div><div class="line">        url('img/lyf.jpg') top left / 100px 100px no-repeat ,</div><div class="line">        url('img/lyf.jpg') no-repeat top center / 100px 100px ,</div><div class="line">        url('img/lyf.jpg') no-repeat top right / 100px 100px,</div><div class="line">        skyblue ;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pic"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="图片边框border"><a href="#图片边框border" class="headerlink" title="图片边框border"></a>图片边框border</h2><ul>
-<li>就是给border设置背景   <strong>要设置border的背景，必须先设置border</strong></li>
-<li>图片边框的默认宽度是border的宽度</li>
-<li><code>border-image-source</code>设置图片的路径</li>
-<li><code>border-image-slice</code>设置图片的切割位置。例如： <code>border-image-slice: 27 27</code>是将图片的四个角取27 x 27的范围切割出去，剩余的部分进行平铺的设置</li>
-<li><code>border-image-repeat</code>设置图片的平铺方式 </li>
-<li>stretch ： 直接拉伸图片，会导致图片失真</li>
-<li>round :  平铺，会考虑图片的完整性，进行压缩</li>
-<li>repeat ： 平铺，不会考虑图片的完整性</li>
-<li><code>border-image-width</code> 设置边框背景的宽度，不会影响盒子的大小<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">div&#123;</div><div class="line">      width: 150px;</div><div class="line">      height: 200px;</div><div class="line">      border:10px dashed white;</div><div class="line">      float: left;</div><div class="line">      margin-left: 50px;</div><div class="line">      background: url('img/csc.jpg') no-repeat center/ cover;</div><div class="line">      border-image-source: url('img/border_box.png');</div><div class="line">      border-image-slice: 27 27;</div><div class="line">      border-image-width: 30px;</div><div class="line">      border-image-repeat:round;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"man"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>效果图：</p>
-<ul>
-<li>设置 border-image-repeat:round时;<br><img src="../img\csc.png" alt="csc"></li>
-</ul>
-<ul>
-<li><p>设置border-image-repeat:repeat时;</p>
-<p><img src="../img\csc2.png" alt="csc2"></p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/08/C02CSS3选择器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sunshine Girl">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/08/C02CSS3选择器/" itemprop="url">
-                  CSS3选择器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-08T00:00:00+08:00">
-                2016-04-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="CSS3选择器"><a href="#CSS3选择器" class="headerlink" title="CSS3选择器"></a>CSS3选择器</h1><h2 id="CSS3选择器分类"><a href="#CSS3选择器分类" class="headerlink" title="CSS3选择器分类"></a>CSS3选择器分类</h2><h3 id="兄弟选择器"><a href="#兄弟选择器" class="headerlink" title="兄弟选择器"></a>兄弟选择器</h3><ul>
-<li>~   只能获取某元素后面的兄弟元素<h3 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h3></li>
-<li><code>E[att]</code>                属性拥有某个属性</li>
-<li><code>E[att=&quot;val&quot;]</code>        属性等于某个之后</li>
-<li><code>E[att~=&quot;val&quot;]</code>      存在该属性， 属性值以空格分开</li>
-<li><code>E[att^=&quot;val&quot;]</code>      属性值以指定字符串开头</li>
-<li><code>E[att$=&quot;val&quot;]</code>      属性值以指定字符串结尾</li>
-<li><code>E[att*=&quot;val&quot;]</code>      属性值包含指定字符串</li>
-<li>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    /*拥有某个属性*/</div><div class="line">    li[color]&#123;</div><div class="line">    	background-color: hotpink;</div><div class="line">    &#125;</div><div class="line">    /*属性等于某个值*/</div><div class="line">    li[color=yellow]&#123;</div><div class="line">    	color: #ff0;</div><div class="line">    &#125;</div><div class="line">    /*获取以空格分开的某个属性*/</div><div class="line">    li[shkill~=strong]&#123;</div><div class="line">    	background-color: brown;</div><div class="line">    &#125;</div><div class="line">    li[class~=q]&#123;</div><div class="line">    	background-color: greenyellow;</div><div class="line">    &#125;</div><div class="line">    /*开头*/</div><div class="line">    li[hot^=very]&#123;</div><div class="line">    	font-size: 50px;</div><div class="line">    &#125;</div><div class="line">    /*结尾*/</div><div class="line">    li[hot$=t]&#123;</div><div class="line">    	background-color: navajowhite;</div><div class="line">    &#125;</div><div class="line">    /*包含*/</div><div class="line">    li[hot*=o]&#123;</div><div class="line">    	border:10px solid darkgray;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">color</span>=<span class="string">"yellow"</span>&gt;</span>西兰花<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"circle white q"</span>&gt;</span>鸡蛋<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">skill</span>=<span class="string">"strong fatter bomb"</span>&gt;</span>牛肉<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">color</span>=<span class="string">"orange"</span>&gt;</span>胡萝卜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">color</span>=<span class="string">"yellowgreen"</span>&gt;</span>黄瓜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">hot</span>=<span class="string">"verylow"</span>&gt;</span>玉米<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">hot</span>=<span class="string">"veryhot"</span>&gt;</span>爆米花<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h3><ul>
-<li><code>:first-child</code>匹配父元素中的第一个子元素</li>
-<li><code>:last-child</code>匹配父元素中的最后一个子元素</li>
-<li><code>:nth-child(n)</code>匹配父元素中的第n个子元素，<strong>索引从1开始</strong>   也可以传入带n的表达式  n必须放在前面，例如n+5,不能写成5+n</li>
-<li><code>:ntn-last-child(n)</code>匹配倒数第几个子元素</li>
-<li><code>:first-of-child</code>  匹配同类元素中的第1个兄弟元素</li>
-<li><code>:last-of-child</code> 匹配同类元素中的最后一个兄弟元素</li>
-<li><code>:nth-of-type(n)</code>  匹配同类元素中的第n个兄弟元素</li>
-<li>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">        /*  ntn-child(n)  </div><div class="line">            括号中的索引包含其他的兄弟节点</div><div class="line">        */</div><div class="line">        p:nth-child(2)&#123;/*匹配到的是黄瓜*/</div><div class="line">            background-color: gold;</div><div class="line">        &#125;</div><div class="line">        /*nth-of-type()会考虑类型</div><div class="line">        当有多种标签在同一个父元素中时</div><div class="line">        建议使用nth-of-type()</div><div class="line">        */</div><div class="line">        p:nth-of-type(1)&#123;</div><div class="line">            background-color: #0ff;</div><div class="line">        &#125;</div><div class="line">        p:first-of-type&#123;</div><div class="line">            background-color: #f0f;</div><div class="line">        &#125;</div><div class="line">        p:last-of-type&#123;</div><div class="line">            background-color: darkorange;</div><div class="line">        &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>蔬菜<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>黄瓜<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>土豆<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h3><ul>
-<li>推荐使用<code>::</code>为了方便和伪类区分</li>
-<li><code>::first-letter</code> 第一个字母</li>
-<li><code>::first-line</code>  第一行</li>
-<li><code>::placeholder</code>设置表单输入框中的占位符的样式   兼容性差，使用时需要加上浏览器前缀</li>
-<li><code>::selection</code>  设置被选中的内容的样式  只能设置color,background-color,text-shadow属性</li>
-<li><strong>重点</strong></li>
-<li><code>::before</code>和<code>::after</code>  只能给双标签设置</li>
-<li><strong>必须给伪元素设置content属性</strong></li>
-<li>给元素添加了该伪元素之后会自动在双标签内部生成<code>::before</code>和<code>::after</code>选择器</li>
-<li>生成的是一个行内元素</li>
-<li>before会添加在元素中的最前面        after会添加在元素中的最后面</li>
-<li>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">   div::after&#123;</div><div class="line">   /*必须设置的属性*/</div><div class="line">     content: "";</div><div class="line">     width:20px;</div><div class="line">     height:20px;</div><div class="line">     background-color: hotpink;</div><div class="line">     /*display: block;*/</div><div class="line">     position: absolute;</div><div class="line">     right: -20px;</div><div class="line">     border:2px solid green;</div><div class="line">     box-sizing: border-box;</div><div class="line">  &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2098,7 +2121,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -1,0 +1,762 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="AngularJS内置指令
+指令是AngularJS自定义的html属性和标签，这些指令都是以ng-做为前缀的。例如ng-app、ng-controller、ng-repeat等。常用指令
+ng-show : 控制元素是否显示，true显示、false不显示
+ng-hide : 控制元素是否隐藏，true隐藏、false不隐藏
+ng-if : 控制元素是否“存在”，true存在、false不存在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AngularJS 指令">
+<meta property="og:url" content="http://yoursite.com/2016/12/04/H07-指令/index.html">
+<meta property="og:site_name" content="Shining Moon">
+<meta property="og:description" content="AngularJS内置指令
+指令是AngularJS自定义的html属性和标签，这些指令都是以ng-做为前缀的。例如ng-app、ng-controller、ng-repeat等。常用指令
+ng-show : 控制元素是否显示，true显示、false不显示
+ng-hide : 控制元素是否隐藏，true隐藏、false不隐藏
+ng-if : 控制元素是否“存在”，true存在、false不存在">
+<meta property="og:updated_time" content="2017-04-11T01:39:46.778Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AngularJS 指令">
+<meta name="twitter:description" content="AngularJS内置指令
+指令是AngularJS自定义的html属性和标签，这些指令都是以ng-做为前缀的。例如ng-app、ng-controller、ng-repeat等。常用指令
+ng-show : 控制元素是否显示，true显示、false不显示
+ng-hide : 控制元素是否隐藏，true隐藏、false不隐藏
+ng-if : 控制元素是否“存在”，true存在、false不存在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/04/H07-指令/"/>
+
+
+
+
+
+  <title> AngularJS 指令 | Shining Moon </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shining Moon</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/04/H07-指令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                AngularJS 指令
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-04T00:00:00+08:00">
+                2016-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="AngularJS内置指令"><a href="#AngularJS内置指令" class="headerlink" title="AngularJS内置指令"></a>AngularJS内置指令</h2><ul>
+<li>指令是AngularJS自定义的html属性和标签，这些指令都是以ng-做为前缀的。例如ng-app、ng-controller、ng-repeat等。<h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3></li>
+<li>ng-show : 控制元素是否显示，true显示、false不显示</li>
+<li>ng-hide : 控制元素是否隐藏，true隐藏、false不隐藏</li>
+<li>ng-if : 控制元素是否“存在”，true存在、false不存在</li>
+<li><p>ng-src : 增强路径</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dl</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">dd</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- src：浏览器会发送两次请求，第一次是浏览器解析，找不到&#123;&#123;path&#125;&#125;这个路径。浏览器会报错</span></div><div class="line">            第二次是Angular解析完成后把值赋给src，请求的路径是正确的</div><div class="line">            请求次数越多，越消耗浏览器的性能</div><div class="line">        --&gt;</div><div class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&#123;&#123;path&#125;&#125;"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!--ng-src：浏览器会追加一个真正的src属性，此时只需要发送一次请求--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">ng-src</span>=<span class="string">"&#123;&#123;path&#125;&#125;"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>ng-href : 增强地址</p>
+</li>
+<li><p>ng-class : 值的类型可以是对象，并且此对象的属性是一个存在的类名。属性所对应的属性值决定了此属性名是否被当成一个类名添加，true  ：添加；false ：不添加。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">.red&#123;</div><div class="line">	background:"red";</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!--下面为两种方式为标签添加类样式--&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"&#123;&#123;cls&#125;&#125;"</span>&gt;</span>内容内容内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">   	<span class="tag">&lt;<span class="name">p</span> <span class="attr">ng-class</span>=<span class="string">"&#123;red:false&#125;"</span>&gt;</span>内容内容内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>ng-include : 引入模板。</p>
+<ul>
+<li>是通过ajax发送的请求，所以必须是http协议，需要开启服务器<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--引入头部--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-include</span>=<span class="string">"'header.html'"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">article</span>&gt;</span>主体列表<span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--引入侧边栏--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-include</span>=<span class="string">"'aside.html'"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--header.html--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span>这里是header部分<span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--aside.html--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">aside</span>&gt;</span>这里是侧边栏<span class="tag">&lt;/<span class="name">aside</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>ng-disabled : 表单的禁用。true/false</p>
+</li>
+<li>ng-readonly : 表单只读。true/false</li>
+<li>ng-checked : 单或复选框表单选中。true/false</li>
+<li>ng-selected : 下拉框表单选中。true/false<h3 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h3></li>
+<li>使用directive方法。该方法接收两个参数，第一个是自定义指令的名称，第二个是回调函数</li>
+<li>回调函数需要返回值，返回值可以是函数，也可以是对象【常用的是对象】</li>
+<li><p>对象中的属性</p>
+<ul>
+<li>restrict ： 表示该指令以何种形式出现。E（元素）C（类样式）M（注释）A（属性）</li>
+<li>template ： 自定义的指令代表的模板</li>
+<li>link ： 是一个回调函数，用来实现该指令的逻辑功能。回调函数中有三个参数</li>
+<li>scope ：模型。指令所属的模型</li>
+<li>element ：元素。指令所在的DOM元素</li>
+<li>attrs ：属性。该对象包含指令所在的元素上的所有属性</li>
+</ul>
+</li>
+<li><p><strong>自定义属性例子</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">	 <span class="tag">&lt;<span class="name">p</span> <span class="attr">tag</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> 	<span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    <span class="comment">//定义一个tag属性</span></div><div class="line">    app.directive(<span class="string">"tag"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="comment">//回调函数需要有一个返回值，并且这个返回值可以是一个函数,也可以是一个对象</span></div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            <span class="comment">// E表示element，表示可以通过标签使用</span></div><div class="line">            <span class="comment">// A表示是一个属性attribute</span></div><div class="line">            <span class="comment">// M 表示mark,注释</span></div><div class="line">            <span class="comment">// C 表示class,类</span></div><div class="line">            restrict:<span class="string">"ECA"</span>,</div><div class="line">            <span class="comment">// 当replace设置为true的时候，会替换该属性所在的标签，</span></div><div class="line">            <span class="comment">// 使用template定义的标签</span></div><div class="line">			replace:<span class="literal">true</span>,</div><div class="line">            <span class="attr">template</span>:<span class="string">"&lt;h1&gt;Hello AngularJS!&lt;/h1&gt;"</span>,</div><div class="line">            <span class="attr">link</span>:<span class="function"><span class="keyword">function</span> (<span class="params">scope,element,attrs</span>) </span>&#123;</div><div class="line">               <span class="built_in">console</span>.log(scope);<span class="comment">// 获取指令所在视图对应的模型数据</span></div><div class="line">               <span class="built_in">console</span>.log(element);<span class="comment">//指令所在的DOM节点</span></div><div class="line">               <span class="built_in">console</span>.log(attrs);<span class="comment">//用来获取指令上所在元素上的所有属性</span></div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>模拟ng-class</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    .red&#123;</div><div class="line">    	color: #f00;</div><div class="line">    &#125;</div><div class="line">    .blue&#123;</div><div class="line">    	background: blue;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">	 <span class="tag">&lt;<span class="name">p</span> <span class="attr">it-class</span>=<span class="string">"&#123;red:true,blue:true&#125;"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">app.directive(<span class="string">"itClass"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">    	<span class="attr">link</span>:<span class="function"><span class="keyword">function</span> (<span class="params">scope,element,attrs</span>) </span>&#123;</div><div class="line">    		<span class="comment">//在原有dom基础上，添加class="类1 类2 类3 ..."</span></div><div class="line">    		<span class="comment">//获取dom节点上的属性，将其转化成js对象</span></div><div class="line">   			<span class="keyword">var</span> itCls = <span class="built_in">eval</span>(<span class="string">"("</span>+attrs.itClass+<span class="string">")"</span>);</div><div class="line"></div><div class="line">    		<span class="comment">//对获取的属性进行处理</span></div><div class="line">    		<span class="keyword">var</span> cls = [];</div><div class="line">    		<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> itCls)&#123;</div><div class="line">    			<span class="comment">//如果该键的值为true，则添加进数组</span></div><div class="line">    			<span class="keyword">if</span>(itCls[key])&#123;</div><div class="line">    				cls.push(key);</div><div class="line">    			&#125;</div><div class="line">    		&#125;</div><div class="line">    		<span class="comment">//angularjs内置了jQuery的一部分方法</span></div><div class="line">    		<span class="comment">//将数组的内容转成字符串，赋给元素</span></div><div class="line">   	 		element.addClass( cls.join(<span class="string">" "</span>));</div><div class="line">    		&#125;</div><div class="line">    	&#125;;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>模拟ng-src</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">img</span> <span class="attr">it-src</span>=<span class="string">"&#123;&#123;path&#125;&#125;"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">    $scope.path = <span class="string">"./img/huli.jpg"</span>;</div><div class="line">&#125;]);</div><div class="line">app.directive(<span class="string">"itSrc"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">link</span>:<span class="function"><span class="keyword">function</span> (<span class="params">scope,element,attrs</span>) </span>&#123;</div><div class="line">            <span class="comment">//在原有dom基础上，添加class="类1 类2 类3 ..."</span></div><div class="line">            <span class="comment">//将指令所在的元素上的itSrc属性的值赋给真正的src</span></div><div class="line">            element.attr(<span class="string">"src"</span>,attrs.itSrc);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/03/H01-AngluarJS/" rel="next" title="AngularJS 基础使用">
+                <i class="fa fa-chevron-left"></i> AngularJS 基础使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/05/H05-数据绑定/" rel="prev" title="AngularJS 数据绑定">
+                AngularJS 数据绑定 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/tx.jpg"
+               alt="Qcyue" />
+          <p class="site-author-name" itemprop="name">Qcyue</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活，我们是认真的！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AngularJS内置指令"><span class="nav-number">1.</span> <span class="nav-text">AngularJS内置指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用指令"><span class="nav-number">1.1.</span> <span class="nav-text">常用指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义指令"><span class="nav-number">1.2.</span> <span class="nav-text">自定义指令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qcyue</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

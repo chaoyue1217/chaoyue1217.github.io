@@ -1,0 +1,1055 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="node 常用模块path 模块
+
+
+方法
+作用
+备注
+
+
+
+
+path.basename(path[, ext])
+获取一个路径中的文件名部分
+
+
+
+path.dirname(path)
+获取一个路径中的目录部分
+
+
+
+path.extname(path)
+获取一个路径中的后缀名部分
+
+
+
+path.format(pathObject)
+将一个路径对象格式化成一个路径字符串
+
+
+
+path.is">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node-module">
+<meta property="og:url" content="http://yoursite.com/2017/03/06/I03-node/index.html">
+<meta property="og:site_name" content="Shining Moon">
+<meta property="og:description" content="node 常用模块path 模块
+
+
+方法
+作用
+备注
+
+
+
+
+path.basename(path[, ext])
+获取一个路径中的文件名部分
+
+
+
+path.dirname(path)
+获取一个路径中的目录部分
+
+
+
+path.extname(path)
+获取一个路径中的后缀名部分
+
+
+
+path.format(pathObject)
+将一个路径对象格式化成一个路径字符串
+
+
+
+path.is">
+<meta property="og:updated_time" content="2017-04-11T02:25:32.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node-module">
+<meta name="twitter:description" content="node 常用模块path 模块
+
+
+方法
+作用
+备注
+
+
+
+
+path.basename(path[, ext])
+获取一个路径中的文件名部分
+
+
+
+path.dirname(path)
+获取一个路径中的目录部分
+
+
+
+path.extname(path)
+获取一个路径中的后缀名部分
+
+
+
+path.format(pathObject)
+将一个路径对象格式化成一个路径字符串
+
+
+
+path.is">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/06/I03-node/"/>
+
+
+
+
+
+  <title> node-module | Shining Moon </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shining Moon</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/06/I03-node/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                node-module
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-06T00:00:00+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="node-常用模块"><a href="#node-常用模块" class="headerlink" title="node 常用模块"></a>node 常用模块</h1><h2 id="path-模块"><a href="#path-模块" class="headerlink" title="path 模块"></a>path 模块</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path.basename(path[, ext])</td>
+<td>获取一个路径中的文件名部分</td>
+<td></td>
+</tr>
+<tr>
+<td>path.dirname(path)</td>
+<td>获取一个路径中的目录部分</td>
+<td></td>
+</tr>
+<tr>
+<td>path.extname(path)</td>
+<td>获取一个路径中的后缀名部分</td>
+<td></td>
+</tr>
+<tr>
+<td>path.format(pathObject)</td>
+<td>将一个路径对象格式化成一个路径字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>path.isAbsolute(path)</td>
+<td>判断一个路径是否是绝对路径</td>
+<td></td>
+</tr>
+<tr>
+<td>path.join([…paths])</td>
+<td>将多个路径拼接为一个完整的路径</td>
+<td></td>
+</tr>
+<tr>
+<td>path.normalize(path)</td>
+<td>将一个非标准路径转为标准路径</td>
+<td></td>
+</tr>
+<tr>
+<td>path.parse(path)</td>
+<td>将一个字符串路径转为一个路径对象</td>
+<td></td>
+</tr>
+<tr>
+<td>path.sep</td>
+<td>获取当前操作系统的路径分隔符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fs-模块"><a href="#fs-模块" class="headerlink" title="fs 模块"></a>fs 模块</h2><table>
+<thead>
+<tr>
+<th>API</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fs.readFile(file[, options], callback)</td>
+<td>读取文件</td>
+<td></td>
+</tr>
+<tr>
+<td>fs.writeFile(file, data[, options], callback)</td>
+<td>写入文件</td>
+<td></td>
+</tr>
+<tr>
+<td>fs.unlink(path, callback)</td>
+<td>删除文件</td>
+<td></td>
+</tr>
+<tr>
+<td>fs.readdir(path[, options], callback)</td>
+<td>读取目录</td>
+<td></td>
+</tr>
+<tr>
+<td>fs.mkdir(path[, mode], callback)</td>
+<td>创建目录</td>
+<td></td>
+</tr>
+<tr>
+<td>fs.rmdir(path, callback)</td>
+<td>删除目录</td>
+<td></td>
+</tr>
+<tr>
+<td>fs.rename(oldPath, newPath, callback)</td>
+<td>重命名文件或目录</td>
+<td>也可以移动文件或目录</td>
+</tr>
+<tr>
+<td>fs.stat(path, callback)</td>
+<td>获取文件或目录的状态</td>
+<td>例如是否是文件或文件大小等信息</td>
+</tr>
+<tr>
+<td>fs.watch(filename[, options][, listener])</td>
+<td>监视文件或目录</td>
+<td>文件或目录变化会执行对应的 listener</td>
+</tr>
+<tr>
+<td>fs.watchFile(filename[, options], listener)</td>
+<td>监视文件</td>
+<td></td>
+</tr>
+<tr>
+<td>fs.appendFile(file, data[, options], callback)</td>
+<td>向文件追加内容</td>
+<td></td>
+</tr>
+<tr>
+<td>fs.access(path[, mode], callback)</td>
+<td>判断一个路径是否存在</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="http-模块"><a href="#http-模块" class="headerlink" title="http 模块"></a>http 模块</h2><h3 id="http-模块相关属性及方法"><a href="#http-模块相关属性及方法" class="headerlink" title="http 模块相关属性及方法"></a>http 模块相关属性及方法</h3><ul>
+<li>http.METHODS<ul>
+<li>获取 http 支持的请求方法</li>
+</ul>
+</li>
+<li>http.STATUS_CODES<ul>
+<li>获取 http 模块支持的状态码</li>
+</ul>
+</li>
+<li>http.createClient([port][, host])<ul>
+<li>创建客户端，使用 Node 发送请求</li>
+</ul>
+</li>
+<li>http.createServer([requestListener])<ul>
+<li>创建服务器，接收客户端请求</li>
+</ul>
+</li>
+<li>http.get(options[, callback])<ul>
+<li>发起 get 请求</li>
+</ul>
+</li>
+<li>http.globalAgent</li>
+<li>http.request(options[, callback])<ul>
+<li>发请求</li>
+</ul>
+</li>
+</ul>
+<h3 id="Class-http-Server-服务实例对象"><a href="#Class-http-Server-服务实例对象" class="headerlink" title="Class: http.Server 服务实例对象"></a>Class: http.Server 服务实例对象</h3><p>事件：</p>
+<ul>
+<li>Event: ‘checkContinue’</li>
+<li>Event: ‘checkExpectation’</li>
+<li>Event: ‘clientError’</li>
+<li>Event: ‘close’</li>
+<li>Event: ‘connect’</li>
+<li>Event: ‘connection’</li>
+<li>Event: ‘request’<ul>
+<li>请求事件</li>
+</ul>
+</li>
+<li>Event: ‘upgrade’</li>
+</ul>
+<p>方法：</p>
+<ul>
+<li>server.close([callback])<ul>
+<li>关闭服务器</li>
+</ul>
+</li>
+<li>server.listen(handle[, callback])<ul>
+<li>绑定监听</li>
+</ul>
+</li>
+<li>server.listen(path[, callback])<ul>
+<li>绑定监听</li>
+</ul>
+</li>
+<li>server.listen([port][, hostname][, backlog][, callback])<ul>
+<li>绑定监听</li>
+</ul>
+</li>
+<li>server.listening</li>
+<li>server.maxHeadersCount</li>
+<li>server.setTimeout(msecs, callback)</li>
+<li>server.timeout<h3 id="Class-http-ServerResponse-响应对象"><a href="#Class-http-ServerResponse-响应对象" class="headerlink" title="Class: http.ServerResponse 响应对象"></a>Class: http.ServerResponse 响应对象</h3></li>
+</ul>
+<p>事件：</p>
+<ul>
+<li>Event: ‘close’</li>
+<li>Event: ‘finish’</li>
+</ul>
+<p>方法：</p>
+<ul>
+<li>response.addTrailers(headers)</li>
+<li>response.end([data][, encoding][, callback])<ul>
+<li>结束响应</li>
+</ul>
+</li>
+<li>response.finished</li>
+<li>response.getHeader(name)</li>
+<li>response.headersSent</li>
+<li>response.removeHeader(name)</li>
+<li>response.sendDate</li>
+<li>response.setHeader(name, value)</li>
+<li>response.setTimeout(msecs, callback)</li>
+<li>response.statusCode<ul>
+<li>状态码</li>
+</ul>
+</li>
+<li>response.statusMessage<ul>
+<li>状态短语</li>
+</ul>
+</li>
+<li>response.write(chunk[, encoding][, callback])<ul>
+<li>写入响应流数据</li>
+</ul>
+</li>
+<li>response.writeContinue()</li>
+<li>response.writeHead(statusCode[, statusMessage][, headers])<ul>
+<li>写入响应头</li>
+</ul>
+</li>
+</ul>
+<h3 id="Request（http-IncomingMessage）请求对象"><a href="#Request（http-IncomingMessage）请求对象" class="headerlink" title="Request（http.IncomingMessage）请求对象"></a>Request（http.IncomingMessage）请求对象</h3><p>事件：</p>
+<p>Event: ‘aborted’<br>Event: ‘close’</p>
+<p>方法：</p>
+<ul>
+<li>message.destroy([error])</li>
+<li>message.headers<ul>
+<li>获取请求头</li>
+</ul>
+</li>
+<li>message.httpVersion<ul>
+<li>获取 http 协议版本</li>
+</ul>
+</li>
+<li>message.method<ul>
+<li>获取请求方法</li>
+</ul>
+</li>
+<li>message.rawHeaders</li>
+<li>message.rawTrailers</li>
+<li>message.setTimeout(msecs, callback)</li>
+<li>message.statusCode</li>
+<li>message.statusMessage</li>
+<li>message.socket</li>
+<li>message.trailers</li>
+<li>message.url<ul>
+<li>获取请求路径</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/04/I02-node/" rel="next" title="node模块化">
+                <i class="fa fa-chevron-left"></i> node模块化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/08/I04-express/" rel="prev" title="学一下express">
+                学一下express <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/tx.jpg"
+               alt="Qcyue" />
+          <p class="site-author-name" itemprop="name">Qcyue</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活，我们是认真的！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#node-常用模块"><span class="nav-number">1.</span> <span class="nav-text">node 常用模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#path-模块"><span class="nav-number">1.1.</span> <span class="nav-text">path 模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fs-模块"><span class="nav-number">1.2.</span> <span class="nav-text">fs 模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http-模块"><span class="nav-number">1.3.</span> <span class="nav-text">http 模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#http-模块相关属性及方法"><span class="nav-number">1.3.1.</span> <span class="nav-text">http 模块相关属性及方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-http-Server-服务实例对象"><span class="nav-number">1.3.2.</span> <span class="nav-text">Class: http.Server 服务实例对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-http-ServerResponse-响应对象"><span class="nav-number">1.3.3.</span> <span class="nav-text">Class: http.ServerResponse 响应对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Request（http-IncomingMessage）请求对象"><span class="nav-number">1.3.4.</span> <span class="nav-text">Request（http.IncomingMessage）请求对象</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qcyue</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

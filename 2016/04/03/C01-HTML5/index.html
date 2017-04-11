@@ -95,7 +95,7 @@
 示例：浏览器只有在遇到IE8及以下时才会执行其中的代码
 注意:lte  代表:  less than  e">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTML5">
+<meta property="og:title" content="HTML5新增标签及属性">
 <meta property="og:url" content="http://yoursite.com/2016/04/03/C01-HTML5/index.html">
 <meta property="og:site_name" content="Shining Moon">
 <meta property="og:description" content="HTML5新增标签及属性
@@ -105,9 +105,9 @@
 注意：标签创建完成后必须使其display=block
 示例：浏览器只有在遇到IE8及以下时才会执行其中的代码
 注意:lte  代表:  less than  e">
-<meta property="og:updated_time" content="2017-04-01T13:36:19.979Z">
+<meta property="og:updated_time" content="2017-04-11T01:21:04.818Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HTML5">
+<meta name="twitter:title" content="HTML5新增标签及属性">
 <meta name="twitter:description" content="HTML5新增标签及属性
 1.&amp;lt;doctype&amp;gt;不是标签，是一种文档声明，告诉浏览器按照哪种规则解析
 2.新增语义标签：header  footer等新增语义标签兼容低版本IE
@@ -148,7 +148,7 @@
 
 
 
-  <title> HTML5 | Shining Moon </title>
+  <title> HTML5新增标签及属性 | Shining Moon </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -298,7 +298,7 @@
             
             
               
-                HTML5
+                HTML5新增标签及属性
               
             
           </h1>
@@ -323,6 +323,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTML5/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -362,7 +384,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--[if lte IE 8]&gt;</span></div><div class="line">  &lt;script src="html5shiv.min.js"&gt;&lt;/script&gt;</div><div class="line">&lt;!--&lt;![endif]&amp;ndash;&amp;gt;--&gt;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 多媒体标签  audio  vedio</div><div class="line">* vedio:属性：</div><div class="line">	* controls控制器</div><div class="line">  	* autoplay：自动播放</div><div class="line">  	* loop:循环播放</div><div class="line">  	* width/height:不会拉伸视频</div><div class="line">  	* 可以vedio标签中使用source标签同时指定多个视频，目的是为了兼容浏览器</div><div class="line">```html</div><div class="line">* 示例：</div><div class="line">  &lt;video autoplay controls&gt;</div><div class="line">   &lt;source src=&quot;movie/rabbit.ogg&quot; type=&quot;&quot;&gt;</div><div class="line">   &lt;source src=&quot;movie/move11.mp4&quot; type=&quot;&quot;&gt;</div><div class="line">   亲,您的浏览器版本过低，建议更新观看</div><div class="line">  &lt;/video&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 多媒体标签  audio  vedio</div><div class="line">* vedio:属性：</div><div class="line">	* controls控制器</div><div class="line">  	* autoplay：自动播放</div><div class="line">  	* loop:循环播放</div><div class="line">  	* width/height:不会拉伸视频</div><div class="line">  	* 可以vedio标签中使用source标签同时指定多个视频，目的是为了兼容浏览器</div><div class="line">* 示例：</div><div class="line">​```html</div><div class="line">  &lt;video autoplay controls&gt;</div><div class="line">   &lt;source src=&quot;movie/rabbit.ogg&quot; type=&quot;&quot;&gt;</div><div class="line">   &lt;source src=&quot;movie/move11.mp4&quot; type=&quot;&quot;&gt;</div><div class="line">   亲,您的浏览器版本过低，建议更新观看</div><div class="line">  &lt;/video&gt;</div></pre></td></tr></table></figure>
 <ul>
 <li>多媒体标签可以直接被用户另存为</li>
 </ul>
@@ -402,82 +424,6 @@
 <li>使用data时，如果定义的时候使用了大写字母获取的时候会变成小写,我们需要通过小写字母来获取</li>
 <li>我们使用 多个 <code>-</code> 进行分割，获取时需要使用驼峰标识<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">data-sex</span>=<span class="string">'girl'</span> <span class="attr">data-boyFriend</span>=<span class="string">'佐助'</span> <span class="attr">data-mother</span>=<span class="string">'泰罗奥特曼'</span> 		<span class="attr">data-cloth-green</span>=<span class="string">'绿裙子.绿鞋子,绿手套'</span> <span class="attr">data-cloth-red</span>=<span class="string">'红裙子,红裤子...'</span>&gt;</span>	   娜美<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	nameiLi = <span class="built_in">document</span>.querySelector(<span class="string">"li"</span>);</div><div class="line">	<span class="built_in">console</span>.log(nameiLi.dataset); <span class="comment">//dataset对象中包含中自定义的属性的内容</span></div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.mother);</div><div class="line">	<span class="built_in">console</span>.log(nameiLi.dataset.boyFriend);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.boyfriend);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.clothGreen);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset[<span class="string">'clothGreen'</span>]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
 </li>
-</ul>
-<h1 id="HTMl5高级API"><a href="#HTMl5高级API" class="headerlink" title="HTMl5高级API"></a>HTMl5高级API</h1><h2 id="全屏效果"><a href="#全屏效果" class="headerlink" title="全屏效果"></a>全屏效果</h2><ul>
-<li><strong>requestFullScreen()方法;</strong></li>
-<li>该方法目前还处于测试阶段，要想正常使用必须添加前缀</li>
-<li>不同的浏览器的渲染效果不同</li>
-<li>ie的全屏方法是msRequestFullscreen(screen中的s是小写)</li>
-<li>兼容浏览器写法<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;input type="button" value="全屏"* </div><div class="line">&lt;script&gt;</div><div class="line">documet.querySelector("input").onclick = function()&#123;</div><div class="line">    if(this.webkitRequestFullScreen)&#123;</div><div class="line">        // 谷歌</div><div class="line">        this.webkitRequestFullScreen();</div><div class="line">    &#125;else if(this.mozRequestFullScreen)&#123;</div><div class="line">        // 火狐</div><div class="line">        this.mozRequestFullScreen();</div><div class="line">    &#125;else if(this.msRequestFullscreen)&#123;</div><div class="line">        // ie的全屏方法是msRequestFullscreen</div><div class="line">        // 可以查MSDN</div><div class="line">        // IE </div><div class="line">        this.msRequestFullscreen();</div><div class="line">    &#125;else if(this.requestFullScreen)&#123;</div><div class="line">        // 其他</div><div class="line">        this.requestFullScreen();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="拖-drag-放-drop"><a href="#拖-drag-放-drop" class="headerlink" title="拖(drag)放(drop)"></a>拖(drag)放(drop)</h2><ul>
-<li>有些元素默认支持鼠标拖放，例如img。但是该拖放只是一种视觉效果，元素并不会移动位置，如果实现元素的位置移动，需要使用js</li>
-<li>有些不支持拖放，如div</li>
-<li>设置元素可拖放,需要设置属性<code>draaable=&quot;true&quot;</code>例如：<code>&lt;div draggable=&quot;true&quot;&gt;</code><h3 id="拖放事件"><a href="#拖放事件" class="headerlink" title="拖放事件"></a>拖放事件</h3></li>
-<li>dragstart: 元素开始拖动事件。设置在被拖动的元素上</li>
-<li><p>dragend: 元素拖动结束事件。设置在被拖动的元素上</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).ondragstart = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 拖拽开始改变图片内容</span></div><div class="line">        <span class="keyword">this</span>.src = <span class="string">"img/huli.jpg"</span>;</div><div class="line">    &#125;;</div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).ondragend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">       	<span class="comment">// 拖拽结束还原图片</span></div><div class="line">       	<span class="keyword">this</span>.src = <span class="string">"img/xiang.jpg"</span>;</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>dragenter: 有元素拖入时触发</p>
-</li>
-<li><p>dragleave: 元素离开时触发</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;background:yellowgreen"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="comment">// 图片拖入box时改变box的背景颜色</span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragenter = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.style.background = <span class="string">"yellow"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="comment">// 图片离开box时还原box的背景颜色</span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragleave = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.style.background =<span class="string">"yellowgreen"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>dragover: 规定在何处放置被拖动的数据</p>
-</li>
-<li><strong>注意</strong></li>
-<li>默认情况下无法将元素放置到其他元素中。若要允许放置，需要阻止元素的默认行为。</li>
-<li>通过调用ondragover 事件的 event.preventDefault() 方法</li>
-<li>drop: 放置被拖动的元素时触发。只有设置了ondragover事件，drop事件才会触发<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;background:yellowgreen"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragover = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    event.preventDefault();</div><div class="line">&#125;</div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondrop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> imgObj = <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>);</div><div class="line">    <span class="keyword">this</span>.appendChild(imgObj);</div><div class="line">    <span class="comment">// 改变img的大小</span></div><div class="line">    imgObj.style.width = <span class="string">"100px"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h2><ul>
-<li><code>&lt;input type=&quot;file&quot;&gt;</code>可以实现文件的选取</li>
-<li>选取多个文件: <code>&lt;input type=&quot;file&quot; multiple&gt;</code></li>
-<li>获取文件: 文件对象的files属性是一个包含所有文件的数组</li>
-<li>读取文件: 需要创建文件读取对象(FileReader)，该对象时由HTML5提供的</li>
-<li>读取文件的方法: <code>readAsDateURL()</code>读取路径; <code>readAsText()</code>读取文本</li>
-<li><p>文件读取完毕事件: onload</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"获取文件"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">"input[type=button"</span>).onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// 获取文件对象</span></div><div class="line">    <span class="keyword">var</span> fileObj = <span class="built_in">document</span>.querySelector(<span class="string">"input[type=file]"</span>);</div><div class="line">    <span class="comment">// 获取具体文件</span></div><div class="line">    <span class="keyword">var</span> file = fileObj.files[<span class="number">0</span>];</div><div class="line">    <span class="comment">// 创建文件读取对象</span></div><div class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</div><div class="line">    <span class="comment">// 读取文件</span></div><div class="line">    reader.readAsDataURL(file);</div><div class="line">    reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 文件读取完毕后输出文件信息        </span></div><div class="line">        <span class="built_in">console</span>.log(reader.result);</div><div class="line">        <span class="comment">// 将读取的结果设置给img</span></div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).src = reader.result;</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>头像预览案例</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>请选择你的头像<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;border:2px solid black"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"input"</span>).onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 获取文件</span></div><div class="line">        <span class="keyword">var</span> file = <span class="keyword">this</span>.files[<span class="number">0</span>];</div><div class="line">        <span class="comment">//创建对象</span></div><div class="line">        <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</div><div class="line">        <span class="comment">// 读取文件</span></div><div class="line">        reader.readAsDataURL(file);</div><div class="line">        reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">var</span> result = reader.result; </div><div class="line">            <span class="comment">// 将选择的图片显示在div中                </span></div><div class="line">            <span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).style.background = <span class="string">"url("</span>+result+<span class="string">") no-repeat center/cover"</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>细节问题</strong></p>
-<ul>
-<li>当图片直接拖入body时，默认情况下会直接打开图片</li>
-<li>可以通过event.dataTransfer对象的files属性获取当前被拖动的对象<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    *&#123;</div><div class="line">        margin: 0;</div><div class="line">        padding: 0;</div><div class="line">    &#125;</div><div class="line">    body,html&#123;</div><div class="line">        height: 100%;</div><div class="line">    &#125;</div><div class="line">    .preview&#123;</div><div class="line">        width: 300px;</div><div class="line">        height: 300px;</div><div class="line">        border: 2px dashed black;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>拖入图片<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"preview"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">        <span class="built_in">document</span>.body.ondragover = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 阻止drop的默认事件：默认情况下打开图片</span></div><div class="line">        <span class="comment">// 要想触发drop事件，必须设置ondragover阻止默认事件</span></div><div class="line">        <span class="built_in">document</span>.body.ondrop = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125;;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondragenter = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.style.background = <span class="string">"lightgray"</span>;</div><div class="line">        &#125;;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondragleave = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.style.background = <span class="string">"white"</span>;</div><div class="line">        &#125;;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondragover = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondrop = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            <span class="comment">// 获取文件:通过event.dataTransfer对象的files属性</span></div><div class="line">            <span class="keyword">var</span> file = event.dataTransfer.files[<span class="number">0</span>];</div><div class="line">            <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</div><div class="line">            reader.readAsDataURL(file);</div><div class="line">            reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="keyword">var</span> result = reader.result;</div><div class="line">                <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).style.background = <span class="string">"url("</span>+result+<span class="string">") no-repeat center/cover"</span>;</div><div class="line">            &#125;;</div><div class="line">        &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="数据存储localStorage和sessionStroage"><a href="#数据存储localStorage和sessionStroage" class="headerlink" title="数据存储localStorage和sessionStroage"></a>数据存储localStorage和sessionStroage</h2><ul>
-<li>区别：localStorage：关闭浏览器信息依旧存在; sessionStroage：关闭浏览器信息消失</li>
-<li>两者的调用方法完全一致</li>
-<li>window.localStorage.setItem(key,value);保存数据,不可以保存私密信息</li>
-<li>window.localStorage.getItem(key);获取数据</li>
-<li>window.localStorage.clear();清空数据</li>
-<li>window.localStorage.removeItem(key);清除某个数据<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>请输入你的名字<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"保存"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="comment">// 点击保存按钮 保存输入的名字</span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"input[type=button]"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 获取输入的值</span></div><div class="line">        <span class="keyword">var</span> text = <span class="built_in">document</span>.querySelector(<span class="string">"input[type=text]"</span>).value;</div><div class="line">        <span class="comment">// 将输入的值保存</span></div><div class="line">        <span class="built_in">window</span>.localStorage.setItem(<span class="string">"userName"</span>,text);</div><div class="line">    &#125;;</div><div class="line">    <span class="comment">// 页面加载完毕后获取保存的值        </span></div><div class="line">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> username = <span class="built_in">window</span>.localStorage.getItem(<span class="string">"userName"</span>);</div><div class="line">        <span class="comment">// 将输入的值设置给h1</span></div><div class="line">        <span class="keyword">if</span>(username)&#123;</div><div class="line">            <span class="built_in">document</span>.querySelector(<span class="string">"h1"</span>).innerHTML = username;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="地理位置"><a href="#地理位置" class="headerlink" title="地理位置"></a>地理位置</h2><ul>
-<li>经常用于移动端,PC端的定位不准确</li>
-<li>该方式只能获取经纬度，若要显示地图，需要配合百度地图等使用<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"获取位置"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"input"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 获取当前的位置信息</span></div><div class="line">        <span class="built_in">window</span>.navigator.geolocation.getCurrentPosition(<span class="function"><span class="keyword">function</span>(<span class="params">position</span>)</span>&#123;</div><div class="line">            <span class="comment">// 获取位置信息</span></div><div class="line">            <span class="built_in">console</span>.log(position);</div><div class="line">            <span class="comment">// 获取纬度</span></div><div class="line">            <span class="built_in">console</span>.log(position.coords.latitude);</div><div class="line">            <span class="comment">// 获取经度</span></div><div class="line">            <span class="built_in">console</span>.log(position.coords.longitude);</div><div class="line">        &#125;);</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="video的API"><a href="#video的API" class="headerlink" title="video的API"></a>video的API</h2><ul>
-<li>video的方法:<ul>
-<li>play(); 播放视频</li>
-<li>pause(); 暂停视频</li>
-</ul>
-</li>
-<li>video的事件<ul>
-<li>ontimeupdate: 视频播放时触发的事件</li>
-</ul>
-</li>
-<li>video元素的属性</li>
-<li>currentTime： 当前的播放时间</li>
-<li>duration: 视频的总时长</li>
 </ul>
 
       
@@ -525,8 +471,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/08/C02CSS3选择器/" rel="prev" title="CSS3选择器">
-                CSS3选择器 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/05/C01-HTML5 高级API/" rel="prev" title="HTML5高级API">
+                HTML5高级API <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -591,7 +537,7 @@
                alt="Qcyue" />
           <p class="site-author-name" itemprop="name">Qcyue</p>
            
-              <p class="site-description motion-element" itemprop="description">写代码，我们是认真的！</p>
+              <p class="site-description motion-element" itemprop="description">生活，我们是认真的！</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -599,7 +545,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -610,7 +556,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -647,7 +593,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML5新增标签及属性"><span class="nav-number">1.</span> <span class="nav-text">HTML5新增标签及属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新增语义标签兼容低版本IE"><span class="nav-number">1.1.</span> <span class="nav-text">新增语义标签兼容低版本IE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5表单"><span class="nav-number">1.2.</span> <span class="nav-text">HTML5表单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#表单新属性"><span class="nav-number">1.2.1.</span> <span class="nav-text">表单新属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单新元素"><span class="nav-number">1.2.2.</span> <span class="nav-text">表单新元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单验证"><span class="nav-number">1.2.3.</span> <span class="nav-text">表单验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单中的事件"><span class="nav-number">1.2.4.</span> <span class="nav-text">表单中的事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5-DOM操作扩展"><span class="nav-number">1.3.</span> <span class="nav-text">HTML5 DOM操作扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5-操作类样式"><span class="nav-number">1.4.</span> <span class="nav-text">HTML5  操作类样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5-自定义属性"><span class="nav-number">1.5.</span> <span class="nav-text">HTML5 自定义属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTMl5高级API"><span class="nav-number">2.</span> <span class="nav-text">HTMl5高级API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#全屏效果"><span class="nav-number">2.1.</span> <span class="nav-text">全屏效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拖-drag-放-drop"><span class="nav-number">2.2.</span> <span class="nav-text">拖(drag)放(drop)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拖放事件"><span class="nav-number">2.2.1.</span> <span class="nav-text">拖放事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件读取"><span class="nav-number">2.3.</span> <span class="nav-text">文件读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据存储localStorage和sessionStroage"><span class="nav-number">2.4.</span> <span class="nav-text">数据存储localStorage和sessionStroage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地理位置"><span class="nav-number">2.5.</span> <span class="nav-text">地理位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#video的API"><span class="nav-number">2.6.</span> <span class="nav-text">video的API</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML5新增标签及属性"><span class="nav-number">1.</span> <span class="nav-text">HTML5新增标签及属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新增语义标签兼容低版本IE"><span class="nav-number">1.1.</span> <span class="nav-text">新增语义标签兼容低版本IE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5表单"><span class="nav-number">1.2.</span> <span class="nav-text">HTML5表单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#表单新属性"><span class="nav-number">1.2.1.</span> <span class="nav-text">表单新属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单新元素"><span class="nav-number">1.2.2.</span> <span class="nav-text">表单新元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单验证"><span class="nav-number">1.2.3.</span> <span class="nav-text">表单验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单中的事件"><span class="nav-number">1.2.4.</span> <span class="nav-text">表单中的事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5-DOM操作扩展"><span class="nav-number">1.3.</span> <span class="nav-text">HTML5 DOM操作扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5-操作类样式"><span class="nav-number">1.4.</span> <span class="nav-text">HTML5  操作类样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5-自定义属性"><span class="nav-number">1.5.</span> <span class="nav-text">HTML5 自定义属性</span></a></li></ol></li></ol></div>
             
 
           </div>

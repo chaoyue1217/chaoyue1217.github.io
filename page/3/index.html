@@ -87,15 +87,15 @@
 
 
 
-<meta name="description" content="写代码，我们是认真的！">
+<meta name="description" content="生活，我们是认真的！">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Shining Moon">
 <meta property="og:url" content="http://yoursite.com/page/3/index.html">
 <meta property="og:site_name" content="Shining Moon">
-<meta property="og:description" content="写代码，我们是认真的！">
+<meta property="og:description" content="生活，我们是认真的！">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shining Moon">
-<meta name="twitter:description" content="写代码，我们是认真的！">
+<meta name="twitter:description" content="生活，我们是认真的！">
 
 
 
@@ -250,6 +250,505 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/12/E01-ajax-http协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/12/E01-ajax-http协议/" itemprop="url">
+                  http协议
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-12T00:00:00+08:00">
+                2016-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/http/" itemprop="url" rel="index">
+                    <span itemprop="name">http</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h1><ul>
+<li>http协议是W3C制定的。用来约束客户端浏览器与web服务器进行通讯的数据格式</li>
+<li>http协议的数据格式分为两种，一种是请求，一种是响应</li>
+</ul>
+<h2 id="请求报文（客户端—–-gt-服务器）"><a href="#请求报文（客户端—–-gt-服务器）" class="headerlink" title="请求报文（客户端—–&gt;服务器）"></a>请求报文（客户端—–&gt;服务器）</h2><ul>
+<li>由请求首行、请求头、请求空行、请求体组成</li>
+<li>常见的请求有两种：get和post<h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3></li>
+<li>GET /day08/code/01http/01get.html HTTP/1.1<ul>
+<li>请求首行：请求的方式  要访问的资源的地址  协议版本</li>
+</ul>
+</li>
+<li><strong>以下部分全部为请求头 </strong><ul>
+<li>Host127.0.0.1</li>
+</ul>
+</li>
+<li>请求的主机名 允许多个域名同处一个IP地址，即虚拟主机<ul>
+<li>Cache-Controlmax-age=0</li>
+<li>这个做缓存控制的.</li>
+<li>Upgrade-Insecure-Requests1</li>
+</ul>
+</li>
+<li>User-Agent    Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36<ul>
+<li>客户端浏览器的版本，操作系统的版本信息</li>
+</ul>
+</li>
+<li>Accept     text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,<em>/</em>;q=0.8<ul>
+<li>接收，告诉服务器，客户端可以接收的数据格式.</li>
+<li>Referer<a href="http://127.0.0.1/day08/code/01http/Accept-Encodinggzip" target="_blank" rel="external">http://127.0.0.1/day08/code/01http/Accept-Encodinggzip</a>, deflate, sdch</li>
+<li>客户端接收的压缩格式</li>
+<li>Accept-Languagezh-CN,zh;q=0.8</li>
+<li>客户端接收的语言</li>
+<li>If-None-Match”7700000000217a-96-548afe60e947a”   If-Modified-SinceFri, 17 Feb 2017 01:33:19 GMT</li>
+</ul>
+</li>
+</ul>
+<h3 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h3><ul>
+<li>POST  /day08/code/01http/02post.php HTTP/1.1<ul>
+<li>请求首行:请求的方式  要访问的资源的地址</li>
+</ul>
+</li>
+<li><strong>以下为请求头</strong></li>
+<li>Host: 127.0.0.1<ul>
+<li>请求的主机名</li>
+</ul>
+</li>
+<li>Content-Length: 21<ul>
+<li>内容长度，指的 请求体的长度</li>
+</ul>
+</li>
+<li>Cache-Control: max-age=0<ul>
+<li>缓存的</li>
+</ul>
+</li>
+<li>Origin: <a href="http://127.0.0.1" target="_blank" rel="external">http://127.0.0.1</a><ul>
+<li>只存在于post请求    </li>
+<li>浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。</li>
+<li>Origin字段用来说明，本次请求来自哪个源（协议 + 域名 + 端口）。服务器根据响应头Access-Control-Allow-Origin中有没有该字段，决定是否同意这次请求。</li>
+</ul>
+</li>
+<li>Upgrade-Insecure-Requests: 1</li>
+<li>User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36<ul>
+<li>客户端浏览器的版本，操作系统的版本信息</li>
+</ul>
+</li>
+<li>Content-Type: application/x-www-form-urlencoded<ul>
+<li>这个是post 提交独有第一个请求头，如果发送到服务器的数据有中文，会把中文进行编码</li>
+<li><strong>在使用ajax发送post请求时，需要设置该请求头。设置为application/x-www-form-urlencoded时，要以key=value&amp;key=value的格式发送数据；设置为application/json时，要以json的格式发送数据</strong></li>
+<li>在发送给服务器，服务器得到数据会自动解码.</li>
+</ul>
+</li>
+<li>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,<em>/</em>;q=0.8<ul>
+<li>接收的数据格式</li>
+</ul>
+</li>
+<li>Referer: <a href="http://127.0.0.1/day08/code/01http/02post.htm" target="_blank" rel="external">http://127.0.0.1/day08/code/01http/02post.htm</a><ul>
+<li>告诉服务器，请求来自于那个页面，服务器借此可以获得一些信息用于处理</li>
+<li>比如从我主页上链接到一个朋友那里，他的服务器就能够从HTTP Referer中统计出每天有多少用户点击我主页上的链接访问他的网站</li>
+</ul>
+</li>
+<li>Accept-Encoding: gzip, deflate<ul>
+<li>客户端接收压缩格式</li>
+</ul>
+</li>
+<li>Accept-Language: zh-CN,zh;q=0.8<ul>
+<li>客户端接收的语言</li>
+</ul>
+</li>
+<li>​<ul>
+<li>请求空行 【用来将请求头跟请求体进行一个区分，方便服务器解析数据】</li>
+</ul>
+</li>
+<li>username=dasfadsfdafs<ul>
+<li>请求体【客户端发送到服务器的数据.】</li>
+</ul>
+</li>
+</ul>
+<h2 id="响应报文-服务器—-gt-客户端"><a href="#响应报文-服务器—-gt-客户端" class="headerlink" title="响应报文(服务器—-&gt;客户端)"></a>响应报文(服务器—-&gt;客户端)</h2><ul>
+<li><p>由响应首行、响应头、响应空行、响应体组成</p>
+</li>
+<li><p>HTTP/1.1 200 OK</p>
+<ul>
+<li>请求首行：协议版本  状态码</li>
+<li><strong>以下为响应头</strong></li>
+</ul>
+</li>
+<li>Date: Fri, 17 Feb 2017 01:35:58 GMT<ul>
+<li>响应头 告诉客户端服务器端的时间.</li>
+</ul>
+</li>
+<li>Server: Apache/2.2.21 (Win32) PHP/5.3.10<ul>
+<li>告诉客户端服务器的版本</li>
+</ul>
+</li>
+<li>Last-Modified: Fri, 17 Feb 2017 01:33:19 GMT<ul>
+<li>文件的最后修改时间</li>
+</ul>
+</li>
+<li>If-Modified-Since:Fri, 17 Feb 2017 01:33:19 GMT<ul>
+<li>如果两次请求之间If-Modified-Since和 Last-Modified的值相同，服务器就会给客户端一个304的状态码，代表请求的资源没有发生改变，会从本地缓存中获取数据</li>
+</ul>
+</li>
+<li>ETag: “7700000000217a-96-548afe60e947a”</li>
+<li>Accept-Ranges: bytes</li>
+<li>Content-Length: 150<ul>
+<li>内容的长度</li>
+</ul>
+</li>
+<li>Content-Type: text/html;<ul>
+<li>内容类型，告诉客户端浏览器，我给你返回的是一个文本，html 格式的文本,</li>
+<li>客户端浏览器得到这个，就会以html 的方式去解析.</li>
+</ul>
+</li>
+<li><p>header(“Content-Type:text/html;charset=utf-8”)</p>
+<ul>
+<li>响应空行<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">     中文</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>响应体</p>
+</li>
+</ul>
+<h2 id="GET和POST请求的区别"><a href="#GET和POST请求的区别" class="headerlink" title="GET和POST请求的区别"></a>GET和POST请求的区别</h2><ul>
+<li>1、get请求的参数写在地址栏中，信息不安全，并且对数据的大小有限制</li>
+<li>2、get请求没有请求体</li>
+<li>3、get请求报文中信息较少，相对于post请求性能较高</li>
+<li>4、post请求的参数在请求体中，相对安全</li>
+<li>5、post请求对数据的大小没有限制</li>
+<li>6、post 请求有一个特殊的请求头: Content-Type:application/x-www-form-urlencoded 可以对请求的数据包含中文的数据进行编码.</li>
+</ul>
+<h2 id="Origin和Referer的区别"><a href="#Origin和Referer的区别" class="headerlink" title="Origin和Referer的区别"></a>Origin和Referer的区别</h2><ul>
+<li>origin中只包含请求的主机名</li>
+<li>referer包含请求的URL路径和请求内容</li>
+<li>origin比referer对信息的保密性强</li>
+<li>origin只存在于post请求中，referer可以存在于所有的请求类型中</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/10/D02-移动web-bootstrap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/10/D02-移动web-bootstrap/" itemprop="url">
+                  Bootstrap
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-10T00:00:00+08:00">
+                2016-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/bootstrap/" itemprop="url" rel="index">
+                    <span itemprop="name">bootstrap</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="bootstrap"><a href="#bootstrap" class="headerlink" title="bootstrap"></a>bootstrap</h2><ul>
+<li>bootstrap是一款css框架，用于开发响应式布局</li>
+<li>主要原理：媒体查询<h2 id="bootstrap常用样式"><a href="#bootstrap常用样式" class="headerlink" title="bootstrap常用样式"></a>bootstrap常用样式</h2><h3 id="container类"><a href="#container类" class="headerlink" title="container类"></a>container类</h3></li>
+<li><p>用于定义一个固定宽度且居中的版心</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"topbar"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--</span></div><div class="line">      此处的代码会显示在一个固定宽度且居中的容器中</div><div class="line">      该容器的宽度会跟随屏幕的变化而变化</div><div class="line">    --&gt;</div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>container-fluid: 用于定义一个宽度为100%的容器</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"topbar"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container-fluid"</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--</span></div><div class="line">      此处的代码会显示在一个固定宽度且居中的容器中</div><div class="line">      该容器的宽度会跟随屏幕的变化而变化</div><div class="line">    --&gt;</div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="栅格系统"><a href="#栅格系统" class="headerlink" title="栅格系统"></a>栅格系统</h2><ul>
+<li>Bootstrap中定义了一套响应式的网格系统，</li>
+<li>其使用方式就是将一个容器划分成12列，</li>
+<li>然后通过col-xx-xx的类名控制每一列的占比<h3 id="row类"><a href="#row类" class="headerlink" title="row类"></a>row类</h3></li>
+<li>因为每一个列默认有一个15px的左右外边距</li>
+<li>row类的一个作用就是通过左右-15px的外边距屏蔽掉这个边距<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">	.row&#123;</div><div class="line">      margin-left:-15px;</div><div class="line">      margin-right:-15px;</div><div class="line">	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="col-xx-xx类"><a href="#col-xx-xx类" class="headerlink" title="col-xx-xx类"></a>col-xx-xx类</h3><ul>
+<li>col-xs-[列数]：在超小屏幕下展示几份</li>
+<li>col-sm-[列数]：在小屏幕下展示几份</li>
+<li>col-md-[列数]：在中等屏幕下展示几份</li>
+<li>col-lg-[列数]：在大屏幕下展示几份</li>
+<li><strong>xs</strong> : 超小屏幕 手机 (&lt;768px)  </li>
+<li><strong>sm</strong> : 小屏幕 平板 (≥768px) </li>
+<li><strong>md</strong> : 中等屏幕 桌面显示器 (≥992px) </li>
+<li><strong>lg</strong> : 大屏幕 大桌面显示器 (≥1200px)<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-5"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><ul>
+<li><strong>列嵌套</strong><ul>
+<li>列中可以再嵌套列，可以多层嵌套</li>
+</ul>
+</li>
+<li><strong>列偏移</strong><ul>
+<li>col-xs-offset-n: 向右偏移几份</li>
+</ul>
+</li>
+<li><strong>列排序</strong><ul>
+<li>可以在不改变页面结构的情况下进行布局</li>
+<li>col-xs-push-n: 向后推几份</li>
+<li>col-xs-pull-n: 向前拉几份<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">	.container&#123;</div><div class="line">  		height: 300px;</div><div class="line">  		background: red;</div><div class="line">  	&#125;</div><div class="line">    .row&#123;</div><div class="line">    	height: 100px;</div><div class="line">    &#125;</div><div class="line">    .col-md-4&#123;</div><div class="line">     	height: 100px;</div><div class="line">      	border:1px solid white;</div><div class="line">      	background: #ff0;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">    .row .row&#123;</div><div class="line">    	height: 50px;</div><div class="line">    	background: hotpink;</div><div class="line">    &#125;</div><div class="line">    .row .row&gt;div&#123;</div><div class="line">    	height: 50px;</div><div class="line">    	background: darkorchid;</div><div class="line">    	border: 1px solid #ccc;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span></div><div class="line">    	<span class="comment">&lt;!--列嵌套--&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-4"</span>&gt;</span></div><div class="line">    		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span></div><div class="line">    			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-xs-6"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-xs-6"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    	<span class="comment">&lt;!--列偏移--&gt;</span></div><div class="line">   		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-4"</span>&gt;</span></div><div class="line">    		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span></div><div class="line">    			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-xs-6"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    			<span class="comment">&lt;!--向右偏移--&gt;</span></div><div class="line">    			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-xs-4 col-xs-offset-1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    	<span class="comment">&lt;!--列排序--&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-4"</span>&gt;</span></div><div class="line">    		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span></div><div class="line">    			<span class="comment">&lt;!--向后推--&gt;</span></div><div class="line">    			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-xs-9 col-xs-push-3"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    			<span class="comment">&lt;!--向前拉--&gt;</span></div><div class="line">    			<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-xs-3 col-xs-pull-9"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="字体图标"><a href="#字体图标" class="headerlink" title="字体图标"></a>字体图标</h2><ul>
+<li>不能直接在标签内写代表某个图标的字符</li>
+<li>需要写在伪类的content中</li>
+<li>使用方法和FontAwesome相同</li>
+<li>制作字体图标的网站：icomoon</li>
+<li>具体使用方法如下<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">/*自定义第三方字体*/</div><div class="line">  @font-face &#123;</div><div class="line">    /*自定义字体名称*/</div><div class="line">      font-family: 'myFont';</div><div class="line">      src: url('../font/MiFie-Web-Font.eot') format('embedded-opentype'), </div><div class="line">      url('../font/MiFie-Web-Font.svg') format('svg'), </div><div class="line">      url('../font/MiFie-Web-Font.ttf') format('truetype'), </div><div class="line">      url('../font/MiFie-Web-Font.woff') format('woff');</div><div class="line">  &#125;</div><div class="line">  /*声明图标字体*/</div><div class="line">  .myFont&#123;</div><div class="line">    	font-family:"myFont";</div><div class="line">  &#125;</div><div class="line">  .myFont-phone::before&#123;</div><div class="line">  		/*代表图标的字符*/</div><div class="line">   		content:"\e908";</div><div class="line">  &#125;</div><div class="line">  .myFont-tel::before&#123;</div><div class="line">    	content:"\e909";</div><div class="line">  &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">		<span class="comment">&lt;!--使用类名显示图标字体--&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"myFont myFont-phone"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"myFont myFont-tel"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="字体文件格式"><a href="#字体文件格式" class="headerlink" title="字体文件格式"></a>字体文件格式</h3><ul>
+<li>eot : embedded-opentype</li>
+<li>svg : svg</li>
+<li>ttf : truetype</li>
+<li>woff : woff</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1228,7 +1727,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/03/C01-HTML5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/05/C01-HTML5 高级API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qcyue">
@@ -1250,8 +1749,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/04/03/C01-HTML5/" itemprop="url">
-                  HTML5
+                <a class="post-title-link" href="/2016/04/05/C01-HTML5 高级API/" itemprop="url">
+                  HTML5高级API
                 </a>
               
             
@@ -1267,8 +1766,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-03T00:00:00+08:00">
-                2016-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-05T00:00:00+08:00">
+                2016-04-05
               </time>
             
 
@@ -1277,6 +1776,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTML5/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -1305,61 +1826,7 @@
       
         
           
-            <h1 id="HTML5新增标签及属性"><a href="#HTML5新增标签及属性" class="headerlink" title="HTML5新增标签及属性"></a>HTML5新增标签及属性</h1><ul>
-<li>1.<code>&lt;doctype&gt;</code>不是标签，是一种文档声明，告诉浏览器按照哪种规则解析</li>
-<li>2.新增语义标签：header  footer等<h2 id="新增语义标签兼容低版本IE"><a href="#新增语义标签兼容低版本IE" class="headerlink" title="新增语义标签兼容低版本IE"></a>新增语义标签兼容低版本IE</h2></li>
-<li>1.第一种：使用原生js创建标签，添加到页面中</li>
-<li><strong>注意：</strong>标签创建完成后必须使其<code>display=block</code></li>
-<li>示例：浏览器只有在遇到IE8及以下时才会执行其中的代码</li>
-<li><p><strong>注意:</strong>lte  代表:  less than  equal</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--[if lte IE 8]&gt;</span></div><div class="line">&lt;script&gt;</div><div class="line">  var header = document.createElement("header");</div><div class="line">  //必须设置display</div><div class="line">  header.style.display = "block";</div><div class="line">  document.body.appendChild(header);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;![endif]--&gt;</div></pre></td></tr></table></figure>
-</li>
-<li><p>2.第二种：外部引入js库实现兼容</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--[if lte IE 8]&gt;</span></div><div class="line">  &lt;script src="html5shiv.min.js"&gt;&lt;/script&gt;</div><div class="line">&lt;!--&lt;![endif]&amp;ndash;&amp;gt;--&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 多媒体标签  audio  vedio</div><div class="line">* vedio:属性：</div><div class="line">	* controls控制器</div><div class="line">  	* autoplay：自动播放</div><div class="line">  	* loop:循环播放</div><div class="line">  	* width/height:不会拉伸视频</div><div class="line">  	* 可以vedio标签中使用source标签同时指定多个视频，目的是为了兼容浏览器</div><div class="line">```html</div><div class="line">* 示例：</div><div class="line">  &lt;video autoplay controls&gt;</div><div class="line">   &lt;source src=&quot;movie/rabbit.ogg&quot; type=&quot;&quot;&gt;</div><div class="line">   &lt;source src=&quot;movie/move11.mp4&quot; type=&quot;&quot;&gt;</div><div class="line">   亲,您的浏览器版本过低，建议更新观看</div><div class="line">  &lt;/video&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>多媒体标签可以直接被用户另存为</li>
-</ul>
-<h2 id="HTML5表单"><a href="#HTML5表单" class="headerlink" title="HTML5表单"></a>HTML5表单</h2><h3 id="表单新属性"><a href="#表单新属性" class="headerlink" title="表单新属性"></a>表单新属性</h3><ul>
-<li>color      拾取颜色</li>
-<li>date  设置日期</li>
-<li>range范围  0-100</li>
-<li>number数字</li>
-<li>tel  email   search 这三个属性在PC端没有明显变化，但是在移动端会根据属性的不同改变键盘 email： @    tel： 九宫格数字键盘  search： 右下角是搜索或者是放大镜的外观<h3 id="表单新元素"><a href="#表单新元素" class="headerlink" title="表单新元素"></a>表单新元素</h3></li>
-<li><code>&lt;output&gt;&lt;/output&gt;</code> 用于接收输出数据，仅仅是增强了语义（可以使用span代替）</li>
-<li><code>&lt;keygen/&gt;</code> 密钥</li>
-<li><p><code>&lt;datalist&gt;&lt;/datalist&gt;</code>  不能单独使用，需要配合输入使用 输入框通过list属性跟 datalist的id进行关联  选中的是option的value值<br>示例：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">list</span>=<span class="string">"foodlist"</span> &gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">'foodlist'</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"vegetable"</span>&gt;</span>西兰花<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"beef"</span>&gt;</span>牛肉<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">   	<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"rice"</span>&gt;</span>泰国香米<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>注意：</strong> 以上三种基本不用</p>
-</li>
-<li>两种进度条：<br> <code>&lt;meter value=&quot;.5&quot;&gt;&lt;/meter&gt;</code><br> <code>&lt;progress value=&quot;50&quot; max=&quot;100&quot;&gt;&lt;/progress&gt;</code>  需要设置value和max才能显示百分比</li>
-<li><strong>注意：</strong> 使用进度条时，一般都是自定义<h3 id="表单验证"><a href="#表单验证" class="headerlink" title="表单验证"></a>表单验证</h3></li>
-<li>表单的非空验证： required </li>
-<li>type = email 自带格式验证 必须为邮箱格式</li>
-<li>pattern  自定义验证规则：正则表达式<h3 id="表单中的事件"><a href="#表单中的事件" class="headerlink" title="表单中的事件"></a>表单中的事件</h3></li>
-<li><p>onchange 事件 会在元素的值发生改变的时候触发 会在变化停止后触发<br>示例：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"range"</span>  <span class="attr">id</span>=<span class="string">'myRange'</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'output'</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> 	<span class="keyword">var</span> rangeDom = <span class="built_in">document</span>.getElementById(<span class="string">'myRange'</span>);</div><div class="line">  	rangeDom.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   	 	<span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">  	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>oninput 事件会在用户输入时触发  会一直触发</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rangeDom.oninput = function()&#123;</div><div class="line">    console.log('我正在输入');</div><div class="line">    console.log(this.value);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>oninvalid 元素验证失败会触发  需要绑定给对应的表单元素<br>示例：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"tel"</span> <span class="attr">placeholder</span>=<span class="string">"手机号"</span> <span class="attr">pattern</span>=<span class="string">"\d&#123;4&#125;"</span> <span class="attr">id</span>=<span class="string">'tel'</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> 	<span class="built_in">document</span>.getElementById(<span class="string">'tel'</span>).oninvalid = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   		<span class="built_in">console</span>.log(<span class="string">'验证失败'</span>);</div><div class="line">    	<span class="keyword">this</span>.setCustomValidity(<span class="string">'请输入手机号'</span>);</div><div class="line"> 	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="HTML5-DOM操作扩展"><a href="#HTML5-DOM操作扩展" class="headerlink" title="HTML5 DOM操作扩展"></a>HTML5 DOM操作扩展</h2><ul>
-<li>document.querySelector() 传入的参数是选择器 还有CSS3的选择器  获取的是满足条件的第一个元素</li>
-<li>document.querySelectorAll()  获取的是一个数组<h2 id="HTML5-操作类样式"><a href="#HTML5-操作类样式" class="headerlink" title="HTML5  操作类样式"></a>HTML5  操作类样式</h2>DOM对象.classList 获取到的是一个对象</li>
-<li>方法：add()增加类样式<br>remove() 删除类样式<br>contains() 判断类样式是否存在<br>toggle() 切换类样式，有则删除，无则添加<h2 id="HTML5-自定义属性"><a href="#HTML5-自定义属性" class="headerlink" title="HTML5 自定义属性"></a>HTML5 自定义属性</h2></li>
-<li>推荐使用“data-”</li>
-<li>使用data时，如果定义的时候使用了大写字母获取的时候会变成小写,我们需要通过小写字母来获取</li>
-<li>我们使用 多个 <code>-</code> 进行分割，获取时需要使用驼峰标识<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">data-sex</span>=<span class="string">'girl'</span> <span class="attr">data-boyFriend</span>=<span class="string">'佐助'</span> <span class="attr">data-mother</span>=<span class="string">'泰罗奥特曼'</span> 		<span class="attr">data-cloth-green</span>=<span class="string">'绿裙子.绿鞋子,绿手套'</span> <span class="attr">data-cloth-red</span>=<span class="string">'红裙子,红裤子...'</span>&gt;</span>	   娜美<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	nameiLi = <span class="built_in">document</span>.querySelector(<span class="string">"li"</span>);</div><div class="line">	<span class="built_in">console</span>.log(nameiLi.dataset); <span class="comment">//dataset对象中包含中自定义的属性的内容</span></div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.mother);</div><div class="line">	<span class="built_in">console</span>.log(nameiLi.dataset.boyFriend);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.boyfriend);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.clothGreen);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset[<span class="string">'clothGreen'</span>]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="HTMl5高级API"><a href="#HTMl5高级API" class="headerlink" title="HTMl5高级API"></a>HTMl5高级API</h1><h2 id="全屏效果"><a href="#全屏效果" class="headerlink" title="全屏效果"></a>全屏效果</h2><ul>
+            <h1 id="HTMl5高级API"><a href="#HTMl5高级API" class="headerlink" title="HTMl5高级API"></a>HTMl5高级API</h1><h2 id="全屏效果"><a href="#全屏效果" class="headerlink" title="全屏效果"></a>全屏效果</h2><ul>
 <li><strong>requestFullScreen()方法;</strong></li>
 <li>该方法目前还处于测试阶段，要想正常使用必须添加前缀</li>
 <li>不同的浏览器的渲染效果不同</li>
@@ -1434,6 +1901,202 @@
 <li>video元素的属性</li>
 <li>currentTime： 当前的播放时间</li>
 <li>duration: 视频的总时长</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/03/C01-HTML5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/04/03/C01-HTML5/" itemprop="url">
+                  HTML5新增标签及属性
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-03T00:00:00+08:00">
+                2016-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTML5/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="HTML5新增标签及属性"><a href="#HTML5新增标签及属性" class="headerlink" title="HTML5新增标签及属性"></a>HTML5新增标签及属性</h1><ul>
+<li>1.<code>&lt;doctype&gt;</code>不是标签，是一种文档声明，告诉浏览器按照哪种规则解析</li>
+<li>2.新增语义标签：header  footer等<h2 id="新增语义标签兼容低版本IE"><a href="#新增语义标签兼容低版本IE" class="headerlink" title="新增语义标签兼容低版本IE"></a>新增语义标签兼容低版本IE</h2></li>
+<li>1.第一种：使用原生js创建标签，添加到页面中</li>
+<li><strong>注意：</strong>标签创建完成后必须使其<code>display=block</code></li>
+<li>示例：浏览器只有在遇到IE8及以下时才会执行其中的代码</li>
+<li><p><strong>注意:</strong>lte  代表:  less than  equal</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--[if lte IE 8]&gt;</span></div><div class="line">&lt;script&gt;</div><div class="line">  var header = document.createElement("header");</div><div class="line">  //必须设置display</div><div class="line">  header.style.display = "block";</div><div class="line">  document.body.appendChild(header);</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;![endif]--&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>2.第二种：外部引入js库实现兼容</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--[if lte IE 8]&gt;</span></div><div class="line">  &lt;script src="html5shiv.min.js"&gt;&lt;/script&gt;</div><div class="line">&lt;!--&lt;![endif]&amp;ndash;&amp;gt;--&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 多媒体标签  audio  vedio</div><div class="line">* vedio:属性：</div><div class="line">	* controls控制器</div><div class="line">  	* autoplay：自动播放</div><div class="line">  	* loop:循环播放</div><div class="line">  	* width/height:不会拉伸视频</div><div class="line">  	* 可以vedio标签中使用source标签同时指定多个视频，目的是为了兼容浏览器</div><div class="line">* 示例：</div><div class="line">​```html</div><div class="line">  &lt;video autoplay controls&gt;</div><div class="line">   &lt;source src=&quot;movie/rabbit.ogg&quot; type=&quot;&quot;&gt;</div><div class="line">   &lt;source src=&quot;movie/move11.mp4&quot; type=&quot;&quot;&gt;</div><div class="line">   亲,您的浏览器版本过低，建议更新观看</div><div class="line">  &lt;/video&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>多媒体标签可以直接被用户另存为</li>
+</ul>
+<h2 id="HTML5表单"><a href="#HTML5表单" class="headerlink" title="HTML5表单"></a>HTML5表单</h2><h3 id="表单新属性"><a href="#表单新属性" class="headerlink" title="表单新属性"></a>表单新属性</h3><ul>
+<li>color      拾取颜色</li>
+<li>date  设置日期</li>
+<li>range范围  0-100</li>
+<li>number数字</li>
+<li>tel  email   search 这三个属性在PC端没有明显变化，但是在移动端会根据属性的不同改变键盘 email： @    tel： 九宫格数字键盘  search： 右下角是搜索或者是放大镜的外观<h3 id="表单新元素"><a href="#表单新元素" class="headerlink" title="表单新元素"></a>表单新元素</h3></li>
+<li><code>&lt;output&gt;&lt;/output&gt;</code> 用于接收输出数据，仅仅是增强了语义（可以使用span代替）</li>
+<li><code>&lt;keygen/&gt;</code> 密钥</li>
+<li><p><code>&lt;datalist&gt;&lt;/datalist&gt;</code>  不能单独使用，需要配合输入使用 输入框通过list属性跟 datalist的id进行关联  选中的是option的value值<br>示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">list</span>=<span class="string">"foodlist"</span> &gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">'foodlist'</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"vegetable"</span>&gt;</span>西兰花<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"beef"</span>&gt;</span>牛肉<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">   	<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"rice"</span>&gt;</span>泰国香米<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意：</strong> 以上三种基本不用</p>
+</li>
+<li>两种进度条：<br> <code>&lt;meter value=&quot;.5&quot;&gt;&lt;/meter&gt;</code><br> <code>&lt;progress value=&quot;50&quot; max=&quot;100&quot;&gt;&lt;/progress&gt;</code>  需要设置value和max才能显示百分比</li>
+<li><strong>注意：</strong> 使用进度条时，一般都是自定义<h3 id="表单验证"><a href="#表单验证" class="headerlink" title="表单验证"></a>表单验证</h3></li>
+<li>表单的非空验证： required </li>
+<li>type = email 自带格式验证 必须为邮箱格式</li>
+<li>pattern  自定义验证规则：正则表达式<h3 id="表单中的事件"><a href="#表单中的事件" class="headerlink" title="表单中的事件"></a>表单中的事件</h3></li>
+<li><p>onchange 事件 会在元素的值发生改变的时候触发 会在变化停止后触发<br>示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"range"</span>  <span class="attr">id</span>=<span class="string">'myRange'</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'output'</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> 	<span class="keyword">var</span> rangeDom = <span class="built_in">document</span>.getElementById(<span class="string">'myRange'</span>);</div><div class="line">  	rangeDom.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   	 	<span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</div><div class="line">  	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>oninput 事件会在用户输入时触发  会一直触发</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rangeDom.oninput = function()&#123;</div><div class="line">    console.log('我正在输入');</div><div class="line">    console.log(this.value);</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>oninvalid 元素验证失败会触发  需要绑定给对应的表单元素<br>示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"tel"</span> <span class="attr">placeholder</span>=<span class="string">"手机号"</span> <span class="attr">pattern</span>=<span class="string">"\d&#123;4&#125;"</span> <span class="attr">id</span>=<span class="string">'tel'</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> 	<span class="built_in">document</span>.getElementById(<span class="string">'tel'</span>).oninvalid = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   		<span class="built_in">console</span>.log(<span class="string">'验证失败'</span>);</div><div class="line">    	<span class="keyword">this</span>.setCustomValidity(<span class="string">'请输入手机号'</span>);</div><div class="line"> 	&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="HTML5-DOM操作扩展"><a href="#HTML5-DOM操作扩展" class="headerlink" title="HTML5 DOM操作扩展"></a>HTML5 DOM操作扩展</h2><ul>
+<li>document.querySelector() 传入的参数是选择器 还有CSS3的选择器  获取的是满足条件的第一个元素</li>
+<li>document.querySelectorAll()  获取的是一个数组<h2 id="HTML5-操作类样式"><a href="#HTML5-操作类样式" class="headerlink" title="HTML5  操作类样式"></a>HTML5  操作类样式</h2>DOM对象.classList 获取到的是一个对象</li>
+<li>方法：add()增加类样式<br>remove() 删除类样式<br>contains() 判断类样式是否存在<br>toggle() 切换类样式，有则删除，无则添加<h2 id="HTML5-自定义属性"><a href="#HTML5-自定义属性" class="headerlink" title="HTML5 自定义属性"></a>HTML5 自定义属性</h2></li>
+<li>推荐使用“data-”</li>
+<li>使用data时，如果定义的时候使用了大写字母获取的时候会变成小写,我们需要通过小写字母来获取</li>
+<li>我们使用 多个 <code>-</code> 进行分割，获取时需要使用驼峰标识<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">li</span> <span class="attr">data-sex</span>=<span class="string">'girl'</span> <span class="attr">data-boyFriend</span>=<span class="string">'佐助'</span> <span class="attr">data-mother</span>=<span class="string">'泰罗奥特曼'</span> 		<span class="attr">data-cloth-green</span>=<span class="string">'绿裙子.绿鞋子,绿手套'</span> <span class="attr">data-cloth-red</span>=<span class="string">'红裙子,红裤子...'</span>&gt;</span>	   娜美<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	nameiLi = <span class="built_in">document</span>.querySelector(<span class="string">"li"</span>);</div><div class="line">	<span class="built_in">console</span>.log(nameiLi.dataset); <span class="comment">//dataset对象中包含中自定义的属性的内容</span></div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.mother);</div><div class="line">	<span class="built_in">console</span>.log(nameiLi.dataset.boyFriend);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.boyfriend);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset.clothGreen);</div><div class="line"> 	<span class="built_in">console</span>.log(nameiLi.dataset[<span class="string">'clothGreen'</span>]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
 </ul>
 
           
@@ -1665,385 +2328,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/20/B02-正则表达式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/20/B02-正则表达式/" itemprop="url">
-                  正则表达式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-20T00:00:00+08:00">
-                2016-03-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><ul>
-<li>匹配字符串</li>
-<li>将字符串中的数组找出来，并且存到数组中<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"ahdjdg123fagsv432dasf4231gayf54ahsdv"</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNumber</span>(<span class="params">str</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> arr = [];</div><div class="line">  <span class="keyword">if</span>(str)&#123;</div><div class="line">      <span class="keyword">var</span> temp = <span class="string">""</span>;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;str.length;i++)&#123;</div><div class="line">          <span class="keyword">var</span> char = str.charAt(i);</div><div class="line">          <span class="keyword">if</span>(char&gt;=<span class="number">0</span>&amp;&amp;char&lt;=<span class="number">9</span>)&#123;</div><div class="line">              temp+=char;</div><div class="line">          &#125;<span class="keyword">else</span>&#123;</div><div class="line">              <span class="keyword">if</span>(temp)&#123;</div><div class="line">                  arr.push(temp);</div><div class="line">                  temp = <span class="string">""</span>;</div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="comment">//最后是数字的判断</span></div><div class="line">    <span class="comment">//如果最后是数字，在循环完毕后只是将数字存进了临时变量temp中，并没有放进数组中</span></div><div class="line">      <span class="keyword">if</span>(temp)&#123;</div><div class="line">          arr.push(temp);</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> arr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result = getNumber(str);</div><div class="line"><span class="built_in">console</span>.log(result);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h2><h3 id="正则对象中的API"><a href="#正则对象中的API" class="headerlink" title="正则对象中的API"></a>正则对象中的API</h3><ul>
-<li><p>test()： 匹配成功则返回true，匹配失败返回false</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d/</span>;</div><div class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"123"</span>));<span class="comment">//true</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>exec()：返回一个数组，数组中只显示匹配成功的第一个元素</p>
-<ul>
-<li>数组中有两个属性：index，匹配到的元素的索引；input，进行匹配的字符串 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"sgfsdfkgbal4232hiesothear4523hfbasiegru"</span>;</div><div class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d+/g</span>;</div><div class="line"><span class="comment">//只返回第一次匹配到的结果</span></div><div class="line"><span class="keyword">var</span> ret =  reg.exec(str);</div><div class="line"><span class="built_in">console</span>.log(ret);</div><div class="line"><span class="comment">//["4232", index: 11, input: "sgfsdfkgbal4232hiesothear4523hfbasiegru"]</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p><strong> 如果想要全局匹配,可以使用exec进行遍历</strong></p>
-</li>
-<li><strong>在非全局匹配模式下，exec()和字符串的match()方法作用相同</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"sgfsdfkgbal4232hieso764thear4523hfbasiegru"</span>;</div><div class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d+/g</span>;</div><div class="line"><span class="keyword">while</span> ((result = reg.exec(str))!=<span class="literal">null</span>)&#123;</div><div class="line">	<span class="built_in">console</span>.log(result);</div><div class="line">&#125;</div><div class="line"><span class="comment">//["4232", index: 11, input:"sgfsdfkgbal4232hieso764thear4523hfbasiegru"]</span></div><div class="line"><span class="comment">//["764",index:20,input:"sgfsdfkgbal4232hieso764thear4523hfbasiegru"]</span></div><div class="line"><span class="comment">//["4523", index: 28, input:"sgfsdfkgbal4232hieso764thear4523hfbasiegru"]</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="字符串中的API"><a href="#字符串中的API" class="headerlink" title="字符串中的API"></a>字符串中的API</h3><ul>
-<li><p>match()：返回匹配成功的数据</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"ahdjdg123fagsv432dasf4231gayf54ahsdv"</span>;</div><div class="line"><span class="comment">//全局模式下</span></div><div class="line"><span class="built_in">console</span>.log(str.match(<span class="regexp">/\d+/g</span>));</div><div class="line"><span class="comment">//["4232", "764", "4523"]</span></div><div class="line"><span class="comment">//非全局模式,返回的结果与exec相同</span></div><div class="line"><span class="built_in">console</span>.log(str.match(<span class="regexp">/\d+/</span>));</div><div class="line"><span class="comment">//["4232", index: 11, input:"sgfsdfkgbal4232hieso764thear4523hfbasiegru"]</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>replace()：字符串替换，不修改原来的字符串，返回替换后的字符串</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"sgfsdfkgbal4232hiesothear4523hfbasiegru"</span>;</div><div class="line">str = str.replace(<span class="regexp">/\d+/g</span>,<span class="string">"***"</span>);</div><div class="line"><span class="built_in">console</span>.log(str);</div><div class="line"><span class="comment">//sgfsdfkgbal***hiesothear***hfbasiegru</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>split()：分隔字符串，返回数组</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">'zhangsan:12:male;lisi:13:female'</span>;</div><div class="line"><span class="keyword">var</span> arr = str.split(<span class="string">';'</span>);</div><div class="line"><span class="built_in">console</span>.log(arr);</div><div class="line"><span class="comment">//["zhangsan:12:male", "lisi:13:female"]</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</div><div class="line">	<span class="keyword">var</span> item = arr[i].split(<span class="string">':'</span>);</div><div class="line">	<span class="built_in">console</span>.log(item[<span class="number">0</span>]);</div><div class="line">	<span class="built_in">console</span>.log(item[<span class="number">1</span>]);</div><div class="line">	<span class="built_in">console</span>.log(item[<span class="number">2</span>]);</div><div class="line">&#125;</div><div class="line"><span class="comment">// zhangsan 12 male lisi 13 female</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>search()：返回匹配成功的元素所在的索引</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"javascript is 234the best language"</span>;</div><div class="line"><span class="built_in">console</span>.log(str.search(<span class="regexp">/\d+/</span>));<span class="comment">//14</span></div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/02/B01-三大系列/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/02/B01-三大系列/" itemprop="url">
-                  JS三大系列
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-02T00:00:00+08:00">
-                2016-03-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="三大系列"><a href="#三大系列" class="headerlink" title="三大系列"></a>三大系列</h1><h2 id="client系列"><a href="#client系列" class="headerlink" title="client系列"></a>client系列</h2><ul>
-<li>获取页面可视区域的值</li>
-<li>clientX: 可视区域的横坐标，通过事件对象调用</li>
-<li>clientY: 可视区域的纵坐标，通过事件对象调用</li>
-<li>clientWidth: 对象在可视区域的宽，不包括border，通过对象调用</li>
-<li>clientHeight:  对象在可视区域的高，不包括border，通过对象调用</li>
-</ul>
-<h2 id="scroll系列"><a href="#scroll系列" class="headerlink" title="scroll系列"></a>scroll系列</h2><ul>
-<li>获取页面卷曲的值</li>
-<li>scrollWidth:获取的元素内容的实际宽度(如果元素内容很少，则就是元素的宽度，不包括border；如果有滚动条,则去掉滚动挑的宽度)</li>
-<li>scrollHeight::获取的元素内容的实际高度(如果元素内容很少，则就是元素的高度，不包括border；如果有滚动条,则去掉滚动挑的高度)</li>
-<li>scrollLeft:获取元素向左卷曲出去的距离</li>
-<li>scrollTop:获取元素向上卷曲出去的距离</li>
-<li><strong>获取页面卷曲距离的兼容代码</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//有的浏览器的页面卷曲距离是通过body获取的，有的是通过html获取的，有的是通过浏览器获取的</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getScroll</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">  	<span class="attr">left</span>: <span class="built_in">window</span>.pageXOffset || <span class="built_in">document</span>.body.scrollLeft || 	<span class="built_in">document</span>.documentElement.scrollLeft || <span class="number">0</span>,</div><div class="line">  	<span class="attr">top</span>: <span class="built_in">window</span>.pageYOffset || <span class="built_in">document</span>.body.scrollTop || 	<span class="built_in">document</span>.documentElement.scrollTop || <span class="number">0</span></div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="offset系列"><a href="#offset系列" class="headerlink" title="offset系列"></a>offset系列</h2><ul>
-<li>offsetWidth:获取当前元素的宽度 = width+padding+border</li>
-<li>元素.style.width也是获取当前对象的宽度=width+padding+border；</li>
-<li><strong>区别：</strong></li>
-<li>1、style.width 获取到的值带有单位</li>
-<li>2、如果对象的宽度设置是百分比，无论页面大小如何改变，style.width获取的都是设置的值，offsetWidth获取到的是具体的宽度值</li>
-<li>3、如果没有给html元素设置width样式，style.width获取到的是空字符串<ul>
-<li>offsetHeight: 获取当前元素的高度=hieght+padding+border</li>
-<li>与style.height的区别同offsetWidth</li>
-</ul>
-</li>
-<li>4、如果元素的样式在style标签中设置的，则通过style.width是无法获取到的，只能通过offsetWidth获取</li>
-<li>offsetLeft: 当前元素距离左边的距离<ul>
-<li>不能对其进行赋值，设置对象的left值要使用style.left</li>
-</ul>
-</li>
-<li>offsetTop: 当前元素距离上边的距离</li>
-<li>不能对其进行赋值，设置对象的left值要使用style.top</li>
-<li><strong>offsetLeft和offsetTop细节问题</strong></li>
-<li>当子元素和父元素都没有设置定位的时候，子元素的offsetLeft值是元素左侧相对于body的距离</li>
-<li>当父元素设置了非static和fixed定位时，子元素的offsetLeft值是相对于父元素的距离</li>
-<li>当子元素设置了fixed定位时，子元素的offsetLeft值是相对于body的距离</li>
-<li>当父元素设置了非static和fixed定位时,子元素的offsetLeft值是相对于其非static的父元素的距离<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">  *&#123;</div><div class="line">    margin: 0;</div><div class="line">    padding: 0;</div><div class="line">  &#125;</div><div class="line">  .one&#123;</div><div class="line">    width: 300px;</div><div class="line">    height: 300px;</div><div class="line">    background: yellow;</div><div class="line">    /*position: relative;*/</div><div class="line">    /*left: 100px;*/</div><div class="line">    margin-left: 100px;</div><div class="line">  &#125;</div><div class="line">  .two&#123;</div><div class="line">    width: 100px;</div><div class="line">    height: 100px;</div><div class="line">    background: hotpink;</div><div class="line">    position: absolute;</div><div class="line">    left:  200px;</div><div class="line">  &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"one"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"two"</span> <span class="attr">id</span>=<span class="string">"div"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="keyword">var</span> left = <span class="built_in">document</span>.getElementById(<span class="string">"div"</span>).offsetLeft;</div><div class="line">	<span class="built_in">console</span>.log(left);</div><div class="line">	<span class="comment">/*当id为div的元素的父元素不设置定位时，获取到的值是相对于body的，所以为300*/</span></div><div class="line">    <span class="comment">/*当父元素设置定位时，获取到的是相对于父元素的值，所以为200*/</span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="三大系列补充"><a href="#三大系列补充" class="headerlink" title="三大系列补充"></a>三大系列补充</h2><ul>
-<li>网页可见区域宽： document.body.clientWidth;</li>
-<li>网页可见区域高： document.body.clientHeight;</li>
-<li>网页可见区域宽： document.body.offsetWidth   (包括边线的宽);</li>
-<li>网页可见区域高： document.body.offsetHeight  (包括边线的宽);</li>
-<li>网页正文全文宽： document.body.scrollWidth;</li>
-<li>网页正文全文高： document.body.scrollHeight;</li>
-<li>网页被卷去的高： document.body.scrollTop;</li>
-<li>网页被卷去的左： document.body.scrollLeft;</li>
-<li>网页正文部分上： window.screenTop;</li>
-<li>网页正文部分左： window.screenLeft;</li>
-<li>屏幕分辨率的高： window.screen.height;</li>
-<li>屏幕分辨率的宽： window.screen.width;</li>
-<li>屏幕可用工作区高度： window.screen.availHeight;</li>
-<li>屏幕可用工作区宽度：window.screen.availWidth;</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2080,7 +2369,7 @@
                alt="Qcyue" />
           <p class="site-author-name" itemprop="name">Qcyue</p>
            
-              <p class="site-description motion-element" itemprop="description">写代码，我们是认真的！</p>
+              <p class="site-description motion-element" itemprop="description">生活，我们是认真的！</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -2088,7 +2377,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2099,7 +2388,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

@@ -260,7 +260,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/21/A03-CS6-number/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/20/A01-ES6-let和const/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qcyue">
@@ -282,8 +282,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/02/21/A03-CS6-number/" itemprop="url">
-                  number
+                <a class="post-title-link" href="/2017/02/20/A01-ES6-let和const/" itemprop="url">
+                  let和const
                 </a>
               
             
@@ -299,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T00:00:00+08:00">
-                2017-02-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-20T00:00:00+08:00">
+                2017-02-20
               </time>
             
 
@@ -359,42 +359,33 @@
       
         
           
-            <h1 id="数值的扩展"><a href="#数值的扩展" class="headerlink" title="数值的扩展"></a>数值的扩展</h1><h2 id="Number-isFinite-Number-isNaN"><a href="#Number-isFinite-Number-isNaN" class="headerlink" title="Number.isFinite(), Number.isNaN()"></a>Number.isFinite(), Number.isNaN()</h2><ul>
-<li>ES6在Number对象上，新提供了Number.isFinite()和Number.isNaN()两个方法。</li>
-<li><p>Number.isFinite()用来检查一个数值是否为有限的（finite）。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.isFinite(<span class="number">15</span>); <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isFinite(<span class="literal">NaN</span>); <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isFinite(<span class="literal">Infinity</span>); <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isFinite(<span class="string">'foo'</span>); <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isFinite(<span class="literal">true</span>); <span class="comment">// false</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>ES5可以通过下面的代码，部署Number.isFinite方法。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">global</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> global_isFinite = global.isFinite;</div><div class="line"></div><div class="line">  <span class="built_in">Object</span>.defineProperty(<span class="built_in">Number</span>, <span class="string">'isFinite'</span>, &#123;</div><div class="line">    <span class="attr">value</span>: <span class="function"><span class="keyword">function</span> <span class="title">isFinite</span>(<span class="params">value</span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">typeof</span> value === <span class="string">'number'</span> &amp;&amp; global_isFinite(value);</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">enumerable</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">writable</span>: <span class="literal">true</span></div><div class="line">  &#125;);</div><div class="line">&#125;)(<span class="keyword">this</span>);</div></pre></td></tr></table></figure>
-</li>
-<li><p>Number.isNaN()用来检查一个值是否为NaN。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.isNaN(<span class="literal">NaN</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="number">15</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="string">'15'</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="literal">true</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="number">9</span>/<span class="literal">NaN</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="string">'true'</span>/<span class="number">0</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="string">'true'</span>/<span class="string">'true'</span>) <span class="comment">// true</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>它们与传统的全局方法isFinite()和isNaN()的区别在于，传统方法先调用Number()将非数值的值转为数值，再进行判断，而这两个新方法只对数值有效，Number.isFinite()对于非数值一律返回false, Number.isNaN()只有对于NaN才返回true，非NaN一律返回false。</p>
+            <h1 id="一、let关键字"><a href="#一、let关键字" class="headerlink" title="一、let关键字"></a>一、let关键字</h1><ul>
+<li>let 用来声明变量。</li>
+<li>let声明的变量会创建一个自己的块级作用域，且定义的变量只在自己的块级作用域内起作用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line"><span class="keyword">let</span> str = <span class="string">"abc"</span>;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(str);<span class="comment">//报错，str未定义。因为let声明的变量会产生块级作用域</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="Number-parseInt-Number-parseFloat"><a href="#Number-parseInt-Number-parseFloat" class="headerlink" title="Number.parseInt(), Number.parseFloat()"></a>Number.parseInt(), Number.parseFloat()</h2><ul>
-<li>ES6将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。</li>
-<li>目的：减少全局性的方法，使语言逐步模块化<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.parseInt === <span class="built_in">parseInt</span> <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.parseFloat === <span class="built_in">parseFloat</span> <span class="comment">// true</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//如果使用var声明i会出现以下结果</span></div><div class="line"><span class="keyword">var</span> arr = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line">	arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="comment">//当前的环境下没有i，所以就会向上查找，当找到i时，循环已经结束，此时i=3</span></div><div class="line">		<span class="built_in">console</span>.log(i);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">arr[<span class="number">0</span>]();<span class="comment">//3</span></div><div class="line">arr[<span class="number">1</span>]();<span class="comment">//3</span></div><div class="line">arr[<span class="number">2</span>]();<span class="comment">//3</span></div><div class="line"></div><div class="line"><span class="comment">//使用let声明i时，会出现想要的结果;此时则不用再使用闭包</span></div><div class="line"><span class="keyword">var</span> arr = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line">	arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(i);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">arr[<span class="number">0</span>]();<span class="comment">//0</span></div><div class="line">arr[<span class="number">1</span>]();<span class="comment">//1</span></div><div class="line">arr[<span class="number">2</span>]();<span class="comment">//2</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>let声明的变量不会变量提升</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(n);<span class="comment">//报错，n未定义</span></div><div class="line"><span class="keyword">let</span> n = <span class="number">10</span>;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在一个块级作用域内，不允许重复声明同一变量</p>
+</li>
+<li>在函数内，不能用let重复声明函数的形参<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="string">"abc"</span>;</div><div class="line"><span class="keyword">let</span> a = <span class="string">"aaa"</span>;<span class="comment">//报错，a已经被声明</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">	<span class="keyword">let</span> name = <span class="string">"zhangsan"</span>;<span class="comment">//报错，name已经被声明</span></div><div class="line">&#125;</div><div class="line">fn(<span class="string">"lisi"</span>);</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="Number-isInteger"><a href="#Number-isInteger" class="headerlink" title="Number.isInteger()"></a>Number.isInteger()</h2><ul>
-<li>Number.isInteger()用来判断一个值是否为整数。需要注意的是，在JavaScript内部，整数和浮点数是同样的储存方法，所以3和3.0被视为同一个值。<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.isInteger(<span class="number">25</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isInteger(<span class="number">25.0</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isInteger(<span class="number">25.1</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isInteger(<span class="string">"15"</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isInteger(<span class="literal">true</span>) <span class="comment">// false</span></div></pre></td></tr></table></figure>
+<h1 id="二、const关键字"><a href="#二、const关键字" class="headerlink" title="二、const关键字"></a>二、const关键字</h1><ul>
+<li><strong>const实际上保证的是变量指向的内存地址不可改变</strong></li>
+<li>声明一个常量：constant。常量的值是不可变的</li>
+<li>试图修改常量的值会报错</li>
+<li>在一个块级作用域内，不允许重复声明同一变量</li>
+<li>const声明的变量不会变量提升</li>
+<li><p>声明后必须赋值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(name);<span class="comment">//报错，常量不会进行变量声明提升</span></div><div class="line"><span class="keyword">const</span> name = <span class="string">"zhangsan"</span>;</div><div class="line">name = <span class="string">"lisi"</span>;<span class="comment">//报错，常量的值不可修改</span></div><div class="line"><span class="keyword">var</span> name = <span class="string">"lisi"</span>;<span class="comment">//报错，该常量已经被声明</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> age;<span class="comment">//报错，常量声明必须被赋值</span></div></pre></td></tr></table></figure>
 </li>
-</ul>
-<h2 id="Number-EPSILON"><a href="#Number-EPSILON" class="headerlink" title="Number.EPSILON"></a>Number.EPSILON</h2><ul>
-<li><p>代表极小的常量Number.EPSILON。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.EPSILON</div><div class="line"><span class="comment">// 2.220446049250313e-16</span></div><div class="line"><span class="built_in">Number</span>.EPSILON.toFixed(<span class="number">20</span>)</div><div class="line"><span class="comment">// '0.00000000000000022204'</span></div></pre></td></tr></table></figure>
+<li><p>在使用const声明对象时，不可变的是对象的地址。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> person = &#123;</div><div class="line">  <span class="attr">name</span>:<span class="string">"zhangsan"</span>,</div><div class="line">  <span class="attr">age</span>:<span class="number">20</span></div><div class="line">&#125;</div><div class="line">person.age = <span class="number">22</span>;</div><div class="line"><span class="built_in">console</span>.log(person.age);<span class="comment">//22</span></div><div class="line"><span class="comment">//该程序正常运行，因为person代表的是一个地址，该地址不会变</span></div></pre></td></tr></table></figure>
 </li>
-<li><p>引入一个这么小的量的目的，在于为浮点数计算，设置一个误差范围。我们知道浮点数计算是不精确的。但是如果这个误差能够小于Number.EPSILON，我们就可以认为得到了正确结果。因此，Number.EPSILON的实质是一个可以接受的误差范围。</p>
-<h2 id="安全整数和Number-isSafeInteger"><a href="#安全整数和Number-isSafeInteger" class="headerlink" title="安全整数和Number.isSafeInteger()"></a>安全整数和Number.isSafeInteger()</h2></li>
-<li>JavaScript能够准确表示的整数范围在-2^53到2^53之间（不含两个端点），超过这个范围，无法精确表示这个值。</li>
-<li>ES6还引入了Number.MAX_SAFE_INTEGER和Number.MIN_SAFE_INTEGER这两个常量，用来表示这个范围的上下限。</li>
-<li><p>Number.isSafeInteger()则是用来判断一个整数是否落在这个范围之内。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="string">'a'</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="literal">null</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="literal">NaN</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="literal">Infinity</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(-<span class="literal">Infinity</span>) <span class="comment">// false</span></div><div class="line"></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="number">3</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="number">1.2</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="number">9007199254740990</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="number">9007199254740992</span>) <span class="comment">// false</span></div><div class="line"></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="built_in">Number</span>.MIN_SAFE_INTEGER - <span class="number">1</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="built_in">Number</span>.MIN_SAFE_INTEGER) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="built_in">Number</span>.MAX_SAFE_INTEGER) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="built_in">Number</span>.MAX_SAFE_INTEGER + <span class="number">1</span>) <span class="comment">// false</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>实现</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.isSafeInteger = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> (<span class="keyword">typeof</span> n === <span class="string">'number'</span> &amp;&amp;</div><div class="line">    <span class="built_in">Math</span>.round(n) === n &amp;&amp;</div><div class="line">    <span class="built_in">Number</span>.MIN_SAFE_INTEGER &lt;= n &amp;&amp;</div><div class="line">    n &lt;= <span class="built_in">Number</span>.MAX_SAFE_INTEGER);</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
 </ul>
 
           
@@ -581,176 +572,6 @@
 <h3 id="提取函数返回的多个值"><a href="#提取函数返回的多个值" class="headerlink" title="提取函数返回的多个值"></a>提取函数返回的多个值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">name</span>:<span class="string">'Mary'</span>,</div><div class="line">        <span class="attr">age</span>:<span class="number">18</span>,</div><div class="line">        <span class="attr">gender</span>:<span class="string">"male"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> &#123;name,age,gender&#125; = fn();</div><div class="line"><span class="built_in">console</span>.log(name);</div><div class="line"><span class="built_in">console</span>.log(age);</div><div class="line"><span class="built_in">console</span>.log(gender);</div></pre></td></tr></table></figure>
 <h3 id="定义函数中的参数"><a href="#定义函数中的参数" class="headerlink" title="定义函数中的参数"></a>定义函数中的参数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">&#123;name,age,gender&#125;</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(name);</div><div class="line">	<span class="built_in">console</span>.log(age);</div><div class="line">	<span class="built_in">console</span>.log(gender);</div><div class="line">&#125;</div><div class="line">foo(&#123;<span class="attr">name</span>:<span class="string">"Jack"</span>,<span class="attr">age</span>:<span class="number">18</span>,<span class="attr">gender</span>:<span class="string">"female"</span>&#125;);</div></pre></td></tr></table></figure>
 <h3 id="设置参数的默认值"><a href="#设置参数的默认值" class="headerlink" title="设置参数的默认值"></a>设置参数的默认值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">&#123;name=<span class="string">"Rose"</span>&#125;</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(name);</div><div class="line">&#125;</div><div class="line">foo(&#123;&#125;);<span class="comment">//参数可以是空对象或者任意参数，但是不能不传，不传会报错</span></div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/20/A01-ES6-let和const/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/20/A01-ES6-let和const/" itemprop="url">
-                  let和const
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-20T00:00:00+08:00">
-                2017-02-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="一、let关键字"><a href="#一、let关键字" class="headerlink" title="一、let关键字"></a>一、let关键字</h1><ul>
-<li>let 用来声明变量。</li>
-<li>let声明的变量会创建一个自己的块级作用域，且定义的变量只在自己的块级作用域内起作用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line"><span class="keyword">let</span> str = <span class="string">"abc"</span>;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(str);<span class="comment">//报错，str未定义。因为let声明的变量会产生块级作用域</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//如果使用var声明i会出现以下结果</span></div><div class="line"><span class="keyword">var</span> arr = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line">	arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="comment">//当前的环境下没有i，所以就会向上查找，当找到i时，循环已经结束，此时i=3</span></div><div class="line">		<span class="built_in">console</span>.log(i);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">arr[<span class="number">0</span>]();<span class="comment">//3</span></div><div class="line">arr[<span class="number">1</span>]();<span class="comment">//3</span></div><div class="line">arr[<span class="number">2</span>]();<span class="comment">//3</span></div><div class="line"></div><div class="line"><span class="comment">//使用let声明i时，会出现想要的结果;此时则不用再使用闭包</span></div><div class="line"><span class="keyword">var</span> arr = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line">	arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(i);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">arr[<span class="number">0</span>]();<span class="comment">//0</span></div><div class="line">arr[<span class="number">1</span>]();<span class="comment">//1</span></div><div class="line">arr[<span class="number">2</span>]();<span class="comment">//2</span></div></pre></td></tr></table></figure>
-<ul>
-<li><p>let声明的变量不会变量提升</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(n);<span class="comment">//报错，n未定义</span></div><div class="line"><span class="keyword">let</span> n = <span class="number">10</span>;</div></pre></td></tr></table></figure>
-</li>
-<li><p>在一个块级作用域内，不允许重复声明同一变量</p>
-</li>
-<li>在函数内，不能用let重复声明函数的形参<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="string">"abc"</span>;</div><div class="line"><span class="keyword">let</span> a = <span class="string">"aaa"</span>;<span class="comment">//报错，a已经被声明</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">	<span class="keyword">let</span> name = <span class="string">"zhangsan"</span>;<span class="comment">//报错，name已经被声明</span></div><div class="line">&#125;</div><div class="line">fn(<span class="string">"lisi"</span>);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="二、const关键字"><a href="#二、const关键字" class="headerlink" title="二、const关键字"></a>二、const关键字</h1><ul>
-<li><strong>const实际上保证的是变量指向的内存地址不可改变</strong></li>
-<li>声明一个常量：constant。常量的值是不可变的</li>
-<li>试图修改常量的值会报错</li>
-<li>在一个块级作用域内，不允许重复声明同一变量</li>
-<li>const声明的变量不会变量提升</li>
-<li><p>声明后必须赋值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(name);<span class="comment">//报错，常量不会进行变量声明提升</span></div><div class="line"><span class="keyword">const</span> name = <span class="string">"zhangsan"</span>;</div><div class="line">name = <span class="string">"lisi"</span>;<span class="comment">//报错，常量的值不可修改</span></div><div class="line"><span class="keyword">var</span> name = <span class="string">"lisi"</span>;<span class="comment">//报错，该常量已经被声明</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> age;<span class="comment">//报错，常量声明必须被赋值</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>在使用const声明对象时，不可变的是对象的地址。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> person = &#123;</div><div class="line">  <span class="attr">name</span>:<span class="string">"zhangsan"</span>,</div><div class="line">  <span class="attr">age</span>:<span class="number">20</span></div><div class="line">&#125;</div><div class="line">person.age = <span class="number">22</span>;</div><div class="line"><span class="built_in">console</span>.log(person.age);<span class="comment">//22</span></div><div class="line"><span class="comment">//该程序正常运行，因为person代表的是一个地址，该地址不会变</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-
           
         
       
@@ -1304,161 +1125,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/05/H04-angular/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/05/H04-angular/" itemprop="url">
-                  AngularJS 依赖注入
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-05T00:00:00+08:00">
-                2016-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h1><ul>
-<li>AngularJS采用模块化的方式组织代码，将一些通用逻辑封装成一个对象或函数，实现最大程度的复用，这导致了使用者和被使用者之间存在依赖关系。</li>
-<li>一个对象通常有三种方式可以获得对其依赖的控制权：<ul>
-<li>(1) 在内部创建依赖；</li>
-<li>(2) 通过全局变量进行引用；</li>
-<li>(3) 在需要的地方通过参数进行传递。</li>
-</ul>
-</li>
-<li>一般注入是通过参数的形式实现</li>
-<li>依赖注入会事先自动查找依赖关系，并将注入目标告知被依赖的资源。在运行期，注入器会创建依赖的实例，并负责将它传递给依赖的消费者。</li>
-<li>话句话说就是，采用注入的方式，解决依赖的问题<h2 id="行内注入"><a href="#行内注入" class="headerlink" title="行内注入"></a>行内注入</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>, []);</div><div class="line">    <span class="comment">//此方式成为行内依赖注入</span></div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="string">"$http"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.name = <span class="string">"小明"</span>;</div><div class="line">    &#125;]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="推断式注入"><a href="#推断式注入" class="headerlink" title="推断式注入"></a>推断式注入</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>, []);</div><div class="line">    <span class="comment">//推断式依赖注入</span></div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        <span class="comment">//如果没有明确的声明，AngularJS会假定参数名称就是依赖的名称。</span></div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/05/H05-数据绑定/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1610,6 +1276,161 @@
 <li>当在当前作用域中找不到对应的数据时，会向上查找<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"App"</span> <span class="attr">ng-init</span>=<span class="string">"name='康熙'"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="comment">&lt;!--此处是康熙--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span> <span class="attr">ng-controller</span>=<span class="string">"ParentCtrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="comment">&lt;!--此处是雍正--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span> <span class="attr">ng-controller</span>=<span class="string">'ChildCtrl'</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="comment">&lt;!--此处是乾隆--&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">        <span class="keyword">var</span> App = angular.module(<span class="string">'App'</span>, []);</div><div class="line">        App.controller(<span class="string">'ParentCtrl'</span>, [<span class="string">'$scope'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</div><div class="line">            $scope.name = <span class="string">'雍正'</span>;</div><div class="line">        &#125;]);</div><div class="line"></div><div class="line">        App.controller(<span class="string">'ChildCtrl'</span>, [<span class="string">'$scope'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">            $scope.name = <span class="string">'乾隆'</span>;<span class="comment">//如果此处不设置，则name为雍正</span></div><div class="line">        &#125;]);</div><div class="line">	<span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
 </ul>
 
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/05/H04-angular/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/05/H04-angular/" itemprop="url">
+                  AngularJS 依赖注入
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-05T00:00:00+08:00">
+                2016-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h1><ul>
+<li>AngularJS采用模块化的方式组织代码，将一些通用逻辑封装成一个对象或函数，实现最大程度的复用，这导致了使用者和被使用者之间存在依赖关系。</li>
+<li>一个对象通常有三种方式可以获得对其依赖的控制权：<ul>
+<li>(1) 在内部创建依赖；</li>
+<li>(2) 通过全局变量进行引用；</li>
+<li>(3) 在需要的地方通过参数进行传递。</li>
+</ul>
+</li>
+<li>一般注入是通过参数的形式实现</li>
+<li>依赖注入会事先自动查找依赖关系，并将注入目标告知被依赖的资源。在运行期，注入器会创建依赖的实例，并负责将它传递给依赖的消费者。</li>
+<li>话句话说就是，采用注入的方式，解决依赖的问题<h2 id="行内注入"><a href="#行内注入" class="headerlink" title="行内注入"></a>行内注入</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>, []);</div><div class="line">    <span class="comment">//此方式成为行内依赖注入</span></div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="string">"$http"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.name = <span class="string">"小明"</span>;</div><div class="line">    &#125;]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="推断式注入"><a href="#推断式注入" class="headerlink" title="推断式注入"></a>推断式注入</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>, []);</div><div class="line">    <span class="comment">//推断式依赖注入</span></div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        <span class="comment">//如果没有明确的声明，AngularJS会假定参数名称就是依赖的名称。</span></div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
           
         
       
@@ -2000,6 +1821,214 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/13/Z02-canvas常用API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/13/Z02-canvas常用API/" itemprop="url">
+                  canvas常用API
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-13T00:00:00+08:00">
+                2016-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/canvas/" itemprop="url" rel="index">
+                    <span itemprop="name">canvas</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="基本图形绘制"><a href="#基本图形绘制" class="headerlink" title="基本图形绘制"></a>基本图形绘制</h1><h2 id="绘制矩形"><a href="#绘制矩形" class="headerlink" title="绘制矩形"></a>绘制矩形</h2><ul>
+<li>rect();没有自己独立的路径，需要配合stroke()</li>
+<li>strokeRect();有独立的路径，不需要显式的调用stroke()</li>
+<li>fillRect();有独立的路径，不需要显式的进行填充</li>
+<li>clearRect();清空指定的矩形区域<blockquote>
+<p>参数：x,y,width,height</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    ctx.rect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">200</span>,<span class="number">100</span>);</div><div class="line">    <span class="comment">//需要调用stroke()</span></div><div class="line">   	ctx.stroke();</div><div class="line">    <span class="comment">//有独立的路径，不需要显式的调用stroke()</span></div><div class="line">	<span class="comment">//ctx.strokeRect(100,100,200,240);</span></div><div class="line">    <span class="comment">//有独立的路径，不需要显式的进行填充</span></div><div class="line">    ctx.fillRect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">200</span>,<span class="number">100</span>);</div><div class="line">    <span class="comment">//清空指定的矩形区域</span></div><div class="line">    ctx.clearRect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">100</span>,<span class="number">100</span>);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h2 id="save和restore方法"><a href="#save和restore方法" class="headerlink" title="save和restore方法"></a>save和restore方法</h2><ul>
+<li>save()保存当前绘制的状态</li>
+<li>restore()恢复上次绘制的状态<br><strong>save可以保存多次绘制状态，以栈的形式存储</strong><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    ctx.rect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">200</span>,<span class="number">200</span>);</div><div class="line">    ctx.strokeStyle = <span class="string">"black"</span>;</div><div class="line">    ctx.lineWidth = <span class="number">5</span>;</div><div class="line">    ctx.fillStyle = <span class="string">"orangered"</span>;</div><div class="line">    ctx.stroke();</div><div class="line">    ctx.fill();</div><div class="line">    <span class="comment">//保存上次绘制状态</span></div><div class="line">    <span class="comment">//可以保存多次，以栈格式存储，后进先出</span></div><div class="line">    ctx.save();</div><div class="line">    ctx.beginPath();</div><div class="line">    ctx.rect(<span class="number">200</span>,<span class="number">200</span>,<span class="number">150</span>,<span class="number">150</span>);</div><div class="line">    ctx.stroke();</div><div class="line">    ctx.fillStyle = <span class="string">"yellow"</span>;</div><div class="line">    ctx.fill();</div><div class="line">    ctx.beginPath();</div><div class="line">    <span class="comment">//恢复上次绘制状态</span></div><div class="line">    ctx.restore();</div><div class="line">    ctx.rect(<span class="number">50</span>,<span class="number">50</span>,<span class="number">80</span>,<span class="number">80</span>);</div><div class="line">    ctx.stroke();</div><div class="line">    ctx.fill();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="绘制圆弧"><a href="#绘制圆弧" class="headerlink" title="绘制圆弧"></a>绘制圆弧</h2><blockquote>
+<p>arc(x,y,r,startAngle,endAngle,bool);<br>参数：圆心，半径，起始的角度，结束的角度，是否逆时针。默认是false，顺时针；true：逆时针</p>
+<ul>
+<li>绘制简单圆弧<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="comment">//绘制圆弧 arc</span></div><div class="line">    <span class="comment">//加上moveTo()会加上一条半径</span></div><div class="line">    <span class="comment">//ctx.moveTo(200,200);</span></div><div class="line">    ctx.arc(<span class="number">200</span>,<span class="number">200</span>,<span class="number">100</span>,<span class="number">0</span>,-<span class="built_in">Math</span>.PI/<span class="number">2</span>);<span class="comment">//默认是顺时针false，true表示逆时针</span></div><div class="line">    ctx.stroke();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>绘制带有圆角的矩形</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="comment">/**</span></div><div class="line">     *  绘制连续的路径，如果前面的终点和后面的起点一样，就不需要重新设置moveTo()</div><div class="line">     */</div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    ctx.lineWidth = <span class="number">3</span>;</div><div class="line">    ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">    ctx.lineTo(<span class="number">300</span>,<span class="number">100</span>);</div><div class="line"><span class="comment">//在画圆弧时，上面的直线会对圆弧的绘制造成影响，所以需要从上面直线的终点开始绘制圆弧</span></div><div class="line">    ctx.arc(<span class="number">300</span>,<span class="number">120</span>,<span class="number">20</span>,-<span class="built_in">Math</span>.PI/<span class="number">2</span>,<span class="number">0</span>,<span class="literal">true</span>);</div><div class="line"><span class="comment">//因为圆弧的终点与下一条直线的起始点相同，所以此处不需要moveTo()</span></div><div class="line"><span class="comment">//    ctx.moveTo(320,120);</span></div><div class="line">    ctx.lineTo(<span class="number">320</span>,<span class="number">170</span>);</div><div class="line">    ctx.arc(<span class="number">300</span>,<span class="number">170</span>,<span class="number">20</span>,<span class="number">0</span>,<span class="built_in">Math</span>.PI/<span class="number">2</span>,<span class="literal">true</span>);</div><div class="line"><span class="comment">//    ctx.moveTo(300,190);</span></div><div class="line">    ctx.lineTo(<span class="number">100</span>,<span class="number">190</span>);</div><div class="line">    ctx.arc(<span class="number">100</span>,<span class="number">170</span>,<span class="number">20</span>,<span class="built_in">Math</span>.PI/<span class="number">2</span>,<span class="built_in">Math</span>.PI,<span class="literal">true</span>);</div><div class="line"><span class="comment">//    ctx.moveTo(80,170);</span></div><div class="line">    ctx.lineTo(<span class="number">80</span>,<span class="number">120</span>);</div><div class="line">    ctx.arc(<span class="number">100</span>,<span class="number">120</span>,<span class="number">20</span>,<span class="built_in">Math</span>.PI,<span class="built_in">Math</span>.PI*<span class="number">3</span>/<span class="number">2</span>,<span class="literal">true</span>);</div><div class="line"></div><div class="line">    ctx.stroke();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>封装彩虹</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Rainbow</span>(<span class="params">ctx</span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.ctx = ctx;</div><div class="line">    &#125;</div><div class="line">    Rainbow.prototype.init = <span class="function"><span class="keyword">function</span> (<span class="params">width,rgbs</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> perWidth = width/<span class="number">6</span>;</div><div class="line">        <span class="keyword">this</span>.ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)&#123;</div><div class="line">            <span class="comment">//如果不相等，则每个的进度等于后一个的值减去前一个的值除以总共变化的次数</span></div><div class="line">            <span class="keyword">var</span> r = rgbs[i+<span class="number">1</span>].r==rgbs[i].r?<span class="number">0</span>:(rgbs[i+<span class="number">1</span>].r-rgbs[i].r)/perWidth;</div><div class="line">            <span class="keyword">var</span> g = rgbs[i+<span class="number">1</span>].g==rgbs[i].g?<span class="number">0</span>:(rgbs[i+<span class="number">1</span>].g-rgbs[i].g)/perWidth;</div><div class="line">            <span class="keyword">var</span> b = rgbs[i+<span class="number">1</span>].b==rgbs[i].b?<span class="number">0</span>:(rgbs[i+<span class="number">1</span>].b-rgbs[i].b)/perWidth;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;perWidth;j++)&#123;</div><div class="line">                <span class="comment">//判断每个颜色两次变化是否为0，为0则取固定的值，不为零则在原来的基础上加上每次的变化值</span></div><div class="line">                <span class="keyword">var</span> color1 = r==<span class="number">0</span>?rgbs[i].r:<span class="built_in">parseInt</span>(rgbs[i].r+r*j);</div><div class="line">                <span class="keyword">var</span> color2 = g==<span class="number">0</span>?rgbs[i].g:<span class="built_in">parseInt</span>(rgbs[i].g+g*j);</div><div class="line">                <span class="keyword">var</span> color3 = b==<span class="number">0</span>?rgbs[i].b:<span class="built_in">parseInt</span>(rgbs[i].b+b*j);</div><div class="line">                <span class="keyword">this</span>.ctx.beginPath();</div><div class="line">                <span class="keyword">this</span>.ctx.strokeStyle = <span class="string">"rgb("</span>+color1+<span class="string">","</span>+color2+<span class="string">","</span>+color3+<span class="string">")"</span>;</div><div class="line">                <span class="keyword">this</span>.ctx.moveTo(<span class="number">100</span>,perWidth*i+<span class="number">100</span>+j);</div><div class="line">                <span class="keyword">this</span>.ctx.lineTo(<span class="number">500</span>,perWidth*i+<span class="number">100</span>+j);</div><div class="line">                <span class="keyword">this</span>.ctx.stroke();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">var</span> rgbs = [&#123;<span class="comment">//红</span></div><div class="line">            r:<span class="number">255</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">0</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">0</span></div><div class="line">        &#125;,&#123;<span class="comment">//橙</span></div><div class="line">            r:<span class="number">255</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">127</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">0</span></div><div class="line">        &#125;,&#123;<span class="comment">//黄</span></div><div class="line">            r:<span class="number">255</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">255</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">0</span></div><div class="line">        &#125;,&#123;<span class="comment">//绿</span></div><div class="line">            r:<span class="number">0</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">255</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">0</span></div><div class="line">        &#125;,&#123;<span class="comment">//青</span></div><div class="line">            r:<span class="number">0</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">127</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">255</span></div><div class="line">        &#125;,&#123;<span class="comment">//蓝</span></div><div class="line">            r:<span class="number">0</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">0</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">255</span></div><div class="line">        &#125;,&#123;<span class="comment">//紫</span></div><div class="line">            r:<span class="number">139</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">0</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">255</span></div><div class="line">        &#125;];</div><div class="line">    <span class="keyword">var</span> rain = <span class="keyword">new</span> Rainbow(ctx);</div><div class="line">    rain.init(<span class="number">180</span>,rgbs);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="绘制文本"><a href="#绘制文本" class="headerlink" title="绘制文本"></a>绘制文本</h2><ul>
+<li>strokeText()：空心文字</li>
+<li>fillText():实心文字</li>
+<li>文本的对齐方式<ul>
+<li>水平对齐：textAlign –&gt;  left center right start end</li>
+<li>垂直对齐：textBaseline –&gt;  top middle bottom  </li>
+</ul>
+</li>
+<li>获取文本宽度 measureText<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="keyword">var</span> str = <span class="string">"人生如戏"</span>;</div><div class="line">    ctx.font=<span class="string">"48px microsoft yahei"</span>;</div><div class="line">    ctx.textAlign = <span class="string">"center"</span>;</div><div class="line">    ctx.textBaseline = <span class="string">"bottom"</span>;</div><div class="line">    </div><div class="line">    ctx.strokeText(str,<span class="number">100</span>,<span class="number">100</span>);<span class="comment">//空心文字</span></div><div class="line"><span class="comment">//    ctx.fillText(str,100,100);//实心文字</span></div><div class="line"><span class="comment">//在文字下方画一条和文本宽度相等的线</span></div><div class="line">	<span class="keyword">var</span> obj = ctx.measureText(str);</div><div class="line">    ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">    ctx.lineTo(<span class="number">100</span>+obj.width,<span class="number">100</span>);</div><div class="line">    ctx.stroke();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="绘制图片"><a href="#绘制图片" class="headerlink" title="绘制图片"></a>绘制图片</h2><ul>
+<li>drawImage()</li>
+<li><p>三个参数：图片对象   放置的位置(x,y)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image();</div><div class="line">    img.src = <span class="string">"img/xiang.jpg"</span>;</div><div class="line">    <span class="comment">//必须等图片加载完毕后才能绘制图片</span></div><div class="line">    img.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        ctx.drawImage(img,<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><img src="../img/da.png" alt="csc"></p>
+</li>
+<li><p>五个参数 ：图片对象，放置的位置(x,y),图片的大小(width,height)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image();</div><div class="line">    img.src = <span class="string">"img/xiang.jpg"</span>;</div><div class="line">    <span class="comment">//必须等图片加载完毕后才能绘制图片</span></div><div class="line">    img.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        ctx.drawImage(img,<span class="number">100</span>,<span class="number">100</span>,<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">        <span class="comment">//会根据设置的参数对图片进行缩放，不会把图片裁剪</span></div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>效果图<br> <img src="../img/xiao.png" alt="csc"></p>
+</li>
+<li>九个参数：图片对象，图片中的坐标，要显示的图片的宽高，放置的位置，图片的大小<pre><code>* 可以用于绘制逐帧动画,需要结合setTimeout()或者requestAnimationFrame() 
+</code></pre><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image();</div><div class="line">    <span class="comment">//需要准备精灵图，让图片进行切换，实现动画效果</span></div><div class="line">    img.src = <span class="string">"img/rabbit.png"</span>;</div><div class="line">    <span class="keyword">var</span> allWidth = <span class="number">160</span>;</div><div class="line">    <span class="keyword">var</span> allHeight = <span class="number">260</span>;</div><div class="line">    <span class="comment">//一共四帧</span></div><div class="line">    <span class="keyword">var</span> num = <span class="number">4</span>;</div><div class="line">    <span class="keyword">var</span> nowIndex = <span class="number">0</span>;</div><div class="line">    <span class="keyword">var</span> perHeight = allHeight/num;</div><div class="line">    <span class="keyword">var</span> perWidth = allWidth/num;</div><div class="line">    img.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        render();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    	<span class="comment">//每次切换时先清空画布</span></div><div class="line">        ctx.clearRect(<span class="number">0</span>,<span class="number">0</span>,cas.width,cas.height);</div><div class="line">	ctx.drawImage(img,perWidth*nowIndex,<span class="number">0</span>,perWidth,perHeight,cas.width/<span class="number">2</span>-perWidth/<span class="number">2</span>,cas.height/<span class="number">2</span>-perHeight/<span class="number">2</span>,perWidth,perHeight);</div><div class="line">        nowIndex++;</div><div class="line">        <span class="keyword">if</span>(nowIndex==<span class="number">4</span>)&#123;</div><div class="line">            nowIndex=<span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        setTimeout(render,<span class="number">100</span>);</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="变换"><a href="#变换" class="headerlink" title="变换"></a>变换</h2><blockquote>
+<p>坐标轴的变换，不影响变换之前绘制的图形，但是会影响变换之后的图形</p>
+<ul>
+<li>translate(x,y):将坐标原点进行位移</li>
+<li>rotate(angle):以坐标原点为中心将坐标轴进行旋转（弧度）</li>
+<li>scale(ratex,ratey):将图形进行缩放</li>
+<li>在同一个画布中绘制一个旋转的正方形和固定的正方形<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="keyword">var</span> speed = <span class="built_in">Math</span>.PI/<span class="number">90</span>;</div><div class="line">    <span class="keyword">var</span> index = <span class="number">0</span>;</div><div class="line">    <span class="comment">//移动坐标原点至画布中心</span></div><div class="line">    ctx.translate(cas.width/<span class="number">2</span>,cas.height/<span class="number">2</span>);</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        ctx.clearRect(-cas.width/<span class="number">2</span>,-cas.height/<span class="number">2</span>,cas.width,cas.height);</div><div class="line">        ctx.strokeRect(-cas.width/<span class="number">2</span>,-cas.height/<span class="number">2</span>,<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">        ctx.save();<span class="comment">//保存的状态包括平移，旋转，缩放和基本样式设置</span></div><div class="line">        ctx.rotate(speed*index);<span class="comment">//以坐标原点为中心进行旋转</span></div><div class="line">        ctx.strokeRect(<span class="number">-50</span>,<span class="number">-50</span>,<span class="number">100</span>,<span class="number">100</span>);<span class="comment">//绘制的是旋转的矩形</span></div><div class="line">        ctx.restore();<span class="comment">//恢复固定的矩形，此时会将rotate重置为0</span></div><div class="line">   <span class="comment">//恢复状态的时候，会将重新设置绘制状态，即将rotate状态重新设置保存时的状态，即为零</span></div><div class="line">   <span class="comment">//恢复原来状态之后，旋转角度依然从零开始，所以要想达到旋转效果，必须逐渐增大角度</span></div><div class="line">        index++;</div><div class="line">        <span class="keyword">if</span>(speed*index &gt; <span class="number">2</span>*<span class="built_in">Math</span>.PI)&#123;</div><div class="line">            index = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        requestAnimationFrame(render);</div><div class="line">    &#125;</div><div class="line">    render();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -2049,7 +2078,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -87,31 +87,34 @@
 
 
 
-<meta name="description" content="类
-ES6增加了类的概念，实际上也是依靠函数function和prototype实现基本使用
-constructor方法是构造方法，其中的this指向实例，默认返回实例对象。这个方法是类必须的，如果没有写，js会自动添加一个空方法
-一个类中只能有一个constructor方法
-使用new创建对象的时候，实际上是调用的constructor方法
-必须先声明类再创建实例12345678910class">
+<meta name="description" content="字符串新特性模板字符串
+使用反引号，即数字1左边的按键
+变量使用${变量}表示1234var str1 = &quot;hello&quot;;var str2 = &quot;world&quot;;var str = `javascript say $&amp;#123;str1&amp;#125; to $&amp;#123;str2&amp;#125;`;console.log(str);//javascript hello say world
+
+
+
+可以多行">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Class">
-<meta property="og:url" content="http://yoursite.com/2017/02/24/A06-ES6-class/index.html">
+<meta property="og:title" content="string">
+<meta property="og:url" content="http://yoursite.com/2017/02/21/A03-ES6-string/index.html">
 <meta property="og:site_name" content="Shining Moon">
-<meta property="og:description" content="类
-ES6增加了类的概念，实际上也是依靠函数function和prototype实现基本使用
-constructor方法是构造方法，其中的this指向实例，默认返回实例对象。这个方法是类必须的，如果没有写，js会自动添加一个空方法
-一个类中只能有一个constructor方法
-使用new创建对象的时候，实际上是调用的constructor方法
-必须先声明类再创建实例12345678910class">
-<meta property="og:updated_time" content="2017-04-11T06:47:10.045Z">
+<meta property="og:description" content="字符串新特性模板字符串
+使用反引号，即数字1左边的按键
+变量使用${变量}表示1234var str1 = &quot;hello&quot;;var str2 = &quot;world&quot;;var str = `javascript say $&amp;#123;str1&amp;#125; to $&amp;#123;str2&amp;#125;`;console.log(str);//javascript hello say world
+
+
+
+可以多行">
+<meta property="og:updated_time" content="2017-04-11T07:09:46.153Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Class">
-<meta name="twitter:description" content="类
-ES6增加了类的概念，实际上也是依靠函数function和prototype实现基本使用
-constructor方法是构造方法，其中的this指向实例，默认返回实例对象。这个方法是类必须的，如果没有写，js会自动添加一个空方法
-一个类中只能有一个constructor方法
-使用new创建对象的时候，实际上是调用的constructor方法
-必须先声明类再创建实例12345678910class">
+<meta name="twitter:title" content="string">
+<meta name="twitter:description" content="字符串新特性模板字符串
+使用反引号，即数字1左边的按键
+变量使用${变量}表示1234var str1 = &quot;hello&quot;;var str2 = &quot;world&quot;;var str = `javascript say $&amp;#123;str1&amp;#125; to $&amp;#123;str2&amp;#125;`;console.log(str);//javascript hello say world
+
+
+
+可以多行">
 
 
 
@@ -139,13 +142,13 @@ constructor方法是构造方法，其中的this指向实例，默认返回实�
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/24/A06-ES6-class/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/21/A03-ES6-string/"/>
 
 
 
 
 
-  <title> Class | Shining Moon </title>
+  <title> string | Shining Moon </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +277,7 @@ constructor方法是构造方法，其中的this指向实例，默认返回实�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/24/A06-ES6-class/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/21/A03-ES6-string/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qcyue">
@@ -295,7 +298,7 @@ constructor方法是构造方法，其中的this指向实例，默认返回实�
             
             
               
-                Class
+                string
               
             
           </h1>
@@ -310,8 +313,8 @@ constructor方法是构造方法，其中的this指向实例，默认返回实�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-24T00:00:00+08:00">
-                2017-02-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T00:00:00+08:00">
+                2017-02-21
               </time>
             
 
@@ -368,28 +371,34 @@ constructor方法是构造方法，其中的this指向实例，默认返回实�
       
 
       
-        <h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><ul>
-<li>ES6增加了类的概念，实际上也是依靠函数function和prototype实现<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2></li>
-<li>constructor方法是构造方法，其中的this指向实例，默认返回实例对象。这个方法是类必须的，如果没有写，js会自动添加一个空方法</li>
-<li>一个类中只能有一个constructor方法</li>
-<li>使用new创建对象的时候，实际上是调用的constructor方法</li>
-<li><strong>必须先声明类再创建实例</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="comment">//contructor方法是构造方法</span></div><div class="line">  	<span class="keyword">constructor</span>(name)&#123;</div><div class="line">  		<span class="comment">//this指向实例对象</span></div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;</div><div class="line">	getName()&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h1 id="字符串新特性"><a href="#字符串新特性" class="headerlink" title="字符串新特性"></a>字符串新特性</h1><h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h2><ul>
+<li>使用反引号，即数字1左边的按键</li>
+<li>变量使用<code>${变量}</code>表示<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str1 = <span class="string">"hello"</span>;</div><div class="line"><span class="keyword">var</span> str2 = <span class="string">"world"</span>;</div><div class="line"><span class="keyword">var</span> str = <span class="string">`javascript say <span class="subst">$&#123;str1&#125;</span> to <span class="subst">$&#123;str2&#125;</span>`</span>;</div><div class="line"><span class="built_in">console</span>.log(str);<span class="comment">//javascript hello say world</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><ul>
-<li>使用static关键字声明</li>
-<li>可以直接使用类名调用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="comment">//contructor方法是构造方法</span></div><div class="line">  	<span class="keyword">constructor</span>(name)&#123;</div><div class="line">  		<span class="comment">//this指向实例对象</span></div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;	</div><div class="line">	<span class="keyword">static</span> getName()&#123;</div><div class="line">		<span class="comment">//此处的this指的是整个Person函数</span></div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>);</div><div class="line">	&#125;</div><div class="line">&#125; </div><div class="line"><span class="keyword">var</span> per = <span class="keyword">new</span> Person(<span class="string">"zhangsan"</span>);</div><div class="line"><span class="built_in">console</span>.log(per.name);<span class="comment">//zhansan</span></div><div class="line">Person.getName();</div></pre></td></tr></table></figure>
+<ul>
+<li><p>可以多行定义字符串，字符串中的换行、缩进和空格都会保留在输出中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">`my name is</span></div><div class="line">=======`;</div><div class="line"><span class="built_in">console</span>.log(str); </div><div class="line"><span class="comment">//my name is</span></div><div class="line"><span class="comment">//=======</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>${}中可以放任意的js表达式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> n1 = <span class="number">11</span>;</div><div class="line"><span class="keyword">var</span> n2 = <span class="number">22</span>;</div><div class="line"><span class="comment">//可以是运算表达式</span></div><div class="line"><span class="keyword">var</span> sum = <span class="string">`sum is <span class="subst">$&#123;n1+n2&#125;</span>`</span>;</div><div class="line"><span class="built_in">console</span>.log(sum);<span class="comment">//sum is 33</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">n1</span>:<span class="number">2</span>,<span class="attr">n2</span>:<span class="number">3</span>&#125;;</div><div class="line"><span class="comment">//可以是逻辑表达式</span></div><div class="line"><span class="keyword">var</span> ret = <span class="string">`n1是否大于n2: <span class="subst">$&#123;obj.n1&gt;obj.n2&#125;</span>`</span>;</div><div class="line"><span class="built_in">console</span>.log(ret);<span class="comment">//n1是否大于n2: false</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> ret = <span class="string">`返回值是: <span class="subst">$&#123;foo()&#125;</span>`</span>;</div><div class="line"><span class="comment">//可以是函数调用</span></div><div class="line"><span class="built_in">console</span>.log(ret);<span class="comment">//返回值是: 我是返回值</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><ul>
-<li>使用extends关键字实现继承</li>
-<li><strong>super的使用</strong><ul>
-<li>super()方法必须在constructor中调用</li>
-<li>在constructor中，必须先调用super方法才能使用this，否则会报错</li>
-<li>子类调用父类的方法时，使用super.父类方法()调用。</li>
-<li>子类的super是对父类的引用</li>
-<li>super()方法只能在constructor方法中使用一次。出现两次及以上会报错<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="keyword">constructor</span>(name)&#123;</div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;</div><div class="line">	getName()&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="keyword">constructor</span>(name,age)&#123;</div><div class="line">		<span class="keyword">super</span>(name);</div><div class="line">		<span class="keyword">this</span>.age = age;</div><div class="line">	&#125;</div><div class="line">	getInfo()&#123;</div><div class="line">		<span class="keyword">super</span>.getName();;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="string">"lisi"</span>,<span class="number">17</span>);</div><div class="line">stu.getInfo();</div></pre></td></tr></table></figure></li>
+<h2 id="标签模板"><a href="#标签模板" class="headerlink" title="标签模板"></a>标签模板</h2><ul>
+<li>模板是指字符串模板；标签是指一个函数，一个专门处理模板字符串的函数</li>
+<li>函数调用时不用写()，直接在函数名后面使用模板字符串即可</li>
+<li>标签函数的第一个参数是一个以变量为分隔的数组</li>
+<li>第二个及以后的参数代表出传递的变量<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"zhangsan"</span>;</div><div class="line"><span class="keyword">var</span> age = <span class="number">18</span>;</div><div class="line">tagFun<span class="string">`我是<span class="subst">$&#123;name&#125;</span>,今年<span class="subst">$&#123;age&#125;</span>岁了`</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">tagFun</span>(<span class="params">arr,n,a</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(arr);<span class="comment">//["我是", ",今年", "岁了"]</span></div><div class="line">	<span class="built_in">console</span>.log(n);<span class="comment">//zhangsan</span></div><div class="line">	<span class="built_in">console</span>.log(a);<span class="comment">//18</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
 </ul>
+<h2 id="函数扩展"><a href="#函数扩展" class="headerlink" title="函数扩展"></a>函数扩展</h2><ul>
+<li>repeat(n) : 将目标字符串重复n次，返回一个新的字符串，不影响原始字符串</li>
+<li>includes() : 判断字符串中是否含有指定字符串，第二个参数可选，表示开始搜索的位置</li>
+<li>startsWith() : 判断指定字符串是否出现在目标字符串的开始位置。 第二个参数可选，表示开始搜索的位置</li>
+<li>endsWith() : 判断指定字符串是否出现在目标字符串的末尾位置。 第二个参数可选，表示针对前N个字符</li>
+<li>codePrintAt() : 用于处理四个字节的字符，返回该字符码点的十进制数</li>
+<li>String.fromCodePrint() : 根据码点的十进制数找到对应的字符</li>
+<li>String.raw() : 返回字符串的原始的样子，不识别任何转义字符。常用作模板字符串处理函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"my name is Tom"</span>;</div><div class="line"><span class="keyword">var</span> newStr = str.repeat(<span class="number">3</span>);</div><div class="line"><span class="built_in">console</span>.log(newStr);<span class="comment">//my name is Tommy name is Tommy name is Tom</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(str.includes(<span class="string">"n"</span>));<span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(str.includes(<span class="string">"n"</span>,<span class="number">5</span>));<span class="comment">//false</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(str.startsWith(<span class="string">"n"</span>,<span class="number">3</span>));<span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(str.endsWith(<span class="string">"m"</span>));<span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.raw<span class="string">`hello\nword`</span>); <span class="comment">//hello\nword</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -428,8 +437,8 @@ constructor方法是构造方法，其中的this指向实例，默认返回实�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/23/A05-ES6-Set和Map/" rel="next" title="what  are  Set and WeakSet ？">
-                <i class="fa fa-chevron-left"></i> what  are  Set and WeakSet ？
+              <a href="/2017/02/20/A01-ES6-let和const/" rel="next" title="let和const">
+                <i class="fa fa-chevron-left"></i> let和const
               </a>
             
           </div>
@@ -438,8 +447,8 @@ constructor方法是构造方法，其中的this指向实例，默认返回实�
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/03/I01-node基础/" rel="prev" title="初始node">
-                初始node <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/21/A03-CS6-number/" rel="prev" title="number">
+                number <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -560,7 +569,7 @@ constructor方法是构造方法，其中的this指向实例，默认返回实�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类"><span class="nav-number">1.</span> <span class="nav-text">类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">1.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态方法"><span class="nav-number">1.2.</span> <span class="nav-text">静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的继承"><span class="nav-number">1.3.</span> <span class="nav-text">类的继承</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串新特性"><span class="nav-number">1.</span> <span class="nav-text">字符串新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模板字符串"><span class="nav-number">1.1.</span> <span class="nav-text">模板字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签模板"><span class="nav-number">1.2.</span> <span class="nav-text">标签模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数扩展"><span class="nav-number">1.3.</span> <span class="nav-text">函数扩展</span></a></li></ol></li></ol></div>
             
 
           </div>

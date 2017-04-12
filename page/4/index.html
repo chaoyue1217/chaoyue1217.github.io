@@ -260,6 +260,582 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/07/F04-事件处理机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/07/F04-事件处理机制/" itemprop="url">
+                  事件处理机制
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-07T00:00:00+08:00">
+                2016-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OOP/" itemprop="url" rel="index">
+                    <span itemprop="name">OOP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="事件处理机制"><a href="#事件处理机制" class="headerlink" title="事件处理机制"></a>事件处理机制</h1><ul>
+<li>JavaScript是单线程的</li>
+<li>浏览器本身是多线程的<ul>
+<li>页面标签的渲染</li>
+<li>网络通信</li>
+<li>解析js运行<h2 id="事件队列（任务队列）"><a href="#事件队列（任务队列）" class="headerlink" title="事件队列（任务队列）"></a>事件队列（任务队列）</h2></li>
+</ul>
+</li>
+<li>JavaScript的单线程决定了事件的执行需要排队，前一个任务执行完毕，才会执行后一个任务</li>
+<li>能够进事件队列的函数<ul>
+<li>定时函数(setTimeout,setInterval)</li>
+<li>事件函数</li>
+<li>ajax的回调函数，即onreadystatechange指向的函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="number">111</span>);</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line"><span class="comment">//遇到setTimeout会先将要执行的函数放进事件队列中，继续执行主线程，当主线程执行完毕后，才执行事件队列中的函数,因此，定时器中的函数只能在最后执行</span></div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">  &#125;,<span class="number">0</span>);<span class="comment">//0 代表按照浏览器的默认最小延时执行代码</span></div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(<span class="number">222</span>);</div><div class="line"><span class="comment">//以下为输出结果</span></div><div class="line"><span class="comment">//111</span></div><div class="line"><span class="comment">//222</span></div><div class="line"><span class="comment">//3</span></div><div class="line"><span class="comment">//3</span></div><div class="line"><span class="comment">//3</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="事件轮询-Event-Loop"><a href="#事件轮询-Event-Loop" class="headerlink" title="事件轮询(Event Loop)"></a>事件轮询(Event Loop)</h2><ul>
+<li>主线程会循环不断的从事件队列中读取事件</li>
+<li>当读取到事件时，会首先判断主线程是否空闲，再判断当前函数的执行条件是否满足，如果上述两个要求均满足，则执行事件</li>
+<li>setTimeout只是将事件放入了事件队列，必须等到主线程空闲才会去执行。因此，定时函数不一定会在执行的时间内执行<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2></li>
+<li>行内绑定</li>
+<li>绑定到DOM元素上</li>
+<li>addEventListener / attachEvent<ul>
+<li>addEventListener(“事件名”，“事件处理函数”，false);设置为false为允许冒泡<h3 id="阻止冒泡和阻止默认行为"><a href="#阻止冒泡和阻止默认行为" class="headerlink" title="阻止冒泡和阻止默认行为"></a>阻止冒泡和阻止默认行为</h3></li>
+</ul>
+</li>
+<li>阻止冒泡：event.stopPropagation() / event.cancelBubble = true(兼容IE)</li>
+<li>阻止默认行为：event.preventDefault() / event.returnValue = false(兼容IE)或者return false(不能阻止使用 addEventListener 绑定的事件)</li>
+<li>在jQuery中，return false既可以阻止冒泡，又可以阻止默认行为<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"www.baidu.com"</span> <span class="attr">id</span>=<span class="string">"jump"</span>&gt;</span>跳转<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> a = <span class="built_in">document</span>.getElementById(<span class="string">"jump"</span>);</div><div class="line">a.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//此处不能阻止默认行为</span></div><div class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;);</div><div class="line">a.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="comment">//此处可以阻止默认行为</span></div><div class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><ul>
+<li>将子元素的事件委托到父元素中处理</li>
+<li>jQuery中的on和delegate可是实现事件委托，原理如下<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"target"</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 6<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="comment">//使用该方法需要给多个元素绑定事件，消耗内存</span></div><div class="line">	<span class="comment">/*var lis = document.getElementsByTagName("li");</span></div><div class="line">    for(var i=0;i&lt;lis.length;i++)&#123;</div><div class="line">        lis[i].onclick = function()&#123;</div><div class="line">            console.log(this.innerHTML);</div><div class="line">        &#125;</div><div class="line">    &#125;*/</div><div class="line"><span class="comment">//使用事件委托只需要给父元素绑定事件即可</span></div><div class="line">    <span class="keyword">var</span> ul = <span class="built_in">document</span>.getElementById(<span class="string">"target"</span>);</div><div class="line">    ul.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">        event = event||<span class="built_in">window</span>.event;</div><div class="line">        <span class="keyword">var</span> target = event.target||event.srcElement;</div><div class="line">        <span class="built_in">console</span>.log(target.innerHTML);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">obj,type,fn</span>)</span>&#123;</div><div class="line">    obj.listener = obj.listener||&#123;&#125;;</div><div class="line">    obj.listener[type] = obj.listener[type]||[];</div><div class="line">    obj.listener[type].push(fn);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fireEvent</span>(<span class="params">obj,type</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> arr = obj.listener[type];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</div><div class="line">        arr[i]();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;&#125;;</div><div class="line">addEvent(obj,<span class="string">"aaa"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">111</span>)&#125;);</div><div class="line">addEvent(obj,<span class="string">"bbb"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">222</span>)&#125;);</div><div class="line">addEvent(obj,<span class="string">"ccc"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">333</span>)&#125;);</div><div class="line">addEvent(obj,<span class="string">"ddd"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">444</span>)&#125;);</div><div class="line">fireEvent(obj,<span class="string">"aaa"</span>);</div><div class="line"><span class="comment">/*</span></div><div class="line">//自定义事件的数据结构</div><div class="line">obj.listener = &#123;&#125;;</div><div class="line">//属性作为事件名称，数组为放置事件函数的列表</div><div class="line">obj.listener.aaa = [function()&#123;&#125;];</div><div class="line">*/</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/04/F03-面向对象-闭包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/04/F03-面向对象-闭包/" itemprop="url">
+                  闭包
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-04T00:00:00+08:00">
+                2016-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OOP/" itemprop="url" rel="index">
+                    <span itemprop="name">OOP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="作用域与闭包"><a href="#作用域与闭包" class="headerlink" title="作用域与闭包"></a>作用域与闭包</h1><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><ul>
+<li>全局作用域</li>
+<li>函数作用域</li>
+<li><strong>没有块级作用域</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="keyword">var</span> a = <span class="number">123</span>;</div><div class="line">  <span class="built_in">console</span>.log(a);</div><div class="line">&#125;</div><div class="line"><span class="comment">//可以访问的到a</span></div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="comment">//if和for也构成代码块</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(i);<span class="comment">//5</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><ul>
+<li>函数内层作用域可以访问函数外层作用，反之则不可。</li>
+<li>平级的函数之间不可以相互访问<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> b = <span class="number">20</span>;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> c = <span class="number">30</span>;</div><div class="line">		<span class="built_in">console</span>.log(a+b+c);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> d = <span class="number">40</span>;</div><div class="line">		<span class="built_in">console</span>.log(a+b+d);</div><div class="line">	&#125;</div><div class="line">	fn();</div><div class="line">	fn1();</div><div class="line">&#125;</div><div class="line">foo();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="js运行分为两个阶段"><a href="#js运行分为两个阶段" class="headerlink" title="js运行分为两个阶段"></a>js运行分为两个阶段</h2><ul>
+<li>预解析</li>
+<li>全局预解析<ul>
+<li>所有的变量和函数声明都会提前，同名的函数和变量，函数的优先级高(即先提升变量，再提升函数)</li>
+</ul>
+</li>
+<li><p>函数内部预解析</p>
+<ul>
+<li>所有变量、函数和形参都会预解析（函数&gt;形参&gt;变量）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(a);<span class="comment">//输出的是function a()&#123;&#125;</span></div><div class="line">	<span class="keyword">var</span> a = <span class="number">123</span>;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">&#125;</div><div class="line">foo(<span class="number">123</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>执行</p>
+<ul>
+<li>先预解析全局作用域，然后执行全局作用域中的代码，再执行全局代码的过程中，遇到函数调用，就会先进行函数的预解析，再执行内部的代码</li>
+</ul>
+</li>
+</ul>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><ul>
+<li>函数的嵌套形成闭包(内层函数和内层函数所处的作用域)</li>
+<li>闭包的组成：内层函数+内层函数所处的作用域</li>
+<li>闭包的作用：延长变量的生命周期，缓存中间状态值</li>
+<li>闭包可以操作函数内部的变量(间接)</li>
+<li>一般函数在执行完毕后，所处的环境会消失，闭包不会，因为闭包中还存在着对该环境的引用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> n = <span class="built_in">Math</span>.random();</div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> n;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> inner = foo();</div><div class="line"><span class="keyword">var</span> ret = inner();</div><div class="line"><span class="keyword">var</span> ret1 = inner();</div><div class="line"><span class="comment">//两个值相同</span></div><div class="line"><span class="built_in">console</span>.log(ret);</div><div class="line"><span class="built_in">console</span>.log(ret1);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">	<span class="keyword">var</span> arr = [];</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line">		arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">          <span class="comment">//当前的环境下没有i，所以就会向上查找，当找到i时，循环已经结束，此时i=3</span></div><div class="line">			<span class="built_in">console</span>.log(i);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	arr[<span class="number">0</span>]();<span class="comment">//3</span></div><div class="line">	arr[<span class="number">1</span>]();<span class="comment">//3</span></div><div class="line">	arr[<span class="number">2</span>]();<span class="comment">//3</span></div><div class="line"><span class="comment">//下面的代码的执行结果是0,1，2</span></div><div class="line"><span class="comment">//因为i在arr[i]被调用的时候重新赋值了</span></div><div class="line">	<span class="comment">/*for(var i=0;i&lt;3;i++)&#123;</span></div><div class="line">      arr[i]();</div><div class="line">	&#125;*/</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [];</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line">	arr[i] = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="built_in">console</span>.log(num);</div><div class="line">		&#125;</div><div class="line">	&#125;)(i);</div><div class="line">&#125;</div><div class="line">arr[<span class="number">0</span>]();<span class="comment">//0</span></div><div class="line">arr[<span class="number">1</span>]();<span class="comment">//1</span></div><div class="line">arr[<span class="number">2</span>]();<span class="comment">//2</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>经典题型</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> arr = [];</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">		<span class="keyword">return</span> arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="keyword">return</span> i;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//为什么此时的i不会被重新赋值？？？</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">	<span class="built_in">console</span>.log(foo()[i]());<span class="comment">//输出为10个10</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>如果想要达到预期效果，可以使用闭包</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> arr = [];</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">		<span class="keyword">return</span> (<span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;</div><div class="line">			<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				<span class="keyword">return</span> n;</div><div class="line">			&#125;</div><div class="line">		&#125;)(i);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</div><div class="line">	<span class="built_in">console</span>.log(foo()[i]());<span class="comment">//输出0-9；</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>闭包的机制领悟</strong></li>
+<li>闭包是能够有权访问其他环境中变量的函数。也就是闭包可以记住它被创建时的环境。</li>
+<li>浏览器用“栈”来维护执行上下文（也就是函数的运行环境），当前正在运行的函数会处于栈顶，当函数执行完毕后会出栈，然后将下一个元素作为当前的上下文。</li>
+<li>当遇到闭包时，外部函数并未出栈，闭包就已经进栈了，所以外部函数还在栈中占据着一块空间。实际上外部函数的闭包数据被存在了堆中，这样才能在闭包执行完毕后（已经出栈后）内部的变量还一直存在。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//函数a进栈</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> num = <span class="number">1</span>;</div><div class="line"><span class="comment">//当执行到该处时，函数a还未执行完毕，此时，闭包进栈</span></div><div class="line"><span class="comment">//由于栈遵循先入后出的原则，因此在闭包执行之前，函数a不会出栈</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    num++;</div><div class="line">    <span class="built_in">console</span>.log(num);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/02/F02-面向对象-函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/02/F02-面向对象-函数/" itemprop="url">
+                  面向对象-函数
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-02T00:00:00+08:00">
+                2016-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OOP/" itemprop="url" rel="index">
+                    <span itemprop="name">OOP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><ul>
+<li><strong>window 是Window的实例</strong></li>
+<li>所有的函数都是Function的实例<ul>
+<li>Function也是一个函数</li>
+<li>所以Function也是Function的实例<h2 id="函数的三种角色"><a href="#函数的三种角色" class="headerlink" title="函数的三种角色"></a>函数的三种角色</h2></li>
+</ul>
+</li>
+<li>构造函数</li>
+<li>普通函数</li>
+<li>函数作为对象</li>
+<li><strong>函数的角色取决于函数的调用</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> Foo();<span class="comment">//作为构造函数</span></div><div class="line">Foo();<span class="comment">//作为普通函数</span></div><div class="line">Foo.info = <span class="string">"hello"</span>;<span class="comment">//函数作为对象</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数的属性"><a href="#函数的属性" class="headerlink" title="函数的属性"></a>函数的属性</h2><ul>
+<li>arguments：保存实参的类数组<ul>
+<li>arguments.callee:指向函数本身​</li>
+</ul>
+</li>
+<li>length：形参的个数</li>
+<li>caller：函数的调用者</li>
+<li>name：函数的名称<h2 id="函数声明和函数表达式的区别"><a href="#函数声明和函数表达式的区别" class="headerlink" title="函数声明和函数表达式的区别"></a>函数声明和函数表达式的区别</h2></li>
+<li>函数声明是在预解析阶段创建的，函数表达式是在程序执行阶段创建的，即函数表达式不会被预解析，只会提升变量，函数的赋值留在原地</li>
+<li>函数声明可以在全局作用域或者局部作用域中创建，函数表达式只能在表达式中定义<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//在内存中只开辟一块空间存放函数</span></div><div class="line"><span class="keyword">var</span> fn = flag?<span class="function"><span class="keyword">function</span>(<span class="params">&#123;console.log(<span class="number">123</span></span>)&#125;:<span class="title">function</span>(<span class="params">&#123;console.log(<span class="number">456</span></span>)&#125;;</span></div><div class="line">    //根据浏览器的不同有的会开辟一块空间，有的会开辟两块空间</div><div class="line">    <span class="title">if</span>(<span class="params">flag</span>)&#123;</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="number">2</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数调用的方式"><a href="#函数调用的方式" class="headerlink" title="函数调用的方式"></a>函数调用的方式</h2><ul>
+<li>函数中this的指向取决于函数的调用方式</li>
+<li>1、构造函数，在new的时候调用</li>
+<li>2、普通函数</li>
+<li>3、对象方法：对象.方法() </li>
+<li>4、call/apply/bind<ul>
+<li>bind ES5的新特性</li>
+<li>bind 也可以改变this的指向</li>
+<li>bind 在改变this的同时不调用函数</li>
+<li>bind 会返回一个新的函数，新函数中的内容还是原来的函数的内容，只是this的指向改变了<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">       <span class="built_in">console</span>.log(a+b);</div><div class="line">   &#125;</div><div class="line">   <span class="comment">//使用bind时不会调用函数</span></div><div class="line">   <span class="keyword">var</span> fn = foo.bind(&#123;<span class="attr">info</span>:<span class="string">"nihao"</span>&#125;,<span class="number">12</span>,<span class="number">13</span>);</div><div class="line">   <span class="comment">//调用函数</span></div><div class="line">   fn();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="this的不同指向"><a href="#this的不同指向" class="headerlink" title="this的不同指向"></a>this的不同指向</h3><ul>
+<li>构造函数中的this指向实例对象，原型方法中的this也指向实例对象 </li>
+<li>在非严格模式下，普通函数中的this指向window，严格模式下指向undefine</li>
+<li>对象方法中的this指向该对象，实际上就是方法的调用者</li>
+<li>事件方法中的this指的是绑定事件的对象</li>
+<li>定时函数中的this指向的是window</li>
+<li>call、apply所调用的函数中的this就是call和apply的第一个参数(该参数必须为引用类型)<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><h3 id="作为参数的函数-回调函数"><a href="#作为参数的函数-回调函数" class="headerlink" title="作为参数的函数(回调函数)"></a>作为参数的函数(回调函数)</h3><strong>模拟jQuery封装原理</strong><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params">selector</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">new</span> jQuery.prototype.init(selector);</div><div class="line">&#125;</div><div class="line"><span class="comment">//模拟jQuery中的each</span></div><div class="line">jQuery.each = <span class="function"><span class="keyword">function</span>(<span class="params">objs,callback</span>)</span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;objs.length;i++)&#123;</div><div class="line">		callback.call(objs[i],i,objs[i]);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">jQuery.fn = jQuery.prototype = &#123;</div><div class="line">	<span class="attr">init</span>:<span class="function"><span class="keyword">function</span>(<span class="params">selector</span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> elements = <span class="built_in">document</span>.getElementsByTagName(selector);</div><div class="line">		<span class="keyword">this</span>.length = elements.length;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="keyword">this</span>.length;i++)&#123;</div><div class="line">        	<span class="comment">//this指的是init的实例</span></div><div class="line">			<span class="comment">//这里是给实例添加属性</span></div><div class="line">			<span class="keyword">this</span>[i] = elements[i];</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">this</span>.showLen = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">this</span>.length;</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">showMsg</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"abc"</span>);</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">each</span>:<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</div><div class="line">		jQuery.each(<span class="keyword">this</span>,callback);</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"><span class="comment">//该操作是为了保证jQuery.prototype.init的实例可以访问jQuery.prototype中的属性</span></div><div class="line">jQuery.prototype.init.prototype = jQuery.prototype;</div><div class="line"><span class="built_in">window</span>.$ = <span class="built_in">window</span>.jQuery = jQuery;</div><div class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> divs = jQuery(<span class="string">"div"</span>);</div><div class="line">	<span class="built_in">console</span>.log(divs.length);</div><div class="line">	divs.each(<span class="function"><span class="keyword">function</span>(<span class="params">index,element</span>)</span>&#123;</div><div class="line">		<span class="keyword">this</span>.innerHTML = index;</div><div class="line">	&#125;)</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="jquery链式结构原理"><a href="#jquery链式结构原理" class="headerlink" title="jquery链式结构原理"></a>jquery链式结构原理</h3><ul>
+<li>在方法内部返会调用该方法的对象，即this<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">  $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params">selector</span>)</span>&#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">new</span> jQuery.prototype.init(selector);</div><div class="line">        &#125;</div><div class="line">        jQuery.prototype = &#123;</div><div class="line">            <span class="attr">constructor</span> : jQuery,</div><div class="line">            <span class="attr">html</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="number">123</span>);</div><div class="line"><span class="comment">//返回了实例对象，实例对象又可以通过原型链找到css，init等其他函数进行调用，因此可以链式编程</span></div><div class="line">                <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">css</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="number">456</span>);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">init</span> : <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>)</span>&#123;</div><div class="line">                <span class="comment">// 实现选择器功能</span></div><div class="line">                <span class="keyword">var</span> aDiv = <span class="built_in">document</span>.getElementsByTagName(selector);</div><div class="line">                <span class="comment">// 把每一个div都放到this中，那么this就是一个类数组</span></div><div class="line">                [].push.apply(<span class="keyword">this</span>,aDiv);</div><div class="line">                <span class="keyword">this</span>.length = aDiv.length;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        jQuery.prototype.init.prototype = jQuery.prototype;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h2><ul>
+<li>eval(): 可以把字符串转化成js代码，并执行<ul>
+<li><code>eval(&quot;var a = 123;console.log(a)&quot;)</code></li>
+</ul>
+</li>
+<li>Math 不是函数  是对象</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/01/G01-git使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1761,511 +2337,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/29/C01-HTML5文件读取/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/29/C01-HTML5文件读取/" itemprop="url">
-                  HTML5-FileReader
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-29T00:00:00+08:00">
-                2016-03-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTML5/" itemprop="url" rel="index">
-                    <span itemprop="name">HTML5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="文件读取"><a href="#文件读取" class="headerlink" title="文件读取"></a>文件读取</h2><ul>
-<li><code>&lt;input type=&quot;file&quot;&gt;</code>可以实现文件的选取</li>
-<li>选取多个文件: <code>&lt;input type=&quot;file&quot; multiple&gt;</code></li>
-<li>获取文件: 文件对象的files属性是一个包含所有文件的数组</li>
-<li>读取文件: 需要创建文件读取对象(FileReader)，该对象时由HTML5提供的</li>
-<li>读取文件的方法: <code>readAsDateURL()</code>读取路径; <code>readAsText()</code>读取文本</li>
-<li><p>文件读取完毕事件: onload</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"获取文件"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">""</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">"input[type=button"</span>).onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="comment">// 获取文件对象</span></div><div class="line">    <span class="keyword">var</span> fileObj = <span class="built_in">document</span>.querySelector(<span class="string">"input[type=file]"</span>);</div><div class="line">    <span class="comment">// 获取具体文件</span></div><div class="line">    <span class="keyword">var</span> file = fileObj.files[<span class="number">0</span>];</div><div class="line">    <span class="comment">// 创建文件读取对象</span></div><div class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</div><div class="line">    <span class="comment">// 读取文件</span></div><div class="line">    reader.readAsDataURL(file);</div><div class="line">    reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 文件读取完毕后输出文件信息        </span></div><div class="line">        <span class="built_in">console</span>.log(reader.result);</div><div class="line">        <span class="comment">// 将读取的结果设置给img</span></div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).src = reader.result;</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>头像预览案例</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>请选择你的头像<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;border:2px solid black"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"input"</span>).onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 获取文件</span></div><div class="line">        <span class="keyword">var</span> file = <span class="keyword">this</span>.files[<span class="number">0</span>];</div><div class="line">        <span class="comment">//创建对象</span></div><div class="line">        <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</div><div class="line">        <span class="comment">// 读取文件</span></div><div class="line">        reader.readAsDataURL(file);</div><div class="line">        reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">var</span> result = reader.result; </div><div class="line">            <span class="comment">// 将选择的图片显示在div中                </span></div><div class="line">            <span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).style.background = <span class="string">"url("</span>+result+<span class="string">") no-repeat center/cover"</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>细节问题</strong></p>
-<ul>
-<li>当图片直接拖入body时，默认情况下会直接打开图片</li>
-<li>可以通过event.dataTransfer对象的files属性获取当前被拖动的对象<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    *&#123;</div><div class="line">        margin: 0;</div><div class="line">        padding: 0;</div><div class="line">    &#125;</div><div class="line">    body,html&#123;</div><div class="line">        height: 100%;</div><div class="line">    &#125;</div><div class="line">    .preview&#123;</div><div class="line">        width: 300px;</div><div class="line">        height: 300px;</div><div class="line">        border: 2px dashed black;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>拖入图片<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"preview"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">        <span class="built_in">document</span>.body.ondragover = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 阻止drop的默认事件：默认情况下打开图片</span></div><div class="line">        <span class="comment">// 要想触发drop事件，必须设置ondragover阻止默认事件</span></div><div class="line">        <span class="built_in">document</span>.body.ondrop = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125;;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondragenter = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.style.background = <span class="string">"lightgray"</span>;</div><div class="line">        &#125;;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondragleave = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.style.background = <span class="string">"white"</span>;</div><div class="line">        &#125;;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondragover = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).ondrop = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">            <span class="comment">// 获取文件:通过event.dataTransfer对象的files属性</span></div><div class="line">            <span class="keyword">var</span> file = event.dataTransfer.files[<span class="number">0</span>];</div><div class="line">            <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</div><div class="line">            reader.readAsDataURL(file);</div><div class="line">            reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="keyword">var</span> result = reader.result;</div><div class="line">                <span class="built_in">document</span>.querySelector(<span class="string">".preview"</span>).style.background = <span class="string">"url("</span>+result+<span class="string">") no-repeat center/cover"</span>;</div><div class="line">            &#125;;</div><div class="line">        &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/28/C01-HTML5stroge/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/28/C01-HTML5stroge/" itemprop="url">
-                  HTML5Stroage
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-28T00:00:00+08:00">
-                2016-03-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTML5/" itemprop="url" rel="index">
-                    <span itemprop="name">HTML5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="数据存储localStorage和sessionStroage"><a href="#数据存储localStorage和sessionStroage" class="headerlink" title="数据存储localStorage和sessionStroage"></a>数据存储localStorage和sessionStroage</h2><ul>
-<li>区别：localStorage：关闭浏览器信息依旧存在; sessionStroage：关闭浏览器信息消失</li>
-<li>两者的调用方法完全一致</li>
-<li>window.localStorage.setItem(key,value);保存数据,不可以保存私密信息</li>
-<li>window.localStorage.getItem(key);获取数据</li>
-<li>window.localStorage.clear();清空数据</li>
-<li>window.localStorage.removeItem(key);清除某个数据<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>请输入你的名字<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"保存"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="comment">// 点击保存按钮 保存输入的名字</span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"input[type=button]"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 获取输入的值</span></div><div class="line">        <span class="keyword">var</span> text = <span class="built_in">document</span>.querySelector(<span class="string">"input[type=text]"</span>).value;</div><div class="line">        <span class="comment">// 将输入的值保存</span></div><div class="line">        <span class="built_in">window</span>.localStorage.setItem(<span class="string">"userName"</span>,text);</div><div class="line">    &#125;;</div><div class="line">    <span class="comment">// 页面加载完毕后获取保存的值        </span></div><div class="line">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> username = <span class="built_in">window</span>.localStorage.getItem(<span class="string">"userName"</span>);</div><div class="line">        <span class="comment">// 将输入的值设置给h1</span></div><div class="line">        <span class="keyword">if</span>(username)&#123;</div><div class="line">            <span class="built_in">document</span>.querySelector(<span class="string">"h1"</span>).innerHTML = username;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/26/C01-HTML5 高级API/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/03/26/C01-HTML5 高级API/" itemprop="url">
-                  HTML5高级API
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-26T00:00:00+08:00">
-                2016-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTML5/" itemprop="url" rel="index">
-                    <span itemprop="name">HTML5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="HTMl5高级API"><a href="#HTMl5高级API" class="headerlink" title="HTMl5高级API"></a>HTMl5高级API</h1><h2 id="全屏效果"><a href="#全屏效果" class="headerlink" title="全屏效果"></a>全屏效果</h2><ul>
-<li><strong>requestFullScreen()方法;</strong></li>
-<li>该方法目前还处于测试阶段，要想正常使用必须添加前缀</li>
-<li>不同的浏览器的渲染效果不同</li>
-<li>ie的全屏方法是msRequestFullscreen(screen中的s是小写)</li>
-<li>兼容浏览器写法<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;input type="button" value="全屏"* </div><div class="line">&lt;script&gt;</div><div class="line">documet.querySelector("input").onclick = function()&#123;</div><div class="line">    if(this.webkitRequestFullScreen)&#123;</div><div class="line">        // 谷歌</div><div class="line">        this.webkitRequestFullScreen();</div><div class="line">    &#125;else if(this.mozRequestFullScreen)&#123;</div><div class="line">        // 火狐</div><div class="line">        this.mozRequestFullScreen();</div><div class="line">    &#125;else if(this.msRequestFullscreen)&#123;</div><div class="line">        // ie的全屏方法是msRequestFullscreen</div><div class="line">        // 可以查MSDN</div><div class="line">        // IE </div><div class="line">        this.msRequestFullscreen();</div><div class="line">    &#125;else if(this.requestFullScreen)&#123;</div><div class="line">        // 其他</div><div class="line">        this.requestFullScreen();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="拖-drag-放-drop"><a href="#拖-drag-放-drop" class="headerlink" title="拖(drag)放(drop)"></a>拖(drag)放(drop)</h2><ul>
-<li>有些元素默认支持鼠标拖放，例如img。但是该拖放只是一种视觉效果，元素并不会移动位置，如果实现元素的位置移动，需要使用js</li>
-<li>有些不支持拖放，如div</li>
-<li>设置元素可拖放,需要设置属性<code>draaable=&quot;true&quot;</code>例如：<code>&lt;div draggable=&quot;true&quot;&gt;</code><h3 id="拖放事件"><a href="#拖放事件" class="headerlink" title="拖放事件"></a>拖放事件</h3></li>
-<li>dragstart: 元素开始拖动事件。设置在被拖动的元素上</li>
-<li><p>dragend: 元素拖动结束事件。设置在被拖动的元素上</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).ondragstart = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 拖拽开始改变图片内容</span></div><div class="line">        <span class="keyword">this</span>.src = <span class="string">"img/huli.jpg"</span>;</div><div class="line">    &#125;;</div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).ondragend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">       	<span class="comment">// 拖拽结束还原图片</span></div><div class="line">       	<span class="keyword">this</span>.src = <span class="string">"img/xiang.jpg"</span>;</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>dragenter: 有元素拖入时触发</p>
-</li>
-<li><p>dragleave: 元素离开时触发</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;background:yellowgreen"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="comment">// 图片拖入box时改变box的背景颜色</span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragenter = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.style.background = <span class="string">"yellow"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="comment">// 图片离开box时还原box的背景颜色</span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragleave = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.style.background =<span class="string">"yellowgreen"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>dragover: 规定在何处放置被拖动的数据</p>
-</li>
-<li><strong>注意</strong></li>
-<li>默认情况下无法将元素放置到其他元素中。若要允许放置，需要阻止元素的默认行为。</li>
-<li>通过调用ondragover 事件的 event.preventDefault() 方法</li>
-<li>drop: 放置被拖动的元素时触发。只有设置了ondragover事件，drop事件才会触发<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;background:yellowgreen"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragover = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    event.preventDefault();</div><div class="line">&#125;</div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondrop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> imgObj = <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>);</div><div class="line">    <span class="keyword">this</span>.appendChild(imgObj);</div><div class="line">    <span class="comment">// 改变img的大小</span></div><div class="line">    imgObj.style.width = <span class="string">"100px"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="地理位置"><a href="#地理位置" class="headerlink" title="地理位置"></a>地理位置</h2><ul>
-<li>经常用于移动端,PC端的定位不准确</li>
-<li>该方式只能获取经纬度，若要显示地图，需要配合百度地图等使用<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"获取位置"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"input"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 获取当前的位置信息</span></div><div class="line">        <span class="built_in">window</span>.navigator.geolocation.getCurrentPosition(<span class="function"><span class="keyword">function</span>(<span class="params">position</span>)</span>&#123;</div><div class="line">            <span class="comment">// 获取位置信息</span></div><div class="line">            <span class="built_in">console</span>.log(position);</div><div class="line">            <span class="comment">// 获取纬度</span></div><div class="line">            <span class="built_in">console</span>.log(position.coords.latitude);</div><div class="line">            <span class="comment">// 获取经度</span></div><div class="line">            <span class="built_in">console</span>.log(position.coords.longitude);</div><div class="line">        &#125;);</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="video的API"><a href="#video的API" class="headerlink" title="video的API"></a>video的API</h2><ul>
-<li>video的方法:<ul>
-<li>play(); 播放视频</li>
-<li>pause(); 暂停视频</li>
-</ul>
-</li>
-<li>video的事件<ul>
-<li>ontimeupdate: 视频播放时触发的事件</li>
-</ul>
-</li>
-<li>video元素的属性</li>
-<li>currentTime： 当前的播放时间</li>
-<li>duration: 视频的总时长</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2310,7 +2386,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-count">51</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2321,7 +2397,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

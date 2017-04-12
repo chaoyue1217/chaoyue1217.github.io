@@ -260,12 +260,12 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/05/C01-HTML5 高级API/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/25/C01-HTML5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qcyue">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -282,197 +282,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/04/05/C01-HTML5 高级API/" itemprop="url">
-                  HTML5高级API
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-05T00:00:00+08:00">
-                2016-04-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTML5/" itemprop="url" rel="index">
-                    <span itemprop="name">HTML5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="HTMl5高级API"><a href="#HTMl5高级API" class="headerlink" title="HTMl5高级API"></a>HTMl5高级API</h1><h2 id="全屏效果"><a href="#全屏效果" class="headerlink" title="全屏效果"></a>全屏效果</h2><ul>
-<li><strong>requestFullScreen()方法;</strong></li>
-<li>该方法目前还处于测试阶段，要想正常使用必须添加前缀</li>
-<li>不同的浏览器的渲染效果不同</li>
-<li>ie的全屏方法是msRequestFullscreen(screen中的s是小写)</li>
-<li>兼容浏览器写法<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;input type="button" value="全屏"* </div><div class="line">&lt;script&gt;</div><div class="line">documet.querySelector("input").onclick = function()&#123;</div><div class="line">    if(this.webkitRequestFullScreen)&#123;</div><div class="line">        // 谷歌</div><div class="line">        this.webkitRequestFullScreen();</div><div class="line">    &#125;else if(this.mozRequestFullScreen)&#123;</div><div class="line">        // 火狐</div><div class="line">        this.mozRequestFullScreen();</div><div class="line">    &#125;else if(this.msRequestFullscreen)&#123;</div><div class="line">        // ie的全屏方法是msRequestFullscreen</div><div class="line">        // 可以查MSDN</div><div class="line">        // IE </div><div class="line">        this.msRequestFullscreen();</div><div class="line">    &#125;else if(this.requestFullScreen)&#123;</div><div class="line">        // 其他</div><div class="line">        this.requestFullScreen();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="拖-drag-放-drop"><a href="#拖-drag-放-drop" class="headerlink" title="拖(drag)放(drop)"></a>拖(drag)放(drop)</h2><ul>
-<li>有些元素默认支持鼠标拖放，例如img。但是该拖放只是一种视觉效果，元素并不会移动位置，如果实现元素的位置移动，需要使用js</li>
-<li>有些不支持拖放，如div</li>
-<li>设置元素可拖放,需要设置属性<code>draaable=&quot;true&quot;</code>例如：<code>&lt;div draggable=&quot;true&quot;&gt;</code><h3 id="拖放事件"><a href="#拖放事件" class="headerlink" title="拖放事件"></a>拖放事件</h3></li>
-<li>dragstart: 元素开始拖动事件。设置在被拖动的元素上</li>
-<li><p>dragend: 元素拖动结束事件。设置在被拖动的元素上</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).ondragstart = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 拖拽开始改变图片内容</span></div><div class="line">        <span class="keyword">this</span>.src = <span class="string">"img/huli.jpg"</span>;</div><div class="line">    &#125;;</div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>).ondragend = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">       	<span class="comment">// 拖拽结束还原图片</span></div><div class="line">       	<span class="keyword">this</span>.src = <span class="string">"img/xiang.jpg"</span>;</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>dragenter: 有元素拖入时触发</p>
-</li>
-<li><p>dragleave: 元素离开时触发</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;background:yellowgreen"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="comment">// 图片拖入box时改变box的背景颜色</span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragenter = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.style.background = <span class="string">"yellow"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="comment">// 图片离开box时还原box的背景颜色</span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragleave = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.style.background =<span class="string">"yellowgreen"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>dragover: 规定在何处放置被拖动的数据</p>
-</li>
-<li><strong>注意</strong></li>
-<li>默认情况下无法将元素放置到其他元素中。若要允许放置，需要阻止元素的默认行为。</li>
-<li>通过调用ondragover 事件的 event.preventDefault() 方法</li>
-<li>drop: 放置被拖动的元素时触发。只有设置了ondragover事件，drop事件才会触发<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/xiang.jpg"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">style</span>=<span class="string">"width:300px;height:300px;background:yellowgreen"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondragover = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    event.preventDefault();</div><div class="line">&#125;</div><div class="line"><span class="built_in">document</span>.querySelector(<span class="string">".box"</span>).ondrop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> imgObj = <span class="built_in">document</span>.querySelector(<span class="string">"img"</span>);</div><div class="line">    <span class="keyword">this</span>.appendChild(imgObj);</div><div class="line">    <span class="comment">// 改变img的大小</span></div><div class="line">    imgObj.style.width = <span class="string">"100px"</span>;</div><div class="line">&#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="地理位置"><a href="#地理位置" class="headerlink" title="地理位置"></a>地理位置</h2><ul>
-<li>经常用于移动端,PC端的定位不准确</li>
-<li>该方式只能获取经纬度，若要显示地图，需要配合百度地图等使用<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"获取位置"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="built_in">document</span>.querySelector(<span class="string">"input"</span>).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 获取当前的位置信息</span></div><div class="line">        <span class="built_in">window</span>.navigator.geolocation.getCurrentPosition(<span class="function"><span class="keyword">function</span>(<span class="params">position</span>)</span>&#123;</div><div class="line">            <span class="comment">// 获取位置信息</span></div><div class="line">            <span class="built_in">console</span>.log(position);</div><div class="line">            <span class="comment">// 获取纬度</span></div><div class="line">            <span class="built_in">console</span>.log(position.coords.latitude);</div><div class="line">            <span class="comment">// 获取经度</span></div><div class="line">            <span class="built_in">console</span>.log(position.coords.longitude);</div><div class="line">        &#125;);</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="video的API"><a href="#video的API" class="headerlink" title="video的API"></a>video的API</h2><ul>
-<li>video的方法:<ul>
-<li>play(); 播放视频</li>
-<li>pause(); 暂停视频</li>
-</ul>
-</li>
-<li>video的事件<ul>
-<li>ontimeupdate: 视频播放时触发的事件</li>
-</ul>
-</li>
-<li>video元素的属性</li>
-<li>currentTime： 当前的播放时间</li>
-<li>duration: 视频的总时长</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/04/03/C01-HTML5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/03/C01-HTML5/" itemprop="url">
+                <a class="post-title-link" href="/2016/03/25/C01-HTML5/" itemprop="url">
                   HTML5新增标签及属性
                 </a>
               
@@ -489,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-03T00:00:00+08:00">
-                2016-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-25T00:00:00+08:00">
+                2016-03-25
               </time>
             
 
@@ -646,12 +456,12 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/26/B03-jQuery/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/23/C05-CSS3弹性布局/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qcyue">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -668,7 +478,785 @@
             
               
                 
-                <a class="post-title-link" href="/2016/03/26/B03-jQuery/" itemprop="url">
+                <a class="post-title-link" href="/2016/03/23/C05-CSS3弹性布局/" itemprop="url">
+                  CSS3弹性布局
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-23T00:00:00+08:00">
+                2016-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS3/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS3</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CSS3弹性布局"><a href="#CSS3弹性布局" class="headerlink" title="CSS3弹性布局"></a>CSS3弹性布局</h1><ul>
+<li>在父元素上设置<code>display:flex</code> 其子元素就会进行弹性布局，该父元素为弹性盒子<h2 id="两个轴"><a href="#两个轴" class="headerlink" title="两个轴"></a>两个轴</h2></li>
+<li>主轴默认是x轴，副轴的y轴<h3 id="主轴-justify-content"><a href="#主轴-justify-content" class="headerlink" title="主轴 justify-content"></a>主轴 justify-content</h3></li>
+<li>flex-start : 主轴的开始</li>
+<li>flex-end : 主轴的末尾</li>
+<li>space-round : 分散布局,两边不顶格</li>
+<li>space-between : 分散布局,两边顶格<h3 id="副轴-align-items"><a href="#副轴-align-items" class="headerlink" title="副轴 align-items"></a>副轴 align-items</h3></li>
+<li>flex-start</li>
+<li>flex-end </li>
+<li>center : 居中</li>
+<li>设置副轴时，所有的子元素会统一设置，若单独设置某一元素的副轴的对齐方式，需要在子元素上设置 <code>align-self</code><br>示例 :<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">ul&#123;</div><div class="line">    height: 300px;</div><div class="line">    border: 1px solid gray;</div><div class="line">    list-style: none;</div><div class="line">    padding: 0;</div><div class="line">    margin: 100px auto;</div><div class="line">    /*开启弹性布局*/</div><div class="line">    display: flex;</div><div class="line">    /*设置主轴的对齐方式*/</div><div class="line">    justify-content: space-between;</div><div class="line">    /*设置副轴的对齐方式*/</div><div class="line">    align-items: flex-start;</div><div class="line">&#125;</div><div class="line">li&#123;</div><div class="line">    width: 50px;</div><div class="line">    height: 50px;</div><div class="line">    border-radius: 50%;</div><div class="line">    background-color: yellow;</div><div class="line">&#125;</div><div class="line">li:nth-child(2)&#123;</div><div class="line">    align-self: center;</div><div class="line">&#125;</div><div class="line">li:nth-child(3)&#123;</div><div class="line">    align-self: flex-end;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="其他属性"><a href="#其他属性" class="headerlink" title="其他属性"></a>其他属性</h2><h3 id="flex-wrap属性"><a href="#flex-wrap属性" class="headerlink" title="flex-wrap属性"></a>flex-wrap属性</h3><ul>
+<li>如果子元素的在<strong>主轴方向上</strong>的长度超出了父元素，默认情况下会对子元素进行压缩，保证元素处于同一行上</li>
+<li>默认值是 : nowrap;</li>
+<li>开启换行 : wrap;<h3 id="flex属性"><a href="#flex属性" class="headerlink" title="flex属性"></a>flex属性</h3></li>
+<li>设置在子元素上，设置的是元素在<strong>主轴方向上</strong>所占的比例</li>
+<li>设置了flex属性后，再设置主轴方向上的长度时无效</li>
+<li>设置了flex属性的元素永远不会换行<br>示例 :<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">.box&#123;</div><div class="line">    width: 400px;</div><div class="line">    height: 200px;</div><div class="line">    border: 1px solid #000;</div><div class="line">    margin:100px auto;</div><div class="line">    list-style: none;</div><div class="line">    padding: 0;</div><div class="line">    display: flex;</div><div class="line">    justify-content: space-around;</div><div class="line">    align-items: center;</div><div class="line">&#125;</div><div class="line">li&#123;</div><div class="line">    height: 80px;</div><div class="line">&#125;</div><div class="line">li:first-child&#123;</div><div class="line">    flex: 1;</div><div class="line">&#125;</div><div class="line">li:nth-child(2)&#123;</div><div class="line">    flex: 2;</div><div class="line">&#125;</div><div class="line">li:nth-child(3)&#123;</div><div class="line">    flex: 3;    </div><div class="line">&#125;</div><div class="line">li:last-child&#123;</div><div class="line">    flex: 4;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="flex-direction属性"><a href="#flex-direction属性" class="headerlink" title="flex-direction属性"></a>flex-direction属性</h3><ul>
+<li>设置的是主轴的方向</li>
+<li>默认值是: row 横向</li>
+<li>columbn: 纵向，即y轴，此时副轴时x轴</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/22/C04-CSS3动画系列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/22/C04-CSS3动画系列/" itemprop="url">
+                  CSS3动画
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-22T00:00:00+08:00">
+                2016-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS3/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS3</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="渐变和过渡"><a href="#渐变和过渡" class="headerlink" title="渐变和过渡"></a>渐变和过渡</h1><h2 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h2><h3 id="线性渐变-linear-gradient"><a href="#线性渐变-linear-gradient" class="headerlink" title="线性渐变 linear-gradient"></a>线性渐变 linear-gradient</h3><ul>
+<li>颜色朝着某个方向渐变</li>
+<li>只能设置给元素的图片属性：<code>background</code>或者<code>background-image</code></li>
+<li>语法 <code>background:linear-gradient(to 方向,颜色1,颜色2...)</code> 方向为top,bottom,left,right</li>
+<li>渐变的方向也可以是具体的角度(deg)<code>background:linear-gradient(50deg,颜色1,颜色2...)</code></li>
+<li>渐变的颜色可以设置百分比</li>
+<li>注意：渐变在谷歌中没有过渡效果，IE中有<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">     .progress&#123;</div><div class="line">      width: 200px;</div><div class="line">     height: 20px;</div><div class="line">     background-image: linear-gradient(64deg,yellow 33.33% ,green 33.33%,green 66.66%,yellow 66.66%);</div><div class="line">     &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"progress"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="径向渐变-radial-gradient"><a href="#径向渐变-radial-gradient" class="headerlink" title="径向渐变 radial-gradient"></a>径向渐变 radial-gradient</h3><ul>
+<li>变化的圆形</li>
+<li>语法：<code>background:radial-gradient(半径 at 圆心位置,颜色1,颜色2...)</code></li>
+<li>半径只设置一个时，是一个元圆形；设置两个时，是椭圆形</li>
+<li>颜色的设置和线性渐变一样，但是最后一个颜色会铺满剩余的空间 </li>
+<li>设置扇形时，需要把圆心的位置设置在盒子的某个角上，例如<code>top left</code><br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line"> .sun&#123;</div><div class="line">        width: 200px;</div><div class="line">        height: 200px;</div><div class="line">        background: radial-gradient(100px 50px at center,black 50%,orange 50%);</div><div class="line"> &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'sun'</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="transition过渡"><a href="#transition过渡" class="headerlink" title="transition过渡"></a>transition过渡</h2><ul>
+<li>状态1 —&gt;  状态2</li>
+<li><code>transition-property</code>过渡属性：设置需要过渡的属性，可以是width，background…也可以直接写all,表示全部属性</li>
+<li><code>transition-duration</code>过渡持续的时间</li>
+<li><code>transition-delay</code> 延迟时间，表示多长时间之后开始执行</li>
+<li><code>transition-timing-function</code> 动画的方式<ul>
+<li><code>ease</code> 默认值   <code>ease-in</code>,<code>ease-out</code>,<code>ease-in-out</code>,<code>linear</code></li>
+<li>贝塞尔曲线</li>
+<li>steps(n)  步数，表示分几步完成该动作</li>
+</ul>
+</li>
+<li>属性联写 ：  transition: all 1s(持续时间) 2s(延迟时间) linear;</li>
+<li>复合写法 ：  多个属性之间使用逗号分隔<br><code>transition:  width 1s linear,  height 1s 1s linear,background 1s 2s ;</code></li>
+<li><strong>注意</strong></li>
+<li>如果设置了transition属性，但是没有动画效果，有可能是没有设置起始值</li>
+</ul>
+<h1 id="动画系列"><a href="#动画系列" class="headerlink" title="动画系列"></a>动画系列</h1><h2 id="transform动画"><a href="#transform动画" class="headerlink" title="transform动画"></a>transform动画</h2><ul>
+<li>经过transform变换后的元素不会影响其他元素的位置</li>
+<li>四种函数<h3 id="transform2D效果"><a href="#transform2D效果" class="headerlink" title="transform2D效果"></a>transform2D效果</h3></li>
+<li>translate()移动<ul>
+<li>translateX(); 表示在x方向移动的距离</li>
+<li>translateY(); 表示在y方向移动的距离</li>
+<li>translate(x,y)</li>
+</ul>
+</li>
+<li>rotate()旋转<ul>
+<li>支持x和y方向单独设置</li>
+<li>参数是角度 例如：<code>rotate(45deg)</code></li>
+</ul>
+</li>
+<li>scale()缩放<ul>
+<li>支持x和y方向单独设置</li>
+<li>从中心缩放，参数是比例，默认为1</li>
+</ul>
+</li>
+<li>skew() 扭曲<ul>
+<li>支持x和y方向单独设置</li>
+<li>参数是角度<h3 id="transform3D效果"><a href="#transform3D效果" class="headerlink" title="transform3D效果"></a>transform3D效果</h3></li>
+</ul>
+</li>
+<li><code>transform-origin</code> 设置旋转的中心点</li>
+<li><code>perspective</code> 元素距离浏览器的距离，当距离为0时，元素和浏览器平行，浏览器将看不到元素</li>
+<li>如果要设置旋转时近小远大的效果，需要在 <strong>祖先元素</strong> 上设置perspective</li>
+<li><p>示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    body&#123;</div><div class="line">        perspective:1000px;</div><div class="line">    &#125;</div><div class="line">    div&#123;</div><div class="line">        width:200px;</div><div class="line">        height:200px;</div><div class="line">        margin: 100px auto;</div><div class="line">        background:red;</div><div class="line">        transition:all 2s;</div><div class="line">         /*以左侧为轴*/        </div><div class="line">        transform-origin:left center;</div><div class="line">        transform:rotateY(150deg);</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><code>transform-style</code> 开启浏览器的3D渲染效果，浏览器默认是关闭该功能的</p>
+</li>
+<li>必须要设在在进行3D变换的元素的<strong>父元素</strong>上</li>
+<li><p>示例：旋转的立方体</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    .box &#123;</div><div class="line">      width: 200px;</div><div class="line">      height: 200px;</div><div class="line">      margin: 100px auto;</div><div class="line">      position: relative;</div><div class="line">    &#125;</div><div class="line">    .box&gt;div &#123;</div><div class="line">      position: absolute;</div><div class="line">      width: 100%;</div><div class="line">      height: 100%;</div><div class="line">      font-size: 150px;</div><div class="line">      text-align: center;</div><div class="line">      line-height: 200px;</div><div class="line">    &#125;</div><div class="line">    .box div:first-child &#123;</div><div class="line">      /* 往前移动 父元素 宽度的 一半 */</div><div class="line">      transform: translateZ(100px);</div><div class="line">      background-color: pink;</div><div class="line">    &#125;</div><div class="line">    .box div:nth-child(2) &#123;</div><div class="line">      /* 往前移动 父元素 宽度的 一半 */</div><div class="line">      transform: rotateY(180deg) translateZ(100px);</div><div class="line">      background-color: orange;</div><div class="line">    &#125;</div><div class="line">    /* 左右两个面 */</div><div class="line">    .box div:nth-child(3) &#123;</div><div class="line">      /* 往前移动 父元素 宽度的 一半 */</div><div class="line">      transform: rotateY(90deg) translateZ(100px);</div><div class="line">      background-color: blue;</div><div class="line">    &#125;</div><div class="line">    .box div:nth-child(4) &#123;</div><div class="line">      /* 往前移动 父元素 宽度的 一半 */</div><div class="line">      transform: rotateY(-90deg) translateZ(100px);</div><div class="line">      background-color: yellowgreen;</div><div class="line">    &#125;</div><div class="line">        /* 上下两个面 */</div><div class="line">    .box div:nth-child(5) &#123;</div><div class="line">      /* 往前移动 父元素 宽度的 一半 */</div><div class="line">      transform: rotateX(90deg) translateZ(100px);</div><div class="line">      background-color: hotpink;</div><div class="line">    &#125;</div><div class="line">    .box div:last-child &#123;</div><div class="line">      /* 往前移动 父元素 宽度的 一半 */</div><div class="line">      transform: rotateX(-90deg) translateZ(100px);</div><div class="line">      background-color: deeppink;</div><div class="line">    &#125;</div><div class="line">    .box &#123;</div><div class="line">      transform-style: preserve-3d;</div><div class="line">      /* 透明度 如果在这里设置子元素会出现无法渲染3d效果的问题 */</div><div class="line">      /*opacity: .5;*/</div><div class="line">    &#125;</div><div class="line">    .box div&#123;</div><div class="line">      opacity: .5;</div><div class="line">    &#125;</div><div class="line">    /*鼠标悬停时让立方体旋转*/</div><div class="line">    .box:hover &#123;</div><div class="line">      transition: all 2s linear;</div><div class="line">      transform: rotateY(360deg) rotateZ(360deg);</div><div class="line">    &#125;</div><div class="line">  <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>4<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>5<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>6<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>效果图</p>
+<p><img src="../img\box.png" alt="box"></p>
+</li>
+<li><p><strong>注意点</strong></p>
+</li>
+<li>视角中心点<ul>
+<li>在父元素中心的子元素的旋转是正常变化的，如果子元素不在正中心，旋转同样的角度会产生不同的效果</li>
+</ul>
+</li>
+<li>translate和rotate属性先后设置的问题<ul>
+<li>元素自身有一个朝向，浏览器解析的时候从左向右解析</li>
+<li>translate()如果设置在rotate()前面，会先运动到指定的位置，再在原地进行旋转</li>
+<li>rotate()如果设置在translate()前面，会先旋转，再朝着旋转后的方向运动指定的距离<h2 id="自定义动画"><a href="#自定义动画" class="headerlink" title="自定义动画"></a>自定义动画</h2></li>
+</ul>
+</li>
+<li><strong>步骤</strong></li>
+<li><p>定义动画,语法如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">@keyframes autoMove&#123;/*autoMove代表动画名称*/</div><div class="line">    from&#123;</div><div class="line">      /*设置元素的起始状态，如果起始的状态是默认状态可以省略from*/</div><div class="line">    &#125;</div><div class="line">    to&#123;</div><div class="line">      /*设置元素的目标状态*/</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">.autoMove&#123;</div><div class="line">    /*设置动画的名称*/</div><div class="line">    animation-name:autoMove;</div><div class="line">    /*设置动画的持续时间*/</div><div class="line">    animation-duration:2s;</div><div class="line">    /*设置动画方式*/</div><div class="line">    animation-timing-function:linear;</div><div class="line">    /*设置动画执行的次数，可以是具体数值，也可以是infinite(无穷)*/</div><div class="line">    animation-iteration-count:2;</div><div class="line">    /*设置动画的播放状态，默认是running</div><div class="line">    可以设置为paused：暂停*/</div><div class="line">    animation-play-state:running;</div><div class="line">    /*设置动画结束时的状态：forwards表示运动的最后状态为结束状态</div><div class="line">    默认情况下会返回初始状态</div><div class="line">    */</div><div class="line">    animation-fill-mode:forwards;</div><div class="line">&#125;</div><div class="line">.autoMove:hover&#123;</div><div class="line">    animation-play-state:paused;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意点</strong></p>
+</li>
+<li>类样式应用在需要设置动画的元素上</li>
+<li>animation可以属性联写，属性联写时，第一个出现的时间是持续时间，第二个出现的时间是延迟时间，其余属性的位置任意</li>
+<li>设置多个animation属性时，后设置的会覆盖先前设置的，可以将两个属性合并写，中间使用逗号隔开。例如：<br><code>animation: jump 1s infinite steps(8), swim 10s infinite linear;</code></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/21/C03-CSS3新属性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/21/C03-CSS3新属性/" itemprop="url">
+                  CSS3新属性
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-21T00:00:00+08:00">
+                2016-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS3/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS3</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CSS3盒模型新属性"><a href="#CSS3盒模型新属性" class="headerlink" title="CSS3盒模型新属性"></a>CSS3盒模型新属性</h1><h2 id="盒模型属性"><a href="#盒模型属性" class="headerlink" title="盒模型属性"></a>盒模型属性</h2><ul>
+<li><code>box-sizing:border-box</code>  在添加border或者padding时，首先保证盒子通过width和height属性设置的尺寸，通过压缩内容来实现 </li>
+<li><code>box-sizing:content-box</code>默认值，盒子大小按照设置的来计算；即首先保证盒子的内容尺寸不变</li>
+<li>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">     div&#123;</div><div class="line">     width: 200px;</div><div class="line">     height: 200px;</div><div class="line">     border:10px solid #000;</div><div class="line">     margin-top: 10px;</div><div class="line">     &#125;</div><div class="line">     div:first-child&#123;</div><div class="line">     /*优先元素自身的尺寸不变，通过压缩内容来实现</div><div class="line">     所以设置完该属性后，该元素的宽高为200px</div><div class="line">     */</div><div class="line">     box-sizing: border-box;</div><div class="line">     &#125;</div><div class="line">     div:last-child&#123;</div><div class="line">     /*默认的属性 优先保证内容的尺寸不变</div><div class="line">     因此该元素的宽高为220px</div><div class="line">     */</div><div class="line">     box-sizing: content-box;</div><div class="line">     &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><ul>
+<li>text-shadow: 阴影的水平偏移值,阴影的垂直偏移值，阴影模糊值(不可以有负值)，阴影的颜色</li>
+<li>box-shadow:阴影的水平偏移值,阴影的垂直偏移值，阴影模糊值(不可以有负值)，阴影的颜色<br>还可以设置inset：表示阴影向内发散，不设置时默认向外发散</li>
+<li>以上两个属性可以设置多个阴影，每个阴影之间用逗号隔开</li>
+<li>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">   .showBox:hover&#123;</div><div class="line">       box-shadow: 0px 0px 40px orange,</div><div class="line">       0px 0px 60px red,</div><div class="line">       /*inset 向内部发散*/</div><div class="line">       inset 0px 0px 40px white;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"showBox"</span>&gt;</span>这是一个div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="background新属性"><a href="#background新属性" class="headerlink" title="background新属性"></a>background新属性</h1><ul>
+<li>background支持多个属性复合，多个属性之间使用逗号隔开<h3 id="background-size"><a href="#background-size" class="headerlink" title="background-size"></a>background-size</h3></li>
+<li>设置背景图片的大小</li>
+<li>可以直接设置像素值 例如：<code>100px 200px</code></li>
+<li>cover : 等比例缩放图片，图片的宽高只要有一个与盒子的相等，就停止缩放；图片有可能超出盒子的范围，超出部分不显示</li>
+<li>contain : 等比例缩放图片，图片的宽高都至少等于盒子的宽高时，停止缩放，所以图片不会超出盒子的范围<h3 id="background-origin"><a href="#background-origin" class="headerlink" title="background-origin"></a>background-origin</h3></li>
+<li>设置背景图片开始显示的位置</li>
+<li>如果不设置no-repeat，该属性无效</li>
+<li>content-box  从内容开始，不包括border和padding。默认值</li>
+<li>padding-box  从padding开始(包括padding)，不包括border</li>
+<li>border-box   从border开始(包括border)<h3 id="background-clip"><a href="#background-clip" class="headerlink" title="background-clip"></a>background-clip</h3></li>
+<li>设置背景图片开始裁剪的位置</li>
+<li>如果不设置no-repeat，该属性无效</li>
+<li>content-box: 从内容开始裁剪，只显示内容部分的背景</li>
+<li>padding-box: 从padding开始裁剪，只显示内容+padding部分的背景</li>
+<li>border-box: 从border开始裁剪，默认值<h3 id="background属性联写"><a href="#background属性联写" class="headerlink" title="background属性联写"></a>background属性联写</h3></li>
+<li>background-size属性要写在background-position属性后面，并使用<code>/</code>分隔，background-origin写在末尾即可<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">.pic&#123;</div><div class="line">    width:200px;</div><div class="line">    height:200px;</div><div class="line">    background:</div><div class="line">        url('img/lyf.jpg') top left / 100px 100px no-repeat ,</div><div class="line">        url('img/lyf.jpg') no-repeat top center / 100px 100px ,</div><div class="line">        url('img/lyf.jpg') no-repeat top right / 100px 100px,</div><div class="line">        skyblue ;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pic"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="图片边框border"><a href="#图片边框border" class="headerlink" title="图片边框border"></a>图片边框border</h2><ul>
+<li>就是给border设置背景   <strong>要设置border的背景，必须先设置border</strong></li>
+<li>图片边框的默认宽度是border的宽度</li>
+<li><code>border-image-source</code>设置图片的路径</li>
+<li><code>border-image-slice</code>设置图片的切割位置。例如： <code>border-image-slice: 27 27</code>是将图片的四个角取27 x 27的范围切割出去，剩余的部分进行平铺的设置</li>
+<li><code>border-image-repeat</code>设置图片的平铺方式 </li>
+<li>stretch ： 直接拉伸图片，会导致图片失真</li>
+<li>round :  平铺，会考虑图片的完整性，进行压缩</li>
+<li>repeat ： 平铺，不会考虑图片的完整性</li>
+<li><code>border-image-width</code> 设置边框背景的宽度，不会影响盒子的大小<br>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">div&#123;</div><div class="line">      width: 150px;</div><div class="line">      height: 200px;</div><div class="line">      border:10px dashed white;</div><div class="line">      float: left;</div><div class="line">      margin-left: 50px;</div><div class="line">      background: url('img/csc.jpg') no-repeat center/ cover;</div><div class="line">      border-image-source: url('img/border_box.png');</div><div class="line">      border-image-slice: 27 27;</div><div class="line">      border-image-width: 30px;</div><div class="line">      border-image-repeat:round;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"man"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>效果图：</p>
+<ul>
+<li>设置 border-image-repeat:round时;<br><img src="../img\csc.png" alt="csc"></li>
+</ul>
+<ul>
+<li><p>设置border-image-repeat:repeat时;</p>
+<p><img src="../img\csc2.png" alt="csc2"></p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/20/C02CSS3选择器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/20/C02CSS3选择器/" itemprop="url">
+                  CSS3选择器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-20T00:00:00+08:00">
+                2016-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS3/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS3</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CSS3选择器"><a href="#CSS3选择器" class="headerlink" title="CSS3选择器"></a>CSS3选择器</h1><h2 id="CSS3选择器分类"><a href="#CSS3选择器分类" class="headerlink" title="CSS3选择器分类"></a>CSS3选择器分类</h2><h3 id="兄弟选择器"><a href="#兄弟选择器" class="headerlink" title="兄弟选择器"></a>兄弟选择器</h3><ul>
+<li>~   只能获取某元素后面的兄弟元素<h3 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h3></li>
+<li><code>E[att]</code>                属性拥有某个属性</li>
+<li><code>E[att=&quot;val&quot;]</code>        属性等于某个之后</li>
+<li><code>E[att~=&quot;val&quot;]</code>      存在该属性， 属性值以空格分开</li>
+<li><code>E[att^=&quot;val&quot;]</code>      属性值以指定字符串开头</li>
+<li><code>E[att$=&quot;val&quot;]</code>      属性值以指定字符串结尾</li>
+<li><code>E[att*=&quot;val&quot;]</code>      属性值包含指定字符串</li>
+<li>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">    /*拥有某个属性*/</div><div class="line">    li[color]&#123;</div><div class="line">    	background-color: hotpink;</div><div class="line">    &#125;</div><div class="line">    /*属性等于某个值*/</div><div class="line">    li[color=yellow]&#123;</div><div class="line">    	color: #ff0;</div><div class="line">    &#125;</div><div class="line">    /*获取以空格分开的某个属性*/</div><div class="line">    li[shkill~=strong]&#123;</div><div class="line">    	background-color: brown;</div><div class="line">    &#125;</div><div class="line">    li[class~=q]&#123;</div><div class="line">    	background-color: greenyellow;</div><div class="line">    &#125;</div><div class="line">    /*开头*/</div><div class="line">    li[hot^=very]&#123;</div><div class="line">    	font-size: 50px;</div><div class="line">    &#125;</div><div class="line">    /*结尾*/</div><div class="line">    li[hot$=t]&#123;</div><div class="line">    	background-color: navajowhite;</div><div class="line">    &#125;</div><div class="line">    /*包含*/</div><div class="line">    li[hot*=o]&#123;</div><div class="line">    	border:10px solid darkgray;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">color</span>=<span class="string">"yellow"</span>&gt;</span>西兰花<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">"circle white q"</span>&gt;</span>鸡蛋<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">skill</span>=<span class="string">"strong fatter bomb"</span>&gt;</span>牛肉<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">color</span>=<span class="string">"orange"</span>&gt;</span>胡萝卜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">color</span>=<span class="string">"yellowgreen"</span>&gt;</span>黄瓜<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">hot</span>=<span class="string">"verylow"</span>&gt;</span>玉米<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">hot</span>=<span class="string">"veryhot"</span>&gt;</span>爆米花<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h3><ul>
+<li><code>:first-child</code>匹配父元素中的第一个子元素</li>
+<li><code>:last-child</code>匹配父元素中的最后一个子元素</li>
+<li><code>:nth-child(n)</code>匹配父元素中的第n个子元素，<strong>索引从1开始</strong>   也可以传入带n的表达式  n必须放在前面，例如n+5,不能写成5+n</li>
+<li><code>:ntn-last-child(n)</code>匹配倒数第几个子元素</li>
+<li><code>:first-of-child</code>  匹配同类元素中的第1个兄弟元素</li>
+<li><code>:last-of-child</code> 匹配同类元素中的最后一个兄弟元素</li>
+<li><code>:nth-of-type(n)</code>  匹配同类元素中的第n个兄弟元素</li>
+<li>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">        /*  ntn-child(n)  </div><div class="line">            括号中的索引包含其他的兄弟节点</div><div class="line">        */</div><div class="line">        p:nth-child(2)&#123;/*匹配到的是黄瓜*/</div><div class="line">            background-color: gold;</div><div class="line">        &#125;</div><div class="line">        /*nth-of-type()会考虑类型</div><div class="line">        当有多种标签在同一个父元素中时</div><div class="line">        建议使用nth-of-type()</div><div class="line">        */</div><div class="line">        p:nth-of-type(1)&#123;</div><div class="line">            background-color: #0ff;</div><div class="line">        &#125;</div><div class="line">        p:first-of-type&#123;</div><div class="line">            background-color: #f0f;</div><div class="line">        &#125;</div><div class="line">        p:last-of-type&#123;</div><div class="line">            background-color: darkorange;</div><div class="line">        &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>蔬菜<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>黄瓜<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>土豆<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h3><ul>
+<li>推荐使用<code>::</code>为了方便和伪类区分</li>
+<li><code>::first-letter</code> 第一个字母</li>
+<li><code>::first-line</code>  第一行</li>
+<li><code>::placeholder</code>设置表单输入框中的占位符的样式   兼容性差，使用时需要加上浏览器前缀</li>
+<li><code>::selection</code>  设置被选中的内容的样式  只能设置color,background-color,text-shadow属性</li>
+<li><strong>重点</strong></li>
+<li><code>::before</code>和<code>::after</code>  只能给双标签设置</li>
+<li><strong>必须给伪元素设置content属性</strong></li>
+<li>给元素添加了该伪元素之后会自动在双标签内部生成<code>::before</code>和<code>::after</code>选择器</li>
+<li>生成的是一个行内元素</li>
+<li>before会添加在元素中的最前面        after会添加在元素中的最后面</li>
+<li>示例：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></div><div class="line">   div::after&#123;</div><div class="line">   /*必须设置的属性*/</div><div class="line">     content: "";</div><div class="line">     width:20px;</div><div class="line">     height:20px;</div><div class="line">     background-color: hotpink;</div><div class="line">     /*display: block;*/</div><div class="line">     position: absolute;</div><div class="line">     right: -20px;</div><div class="line">     border:2px solid green;</div><div class="line">     box-sizing: border-box;</div><div class="line">  &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/15/B03-jQuery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/03/15/B03-jQuery/" itemprop="url">
                   jQuery
                 </a>
               
@@ -685,8 +1273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-26T00:00:00+08:00">
-                2016-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-15T00:00:00+08:00">
+                2016-03-15
               </time>
             
 
@@ -842,12 +1430,12 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/20/B02-正则表达式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/03/10/B02-正则表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qcyue">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -864,7 +1452,7 @@
             
               
                 
-                <a class="post-title-link" href="/2016/03/20/B02-正则表达式/" itemprop="url">
+                <a class="post-title-link" href="/2016/03/10/B02-正则表达式/" itemprop="url">
                   正则表达式
                 </a>
               
@@ -881,8 +1469,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-20T00:00:00+08:00">
-                2016-03-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-10T00:00:00+08:00">
+                2016-03-10
               </time>
             
 
@@ -1022,7 +1610,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qcyue">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1207,173 +1795,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/01/18/H08-angular生命周期/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/18/H08-angular生命周期/" itemprop="url">
-                  浅析AngularJS的生命周期
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-18T00:00:00+08:00">
-                2016-01-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="AngularJS的生命周期"><a href="#AngularJS的生命周期" class="headerlink" title="AngularJS的生命周期"></a>AngularJS的生命周期</h2><ul>
-<li>在AngularJS应用启动之前，会以html文本的形式保存在文本编辑器中。应用启动后会进行编译和链接，作用域会和html进行数据绑定。<h3 id="编译阶段"><a href="#编译阶段" class="headerlink" title="编译阶段"></a>编译阶段</h3></li>
-<li>在编译阶段，AngularJS会遍历整个HTML文档并根据JavaScript中的指令定义来处理页面上声明的指令。</li>
-<li>每一个指令中都可能会含有另一个指令，因此，AngularJs进行编译的时候会形成一个模板树，并遍历其中的所有模板。</li>
-<li>一旦对指令和其中的子模板进行遍历或编译，编译后的模板会返回一个叫模板函数的函数。我们可以在模板函数被返回之前，对编译后的DOM树进行操作<ul>
-<li>例如：ng-repeat，它会遍历指定的数组或对象，在数据绑定之前构建出对应的DOM结构。</li>
-</ul>
-</li>
-<li>每个指令都有自己的模板和编译函数，每个模板返回自己的模板函数，模板函数最后会被传递给编译后的DOM树中的每个指令中定义的链接函数。<h3 id="compile编译函数"><a href="#compile编译函数" class="headerlink" title="compile编译函数"></a>compile编译函数</h3></li>
-<li>在模板函数返回之前，我们可以使用compile对编译后的DOM树进行DOM操作。</li>
-<li>compile函数的返回值即链接函数或者链接对象，即link</li>
-<li>本质上，当我们设置了link选项，实际上是创建了一个postLink()链接函数，以便compile()函数可以定义链接函数。</li>
-<li><strong>compile和link选项是互斥的。如果同时设置了这两个选项，那么会把compile<br>所返回的函数当作链接函数，而link选项本身则会被忽略。</strong></li>
-<li>compile的作用是对指令的模板进行转换，常用于自定义指令<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'myApp'</span>,[])</div><div class="line">.directive(<span class="string">'myDirective'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">        <span class="attr">compile</span>:<span class="function"><span class="keyword">function</span>(<span class="params">tEle,tAttrs,transcludeFn</span>)</span>&#123;</div><div class="line">            <span class="comment">//在此处可以进行DOM操作</span></div><div class="line">            <span class="comment">//在此处不能操作$scope     </span></div><div class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">scope,ele,attrs</span>)</span>&#123;</div><div class="line">            <span class="comment">//此处返回的是链接函数，可以在此处处理数据</span></div><div class="line">            <span class="comment">//$scope只有在链接阶段才会绑定到元素上 	</span></div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">link</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">          <span class="comment">//如果设置了compile，在此处设置link会被忽略</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="链接阶段"><a href="#链接阶段" class="headerlink" title="链接阶段"></a>链接阶段</h3><ul>
-<li>链接函数负责将作用域和DOM进行链接。如绑定数据，注册事件</li>
-<li><strong>postlink</strong><ul>
-<li>我们设置的link其实就是postlink</li>
-</ul>
-</li>
-<li><strong>prelink</strong></li>
-<li>prelink会在Postlink之前执行，他在compile之后执行。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'myApp'</span>,[])</div><div class="line">.directive(<span class="string">'myDirective'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">        <span class="attr">compile</span>:<span class="function"><span class="keyword">function</span>(<span class="params">tEle,tAttrs,transcludeFn</span>)</span>&#123;</div><div class="line">            <span class="comment">//这里进行DOM的操作</span></div><div class="line">            <span class="keyword">return</span> &#123;</div><div class="line">              <span class="attr">pre</span>: <span class="function"><span class="keyword">function</span>(<span class="params">scope, iElem, iAttrs</span>)</span>&#123;</div><div class="line">                <span class="comment">//次处时prelink，在postlink之前，compile之后执行</span></div><div class="line">                <span class="comment">// 在子元素被链接之前执行</span></div><div class="line">                <span class="comment">// 在这里进行Don转换不安全</span></div><div class="line">                <span class="comment">// 之后调用'lihk'函数将无法定位要链接的元素</span></div><div class="line">              &#125;,</div><div class="line">              <span class="attr">post</span>: <span class="function"><span class="keyword">function</span>(<span class="params">scope, iElem, iAttrs</span>)</span>&#123;</div><div class="line">                <span class="comment">//此处即postlink</span></div><div class="line">              &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1411,7 +1832,7 @@
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/uploads/tx.jpg"
+               src="/uploads/tx1.jpg"
                alt="Qcyue" />
           <p class="site-author-name" itemprop="name">Qcyue</p>
            
@@ -1423,7 +1844,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1434,7 +1855,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

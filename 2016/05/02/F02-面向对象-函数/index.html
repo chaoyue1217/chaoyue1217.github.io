@@ -1,0 +1,793 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="函数
+window 是Window的实例
+所有的函数都是Function的实例
+Function也是一个函数
+所以Function也是Function的实例函数的三种角色
+
+
+构造函数
+普通函数
+函数作为对象
+函数的角色取决于函数的调用1234function Foo()&amp;#123;&amp;#125;var foo = new Foo();//作为构造函数Foo();//作为普通函数Foo.info =">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象-函数">
+<meta property="og:url" content="http://yoursite.com/2016/05/02/F02-面向对象-函数/index.html">
+<meta property="og:site_name" content="Shining Moon">
+<meta property="og:description" content="函数
+window 是Window的实例
+所有的函数都是Function的实例
+Function也是一个函数
+所以Function也是Function的实例函数的三种角色
+
+
+构造函数
+普通函数
+函数作为对象
+函数的角色取决于函数的调用1234function Foo()&amp;#123;&amp;#125;var foo = new Foo();//作为构造函数Foo();//作为普通函数Foo.info =">
+<meta property="og:updated_time" content="2017-04-12T01:25:36.765Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面向对象-函数">
+<meta name="twitter:description" content="函数
+window 是Window的实例
+所有的函数都是Function的实例
+Function也是一个函数
+所以Function也是Function的实例函数的三种角色
+
+
+构造函数
+普通函数
+函数作为对象
+函数的角色取决于函数的调用1234function Foo()&amp;#123;&amp;#125;var foo = new Foo();//作为构造函数Foo();//作为普通函数Foo.info =">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/05/02/F02-面向对象-函数/"/>
+
+
+
+
+
+  <title> 面向对象-函数 | Shining Moon </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shining Moon</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/02/F02-面向对象-函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                面向对象-函数
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-02T00:00:00+08:00">
+                2016-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OOP/" itemprop="url" rel="index">
+                    <span itemprop="name">OOP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><ul>
+<li><strong>window 是Window的实例</strong></li>
+<li>所有的函数都是Function的实例<ul>
+<li>Function也是一个函数</li>
+<li>所以Function也是Function的实例<h2 id="函数的三种角色"><a href="#函数的三种角色" class="headerlink" title="函数的三种角色"></a>函数的三种角色</h2></li>
+</ul>
+</li>
+<li>构造函数</li>
+<li>普通函数</li>
+<li>函数作为对象</li>
+<li><strong>函数的角色取决于函数的调用</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line"><span class="keyword">var</span> foo = <span class="keyword">new</span> Foo();<span class="comment">//作为构造函数</span></div><div class="line">Foo();<span class="comment">//作为普通函数</span></div><div class="line">Foo.info = <span class="string">"hello"</span>;<span class="comment">//函数作为对象</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数的属性"><a href="#函数的属性" class="headerlink" title="函数的属性"></a>函数的属性</h2><ul>
+<li>arguments：保存实参的类数组<ul>
+<li>arguments.callee:指向函数本身​</li>
+</ul>
+</li>
+<li>length：形参的个数</li>
+<li>caller：函数的调用者</li>
+<li>name：函数的名称<h2 id="函数声明和函数表达式的区别"><a href="#函数声明和函数表达式的区别" class="headerlink" title="函数声明和函数表达式的区别"></a>函数声明和函数表达式的区别</h2></li>
+<li>函数声明是在预解析阶段创建的，函数表达式是在程序执行阶段创建的，即函数表达式不会被预解析，只会提升变量，函数的赋值留在原地</li>
+<li>函数声明可以在全局作用域或者局部作用域中创建，函数表达式只能在表达式中定义<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//在内存中只开辟一块空间存放函数</span></div><div class="line"><span class="keyword">var</span> fn = flag?<span class="function"><span class="keyword">function</span>(<span class="params">&#123;console.log(<span class="number">123</span></span>)&#125;:<span class="title">function</span>(<span class="params">&#123;console.log(<span class="number">456</span></span>)&#125;;</span></div><div class="line">    //根据浏览器的不同有的会开辟一块空间，有的会开辟两块空间</div><div class="line">    <span class="title">if</span>(<span class="params">flag</span>)&#123;</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="number">2</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数调用的方式"><a href="#函数调用的方式" class="headerlink" title="函数调用的方式"></a>函数调用的方式</h2><ul>
+<li>函数中this的指向取决于函数的调用方式</li>
+<li>1、构造函数，在new的时候调用</li>
+<li>2、普通函数</li>
+<li>3、对象方法：对象.方法() </li>
+<li>4、call/apply/bind<ul>
+<li>bind ES5的新特性</li>
+<li>bind 也可以改变this的指向</li>
+<li>bind 在改变this的同时不调用函数</li>
+<li>bind 会返回一个新的函数，新函数中的内容还是原来的函数的内容，只是this的指向改变了<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a,b</span>) </span>&#123;</div><div class="line">       <span class="built_in">console</span>.log(a+b);</div><div class="line">   &#125;</div><div class="line">   <span class="comment">//使用bind时不会调用函数</span></div><div class="line">   <span class="keyword">var</span> fn = foo.bind(&#123;<span class="attr">info</span>:<span class="string">"nihao"</span>&#125;,<span class="number">12</span>,<span class="number">13</span>);</div><div class="line">   <span class="comment">//调用函数</span></div><div class="line">   fn();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="this的不同指向"><a href="#this的不同指向" class="headerlink" title="this的不同指向"></a>this的不同指向</h3><ul>
+<li>构造函数中的this指向实例对象，原型方法中的this也指向实例对象 </li>
+<li>在非严格模式下，普通函数中的this指向window，严格模式下指向undefine</li>
+<li>对象方法中的this指向该对象，实际上就是方法的调用者</li>
+<li>事件方法中的this指的是绑定事件的对象</li>
+<li>定时函数中的this指向的是window</li>
+<li>call、apply所调用的函数中的this就是call和apply的第一个参数(该参数必须为引用类型)<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><h3 id="作为参数的函数-回调函数"><a href="#作为参数的函数-回调函数" class="headerlink" title="作为参数的函数(回调函数)"></a>作为参数的函数(回调函数)</h3><strong>模拟jQuery封装原理</strong><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params">selector</span>) </span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">new</span> jQuery.prototype.init(selector);</div><div class="line">&#125;</div><div class="line"><span class="comment">//模拟jQuery中的each</span></div><div class="line">jQuery.each = <span class="function"><span class="keyword">function</span>(<span class="params">objs,callback</span>)</span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;objs.length;i++)&#123;</div><div class="line">		callback.call(objs[i],i,objs[i]);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">jQuery.fn = jQuery.prototype = &#123;</div><div class="line">	<span class="attr">init</span>:<span class="function"><span class="keyword">function</span>(<span class="params">selector</span>)</span>&#123;</div><div class="line">		<span class="keyword">var</span> elements = <span class="built_in">document</span>.getElementsByTagName(selector);</div><div class="line">		<span class="keyword">this</span>.length = elements.length;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="keyword">this</span>.length;i++)&#123;</div><div class="line">        	<span class="comment">//this指的是init的实例</span></div><div class="line">			<span class="comment">//这里是给实例添加属性</span></div><div class="line">			<span class="keyword">this</span>[i] = elements[i];</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">this</span>.showLen = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">this</span>.length;</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">showMsg</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"abc"</span>);</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">each</span>:<span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</div><div class="line">		jQuery.each(<span class="keyword">this</span>,callback);</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line"><span class="comment">//该操作是为了保证jQuery.prototype.init的实例可以访问jQuery.prototype中的属性</span></div><div class="line">jQuery.prototype.init.prototype = jQuery.prototype;</div><div class="line"><span class="built_in">window</span>.$ = <span class="built_in">window</span>.jQuery = jQuery;</div><div class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> divs = jQuery(<span class="string">"div"</span>);</div><div class="line">	<span class="built_in">console</span>.log(divs.length);</div><div class="line">	divs.each(<span class="function"><span class="keyword">function</span>(<span class="params">index,element</span>)</span>&#123;</div><div class="line">		<span class="keyword">this</span>.innerHTML = index;</div><div class="line">	&#125;)</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="jquery链式结构原理"><a href="#jquery链式结构原理" class="headerlink" title="jquery链式结构原理"></a>jquery链式结构原理</h3><ul>
+<li>在方法内部返会调用该方法的对象，即this<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">  $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params">selector</span>)</span>&#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">new</span> jQuery.prototype.init(selector);</div><div class="line">        &#125;</div><div class="line">        jQuery.prototype = &#123;</div><div class="line">            <span class="attr">constructor</span> : jQuery,</div><div class="line">            <span class="attr">html</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="number">123</span>);</div><div class="line"><span class="comment">//返回了实例对象，实例对象又可以通过原型链找到css，init等其他函数进行调用，因此可以链式编程</span></div><div class="line">                <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">css</span> : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="number">456</span>);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">            &#125;,</div><div class="line">            <span class="attr">init</span> : <span class="function"><span class="keyword">function</span>(<span class="params">selector</span>)</span>&#123;</div><div class="line">                <span class="comment">// 实现选择器功能</span></div><div class="line">                <span class="keyword">var</span> aDiv = <span class="built_in">document</span>.getElementsByTagName(selector);</div><div class="line">                <span class="comment">// 把每一个div都放到this中，那么this就是一个类数组</span></div><div class="line">                [].push.apply(<span class="keyword">this</span>,aDiv);</div><div class="line">                <span class="keyword">this</span>.length = aDiv.length;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        jQuery.prototype.init.prototype = jQuery.prototype;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h2><ul>
+<li>eval(): 可以把字符串转化成js代码，并执行<ul>
+<li><code>eval(&quot;var a = 123;console.log(a)&quot;)</code></li>
+</ul>
+</li>
+<li>Math 不是函数  是对象</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/01/G01-git使用/" rel="next" title="GIT">
+                <i class="fa fa-chevron-left"></i> GIT
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/04/F03-面向对象-闭包/" rel="prev" title="闭包">
+                闭包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/tx1.jpg"
+               alt="Qcyue" />
+          <p class="site-author-name" itemprop="name">Qcyue</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活，我们是认真的！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的三种角色"><span class="nav-number">1.1.</span> <span class="nav-text">函数的三种角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的属性"><span class="nav-number">1.2.</span> <span class="nav-text">函数的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数声明和函数表达式的区别"><span class="nav-number">1.3.</span> <span class="nav-text">函数声明和函数表达式的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数调用的方式"><span class="nav-number">1.4.</span> <span class="nav-text">函数调用的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#this的不同指向"><span class="nav-number">1.4.1.</span> <span class="nav-text">this的不同指向</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高阶函数"><span class="nav-number">1.5.</span> <span class="nav-text">高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作为参数的函数-回调函数"><span class="nav-number">1.5.1.</span> <span class="nav-text">作为参数的函数(回调函数)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jquery链式结构原理"><span class="nav-number">1.5.2.</span> <span class="nav-text">jquery链式结构原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充："><span class="nav-number">1.6.</span> <span class="nav-text">补充：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qcyue</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

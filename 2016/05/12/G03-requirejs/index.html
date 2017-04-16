@@ -87,28 +87,28 @@
 
 
 
-<meta name="description" content="requireJs AMD（  Asynchronous Module Definition）异步加载模块定义
+<meta name="description" content="requireJsAMD（  Asynchronous Module Definition）异步加载模块定义
 
 当一个网页要引入多个外部文件，且文件之间的依赖关系较强的时候，必须保证文件的加载顺序，并且当浏览器加载外部文件的时候就会停止网页的渲染，加载的文件越多，网页失去响应的时间越长，代码的编写和维护也会很麻烦。
 requirejs实现了js 文件的异步加载，避免网页失去响应
-管理模块之间的依">
+管理模块之间的依赖">
 <meta property="og:type" content="article">
 <meta property="og:title" content="requireJS">
 <meta property="og:url" content="http://yoursite.com/2016/05/12/G03-requirejs/index.html">
 <meta property="og:site_name" content="Shining Moon">
-<meta property="og:description" content="requireJs AMD（  Asynchronous Module Definition）异步加载模块定义
+<meta property="og:description" content="requireJsAMD（  Asynchronous Module Definition）异步加载模块定义
 
 当一个网页要引入多个外部文件，且文件之间的依赖关系较强的时候，必须保证文件的加载顺序，并且当浏览器加载外部文件的时候就会停止网页的渲染，加载的文件越多，网页失去响应的时间越长，代码的编写和维护也会很麻烦。
 requirejs实现了js 文件的异步加载，避免网页失去响应
-管理模块之间的依">
-<meta property="og:updated_time" content="2017-04-12T01:11:42.415Z">
+管理模块之间的依赖">
+<meta property="og:updated_time" content="2017-04-13T07:02:36.372Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="requireJS">
-<meta name="twitter:description" content="requireJs AMD（  Asynchronous Module Definition）异步加载模块定义
+<meta name="twitter:description" content="requireJsAMD（  Asynchronous Module Definition）异步加载模块定义
 
 当一个网页要引入多个外部文件，且文件之间的依赖关系较强的时候，必须保证文件的加载顺序，并且当浏览器加载外部文件的时候就会停止网页的渲染，加载的文件越多，网页失去响应的时间越长，代码的编写和维护也会很麻烦。
 requirejs实现了js 文件的异步加载，避免网页失去响应
-管理模块之间的依">
+管理模块之间的依赖">
 
 
 
@@ -365,14 +365,14 @@ requirejs实现了js 文件的异步加载，避免网页失去响应
       
 
       
-        <h1 id="requireJs"><a href="#requireJs" class="headerlink" title="requireJs"></a>requireJs</h1><p><strong> AMD（  Asynchronous Module Definition）异步加载模块定义</strong></p>
+        <h1 id="requireJs"><a href="#requireJs" class="headerlink" title="requireJs"></a>requireJs</h1><p><strong>AMD（  Asynchronous Module Definition）异步加载模块定义</strong></p>
 <ul>
 <li>当一个网页要引入多个外部文件，且文件之间的依赖关系较强的时候，必须保证文件的加载顺序，并且当浏览器加载外部文件的时候就会停止网页的渲染，加载的文件越多，网页失去响应的时间越长，代码的编写和维护也会很麻烦。</li>
 <li>requirejs实现了js 文件的异步加载，避免网页失去响应</li>
 <li>管理模块之间的依赖性，便于代码的编写和维护</li>
 <li>解决了命名冲突问题（不同模块中的同名变量不会有冲突）<h2 id="requirejs的基本使用"><a href="#requirejs的基本使用" class="headerlink" title="requirejs的基本使用"></a>requirejs的基本使用</h2><strong>注意 : </strong></li>
 <li>必须注意各模块之间的路径问题<h3 id="主模块"><a href="#主模块" class="headerlink" title="主模块"></a>主模块</h3></li>
-<li>如果主模块不依赖于任何模块，其中的js代码可以正常编写​<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--  data-main的作用是指定网页程序的主模板，即main.js。这个文件会第一个被require.js加载。main是省略了后缀名js --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"require.js"</span> <span class="attr">data-main</span>=<span class="string">"js/main"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<li>如果主模块不依赖于任何模块，其中的js代码可以正常编写​<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- data-main的作用是指定网页程序的主模板，即main.js。这个文件会第一个被require.js加载。main是省略了后缀名js --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"require.js"</span> <span class="attr">data-main</span>=<span class="string">"js/main"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//main.js</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">"abc"</span>);</div></pre></td></tr></table></figure>
@@ -406,7 +406,7 @@ requirejs实现了js 文件的异步加载，避免网页失去响应
 <blockquote>
 <p>处理方式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  main.js</span></div><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">  <span class="attr">shim</span>:&#123;</div><div class="line">  </div><div class="line">  	<span class="comment">// 找到模块</span></div><div class="line">    <span class="string">"js/foo"</span>:&#123;</div><div class="line">    </div><div class="line">    	<span class="comment">// 设置该模块所依赖的模块</span></div><div class="line">    	deps:[<span class="string">"jquery"</span>,<span class="string">"common"</span>],</div><div class="line">    	<span class="comment">//导出非规范模块中的成员(无论是变量还是函数)，此处是定义的fn函数</span></div><div class="line">      	exports:<span class="string">"fn"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 </blockquote>
-<h1 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h1><p><strong> Sea.js 中，所有 JavaScript 模块都遵循 CMD（Common Module Definition） 模块定义规范。</strong>     </p>
+<h1 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h1><p><strong>Sea.js 中，所有 JavaScript 模块都遵循 CMD（Common Module Definition） 模块定义规范。</strong>     </p>
 <ul>
 <li>在CMD规范中，一个模块就是一个文件<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2></li>
 <li>denfine() ： 定义模块，是一个全局函数  define(factory)</li>
@@ -553,7 +553,7 @@ requirejs实现了js 文件的异步加载，避免网页失去响应
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">51</span>
+                <span class="site-state-item-count">53</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -564,7 +564,7 @@ requirejs实现了js 文件的异步加载，避免网页失去响应
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

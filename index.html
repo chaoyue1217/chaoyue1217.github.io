@@ -260,179 +260,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/06/B06-性能优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/11/06/B06-性能优化/" itemprop="url">
-                  图片优化
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T00:00:00+08:00">
-                2017-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端优化/" itemprop="url" rel="index">
-                    <span itemprop="name">前端优化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="图片压缩"><a href="#图片压缩" class="headerlink" title="图片压缩"></a>图片压缩</h1><h1 id="使用雪碧图"><a href="#使用雪碧图" class="headerlink" title="使用雪碧图"></a>使用雪碧图</h1><h1 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h1><ul>
-<li>图片的base64编码就是可以将一副图片数据编码成一串字符串，使用该字符串代替图像地址</li>
-<li>图片的下载始终都要向服务器发出请求，要是图片的下载不用向服务器发出请求，base64可以随着 HTML 的下载同时下载到本地.减少https请求。<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//在css里的写法</div><div class="line">#fkbx-spch, #fkbx-hspch &#123;</div><div class="line">  background: url(data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5B…EoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs=) no-repeat center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--在img标签中的写法--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5B…EoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs="</span>&gt;</span></div></pre></td></tr></table></figure>
-<ul>
-<li>什么样的图片可以转为成base64编码？<ul>
-<li>如果图片足够小且因为用处的特殊性无法被制作成雪碧图（CssSprites），在整个网站的复用性很高且基本不会被更新。</li>
-</ul>
-</li>
-</ul>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
-<li>使用 Base64 的好处是能够减少一个图片的HTTP请求，然而，与之同时付出的代价则是 CSS 文件体积的增大。</li>
-</ul>
-<h1 id="base64和雪碧图"><a href="#base64和雪碧图" class="headerlink" title="base64和雪碧图"></a>base64和雪碧图</h1><ul>
-<li>两者的共同点是都是为了减少http请求</li>
-</ul>
-<h2 id="base64-1"><a href="#base64-1" class="headerlink" title="base64"></a>base64</h2><ul>
-<li>无额外请求</li>
-<li>对于极小或者极简单图片</li>
-<li>可像单独图片一样使用，比如背景图片重复使用等</li>
-<li>没有跨域问题，无需考虑缓存、文件头或者cookies问题  </li>
-</ul>
-<h2 id="cssSprites"><a href="#cssSprites" class="headerlink" title="cssSprites"></a>cssSprites</h2><ul>
-<li>页面具有多种风格，需要换肤功能，可使用CssSprites</li>
-<li>网站已经趋于完美，不会再三天两头的改动（例如button大小、颜色等）</li>
-<li>使用时无需重复图形内容</li>
-<li>没有 Base64 编码成本，降低图片更新的维护难度。（但注意 Sprites 同时修改 css 和图片某些时候可能造成负担）</li>
-<li>不会增加 CSS 文件体积</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/15/G04-深入require/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -590,7 +417,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/17/H10-angular依赖注入/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/18/C08-SVG/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qcyue">
@@ -612,7 +439,7 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/17/H10-angular依赖注入/" itemprop="url">
+                <a class="post-title-link" href="/2017/04/18/C08-SVG/" itemprop="url">
                   未命名
                 </a>
               
@@ -629,8 +456,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-17T21:37:15+08:00">
-                2017-04-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T16:11:50+08:00">
+                2017-04-18
               </time>
             
 
@@ -667,39 +494,63 @@
       
         
           
-            <h1 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h1><ul>
-<li><p>依赖注入式AngularJS的重要特性之一，有关概念和定义参考维基百科。依赖注入简化了Angular解析模块/组件之间依赖的过程。通常一个组件要获得它的依赖，有三种方式：</p>
-<ul>
-<li>直接创建出依赖，如使用new操作符<br>+　能够查找到依赖，如引用全局变量<br>+　在需要的地方传入依赖</li>
+            <hr>
+<p>title: what is SVG?<br>date: 2016-05-22</p>
+<h2 id="categories-HTML5"><a href="#categories-HTML5" class="headerlink" title="categories: HTML5"></a>categories: HTML5</h2><h1 id="什么是SVG？"><a href="#什么是SVG？" class="headerlink" title="什么是SVG？"></a>什么是SVG？</h1><ul>
+<li>SVG 指可伸缩矢量图形 (Scalable Vector Graphics)</li>
+<li>SVG 用于定义用于网络的基于矢量的图形</li>
+<li>SVG 使用 XML 格式定义图形</li>
+<li>SVG 图像在放大或改变尺寸的情况下其图形质量不会有损失</li>
+<li>SVG 是万维网联盟的标准</li>
+</ul>
+<h1 id="SVG优势"><a href="#SVG优势" class="headerlink" title="SVG优势"></a>SVG优势</h1><ul>
+<li>与其他图像格式相比（比如 JPEG 和 GIF），使用 SVG 的优势在于：<ul>
+<li>SVG 图像可通过文本编辑器来创建和修改</li>
+<li>SVG 图像可被搜索、索引、脚本化或压缩</li>
+<li>SVG 是可伸缩的</li>
+<li>SVG 图像可在任何的分辨率下被高质量地打印</li>
+<li>SVG 可在图像质量不下降的情况下被放大</li>
 </ul>
 </li>
-<li><p>第三种的优势在于组件省去了定义/定位依赖的过程，也使得依赖的耦合度降低，可扩展性更强。依赖注入主要有两种形式（看这里）：setter注入和constructor注入。前者的代表是Spring框架的setter方式，AngularJS则使用的是constructor注入。这里简单说一下二者的区别，setter注入顾名思义，首先使用一个无参的默认构造器构造对象，然后使用setter方法将依赖注入到新对象中。这种方式的一个缺陷是在编译时并不知道对象之间的依赖关系，依赖解析由某种框架在运行时完成。如果在配置依赖时有遗漏，则在运行时会报空引用错误。对于constructor注入，在构造对象时，将依赖的组件以参数形式传入构造器，传入组件所依赖的组件以相同的方式构造，依此类推，确保依赖链条最顶端的组件首先构造，一直到当前需要注入的对象构造完毕。该方式避免了依赖的遗漏。</p>
-</li>
-<li><p><strong>要实现注入，基本有三步：</strong></p>
-<ul>
-<li>得到模块的依赖项<br>+　查找依赖项所对应的对象<br>　     + 执行时注入</li>
 </ul>
-</li>
-<li><ol>
-<li>得到模块的依赖项</li>
-</ol>
-</li>
-<li><p>javascript 实现DI的核心api是<code>Function.prototype.toString</code>,对一个函数执行toString，它会返回函数的源码字符串，这样我们就可以通过正则匹配的方式拿到这个函数的参数列表：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">extractArgs</span>(<span class="params">fn</span>) </span>&#123; <span class="comment">//angular 这里还加了注释、箭头函数的处理</span></div><div class="line">	<span class="keyword">var</span> args = fn.toString().match(<span class="regexp">/^[^\(]*\(\s*([^\)]*)\)/m</span>);</div><div class="line">	<span class="keyword">return</span> args[<span class="number">1</span>].split(<span class="string">','</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><ol>
-<li>查找依赖项所对应的对象</li>
-</ol>
-</li>
-<li><p>js是动态语言，直接一个object[name]就可以直接拿到对象。所以只要用一个对象保存对象或函数列表就可以了</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createInjector</span>(<span class="params">cache</span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.cache = cache;</div><div class="line">&#125;</div><div class="line">angular.module = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            modules = &#123;&#125;;</div><div class="line">            injector = <span class="keyword">new</span> createInjector(modules);</div><div class="line">            <span class="keyword">return</span> &#123;</div><div class="line">                <span class="attr">injector</span>: injector,</div><div class="line">                <span class="attr">factory</span>: <span class="function"><span class="keyword">function</span> (<span class="params">name, fn</span>) </span>&#123;</div><div class="line">                    modules[name.trim()] = <span class="keyword">this</span>.injector.invoke(fn); </div><div class="line">                    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;;</div></pre></td></tr></table></figure>
-</li>
-<li><ol>
-<li>执行时注入</li>
-</ol>
-</li>
-<li>最后通过 fn.apply方法把执行上下文，和依赖列表传入函数并执行：<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">createInjector.prototype = &#123;</div><div class="line">            <span class="attr">invoke</span>: <span class="function"><span class="keyword">function</span> (<span class="params">fn, self</span>) </span>&#123;</div><div class="line">                argsString = extractArgs(fn);</div><div class="line">                args = [];</div><div class="line">                argsString.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">val</span>) </span>&#123;</div><div class="line">                    args.push(<span class="keyword">this</span>.cache[val.trim()]);</div><div class="line">                &#125;, <span class="keyword">this</span>);</div><div class="line">                <span class="keyword">return</span> fn.apply(self, args);</div><div class="line">            &#125;</div><div class="line">        &#125;;</div></pre></td></tr></table></figure></li>
+<h1 id="把-SVG-直接嵌入-HTML-页面"><a href="#把-SVG-直接嵌入-HTML-页面" class="headerlink" title="把 SVG 直接嵌入 HTML 页面"></a>把 SVG 直接嵌入 HTML 页面</h1><p>在 HTML5 中，可以将 SVG 元素直接嵌入 HTML 页面中：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"> </div><div class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">version</span>=<span class="string">"1.1"</span> <span class="attr">height</span>=<span class="string">"190"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">polygon</span> <span class="attr">points</span>=<span class="string">"100,10 40,180 190,60 10,60 160,180"</span></span></div><div class="line">  <span class="attr">style</span>=<span class="string">"fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;"</span>&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></div><div class="line"> </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h1 id="SVG-与-Canvas两者间的区别"><a href="#SVG-与-Canvas两者间的区别" class="headerlink" title="SVG 与 Canvas两者间的区别"></a>SVG 与 Canvas两者间的区别</h1><ul>
+<li>SVG 是一种使用 XML 描述 2D 图形的语言。</li>
+<li>Canvas 通过 JavaScript 来绘制 2D 图形。</li>
+<li>SVG 基于 XML，这意味着 SVG DOM 中的每个元素都是可用的。可以为某个元素附加 JavaScript 事件处理器。</li>
+<li>在 SVG 中，每个被绘制的图形均被视为对象。如果SVG对象的属性发生变化，那么浏览器能够自动重现图形。</li>
+<li>Canvas 是逐像素进行渲染的。在 canvas 中，一旦图形被绘制完成，它就不会继续得到浏览器的关注。如果其位置发生变化，那么整个场景也需要重新绘制，包括任何或许已被图形覆盖的对象。</li>
 </ul>
+<h1 id="Canvas-与-SVG-的比较"><a href="#Canvas-与-SVG-的比较" class="headerlink" title="Canvas 与 SVG 的比较"></a>Canvas 与 SVG 的比较</h1><table>
+<thead>
+<tr>
+<th>Canvas</th>
+<th>SVG</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>依赖分辨率</td>
+<td>不依赖分辨率</td>
+</tr>
+<tr>
+<td>不支持事件处理器</td>
+<td>支持事件处理器</td>
+</tr>
+<tr>
+<td>弱的文本渲染能力</td>
+<td>适合带有大型渲染区域的应用程序（比如谷歌地图）</td>
+</tr>
+<tr>
+<td>能够以 .png 或 .jpg 格式保存结果图像</td>
+<td>复杂度高会减慢渲染速度（任何过度使用 DOM 的应用都不快）</td>
+</tr>
+<tr>
+<td>最适合图像密集型的游戏，其中的许多对象会被频繁重绘</td>
+<td>不适合游戏应用</td>
+</tr>
+</tbody>
+</table>
 
           
         
@@ -1056,6 +907,191 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/20/J01-vue基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/20/J01-vue基础/" itemprop="url">
+                  Vue Basis
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
+                2017-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h1><ul>
+<li>vue是一套构建用户界面的渐进式框架</li>
+<li><strong>核心</strong><ul>
+<li>数据驱动</li>
+<li>视图组件化 </li>
+</ul>
+</li>
+<li><strong>MVVM</strong></li>
+<li>View（页面dom） —- ViewModel（监控者） —- Model（数据）</li>
+<li>简单的vue实例<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">      <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">      <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">name</span>:<span class="string">"hello vue"</span></div><div class="line">      &#125;</div><div class="line">	&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="创建实例的步骤"><a href="#创建实例的步骤" class="headerlink" title="创建实例的步骤"></a>创建实例的步骤</h2><ul>
+<li>new Vue()</li>
+<li>设置数据data</li>
+<li>挂载元素</li>
+<li>数据渲染</li>
+<li>每个Vue 实例都会代理其 data 对象里所有的属性<ul>
+<li>只有这些被代理的属性是响应式的，在实例创建之后添加新的实例属性，不会触发视图更新。 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;<span class="attr">name</span>:<span class="string">"John"</span>&#125;;</div><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">data</span>:data</div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(vm.name===data.name);<span class="comment">//true</span></div><div class="line">vm.age = <span class="number">18</span>;<span class="comment">//这条数据在实例化之后添加，不会响应到视图上</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><ul>
+<li><strong>el ：挂载元素</strong></li>
+<li><strong>data ：设置数据</strong></li>
+<li><strong>filters ：过滤器</strong></li>
+<li><p>需求 : 将数据转化成整数再进行渲染</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">数字1：&#123;&#123;num1 | toInt&#125;&#125;</div><div class="line">数字2：&#123;&#123;num2 | toInt&#125;&#125;</div><div class="line">数字3：&#123;&#123;num3 | toInt&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">num1</span>:<span class="number">33.141</span>,</div><div class="line">         <span class="attr">num2</span>:<span class="number">46.212</span>,</div><div class="line">         <span class="attr">num3</span>:<span class="number">78.541</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  filters:&#123;</div><div class="line">      <span class="attr">toInt</span>:<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="built_in">parseInt</span>(value);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>computed：计算属性</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--使用sum读取结果--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">和：&#123;&#123;sum&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">num1</span>:<span class="number">1</span>,</div><div class="line">         <span class="attr">num2</span>:<span class="number">2</span>,</div><div class="line">         <span class="attr">num3</span>:<span class="number">3</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  computed:&#123;</div><div class="line">      <span class="attr">sum</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> num1+num2+num3;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>methods：方法</strong></p>
+</li>
+<li><p>我们可以使用methods定义一些方法，供组件使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">&#123;&#123;a&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"plus"</span>&gt;</span>加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">a</span>:<span class="number">1</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  methods:&#123;</div><div class="line">      <span class="attr">plus</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="keyword">this</span>.a++;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>watch：观察</strong></p>
+</li>
+<li>检测数据的变化，并执行相应的操作<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">&#123;&#123;a&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"plus"</span>&gt;</span>加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">a</span>:<span class="number">1</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  methods:&#123;</div><div class="line">      <span class="attr">plus</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="keyword">this</span>.a++;</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">  <span class="attr">watch</span>:&#123;</div><div class="line">    <span class="attr">a</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//代表监听的是数据a</span></div><div class="line">      cosole.log(<span class="string">"a变了："</span>+<span class="keyword">this</span>.a);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/20/J02-vue指令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1212,191 +1248,6 @@
 </li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data: &#123;</div><div class="line">  activeClass: 'active',</div><div class="line">  errorClass: 'text-danger'</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/20/J01-vue基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/20/J01-vue基础/" itemprop="url">
-                  Vue Basis
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
-                2017-01-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h1><ul>
-<li>vue是一套构建用户界面的渐进式框架</li>
-<li><strong>核心</strong><ul>
-<li>数据驱动</li>
-<li>视图组件化 </li>
-</ul>
-</li>
-<li><strong>MVVM</strong></li>
-<li>View（页面dom） —- ViewModel（监控者） —- Model（数据）</li>
-<li>简单的vue实例<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">      <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">      <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">name</span>:<span class="string">"hello vue"</span></div><div class="line">      &#125;</div><div class="line">	&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="创建实例的步骤"><a href="#创建实例的步骤" class="headerlink" title="创建实例的步骤"></a>创建实例的步骤</h2><ul>
-<li>new Vue()</li>
-<li>设置数据data</li>
-<li>挂载元素</li>
-<li>数据渲染</li>
-<li>每个Vue 实例都会代理其 data 对象里所有的属性<ul>
-<li>只有这些被代理的属性是响应式的，在实例创建之后添加新的实例属性，不会触发视图更新。 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;<span class="attr">name</span>:<span class="string">"John"</span>&#125;;</div><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">data</span>:data</div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(vm.name===data.name);<span class="comment">//true</span></div><div class="line">vm.age = <span class="number">18</span>;<span class="comment">//这条数据在实例化之后添加，不会响应到视图上</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><ul>
-<li><strong>el ：挂载元素</strong></li>
-<li><strong>data ：设置数据</strong></li>
-<li><strong>filters ：过滤器</strong></li>
-<li><p>需求 : 将数据转化成整数再进行渲染</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">数字1：&#123;&#123;num1 | toInt&#125;&#125;</div><div class="line">数字2：&#123;&#123;num2 | toInt&#125;&#125;</div><div class="line">数字3：&#123;&#123;num3 | toInt&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">num1</span>:<span class="number">33.141</span>,</div><div class="line">         <span class="attr">num2</span>:<span class="number">46.212</span>,</div><div class="line">         <span class="attr">num3</span>:<span class="number">78.541</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  filters:&#123;</div><div class="line">      <span class="attr">toInt</span>:<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="built_in">parseInt</span>(value);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>computed：计算属性</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--使用sum读取结果--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">和：&#123;&#123;sum&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">num1</span>:<span class="number">1</span>,</div><div class="line">         <span class="attr">num2</span>:<span class="number">2</span>,</div><div class="line">         <span class="attr">num3</span>:<span class="number">3</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  computed:&#123;</div><div class="line">      <span class="attr">sum</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> num1+num2+num3;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>methods：方法</strong></p>
-</li>
-<li><p>我们可以使用methods定义一些方法，供组件使用</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">&#123;&#123;a&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"plus"</span>&gt;</span>加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">a</span>:<span class="number">1</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  methods:&#123;</div><div class="line">      <span class="attr">plus</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="keyword">this</span>.a++;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>watch：观察</strong></p>
-</li>
-<li>检测数据的变化，并执行相应的操作<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">&#123;&#123;a&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"plus"</span>&gt;</span>加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">a</span>:<span class="number">1</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  methods:&#123;</div><div class="line">      <span class="attr">plus</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="keyword">this</span>.a++;</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">  <span class="attr">watch</span>:&#123;</div><div class="line">    <span class="attr">a</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//代表监听的是数据a</span></div><div class="line">      cosole.log(<span class="string">"a变了："</span>+<span class="keyword">this</span>.a);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
 
           
         
@@ -1954,6 +1805,178 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/26/A03-ES6-string/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/26/A03-ES6-string/" itemprop="url">
+                  string
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-26T00:00:00+08:00">
+                2016-12-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="字符串新特性"><a href="#字符串新特性" class="headerlink" title="字符串新特性"></a>字符串新特性</h1><h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h2><ul>
+<li>使用反引号，即数字1左边的按键</li>
+<li>变量使用<code>${变量}</code>表示<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str1 = <span class="string">"hello"</span>;</div><div class="line"><span class="keyword">var</span> str2 = <span class="string">"world"</span>;</div><div class="line"><span class="keyword">var</span> str = <span class="string">`javascript say <span class="subst">$&#123;str1&#125;</span> to <span class="subst">$&#123;str2&#125;</span>`</span>;</div><div class="line"><span class="built_in">console</span>.log(str);<span class="comment">//javascript hello say world</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>可以多行定义字符串，字符串中的换行、缩进和空格都会保留在输出中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">`my name is</span></div><div class="line">=======`;</div><div class="line"><span class="built_in">console</span>.log(str); </div><div class="line"><span class="comment">//my name is</span></div><div class="line"><span class="comment">//=======</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>${}中可以放任意的js表达式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> n1 = <span class="number">11</span>;</div><div class="line"><span class="keyword">var</span> n2 = <span class="number">22</span>;</div><div class="line"><span class="comment">//可以是运算表达式</span></div><div class="line"><span class="keyword">var</span> sum = <span class="string">`sum is <span class="subst">$&#123;n1+n2&#125;</span>`</span>;</div><div class="line"><span class="built_in">console</span>.log(sum);<span class="comment">//sum is 33</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">n1</span>:<span class="number">2</span>,<span class="attr">n2</span>:<span class="number">3</span>&#125;;</div><div class="line"><span class="comment">//可以是逻辑表达式</span></div><div class="line"><span class="keyword">var</span> ret = <span class="string">`n1是否大于n2: <span class="subst">$&#123;obj.n1&gt;obj.n2&#125;</span>`</span>;</div><div class="line"><span class="built_in">console</span>.log(ret);<span class="comment">//n1是否大于n2: false</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> ret = <span class="string">`返回值是: <span class="subst">$&#123;foo()&#125;</span>`</span>;</div><div class="line"><span class="comment">//可以是函数调用</span></div><div class="line"><span class="built_in">console</span>.log(ret);<span class="comment">//返回值是: 我是返回值</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="标签模板"><a href="#标签模板" class="headerlink" title="标签模板"></a>标签模板</h2><ul>
+<li>模板是指字符串模板；标签是指一个函数，一个专门处理模板字符串的函数</li>
+<li>函数调用时不用写()，直接在函数名后面使用模板字符串即可</li>
+<li>标签函数的第一个参数是一个以变量为分隔的数组</li>
+<li>第二个及以后的参数代表出传递的变量<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"zhangsan"</span>;</div><div class="line"><span class="keyword">var</span> age = <span class="number">18</span>;</div><div class="line">tagFun<span class="string">`我是<span class="subst">$&#123;name&#125;</span>,今年<span class="subst">$&#123;age&#125;</span>岁了`</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">tagFun</span>(<span class="params">arr,n,a</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(arr);<span class="comment">//["我是", ",今年", "岁了"]</span></div><div class="line">	<span class="built_in">console</span>.log(n);<span class="comment">//zhangsan</span></div><div class="line">	<span class="built_in">console</span>.log(a);<span class="comment">//18</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数扩展"><a href="#函数扩展" class="headerlink" title="函数扩展"></a>函数扩展</h2><ul>
+<li>repeat(n) : 将目标字符串重复n次，返回一个新的字符串，不影响原始字符串</li>
+<li>includes() : 判断字符串中是否含有指定字符串，第二个参数可选，表示开始搜索的位置</li>
+<li>startsWith() : 判断指定字符串是否出现在目标字符串的开始位置。 第二个参数可选，表示开始搜索的位置</li>
+<li>endsWith() : 判断指定字符串是否出现在目标字符串的末尾位置。 第二个参数可选，表示针对前N个字符</li>
+<li>codePrintAt() : 用于处理四个字节的字符，返回该字符码点的十进制数</li>
+<li>String.fromCodePrint() : 根据码点的十进制数找到对应的字符</li>
+<li>String.raw() : 返回字符串的原始的样子，不识别任何转义字符。常用作模板字符串处理函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"my name is Tom"</span>;</div><div class="line"><span class="keyword">var</span> newStr = str.repeat(<span class="number">3</span>);</div><div class="line"><span class="built_in">console</span>.log(newStr);<span class="comment">//my name is Tommy name is Tommy name is Tom</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(str.includes(<span class="string">"n"</span>));<span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(str.includes(<span class="string">"n"</span>,<span class="number">5</span>));<span class="comment">//false</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(str.startsWith(<span class="string">"n"</span>,<span class="number">3</span>));<span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(str.endsWith(<span class="string">"m"</span>));<span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.raw<span class="string">`hello\nword`</span>); <span class="comment">//hello\nword</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -2003,7 +2026,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

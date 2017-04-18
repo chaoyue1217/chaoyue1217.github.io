@@ -260,187 +260,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/10/B04-闭包/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/10/B04-闭包/" itemprop="url">
-                  浅谈闭包
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-10T00:00:00+08:00">
-                2016-08-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><ul>
-<li>闭包是指有权访问其他函数中的变量的函数</li>
-<li>在我看来，闭包就是在函数中嵌套的函数，用来延长作用域链的，经常用作返回值，以便在函数的的外部也可以接收到函数内部的值。<h2 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h2></li>
-<li>要理解闭包，首先必须理解Javascript特殊的变量作用域。</li>
-<li>变量的作用域无非就是两种：全局变量和局部变量。</li>
-<li><p>Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　alert(n);</div><div class="line">　　&#125;</div><div class="line">　　f1(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>另一方面，在函数外部自然无法读取函数内的局部变量。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　&#125;</div><div class="line">　　alert(n); <span class="comment">// error</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>这里有一个地方需要注意，函数内部声明变量的时候，一定要使用var命令。如果不用的话，你实际上声明了一个全局变量！</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　n=<span class="number">999</span>;</div><div class="line">　　&#125;</div><div class="line">　　f1();</div><div class="line">　　alert(n); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="如何从外部读取局部变量？"><a href="#如何从外部读取局部变量？" class="headerlink" title="如何从外部读取局部变量？"></a>如何从外部读取局部变量？</h3><ul>
-<li><p>那就是在函数的内部，再定义一个函数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　　　alert(n); <span class="comment">// 999</span></div><div class="line">　　　　&#125;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>在上面的代码中，函数f2就被包括在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不可见的。这就是Javascript语言特有的”链式作用域”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。</p>
-</li>
-<li>既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，我们不就可以在f1外部读取它的内部变量了吗！<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　　　alert(n); </div><div class="line">　　　　&#125;</div><div class="line">　　　　<span class="keyword">return</span> f2;</div><div class="line">　　&#125;</div><div class="line">　　<span class="keyword">var</span> result=f1();</div><div class="line">　　result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="闭包的概念"><a href="#闭包的概念" class="headerlink" title="闭包的概念"></a>闭包的概念</h2><ul>
-<li>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    alert(n);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> f2;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result=f1();</div><div class="line">result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="四、闭包的用途"><a href="#四、闭包的用途" class="headerlink" title="四、闭包的用途"></a>四、闭包的用途</h2><ul>
-<li><p>闭包可以用在许多地方。它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　　　nAdd=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;n+=<span class="number">1</span>&#125;</div><div class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　　　alert(n);</div><div class="line">　　　　&#125;</div><div class="line">　　　　<span class="keyword">return</span> f2;</div><div class="line">　　&#125;</div><div class="line">　　<span class="keyword">var</span> result=f1();</div><div class="line">　　result(); <span class="comment">// 999</span></div><div class="line">　　nAdd();</div><div class="line">　　result(); <span class="comment">// 1000</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>在这段代码中，result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。</p>
-</li>
-<li>为什么会这样呢？原因就在于f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被垃圾回收机制（garbage collection）回收。</li>
-<li>这段代码中另一个值得注意的地方，就是”nAdd=function(){n+=1}”这一行，首先在nAdd前面没有使用var关键字，因此nAdd是一个全局变量，而不是局部变量。其次，nAdd的值是一个匿名函数（anonymous function），而这个匿名函数本身也是一个闭包，所以nAdd相当于是一个setter，可以在函数外部对函数内部的局部变量进行操作。<h2 id="使用闭包的注意点"><a href="#使用闭包的注意点" class="headerlink" title="使用闭包的注意点"></a>使用闭包的注意点</h2></li>
-<li>由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</li>
-<li>闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（PublicMethod），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/13/Z02-canvas常用API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -779,6 +598,203 @@
 <li>lineJion:相交线的拐点类型，默认是miter，可设置round，bevel</li>
 <li>setLineDash():设置虚线,参数是一个数组，设置黑白切换<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    ctx.lineWidth = <span class="number">50</span>;</div><div class="line">    ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">    ctx.lineTo(<span class="number">400</span>,<span class="number">100</span>);</div><div class="line">    ctx.setLineDash([<span class="number">10</span>,<span class="number">15</span>,<span class="number">20</span>]);</div><div class="line">    ctx.stroke();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/22/C08-SVG/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/22/C08-SVG/" itemprop="url">
+                  what is SVG?
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-22T00:00:00+08:00">
+                2016-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTML5/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="什么是SVG？"><a href="#什么是SVG？" class="headerlink" title="什么是SVG？"></a>什么是SVG？</h1><ul>
+<li>SVG 指可伸缩矢量图形 (Scalable Vector Graphics)</li>
+<li>SVG 用于定义用于网络的基于矢量的图形</li>
+<li>SVG 使用 XML 格式定义图形</li>
+<li>SVG 图像在放大或改变尺寸的情况下其图形质量不会有损失</li>
+<li>SVG 是万维网联盟的标准</li>
+</ul>
+<h1 id="SVG优势"><a href="#SVG优势" class="headerlink" title="SVG优势"></a>SVG优势</h1><ul>
+<li>与其他图像格式相比（比如 JPEG 和 GIF），使用 SVG 的优势在于：<ul>
+<li>SVG 图像可通过文本编辑器来创建和修改</li>
+<li>SVG 图像可被搜索、索引、脚本化或压缩</li>
+<li>SVG 是可伸缩的</li>
+<li>SVG 图像可在任何的分辨率下被高质量地打印</li>
+<li>SVG 可在图像质量不下降的情况下被放大</li>
+</ul>
+</li>
+</ul>
+<h1 id="把-SVG-直接嵌入-HTML-页面"><a href="#把-SVG-直接嵌入-HTML-页面" class="headerlink" title="把 SVG 直接嵌入 HTML 页面"></a>把 SVG 直接嵌入 HTML 页面</h1><p>在 HTML5 中，可以将 SVG 元素直接嵌入 HTML 页面中：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"> </div><div class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">version</span>=<span class="string">"1.1"</span> <span class="attr">height</span>=<span class="string">"190"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">polygon</span> <span class="attr">points</span>=<span class="string">"100,10 40,180 190,60 10,60 160,180"</span></span></div><div class="line">  <span class="attr">style</span>=<span class="string">"fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;"</span>&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></div><div class="line"> </div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h1 id="SVG-与-Canvas两者间的区别"><a href="#SVG-与-Canvas两者间的区别" class="headerlink" title="SVG 与 Canvas两者间的区别"></a>SVG 与 Canvas两者间的区别</h1><ul>
+<li>SVG 是一种使用 XML 描述 2D 图形的语言。</li>
+<li>Canvas 通过 JavaScript 来绘制 2D 图形。</li>
+<li>SVG 基于 XML，这意味着 SVG DOM 中的每个元素都是可用的。可以为某个元素附加 JavaScript 事件处理器。</li>
+<li>在 SVG 中，每个被绘制的图形均被视为对象。如果SVG对象的属性发生变化，那么浏览器能够自动重现图形。</li>
+<li>Canvas 是逐像素进行渲染的。在 canvas 中，一旦图形被绘制完成，它就不会继续得到浏览器的关注。如果其位置发生变化，那么整个场景也需要重新绘制，包括任何或许已被图形覆盖的对象。</li>
+</ul>
+<h1 id="Canvas-与-SVG-的比较"><a href="#Canvas-与-SVG-的比较" class="headerlink" title="Canvas 与 SVG 的比较"></a>Canvas 与 SVG 的比较</h1><table>
+<thead>
+<tr>
+<th>Canvas</th>
+<th>SVG</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>依赖分辨率</td>
+<td>不依赖分辨率</td>
+</tr>
+<tr>
+<td>不支持事件处理器</td>
+<td>支持事件处理器</td>
+</tr>
+<tr>
+<td>弱的文本渲染能力</td>
+<td>适合带有大型渲染区域的应用程序（比如谷歌地图）</td>
+</tr>
+<tr>
+<td>能够以 .png 或 .jpg 格式保存结果图像</td>
+<td>复杂度高会减慢渲染速度（任何过度使用 DOM 的应用都不快）</td>
+</tr>
+<tr>
+<td>最适合图像密集型的游戏，其中的许多对象会被频繁重绘</td>
+<td>不适合游戏应用</td>
+</tr>
+</tbody>
+</table>
 
           
         
@@ -1598,186 +1614,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/07/F04-事件处理机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/07/F04-事件处理机制/" itemprop="url">
-                  事件处理机制
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-07T00:00:00+08:00">
-                2016-05-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OOP/" itemprop="url" rel="index">
-                    <span itemprop="name">OOP</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="事件处理机制"><a href="#事件处理机制" class="headerlink" title="事件处理机制"></a>事件处理机制</h1><ul>
-<li>JavaScript是单线程的</li>
-<li>浏览器本身是多线程的<ul>
-<li>页面标签的渲染</li>
-<li>网络通信</li>
-<li>解析js运行<h2 id="事件队列（任务队列）"><a href="#事件队列（任务队列）" class="headerlink" title="事件队列（任务队列）"></a>事件队列（任务队列）</h2></li>
-</ul>
-</li>
-<li>JavaScript的单线程决定了事件的执行需要排队，前一个任务执行完毕，才会执行后一个任务</li>
-<li>能够进事件队列的函数<ul>
-<li>定时函数(setTimeout,setInterval)</li>
-<li>事件函数</li>
-<li>ajax的回调函数，即onreadystatechange指向的函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="number">111</span>);</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line"><span class="comment">//遇到setTimeout会先将要执行的函数放进事件队列中，继续执行主线程，当主线程执行完毕后，才执行事件队列中的函数,因此，定时器中的函数只能在最后执行</span></div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">  &#125;,<span class="number">0</span>);<span class="comment">//0 代表按照浏览器的默认最小延时执行代码</span></div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(<span class="number">222</span>);</div><div class="line"><span class="comment">//以下为输出结果</span></div><div class="line"><span class="comment">//111</span></div><div class="line"><span class="comment">//222</span></div><div class="line"><span class="comment">//3</span></div><div class="line"><span class="comment">//3</span></div><div class="line"><span class="comment">//3</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="事件轮询-Event-Loop"><a href="#事件轮询-Event-Loop" class="headerlink" title="事件轮询(Event Loop)"></a>事件轮询(Event Loop)</h2><ul>
-<li>主线程会循环不断的从事件队列中读取事件</li>
-<li>当读取到事件时，会首先判断主线程是否空闲，再判断当前函数的执行条件是否满足，如果上述两个要求均满足，则执行事件</li>
-<li>setTimeout只是将事件放入了事件队列，必须等到主线程空闲才会去执行。因此，定时函数不一定会在执行的时间内执行<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2></li>
-<li>行内绑定</li>
-<li>绑定到DOM元素上</li>
-<li>addEventListener / attachEvent<ul>
-<li>addEventListener(“事件名”，“事件处理函数”，false);设置为false为允许冒泡<h3 id="阻止冒泡和阻止默认行为"><a href="#阻止冒泡和阻止默认行为" class="headerlink" title="阻止冒泡和阻止默认行为"></a>阻止冒泡和阻止默认行为</h3></li>
-</ul>
-</li>
-<li>阻止冒泡：event.stopPropagation() / event.cancelBubble = true(兼容IE)</li>
-<li>阻止默认行为：event.preventDefault() / event.returnValue = false(兼容IE)或者return false(不能阻止使用 addEventListener 绑定的事件)</li>
-<li>在jQuery中，return false既可以阻止冒泡，又可以阻止默认行为<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"www.baidu.com"</span> <span class="attr">id</span>=<span class="string">"jump"</span>&gt;</span>跳转<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> a = <span class="built_in">document</span>.getElementById(<span class="string">"jump"</span>);</div><div class="line">a.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//此处不能阻止默认行为</span></div><div class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;);</div><div class="line">a.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="comment">//此处可以阻止默认行为</span></div><div class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><ul>
-<li>将子元素的事件委托到父元素中处理</li>
-<li>jQuery中的on和delegate可是实现事件委托，原理如下<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"target"</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 6<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="comment">//使用该方法需要给多个元素绑定事件，消耗内存</span></div><div class="line">	<span class="comment">/*var lis = document.getElementsByTagName("li");</span></div><div class="line">    for(var i=0;i&lt;lis.length;i++)&#123;</div><div class="line">        lis[i].onclick = function()&#123;</div><div class="line">            console.log(this.innerHTML);</div><div class="line">        &#125;</div><div class="line">    &#125;*/</div><div class="line"><span class="comment">//使用事件委托只需要给父元素绑定事件即可</span></div><div class="line">    <span class="keyword">var</span> ul = <span class="built_in">document</span>.getElementById(<span class="string">"target"</span>);</div><div class="line">    ul.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">        event = event||<span class="built_in">window</span>.event;</div><div class="line">        <span class="keyword">var</span> target = event.target||event.srcElement;</div><div class="line">        <span class="built_in">console</span>.log(target.innerHTML);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">obj,type,fn</span>)</span>&#123;</div><div class="line">    obj.listener = obj.listener||&#123;&#125;;</div><div class="line">    obj.listener[type] = obj.listener[type]||[];</div><div class="line">    obj.listener[type].push(fn);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fireEvent</span>(<span class="params">obj,type</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> arr = obj.listener[type];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</div><div class="line">        arr[i]();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;&#125;;</div><div class="line">addEvent(obj,<span class="string">"aaa"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">111</span>)&#125;);</div><div class="line">addEvent(obj,<span class="string">"bbb"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">222</span>)&#125;);</div><div class="line">addEvent(obj,<span class="string">"ccc"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">333</span>)&#125;);</div><div class="line">addEvent(obj,<span class="string">"ddd"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">444</span>)&#125;);</div><div class="line">fireEvent(obj,<span class="string">"aaa"</span>);</div><div class="line"><span class="comment">/*</span></div><div class="line">//自定义事件的数据结构</div><div class="line">obj.listener = &#123;&#125;;</div><div class="line">//属性作为事件名称，数组为放置事件函数的列表</div><div class="line">obj.listener.aaa = [function()&#123;&#125;];</div><div class="line">*/</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/07/F05-面向对象-杂乱知识点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1950,6 +1786,186 @@
 <li><p>第二题</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;<span class="attr">name</span>:<span class="string">'zhangsan'</span>&#125;; </div><div class="line"><span class="keyword">var</span> b = &#123;<span class="attr">age</span> : <span class="number">26</span>&#125;; </div><div class="line"><span class="keyword">var</span> arr = []; </div><div class="line">arr[a] = <span class="number">123</span>; </div><div class="line">arr[b] = <span class="number">456</span>; </div><div class="line"><span class="built_in">console</span>.log(arr.length);<span class="comment">//0  添加的是属性不是索引</span></div><div class="line"><span class="built_in">console</span>.dir(arr);</div><div class="line"><span class="comment">//arr 中只有一个属性，在为arr添加属性的时候，会调用toString()方法，将变量a进行转化，进行转化后为[object Object],所以arr只有一个属性，值为456，覆盖了123</span></div></pre></td></tr></table></figure></li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/07/F04-事件处理机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/07/F04-事件处理机制/" itemprop="url">
+                  事件处理机制
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-07T00:00:00+08:00">
+                2016-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OOP/" itemprop="url" rel="index">
+                    <span itemprop="name">OOP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="事件处理机制"><a href="#事件处理机制" class="headerlink" title="事件处理机制"></a>事件处理机制</h1><ul>
+<li>JavaScript是单线程的</li>
+<li>浏览器本身是多线程的<ul>
+<li>页面标签的渲染</li>
+<li>网络通信</li>
+<li>解析js运行<h2 id="事件队列（任务队列）"><a href="#事件队列（任务队列）" class="headerlink" title="事件队列（任务队列）"></a>事件队列（任务队列）</h2></li>
+</ul>
+</li>
+<li>JavaScript的单线程决定了事件的执行需要排队，前一个任务执行完毕，才会执行后一个任务</li>
+<li>能够进事件队列的函数<ul>
+<li>定时函数(setTimeout,setInterval)</li>
+<li>事件函数</li>
+<li>ajax的回调函数，即onreadystatechange指向的函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="number">111</span>);</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)&#123;</div><div class="line"><span class="comment">//遇到setTimeout会先将要执行的函数放进事件队列中，继续执行主线程，当主线程执行完毕后，才执行事件队列中的函数,因此，定时器中的函数只能在最后执行</span></div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i);</div><div class="line">  &#125;,<span class="number">0</span>);<span class="comment">//0 代表按照浏览器的默认最小延时执行代码</span></div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(<span class="number">222</span>);</div><div class="line"><span class="comment">//以下为输出结果</span></div><div class="line"><span class="comment">//111</span></div><div class="line"><span class="comment">//222</span></div><div class="line"><span class="comment">//3</span></div><div class="line"><span class="comment">//3</span></div><div class="line"><span class="comment">//3</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="事件轮询-Event-Loop"><a href="#事件轮询-Event-Loop" class="headerlink" title="事件轮询(Event Loop)"></a>事件轮询(Event Loop)</h2><ul>
+<li>主线程会循环不断的从事件队列中读取事件</li>
+<li>当读取到事件时，会首先判断主线程是否空闲，再判断当前函数的执行条件是否满足，如果上述两个要求均满足，则执行事件</li>
+<li>setTimeout只是将事件放入了事件队列，必须等到主线程空闲才会去执行。因此，定时函数不一定会在执行的时间内执行<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2></li>
+<li>行内绑定</li>
+<li>绑定到DOM元素上</li>
+<li>addEventListener / attachEvent<ul>
+<li>addEventListener(“事件名”，“事件处理函数”，false);设置为false为允许冒泡<h3 id="阻止冒泡和阻止默认行为"><a href="#阻止冒泡和阻止默认行为" class="headerlink" title="阻止冒泡和阻止默认行为"></a>阻止冒泡和阻止默认行为</h3></li>
+</ul>
+</li>
+<li>阻止冒泡：event.stopPropagation() / event.cancelBubble = true(兼容IE)</li>
+<li>阻止默认行为：event.preventDefault() / event.returnValue = false(兼容IE)或者return false(不能阻止使用 addEventListener 绑定的事件)</li>
+<li>在jQuery中，return false既可以阻止冒泡，又可以阻止默认行为<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"www.baidu.com"</span> <span class="attr">id</span>=<span class="string">"jump"</span>&gt;</span>跳转<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> a = <span class="built_in">document</span>.getElementById(<span class="string">"jump"</span>);</div><div class="line">a.addEventListener(<span class="string">"click"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//此处不能阻止默认行为</span></div><div class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;);</div><div class="line">a.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="comment">//此处可以阻止默认行为</span></div><div class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><ul>
+<li>将子元素的事件委托到父元素中处理</li>
+<li>jQuery中的on和delegate可是实现事件委托，原理如下<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"target"</span>&gt;</span> </div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>item 6<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="comment">//使用该方法需要给多个元素绑定事件，消耗内存</span></div><div class="line">	<span class="comment">/*var lis = document.getElementsByTagName("li");</span></div><div class="line">    for(var i=0;i&lt;lis.length;i++)&#123;</div><div class="line">        lis[i].onclick = function()&#123;</div><div class="line">            console.log(this.innerHTML);</div><div class="line">        &#125;</div><div class="line">    &#125;*/</div><div class="line"><span class="comment">//使用事件委托只需要给父元素绑定事件即可</span></div><div class="line">    <span class="keyword">var</span> ul = <span class="built_in">document</span>.getElementById(<span class="string">"target"</span>);</div><div class="line">    ul.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">        event = event||<span class="built_in">window</span>.event;</div><div class="line">        <span class="keyword">var</span> target = event.target||event.srcElement;</div><div class="line">        <span class="built_in">console</span>.log(target.innerHTML);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">obj,type,fn</span>)</span>&#123;</div><div class="line">    obj.listener = obj.listener||&#123;&#125;;</div><div class="line">    obj.listener[type] = obj.listener[type]||[];</div><div class="line">    obj.listener[type].push(fn);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fireEvent</span>(<span class="params">obj,type</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> arr = obj.listener[type];</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</div><div class="line">        arr[i]();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;&#125;;</div><div class="line">addEvent(obj,<span class="string">"aaa"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">111</span>)&#125;);</div><div class="line">addEvent(obj,<span class="string">"bbb"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">222</span>)&#125;);</div><div class="line">addEvent(obj,<span class="string">"ccc"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">333</span>)&#125;);</div><div class="line">addEvent(obj,<span class="string">"ddd"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">444</span>)&#125;);</div><div class="line">fireEvent(obj,<span class="string">"aaa"</span>);</div><div class="line"><span class="comment">/*</span></div><div class="line">//自定义事件的数据结构</div><div class="line">obj.listener = &#123;&#125;;</div><div class="line">//属性作为事件名称，数组为放置事件函数的列表</div><div class="line">obj.listener.aaa = [function()&#123;&#125;];</div><div class="line">*/</div></pre></td></tr></table></figure>
 
           
         

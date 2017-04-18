@@ -260,7 +260,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/23/H09-双向数据绑定/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/15/G04-深入require/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qcyue">
@@ -282,8 +282,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/23/H09-双向数据绑定/" itemprop="url">
-                  深入双向数据绑定
+                <a class="post-title-link" href="/2016/09/15/G04-深入require/" itemprop="url">
+                  深入requirejs
                 </a>
               
             
@@ -299,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-23T00:00:00+08:00">
-                2016-09-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-15T00:00:00+08:00">
+                2016-09-15
               </time>
             
 
@@ -322,8 +322,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
+                  <a href="/categories/AMD和CMD/" itemprop="url" rel="index">
+                    <span itemprop="name">AMD和CMD</span>
                   </a>
                 </span>
 
@@ -359,237 +359,22 @@
       
         
           
-            <h1 id="双向数据绑定"><a href="#双向数据绑定" class="headerlink" title="双向数据绑定"></a>双向数据绑定</h1><ul>
-<li><strong>核心 : </strong> <ul>
-<li><code>$digest循环</code>脏值检查</li>
+            <h1 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h1><ul>
+<li>RequireJS的目标是鼓励代码的模块化，它使用了不同于传统<script>标签的脚本加载步骤。可以用它来加速、优化代码，但其主要目的还是为了代码的模块化。</li>
+<li>requirejs解决了单纯的script标签引入文件式的文件依赖问题</li>
+<li>实现了模块化</li>
 </ul>
-</li>
-<li><code>$watch</code>是一个检测model是否变化的函数，每次将视图和模型进行绑定时就会有一个<code>$watch</code>进入事件队列，监测着model的变化。</li>
-<li>当触发UI事件，ajax请求或者 timeout 延迟发生变化时，就会触发脏值检测<code>$digest</code>,<code>$digest</code>将会遍历<code>$watch</code>列表,然后询问它是否有属性和值的变化，直<code>$watch</code>队列中没有再变化的值。此时再进行view的更新。<h2 id="digest循环"><a href="#digest循环" class="headerlink" title="$digest循环"></a><code>$digest循环</code></h2></li>
-<li>在标准的浏览器流程中，当事件被触发时，JavaScript就会创建一个事件对象，并执行这个事件对象所在的监听特定事件的所有函数。然后它会运行JavaScript函数内的回调方法，这会回到浏览器中，还可能更新DOM。</li>
-<li>Angular模拟该流程，并进行扩展，创建一个Angular上下文（运行Angular事件循环中的特定代码），该Angular事件循环通常被称为<code>$digest</code><h2 id="watch列表"><a href="#watch列表" class="headerlink" title="$watch列表"></a><code>$watch列表</code></h2></li>
-<li>每当我们在视图中追踪一个事件时，会给它注册一个回调函数，然后希望在页面中触发该事件时调用这个回调函数。</li>
-<li>为了更新视图，Angular需要追踪变化。它是通过给$watch列表添加一个监控函数做到这一点的。</li>
-<li><strong>对于所有绑定给同一<code>$scope</code>对象的UI元素，只会添加一个<code>$watch</code>到<code>$watch</code>列表中。</strong></li>
-<li><code>$watch</code>列表会在<code>$digest</code>循环中通过一个叫做“脏值检查”的程序解析。<h2 id="脏值检查"><a href="#脏值检查" class="headerlink" title="脏值检查"></a>脏值检查</h2></li>
-<li><strong>只有当触发UI事件，ajax请求或者 timeout 延迟，才会触发脏检查。</strong></li>
-<li>脏值检查就是检查值是否发生了变化。</li>
-<li><code>$scope</code>的<code>$watch</code>列表中值发生变化，则触发<code>$digest</code>循环。</li>
-<li>Angular将会通过脏值检查遍历整个<code>$watch</code>列表，只要当中的某个值发生了变化，应用就会退回到<code>$digest</code>循环中，直到检测到这个值不再发生任何变化，然后再启用新值并且继续遍历<code>$watch</code>列表。整个<code>$watch</code>列表循环后，且其中值都不再变化了，那么整个应用程序的model也就趋于稳定了，这时候才在View渲染该有的数据。<h3 id="watch"><a href="#watch" class="headerlink" title="$watch"></a><code>$watch</code></h3></li>
-<li><p>Angular 每一个绑定到UI的数据，就会有一个 <code>$watch</code> 对象，这个对象包含三个参数</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">watch = &#123;</div><div class="line">  <span class="attr">name</span>:<span class="string">""</span>,<span class="comment">//当期的watch对象监测的数据</span></div><div class="line">  getNewValue:<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</div><div class="line">  	....</div><div class="line">    return newValue;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">listener</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    ...<span class="comment">//数据发生变化时需要执行的操作</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>getNewValue() 可以得到当前$scope 上的最新值，listener 函数得到新值和旧值并进行一些操作</p>
-</li>
-<li>而常常我们在使用Angular的时候，listener 一般都为空，只有当我们需要监测更改事件的时候，才会显示地添加监听。</li>
-<li>每当我们将数据绑定到 UI 上，angular 就会向你的 watch列表 上插入一个 $watch。</li>
-</ul>
-<p><strong>模拟脏值检查原理</strong><br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">ng-click</span>=<span class="string">"increase"</span>&gt;</span>increase<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">ng-click</span>=<span class="string">"decrease"</span>&gt;</span>decrease<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">ng-bind</span>=<span class="string">"data"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> scope = &#123;</div><div class="line">  <span class="attr">increase</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">this</span>.data++;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">decrease</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">this</span>.data--;	</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">data</span>:<span class="number">0</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bind</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> list = <span class="built_in">document</span>.querySelectorAll(<span class="string">'[ng-click]'</span>);</div><div class="line">   <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, l = list.length; i &lt; l; i++) &#123;</div><div class="line">     list[i].onclick = (<span class="function"><span class="keyword">function</span>(<span class="params">index</span>)</span>&#123;</div><div class="line">       <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">var</span> func = <span class="keyword">this</span>.getAttribute(<span class="string">"bg-click"</span>);</div><div class="line">         scope[func](scope);</div><div class="line">         apply();</div><div class="line">       &#125;</div><div class="line">     &#125;)(i);</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">apply</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> list = <span class="built_in">document</span>.querySelectorAll(<span class="string">'[ng-bind]'</span>);</div><div class="line">   <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, l = list.length; i &lt; l; i++) &#123;</div><div class="line">     <span class="keyword">var</span> bindData = list[i].getAttribute(<span class="string">'ng-bind'</span>);</div><div class="line">     list[i].innerHTML = scope[bindData];</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">bind();</div><div class="line">apply();</div></pre></td></tr></table></figure>
-<ul>
-<li>在Angular 的apply函数中，这里先进行脏检测，看 oldValue 和 newVlue 是否相等，如果不相等，那么讲newValue 反馈到界面上，通过如果通过 $watch 注册了 listener事件，那么就会调用该事件。</li>
-</ul>
-<h2 id="脏值检测内部实现"><a href="#脏值检测内部实现" class="headerlink" title="脏值检测内部实现"></a>脏值检测内部实现</h2><ul>
-<li><p>每一个绑定到UI上的数据都有拥有一个对应的$watch 对象，这个对象会被push到watchList中。它拥有两个函数作为属性</p>
-<ul>
-<li>getNewValue() 也叫监控函数，勇于在值发生变化后得到提示，并返回新值。</li>
-<li>listener() 监听函数，用于在数据变更的时候响应行为。</li>
-<li>name： 当前watch作用的变量名<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">$scope</span>(<span class="params"></span>)</span>&#123;</div><div class="line">   <span class="keyword">this</span>. $$watchList = [];</div><div class="line">   <span class="comment">//在Angular框架中，双美元符前缀$$表示这个变量被当作私有的来考虑，不应当在外部代码中调用。</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="require使用流程"><a href="#require使用流程" class="headerlink" title="require使用流程"></a>require使用流程</h1><p>1、我们在使用requireJS时，都会把所有的js交给requireJS来管理，也就是我们的页面上只引入一个require.js，把data-main指向我们的main.js。</p>
+<p>2、通过我们在main.js里面定义的require方法或者define方法，requireJS会把这些依赖和回调方法都用一个数据结构保存起来。</p>
+<p>3、当页面加载时，requireJS会根据这些依赖预先把需要的js通过document.createElement的方法引入到dom中，这样，被引入dom中的script便会运行。</p>
+<p>4、由于我们依赖的js也是要按照requireJS的规范来写的，所以他们也会有define或者require方法，同样类似第二步这样循环向上查找依赖，同样会把他们存起来。</p>
+<p>5、当我们的js里需要用到依赖所返回的结果时(通常是一个key value类型的object),requireJS便会把之前那个保存回调方法的数据结构里面的方法拿出来并且运行，然后把结果给需要依赖的方法。</p>
+<h1 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h1><ul>
+<li>require函数实现用一句话概括：依次加载require的模块，然后监测script的onload事件，判断所有模块加载成功，执行require的callback，如果只带一个参数且不是数组，就是加载成功后return 模块。</li>
+<li><strong>简单原理实现</strong><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//标记已经加载成功的个数</span></div><div class="line"><span class="keyword">var</span> REQ_TOTAL = <span class="number">0</span>;</div><div class="line"><span class="comment">//模块导出</span></div><div class="line"><span class="built_in">window</span>.exports = &#123;&#125;;</div><div class="line"><span class="comment">//记录各个模块的顺序</span></div><div class="line"><span class="keyword">var</span> exp_arr = [];</div><div class="line"></div><div class="line"><span class="comment">//判断是否数组</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isArray</span>(<span class="params">param</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> param <span class="keyword">instanceof</span> <span class="built_in">Array</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//require 真正实现</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">require</span>(<span class="params">arr, callback</span>) </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">var</span> req_list;</div><div class="line">    <span class="comment">//如果传入的是数组，赋值给req_list</span></div><div class="line">  <span class="keyword">if</span>(isArray(arr)) &#123;</div><div class="line">    req_list = arr;</div><div class="line">  &#125; <span class="keyword">else</span> &#123;<span class="comment">//如果传入的不是数组，将其放在数组中传给req_list</span></div><div class="line">    req_list = [arr];</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//记录数组的长度</span></div><div class="line">  <span class="keyword">var</span> req_len = req_list.length;</div><div class="line"></div><div class="line">  <span class="comment">//模块逐个加载</span></div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;req_len;i++) &#123;</div><div class="line">    <span class="keyword">var</span> req_item = req_list[i];</div><div class="line">    <span class="comment">//创建script标签</span></div><div class="line">    <span class="keyword">var</span> $script = createScript(req_item, i);</div><div class="line">    <span class="comment">//获取页面中的head标签</span></div><div class="line">    <span class="keyword">var</span> $node = <span class="built_in">document</span>.querySelector(<span class="string">'head'</span>);</div><div class="line">    <span class="comment">//使用闭包保证模块的正常加载</span></div><div class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">$script</span>) </span>&#123;</div><div class="line">      <span class="comment">//检测script 的onload事件</span></div><div class="line">      $script.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        REQ_TOTAL++;</div><div class="line">        </div><div class="line">        <span class="keyword">var</span> script_index = $script.getAttribute(<span class="string">'index'</span>);</div><div class="line">        exp_arr[script_index] = exports;</div><div class="line">        <span class="built_in">window</span>.exports = &#123;&#125;;</div><div class="line">        <span class="comment">//所有链接加载成功后，执行callback</span></div><div class="line">        <span class="keyword">if</span>(REQ_TOTAL == req_len) &#123;</div><div class="line">          callback &amp;&amp; callback.apply(exports, exp_arr);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="comment">//在head中添加script标签</span></div><div class="line">      $node.appendChild($script);</div><div class="line">    &#125;)($script);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//创建一个script标签</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createScript</span>(<span class="params">src, index</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> $script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line"></div><div class="line">  $script.setAttribute(<span class="string">'src'</span>, src);</div><div class="line">  $script.setAttribute(<span class="string">'index'</span>, index);</div><div class="line"></div><div class="line">  <span class="keyword">return</span> $script;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-</li>
-<li><p><code>$watch</code>需要在每个<code>$scope</code>实例上调用，所以应该在原型上</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$scope.prototype.$watch = <span class="function"><span class="keyword">function</span>(<span class="params">name,getNewValue,listener</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> watch = &#123;</div><div class="line">       <span class="attr">name</span>:name,</div><div class="line">       <span class="attr">getNewValue</span> : getNewValue,</div><div class="line">       <span class="attr">listener</span> : listener</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">this</span>.$$watchList.push(watch);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p><code>$digest</code>简化版</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$scope.prototype.$digest = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> list = <span class="keyword">this</span>.$$watchList;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,l = list.length;i&lt;l;i++)&#123;</div><div class="line">    	<span class="comment">//遍历所有监听器并调用</span></div><div class="line">        list[i].listener();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>运行</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> scope = <span class="keyword">new</span> Scope();</div><div class="line">scope.$watch(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"hey i have got newValue"</span>)</div><div class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"i am the listener"</span>);</div><div class="line">&#125;)</div><div class="line"></div><div class="line">scope.$watch(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"hey i have got newValue 2"</span>)</div><div class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"i am the listener2"</span>);</div><div class="line">&#125;)</div><div class="line"></div><div class="line">scope.$disget();</div><div class="line"><span class="comment">// i am the listener</span></div><div class="line"><span class="comment">// i am the listener2</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="apply和-digest的区别"><a href="#apply和-digest的区别" class="headerlink" title="$apply和$digest的区别"></a><code>$apply</code><strong>和<code>$digest</code>的区别</strong></h2><ul>
-<li><code>$apply</code>可以带参数，它可以接受一个函数，然后在应用数据之后，调用这个函数。</li>
-<li>在简单的数据模型中，这两者没有本质差别，但是当有层次结构的时候，对于<code>$digest</code>来说，在父作用域和子作用域上调用是有差别的，但是，对于<code>$apply</code>来说，这两者一样。</li>
-<li>当调用<code>$digest</code>的时候，只触发当前作用域和它的子作用域上的监控，但是当调用<code>$apply</code>的时候，会触发作用域树上的所有监控。</li>
-<li><code>$apply</code>应用场景<ul>
-<li>从性能上讲，如果能确定自己作的这个数据变更所造成的影响范围，应当尽量调用<code>$digest</code>，只有当无法精确知道数据变更造成的影响范围时，才去用$apply，很暴力地遍历整个作用域树，调用其中所有的监控。<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>一次脏检查就是调用一次 <code>$apply()</code> 或者 <code>$digest()</code>,将数据中最新的值呈现在界面上。</li>
-<li>而每次 UI 事件变更，ajax 还有 timeout 都会触发 <code>$apply()</code>。</li>
-<li>在脏值检查进行时，会遍历watch列表，只要有一个值发生改变，就会进入到<code>$diegst</code>循环中，循环会一直监视着该值的变化，直到这个值不再变化，就会启用新值，并继续循环，直到遍历完列表，整个列表中的数据都不再发生变化时，此时就会进行view的渲染。从而实现了数据的双向绑定。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/20/H08-angular生命周期/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/20/H08-angular生命周期/" itemprop="url">
-                  浅析AngularJS的生命周期
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-20T00:00:00+08:00">
-                2016-09-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="AngularJS的生命周期"><a href="#AngularJS的生命周期" class="headerlink" title="AngularJS的生命周期"></a>AngularJS的生命周期</h2><ul>
-<li>在AngularJS应用启动之前，会以html文本的形式保存在文本编辑器中。应用启动后会进行编译和链接，作用域会和html进行数据绑定。<h3 id="编译阶段"><a href="#编译阶段" class="headerlink" title="编译阶段"></a>编译阶段</h3></li>
-<li>在编译阶段，AngularJS会遍历整个HTML文档并根据JavaScript中的指令定义来处理页面上声明的指令。</li>
-<li>每一个指令中都可能会含有另一个指令，因此，AngularJs进行编译的时候会形成一个模板树，并遍历其中的所有模板。</li>
-<li>一旦对指令和其中的子模板进行遍历或编译，编译后的模板会返回一个叫模板函数的函数。我们可以在模板函数被返回之前，对编译后的DOM树进行操作<ul>
-<li>例如：ng-repeat，它会遍历指定的数组或对象，在数据绑定之前构建出对应的DOM结构。</li>
-</ul>
-</li>
-<li>每个指令都有自己的模板和编译函数，每个模板返回自己的模板函数，模板函数最后会被传递给编译后的DOM树中的每个指令中定义的链接函数。<h3 id="compile编译函数"><a href="#compile编译函数" class="headerlink" title="compile编译函数"></a>compile编译函数</h3></li>
-<li>在模板函数返回之前，我们可以使用compile对编译后的DOM树进行DOM操作。</li>
-<li>compile函数的返回值即链接函数或者链接对象，即link</li>
-<li>本质上，当我们设置了link选项，实际上是创建了一个postLink()链接函数，以便compile()函数可以定义链接函数。</li>
-<li><strong>compile和link选项是互斥的。如果同时设置了这两个选项，那么会把compile<br>所返回的函数当作链接函数，而link选项本身则会被忽略。</strong></li>
-<li>compile的作用是对指令的模板进行转换，常用于自定义指令<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'myApp'</span>,[])</div><div class="line">.directive(<span class="string">'myDirective'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">        <span class="attr">compile</span>:<span class="function"><span class="keyword">function</span>(<span class="params">tEle,tAttrs,transcludeFn</span>)</span>&#123;</div><div class="line">            <span class="comment">//在此处可以进行DOM操作</span></div><div class="line">            <span class="comment">//在此处不能操作$scope     </span></div><div class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">scope,ele,attrs</span>)</span>&#123;</div><div class="line">            <span class="comment">//此处返回的是链接函数，可以在此处处理数据</span></div><div class="line">            <span class="comment">//$scope只有在链接阶段才会绑定到元素上 	</span></div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">link</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">          <span class="comment">//如果设置了compile，在此处设置link会被忽略</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="链接阶段"><a href="#链接阶段" class="headerlink" title="链接阶段"></a>链接阶段</h3><ul>
-<li>链接函数负责将作用域和DOM进行链接。如绑定数据，注册事件</li>
-<li><strong>postlink</strong><ul>
-<li>我们设置的link其实就是postlink</li>
-</ul>
-</li>
-<li><strong>prelink</strong></li>
-<li>prelink会在Postlink之前执行，他在compile之后执行。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'myApp'</span>,[])</div><div class="line">.directive(<span class="string">'myDirective'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">        <span class="attr">compile</span>:<span class="function"><span class="keyword">function</span>(<span class="params">tEle,tAttrs,transcludeFn</span>)</span>&#123;</div><div class="line">            <span class="comment">//这里进行DOM的操作</span></div><div class="line">            <span class="keyword">return</span> &#123;</div><div class="line">              <span class="attr">pre</span>: <span class="function"><span class="keyword">function</span>(<span class="params">scope, iElem, iAttrs</span>)</span>&#123;</div><div class="line">                <span class="comment">//次处时prelink，在postlink之前，compile之后执行</span></div><div class="line">                <span class="comment">// 在子元素被链接之前执行</span></div><div class="line">                <span class="comment">// 在这里进行Don转换不安全</span></div><div class="line">                <span class="comment">// 之后调用'lihk'函数将无法定位要链接的元素</span></div><div class="line">              &#125;,</div><div class="line">              <span class="attr">post</span>: <span class="function"><span class="keyword">function</span>(<span class="params">scope, iElem, iAttrs</span>)</span>&#123;</div><div class="line">                <span class="comment">//此处即postlink</span></div><div class="line">              &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></li>
-</ul>
-
+</script></li></ul>
           
         
       
@@ -1327,165 +1112,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/06/H02-AngularJS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/06/H02-AngularJS/" itemprop="url">
-                  AngularJS 过滤器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-06T00:00:00+08:00">
-                2016-09-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="AngularJS过滤器"><a href="#AngularJS过滤器" class="headerlink" title="AngularJS过滤器"></a>AngularJS过滤器</h1><ul>
-<li>在AngularJs中使用过滤器格式化展示数据。<h2 id="内置过滤器"><a href="#内置过滤器" class="headerlink" title="内置过滤器"></a>内置过滤器</h2></li>
-<li>1、currency ： 将数据格式化为货币格式。默认是<code>$</code>,可设置参数为￥</li>
-<li>2、date ：日期格式化。设置为符合中国的日期，参数为“yyyy-MM-dd hh:mm:ss”</li>
-<li>3、lowercase ：将文本格式化为小写</li>
-<li>4、uppercase ：将文本格式化为大写</li>
-<li>5、number ：数字格式化，可通过参数控制小数位数</li>
-<li>6、json ：将javascript对象转化为json对象</li>
-<li>7、orderBy ：对数组进行排序。第一个参数是排序条件，通常用于对对象进行排序。第二个参数是布尔值，可控制正序（false，默认）和倒序（true）</li>
-<li>8、limitTo ：截取字符串或数组的前几位（正数）或后几位（负数）</li>
-<li>9、filter ：截取数组中满足条件的子集，并返回。条件可以是字符串，对象或函数<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dl</span>  <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span>过滤器<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 在`&#123;&#123;&#125;&#125;`中使用"|"调用过滤器，使用" : "传递参数 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>价格：&#123;&#123;price|currency:'¥':3&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>时间：&#123;&#123;now|date:'yyyy-MM-dd hh:mm:ss'&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>大写：&#123;&#123;lowstr|uppercase&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>小写：&#123;&#123;upstr|lowercase&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>数字：&#123;&#123;num|number:2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>截取数组：&#123;&#123;list|limitTo:-2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--可以截取汉字--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>截取字符串：&#123;&#123;text|limitTo:2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--默认false ：正序 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>排序1：&#123;&#123;list|orderBy:'':true&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>排序2：&#123;&#123;arr|orderBy:'age':false&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>对象转json：&#123;&#123;obj|json&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--查找数组中满足条件的元素，返回一个新数组--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>指定条件进行数组筛选：&#123;&#123;list|filter:'s'&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.price = <span class="number">12.345</span>;</div><div class="line">        $scope.now = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">        $scope.lowstr = <span class="string">"my name is Rose"</span>;</div><div class="line">        $scope.upstr = <span class="string">"WHAt ARe YOU NOng sha LEi"</span>;</div><div class="line">        $scope.num = <span class="number">12.237</span>;</div><div class="line">        $scope.list = [<span class="string">"html"</span>,<span class="string">"css"</span>,<span class="string">"js"</span>,<span class="string">"php"</span>];</div><div class="line">        $scope.text = <span class="string">"你是谁"</span>;</div><div class="line">        $scope.arr = [</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小红"</span>,<span class="attr">age</span>:<span class="number">18</span>,<span class="attr">score</span>:<span class="number">89</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小橙"</span>,<span class="attr">age</span>:<span class="number">16</span>,<span class="attr">score</span>:<span class="number">97</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小黄"</span>,<span class="attr">age</span>:<span class="number">19</span>,<span class="attr">score</span>:<span class="number">93</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小绿"</span>,<span class="attr">age</span>:<span class="number">12</span>,<span class="attr">score</span>:<span class="number">99</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小青"</span>,<span class="attr">age</span>:<span class="number">20</span>,<span class="attr">score</span>:<span class="number">100</span>&#125;,</div><div class="line">        ];</div><div class="line">        $scope.obj = &#123;</div><div class="line">            <span class="attr">name</span>:<span class="string">"雍正"</span>,</div><div class="line">            <span class="attr">age</span>:<span class="number">18</span></div><div class="line">        &#125;;</div><div class="line">    &#125;]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="自定义过滤器"><a href="#自定义过滤器" class="headerlink" title="自定义过滤器"></a>自定义过滤器</h2><ul>
-<li>使用filter方法。该方法有两个参数，第一个是过滤器名称，第二个是回调函数或数组</li>
-<li>回调函数需要返回一个函数，返回的函数需要有一个返回值，为格式化后的数据。“|”左边的变量作为第一个参数，“:”后面的参数作为第二个及以后的参数。<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name|test:"arg1":"arg2"&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;info|capitalize&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.name = <span class="string">"小明"</span>;</div><div class="line">        $scope.info = <span class="string">"my name is zhangsan"</span>;</div><div class="line">    &#125;]);</div><div class="line">    <span class="comment">//自定义过滤器</span></div><div class="line">    <span class="comment">//需要两个参数</span></div><div class="line">    <span class="comment">// 1、名称</span></div><div class="line">    <span class="comment">// 2、回调函数或者数组</span></div><div class="line">  	app.filter(<span class="string">"test"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">arg,arg1,arg2</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(arg);<span class="comment">//小明</span></div><div class="line">            <span class="built_in">console</span>.log(arg1);<span class="comment">//arg1</span></div><div class="line">            <span class="built_in">console</span>.log(arg2);<span class="comment">//arg2</span></div><div class="line">            <span class="keyword">return</span> <span class="string">'&lt;a href=""&gt;'</span>+arg+<span class="string">'&lt;/a&gt;'</span>;</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">//设置首字母大写</span></div><div class="line">    app.filter(<span class="string">"capitalize"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">input</span>) </span>&#123;</div><div class="line">           <span class="keyword">return</span> input[<span class="number">0</span>].toUpperCase() + input.slice(<span class="number">1</span>);</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/06/H05-数据绑定/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1635,6 +1261,165 @@
 <li>使用ng-controller可以创建一个子作用域。</li>
 <li>存在一个根作用域 <code>$rootScope</code>。<code>$rootScope</code> 这个特殊的对象会在DOM中声明<code>ng-app</code>时被创建。根作用域在整个应用内都可以被访问到。</li>
 <li>当在当前作用域中找不到对应的数据时，会向上查找<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"App"</span> <span class="attr">ng-init</span>=<span class="string">"name='康熙'"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="comment">&lt;!--此处是康熙--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span> <span class="attr">ng-controller</span>=<span class="string">"ParentCtrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="comment">&lt;!--此处是雍正--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span> <span class="attr">ng-controller</span>=<span class="string">'ChildCtrl'</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="comment">&lt;!--此处是乾隆--&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">        <span class="keyword">var</span> App = angular.module(<span class="string">'App'</span>, []);</div><div class="line">        App.controller(<span class="string">'ParentCtrl'</span>, [<span class="string">'$scope'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</div><div class="line">            $scope.name = <span class="string">'雍正'</span>;</div><div class="line">        &#125;]);</div><div class="line"></div><div class="line">        App.controller(<span class="string">'ChildCtrl'</span>, [<span class="string">'$scope'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">            $scope.name = <span class="string">'乾隆'</span>;<span class="comment">//如果此处不设置，则name为雍正</span></div><div class="line">        &#125;]);</div><div class="line">	<span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/06/H02-AngularJS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/06/H02-AngularJS/" itemprop="url">
+                  AngularJS 过滤器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-06T00:00:00+08:00">
+                2016-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="AngularJS过滤器"><a href="#AngularJS过滤器" class="headerlink" title="AngularJS过滤器"></a>AngularJS过滤器</h1><ul>
+<li>在AngularJs中使用过滤器格式化展示数据。<h2 id="内置过滤器"><a href="#内置过滤器" class="headerlink" title="内置过滤器"></a>内置过滤器</h2></li>
+<li>1、currency ： 将数据格式化为货币格式。默认是<code>$</code>,可设置参数为￥</li>
+<li>2、date ：日期格式化。设置为符合中国的日期，参数为“yyyy-MM-dd hh:mm:ss”</li>
+<li>3、lowercase ：将文本格式化为小写</li>
+<li>4、uppercase ：将文本格式化为大写</li>
+<li>5、number ：数字格式化，可通过参数控制小数位数</li>
+<li>6、json ：将javascript对象转化为json对象</li>
+<li>7、orderBy ：对数组进行排序。第一个参数是排序条件，通常用于对对象进行排序。第二个参数是布尔值，可控制正序（false，默认）和倒序（true）</li>
+<li>8、limitTo ：截取字符串或数组的前几位（正数）或后几位（负数）</li>
+<li>9、filter ：截取数组中满足条件的子集，并返回。条件可以是字符串，对象或函数<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dl</span>  <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span>过滤器<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 在`&#123;&#123;&#125;&#125;`中使用"|"调用过滤器，使用" : "传递参数 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>价格：&#123;&#123;price|currency:'¥':3&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>时间：&#123;&#123;now|date:'yyyy-MM-dd hh:mm:ss'&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>大写：&#123;&#123;lowstr|uppercase&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>小写：&#123;&#123;upstr|lowercase&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>数字：&#123;&#123;num|number:2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>截取数组：&#123;&#123;list|limitTo:-2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--可以截取汉字--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>截取字符串：&#123;&#123;text|limitTo:2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--默认false ：正序 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>排序1：&#123;&#123;list|orderBy:'':true&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>排序2：&#123;&#123;arr|orderBy:'age':false&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>对象转json：&#123;&#123;obj|json&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--查找数组中满足条件的元素，返回一个新数组--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>指定条件进行数组筛选：&#123;&#123;list|filter:'s'&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.price = <span class="number">12.345</span>;</div><div class="line">        $scope.now = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">        $scope.lowstr = <span class="string">"my name is Rose"</span>;</div><div class="line">        $scope.upstr = <span class="string">"WHAt ARe YOU NOng sha LEi"</span>;</div><div class="line">        $scope.num = <span class="number">12.237</span>;</div><div class="line">        $scope.list = [<span class="string">"html"</span>,<span class="string">"css"</span>,<span class="string">"js"</span>,<span class="string">"php"</span>];</div><div class="line">        $scope.text = <span class="string">"你是谁"</span>;</div><div class="line">        $scope.arr = [</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小红"</span>,<span class="attr">age</span>:<span class="number">18</span>,<span class="attr">score</span>:<span class="number">89</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小橙"</span>,<span class="attr">age</span>:<span class="number">16</span>,<span class="attr">score</span>:<span class="number">97</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小黄"</span>,<span class="attr">age</span>:<span class="number">19</span>,<span class="attr">score</span>:<span class="number">93</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小绿"</span>,<span class="attr">age</span>:<span class="number">12</span>,<span class="attr">score</span>:<span class="number">99</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小青"</span>,<span class="attr">age</span>:<span class="number">20</span>,<span class="attr">score</span>:<span class="number">100</span>&#125;,</div><div class="line">        ];</div><div class="line">        $scope.obj = &#123;</div><div class="line">            <span class="attr">name</span>:<span class="string">"雍正"</span>,</div><div class="line">            <span class="attr">age</span>:<span class="number">18</span></div><div class="line">        &#125;;</div><div class="line">    &#125;]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="自定义过滤器"><a href="#自定义过滤器" class="headerlink" title="自定义过滤器"></a>自定义过滤器</h2><ul>
+<li>使用filter方法。该方法有两个参数，第一个是过滤器名称，第二个是回调函数或数组</li>
+<li>回调函数需要返回一个函数，返回的函数需要有一个返回值，为格式化后的数据。“|”左边的变量作为第一个参数，“:”后面的参数作为第二个及以后的参数。<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name|test:"arg1":"arg2"&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;info|capitalize&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.name = <span class="string">"小明"</span>;</div><div class="line">        $scope.info = <span class="string">"my name is zhangsan"</span>;</div><div class="line">    &#125;]);</div><div class="line">    <span class="comment">//自定义过滤器</span></div><div class="line">    <span class="comment">//需要两个参数</span></div><div class="line">    <span class="comment">// 1、名称</span></div><div class="line">    <span class="comment">// 2、回调函数或者数组</span></div><div class="line">  	app.filter(<span class="string">"test"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">arg,arg1,arg2</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(arg);<span class="comment">//小明</span></div><div class="line">            <span class="built_in">console</span>.log(arg1);<span class="comment">//arg1</span></div><div class="line">            <span class="built_in">console</span>.log(arg2);<span class="comment">//arg2</span></div><div class="line">            <span class="keyword">return</span> <span class="string">'&lt;a href=""&gt;'</span>+arg+<span class="string">'&lt;/a&gt;'</span>;</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">//设置首字母大写</span></div><div class="line">    app.filter(<span class="string">"capitalize"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">input</span>) </span>&#123;</div><div class="line">           <span class="keyword">return</span> input[<span class="number">0</span>].toUpperCase() + input.slice(<span class="number">1</span>);</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
 </ul>
 
           
@@ -1979,6 +1764,187 @@
 </li>
 <li>闭包可以导致内存泄漏是因为内部方法保持一个对外部方法变量的引用，所以尽管方法返回了内部方法还可以继续访问在外部方法中定义的私有变量。对Javascript程序员来说最好的做法是在页面重载前断开所有的事件处理器。</li>
 <li>技术上讲，闭包是不会造成内存泄漏的，浏览器的bug除外。但是，闭包会造成对象引用的生命周期脱离当前函数的上下文，因此，如果不仔细考虑闭包函数的生命周期，的确有可能出现意料之外的内存泄漏，当然，从严格意义上讲，这是程序员自己的bug，而不是闭包的错。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/10/B04-闭包/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/10/B04-闭包/" itemprop="url">
+                  浅谈闭包
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-10T00:00:00+08:00">
+                2016-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><ul>
+<li>闭包是指有权访问其他函数中的变量的函数</li>
+<li>在我看来，闭包就是在函数中嵌套的函数，用来延长作用域链的，经常用作返回值，以便在函数的的外部也可以接收到函数内部的值。<h2 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h2></li>
+<li>要理解闭包，首先必须理解Javascript特殊的变量作用域。</li>
+<li>变量的作用域无非就是两种：全局变量和局部变量。</li>
+<li><p>Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　alert(n);</div><div class="line">　　&#125;</div><div class="line">　　f1(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>另一方面，在函数外部自然无法读取函数内的局部变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　&#125;</div><div class="line">　　alert(n); <span class="comment">// error</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>这里有一个地方需要注意，函数内部声明变量的时候，一定要使用var命令。如果不用的话，你实际上声明了一个全局变量！</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　n=<span class="number">999</span>;</div><div class="line">　　&#125;</div><div class="line">　　f1();</div><div class="line">　　alert(n); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="如何从外部读取局部变量？"><a href="#如何从外部读取局部变量？" class="headerlink" title="如何从外部读取局部变量？"></a>如何从外部读取局部变量？</h3><ul>
+<li><p>那就是在函数的内部，再定义一个函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　　　alert(n); <span class="comment">// 999</span></div><div class="line">　　　　&#125;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在上面的代码中，函数f2就被包括在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不可见的。这就是Javascript语言特有的”链式作用域”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。</p>
+</li>
+<li>既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，我们不就可以在f1外部读取它的内部变量了吗！<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　　　alert(n); </div><div class="line">　　　　&#125;</div><div class="line">　　　　<span class="keyword">return</span> f2;</div><div class="line">　　&#125;</div><div class="line">　　<span class="keyword">var</span> result=f1();</div><div class="line">　　result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="闭包的概念"><a href="#闭包的概念" class="headerlink" title="闭包的概念"></a>闭包的概念</h2><ul>
+<li>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    alert(n);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> f2;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result=f1();</div><div class="line">result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="四、闭包的用途"><a href="#四、闭包的用途" class="headerlink" title="四、闭包的用途"></a>四、闭包的用途</h2><ul>
+<li><p>闭包可以用在许多地方。它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　　　nAdd=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;n+=<span class="number">1</span>&#125;</div><div class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　　　alert(n);</div><div class="line">　　　　&#125;</div><div class="line">　　　　<span class="keyword">return</span> f2;</div><div class="line">　　&#125;</div><div class="line">　　<span class="keyword">var</span> result=f1();</div><div class="line">　　result(); <span class="comment">// 999</span></div><div class="line">　　nAdd();</div><div class="line">　　result(); <span class="comment">// 1000</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>在这段代码中，result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。</p>
+</li>
+<li>为什么会这样呢？原因就在于f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被垃圾回收机制（garbage collection）回收。</li>
+<li>这段代码中另一个值得注意的地方，就是”nAdd=function(){n+=1}”这一行，首先在nAdd前面没有使用var关键字，因此nAdd是一个全局变量，而不是局部变量。其次，nAdd的值是一个匿名函数（anonymous function），而这个匿名函数本身也是一个闭包，所以nAdd相当于是一个setter，可以在函数外部对函数内部的局部变量进行操作。<h2 id="使用闭包的注意点"><a href="#使用闭包的注意点" class="headerlink" title="使用闭包的注意点"></a>使用闭包的注意点</h2></li>
+<li>由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</li>
+<li>闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（PublicMethod），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</li>
 </ul>
 
           

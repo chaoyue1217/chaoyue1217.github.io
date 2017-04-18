@@ -260,6 +260,532 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/20/H08-angular生命周期/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/20/H08-angular生命周期/" itemprop="url">
+                  浅析AngularJS的生命周期
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-20T00:00:00+08:00">
+                2016-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="AngularJS的生命周期"><a href="#AngularJS的生命周期" class="headerlink" title="AngularJS的生命周期"></a>AngularJS的生命周期</h2><ul>
+<li>在AngularJS应用启动之前，会以html文本的形式保存在文本编辑器中。应用启动后会进行编译和链接，作用域会和html进行数据绑定。<h3 id="编译阶段"><a href="#编译阶段" class="headerlink" title="编译阶段"></a>编译阶段</h3></li>
+<li>在编译阶段，AngularJS会遍历整个HTML文档并根据JavaScript中的指令定义来处理页面上声明的指令。</li>
+<li>每一个指令中都可能会含有另一个指令，因此，AngularJs进行编译的时候会形成一个模板树，并遍历其中的所有模板。</li>
+<li>一旦对指令和其中的子模板进行遍历或编译，编译后的模板会返回一个叫模板函数的函数。我们可以在模板函数被返回之前，对编译后的DOM树进行操作<ul>
+<li>例如：ng-repeat，它会遍历指定的数组或对象，在数据绑定之前构建出对应的DOM结构。</li>
+</ul>
+</li>
+<li>每个指令都有自己的模板和编译函数，每个模板返回自己的模板函数，模板函数最后会被传递给编译后的DOM树中的每个指令中定义的链接函数。<h3 id="compile编译函数"><a href="#compile编译函数" class="headerlink" title="compile编译函数"></a>compile编译函数</h3></li>
+<li>在模板函数返回之前，我们可以使用compile对编译后的DOM树进行DOM操作。</li>
+<li>compile函数的返回值即链接函数或者链接对象，即link</li>
+<li>本质上，当我们设置了link选项，实际上是创建了一个postLink()链接函数，以便compile()函数可以定义链接函数。</li>
+<li><strong>compile和link选项是互斥的。如果同时设置了这两个选项，那么会把compile<br>所返回的函数当作链接函数，而link选项本身则会被忽略。</strong></li>
+<li>compile的作用是对指令的模板进行转换，常用于自定义指令<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'myApp'</span>,[])</div><div class="line">.directive(<span class="string">'myDirective'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">        <span class="attr">compile</span>:<span class="function"><span class="keyword">function</span>(<span class="params">tEle,tAttrs,transcludeFn</span>)</span>&#123;</div><div class="line">            <span class="comment">//在此处可以进行DOM操作</span></div><div class="line">            <span class="comment">//在此处不能操作$scope     </span></div><div class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">scope,ele,attrs</span>)</span>&#123;</div><div class="line">            <span class="comment">//此处返回的是链接函数，可以在此处处理数据</span></div><div class="line">            <span class="comment">//$scope只有在链接阶段才会绑定到元素上 	</span></div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">link</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">          <span class="comment">//如果设置了compile，在此处设置link会被忽略</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="链接阶段"><a href="#链接阶段" class="headerlink" title="链接阶段"></a>链接阶段</h3><ul>
+<li>链接函数负责将作用域和DOM进行链接。如绑定数据，注册事件</li>
+<li><strong>postlink</strong><ul>
+<li>我们设置的link其实就是postlink</li>
+</ul>
+</li>
+<li><strong>prelink</strong></li>
+<li>prelink会在Postlink之前执行，他在compile之后执行。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'myApp'</span>,[])</div><div class="line">.directive(<span class="string">'myDirective'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">        <span class="attr">compile</span>:<span class="function"><span class="keyword">function</span>(<span class="params">tEle,tAttrs,transcludeFn</span>)</span>&#123;</div><div class="line">            <span class="comment">//这里进行DOM的操作</span></div><div class="line">            <span class="keyword">return</span> &#123;</div><div class="line">              <span class="attr">pre</span>: <span class="function"><span class="keyword">function</span>(<span class="params">scope, iElem, iAttrs</span>)</span>&#123;</div><div class="line">                <span class="comment">//次处时prelink，在postlink之前，compile之后执行</span></div><div class="line">                <span class="comment">// 在子元素被链接之前执行</span></div><div class="line">                <span class="comment">// 在这里进行Don转换不安全</span></div><div class="line">                <span class="comment">// 之后调用'lihk'函数将无法定位要链接的元素</span></div><div class="line">              &#125;,</div><div class="line">              <span class="attr">post</span>: <span class="function"><span class="keyword">function</span>(<span class="params">scope, iElem, iAttrs</span>)</span>&#123;</div><div class="line">                <span class="comment">//此处即postlink</span></div><div class="line">              &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/10/H07-指令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/10/H07-指令/" itemprop="url">
+                  AngularJS 指令
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-10T00:00:00+08:00">
+                2016-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="AngularJS内置指令"><a href="#AngularJS内置指令" class="headerlink" title="AngularJS内置指令"></a>AngularJS内置指令</h2><ul>
+<li>指令是AngularJS自定义的html属性和标签，这些指令都是以ng-做为前缀的。例如ng-app、ng-controller、ng-repeat等。<h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3></li>
+<li>ng-show : 控制元素是否显示，true显示、false不显示</li>
+<li>ng-hide : 控制元素是否隐藏，true隐藏、false不隐藏</li>
+<li>ng-if : 控制元素是否“存在”，true存在、false不存在</li>
+<li><p>ng-src : 增强路径</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dl</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">dd</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- src：浏览器会发送两次请求，第一次是浏览器解析，找不到&#123;&#123;path&#125;&#125;这个路径。浏览器会报错</span></div><div class="line">            第二次是Angular解析完成后把值赋给src，请求的路径是正确的</div><div class="line">            请求次数越多，越消耗浏览器的性能</div><div class="line">        --&gt;</div><div class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"&#123;&#123;path&#125;&#125;"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!--ng-src：浏览器会追加一个真正的src属性，此时只需要发送一次请求--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">ng-src</span>=<span class="string">"&#123;&#123;path&#125;&#125;"</span> <span class="attr">alt</span>=<span class="string">""</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>ng-href : 增强地址</p>
+</li>
+<li><p>ng-class : 值的类型可以是对象，并且此对象的属性是一个存在的类名。属性所对应的属性值决定了此属性名是否被当成一个类名添加，true  ：添加；false ：不添加。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></div><div class="line"><span class="selector-class">.red</span>&#123;</div><div class="line">	<span class="attribute">background</span>:<span class="string">"red"</span>;</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!--下面为两种方式为标签添加类样式--&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"&#123;&#123;cls&#125;&#125;"</span>&gt;</span>内容内容内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">   	<span class="tag">&lt;<span class="name">p</span> <span class="attr">ng-class</span>=<span class="string">"&#123;red:false&#125;"</span>&gt;</span>内容内容内容<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>ng-include : 引入模板。</p>
+<ul>
+<li>是通过ajax发送的请求，所以必须是http协议，需要开启服务器<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--引入头部--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-include</span>=<span class="string">"'header.html'"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">article</span>&gt;</span>主体列表<span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--引入侧边栏--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-include</span>=<span class="string">"'aside.html'"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--header.html--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span>这里是header部分<span class="tag">&lt;/<span class="name">header</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--aside.html--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">aside</span>&gt;</span>这里是侧边栏<span class="tag">&lt;/<span class="name">aside</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>ng-disabled : 表单的禁用。true/false</p>
+</li>
+<li>ng-readonly : 表单只读。true/false</li>
+<li>ng-checked : 单或复选框表单选中。true/false</li>
+<li>ng-selected : 下拉框表单选中。true/false<h3 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h3></li>
+<li>使用directive方法。该方法接收两个参数，第一个是自定义指令的名称，第二个是回调函数</li>
+<li>回调函数需要返回值，返回值可以是函数，也可以是对象【常用的是对象】</li>
+<li><p>对象中的属性</p>
+<ul>
+<li>restrict ： 表示该指令以何种形式出现。E（元素）C（类样式）M（注释）A（属性）</li>
+<li>template ： 自定义的指令代表的模板</li>
+<li>link ： 是一个回调函数，用来实现该指令的逻辑功能。回调函数中有三个参数</li>
+<li>scope ：模型。指令所属的模型</li>
+<li>element ：元素。指令所在的DOM元素</li>
+<li>attrs ：属性。该对象包含指令所在的元素上的所有属性</li>
+</ul>
+</li>
+<li><p><strong>自定义属性例子</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">	 <span class="tag">&lt;<span class="name">p</span> <span class="attr">tag</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> 	<span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    <span class="comment">//定义一个tag属性</span></div><div class="line">    app.directive(<span class="string">"tag"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="comment">//回调函数需要有一个返回值，并且这个返回值可以是一个函数,也可以是一个对象</span></div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            <span class="comment">// E表示element，表示可以通过标签使用</span></div><div class="line">            <span class="comment">// A表示是一个属性attribute</span></div><div class="line">            <span class="comment">// M 表示mark,注释</span></div><div class="line">            <span class="comment">// C 表示class,类</span></div><div class="line">            restrict:<span class="string">"ECA"</span>,</div><div class="line">            <span class="comment">// 当replace设置为true的时候，会替换该属性所在的标签，</span></div><div class="line">            <span class="comment">// 使用template定义的标签</span></div><div class="line">			replace:<span class="literal">true</span>,</div><div class="line">            <span class="attr">template</span>:<span class="string">"&lt;h1&gt;Hello AngularJS!&lt;/h1&gt;"</span>,</div><div class="line">            <span class="attr">link</span>:<span class="function"><span class="keyword">function</span> (<span class="params">scope,element,attrs</span>) </span>&#123;</div><div class="line">               <span class="built_in">console</span>.log(scope);<span class="comment">// 获取指令所在视图对应的模型数据</span></div><div class="line">               <span class="built_in">console</span>.log(element);<span class="comment">//指令所在的DOM节点</span></div><div class="line">               <span class="built_in">console</span>.log(attrs);<span class="comment">//用来获取指令上所在元素上的所有属性</span></div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>模拟ng-class</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></div><div class="line">    <span class="selector-class">.red</span>&#123;</div><div class="line">    	<span class="attribute">color</span>: <span class="number">#f00</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-class">.blue</span>&#123;</div><div class="line">    	<span class="attribute">background</span>: blue;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">	 <span class="tag">&lt;<span class="name">p</span> <span class="attr">it-class</span>=<span class="string">"&#123;red:true,blue:true&#125;"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">app.directive(<span class="string">"itClass"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">    	<span class="attr">link</span>:<span class="function"><span class="keyword">function</span> (<span class="params">scope,element,attrs</span>) </span>&#123;</div><div class="line">    		<span class="comment">//在原有dom基础上，添加class="类1 类2 类3 ..."</span></div><div class="line">    		<span class="comment">//获取dom节点上的属性，将其转化成js对象</span></div><div class="line">   			<span class="keyword">var</span> itCls = <span class="built_in">eval</span>(<span class="string">"("</span>+attrs.itClass+<span class="string">")"</span>);</div><div class="line"></div><div class="line">    		<span class="comment">//对获取的属性进行处理</span></div><div class="line">    		<span class="keyword">var</span> cls = [];</div><div class="line">    		<span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> itCls)&#123;</div><div class="line">    			<span class="comment">//如果该键的值为true，则添加进数组</span></div><div class="line">    			<span class="keyword">if</span>(itCls[key])&#123;</div><div class="line">    				cls.push(key);</div><div class="line">    			&#125;</div><div class="line">    		&#125;</div><div class="line">    		<span class="comment">//angularjs内置了jQuery的一部分方法</span></div><div class="line">    		<span class="comment">//将数组的内容转成字符串，赋给元素</span></div><div class="line">   	 		element.addClass( cls.join(<span class="string">" "</span>));</div><div class="line">    		&#125;</div><div class="line">    	&#125;;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>模拟ng-src</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">img</span> <span class="attr">it-src</span>=<span class="string">"&#123;&#123;path&#125;&#125;"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">    $scope.path = <span class="string">"./img/huli.jpg"</span>;</div><div class="line">&#125;]);</div><div class="line">app.directive(<span class="string">"itSrc"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">link</span>:<span class="function"><span class="keyword">function</span> (<span class="params">scope,element,attrs</span>) </span>&#123;</div><div class="line">            <span class="comment">//在原有dom基础上，添加class="类1 类2 类3 ..."</span></div><div class="line">            <span class="comment">//将指令所在的元素上的itSrc属性的值赋给真正的src</span></div><div class="line">            element.attr(<span class="string">"src"</span>,attrs.itSrc);</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/09/H06-路由/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/09/H06-路由/" itemprop="url">
+                  AngularJS 路由
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-09T00:00:00+08:00">
+                2016-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h1><ul>
+<li>路由是URL地址与程序的一种映射关系，通过调整地址的变化，从而“调用或执行”某一具体的应用程序</li>
+<li>前端中的路由：AngularJS将锚点的变化封装成路由<h2 id="SPA-（-single-page-application）"><a href="#SPA-（-single-page-application）" class="headerlink" title="SPA （ single page application）"></a>SPA （ single page application）</h2></li>
+</ul>
+<ul>
+<li>单页面是指所有功能都集中到一个页面上</li>
+<li>多页面的缺点：<ul>
+<li>每次更新页面都会进行刷新<ul>
+<li>不能得到很好的用户体验，页面切换的时候不能进行js操纵<h2 id="路由的使用"><a href="#路由的使用" class="headerlink" title="路由的使用"></a>路由的使用</h2></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>angular只支持一级路由</li>
+<li>可以使用路由，就意味着开发者可以根据地址的变化来执行不同的业务逻辑</li>
+<li>路由是必须经过 【配置】 后才能被使用</li>
+<li>$routeParames 服务可以获取路由上的参数<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"angular.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--需要单独引入路由模块--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"angular-route.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- !/  是 为了谷歌的SEO--&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 参数不影响路由--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#!/register?name=zhangsan"</span>&gt;</span>注册<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--此处必须传参--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#!/login/lisi"</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"main"</span> <span class="attr">ng-view</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[<span class="string">"ngRoute"</span>]);</div><div class="line">    <span class="comment">//路由是需要经过 配置 后才能被使用</span></div><div class="line">    app.config([<span class="string">"$routeProvider"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$routeProvider</span>) </span>&#123;</div><div class="line">        <span class="comment">//使用when方法监听地址的变化，然后处理响应的逻辑</span></div><div class="line">        $routeProvider.when(<span class="string">"/register"</span>,&#123;</div><div class="line">            <span class="attr">templateUrl</span>:<span class="string">"./register.html"</span>,</div><div class="line">            <span class="attr">controller</span>:<span class="string">"registerCtrl"</span></div><div class="line">        &#125;).when(<span class="string">"/login/:name"</span>,&#123;<span class="comment">//第二种传递参数的形式</span></div><div class="line">            templateUrl:<span class="string">"./login.html"</span>,</div><div class="line">            <span class="attr">controller</span>:<span class="string">"loginCtrl"</span></div><div class="line">        &#125;).otherwise(&#123;</div><div class="line">            <span class="comment">//跳转到其他路由</span></div><div class="line">            redirectTo:<span class="string">"/register"</span></div><div class="line">        &#125;)</div><div class="line">    &#125;]);</div><div class="line">    app.controller(<span class="string">"registerCtrl"</span>,[<span class="string">"$scope"</span>,<span class="string">"$routeParams"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope,$routeParams</span>) </span>&#123;</div><div class="line">        <span class="comment">//如何获取路由地址上的参数？</span></div><div class="line">        <span class="comment">// AngularJs 提供了一个服务  $routeParames， 专门用于获取地址参数</span></div><div class="line">        $scope.title = <span class="string">"注册"</span>;</div><div class="line">        $scope.name = $routeParams.name;</div><div class="line">    &#125;]);</div><div class="line">    app.controller(<span class="string">"loginCtrl"</span>,[<span class="string">"$scope"</span>,<span class="string">"$routeParams"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope,$routeParams</span>) </span>&#123;</div><div class="line">        $scope.title = <span class="string">"登录"</span>;</div><div class="line">        <span class="built_in">console</span>.log($routeParams)</div><div class="line">		$scope.name = $routeParams.name;</div><div class="line">    &#125;]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">&lt;!--login.html--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"loginCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;title&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>用户名: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>密  码: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登录"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">&lt;!--register.html--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"registerCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;title&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>用户名: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">ng-model</span>=<span class="string">"name"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>密  码: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>确认密码: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"注册"</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><strong>路由参数的传递：两种形式</strong></li>
+<li>一种是经过地址传参，其格式为<code>?key=val&amp;key=val</code></li>
+<li>一种是通过路由传参 其格式为<code>/:参数名</code><ul>
+<li>第二种方式传参。地址的格式要严格与路由格式保持一致</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/08/H03-angular/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -596,165 +1122,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/06/H02-AngularJS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/06/H02-AngularJS/" itemprop="url">
-                  AngularJS 过滤器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-06T00:00:00+08:00">
-                2016-09-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="AngularJS过滤器"><a href="#AngularJS过滤器" class="headerlink" title="AngularJS过滤器"></a>AngularJS过滤器</h1><ul>
-<li>在AngularJs中使用过滤器格式化展示数据。<h2 id="内置过滤器"><a href="#内置过滤器" class="headerlink" title="内置过滤器"></a>内置过滤器</h2></li>
-<li>1、currency ： 将数据格式化为货币格式。默认是<code>$</code>,可设置参数为￥</li>
-<li>2、date ：日期格式化。设置为符合中国的日期，参数为“yyyy-MM-dd hh:mm:ss”</li>
-<li>3、lowercase ：将文本格式化为小写</li>
-<li>4、uppercase ：将文本格式化为大写</li>
-<li>5、number ：数字格式化，可通过参数控制小数位数</li>
-<li>6、json ：将javascript对象转化为json对象</li>
-<li>7、orderBy ：对数组进行排序。第一个参数是排序条件，通常用于对对象进行排序。第二个参数是布尔值，可控制正序（false，默认）和倒序（true）</li>
-<li>8、limitTo ：截取字符串或数组的前几位（正数）或后几位（负数）</li>
-<li>9、filter ：截取数组中满足条件的子集，并返回。条件可以是字符串，对象或函数<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dl</span>  <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span>过滤器<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 在`&#123;&#123;&#125;&#125;`中使用"|"调用过滤器，使用" : "传递参数 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>价格：&#123;&#123;price|currency:'¥':3&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>时间：&#123;&#123;now|date:'yyyy-MM-dd hh:mm:ss'&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>大写：&#123;&#123;lowstr|uppercase&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>小写：&#123;&#123;upstr|lowercase&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>数字：&#123;&#123;num|number:2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>截取数组：&#123;&#123;list|limitTo:-2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--可以截取汉字--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>截取字符串：&#123;&#123;text|limitTo:2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--默认false ：正序 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>排序1：&#123;&#123;list|orderBy:'':true&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>排序2：&#123;&#123;arr|orderBy:'age':false&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>对象转json：&#123;&#123;obj|json&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--查找数组中满足条件的元素，返回一个新数组--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>指定条件进行数组筛选：&#123;&#123;list|filter:'s'&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.price = <span class="number">12.345</span>;</div><div class="line">        $scope.now = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">        $scope.lowstr = <span class="string">"my name is Rose"</span>;</div><div class="line">        $scope.upstr = <span class="string">"WHAt ARe YOU NOng sha LEi"</span>;</div><div class="line">        $scope.num = <span class="number">12.237</span>;</div><div class="line">        $scope.list = [<span class="string">"html"</span>,<span class="string">"css"</span>,<span class="string">"js"</span>,<span class="string">"php"</span>];</div><div class="line">        $scope.text = <span class="string">"你是谁"</span>;</div><div class="line">        $scope.arr = [</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小红"</span>,<span class="attr">age</span>:<span class="number">18</span>,<span class="attr">score</span>:<span class="number">89</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小橙"</span>,<span class="attr">age</span>:<span class="number">16</span>,<span class="attr">score</span>:<span class="number">97</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小黄"</span>,<span class="attr">age</span>:<span class="number">19</span>,<span class="attr">score</span>:<span class="number">93</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小绿"</span>,<span class="attr">age</span>:<span class="number">12</span>,<span class="attr">score</span>:<span class="number">99</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小青"</span>,<span class="attr">age</span>:<span class="number">20</span>,<span class="attr">score</span>:<span class="number">100</span>&#125;,</div><div class="line">        ];</div><div class="line">        $scope.obj = &#123;</div><div class="line">            <span class="attr">name</span>:<span class="string">"雍正"</span>,</div><div class="line">            <span class="attr">age</span>:<span class="number">18</span></div><div class="line">        &#125;;</div><div class="line">    &#125;]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="自定义过滤器"><a href="#自定义过滤器" class="headerlink" title="自定义过滤器"></a>自定义过滤器</h2><ul>
-<li>使用filter方法。该方法有两个参数，第一个是过滤器名称，第二个是回调函数或数组</li>
-<li>回调函数需要返回一个函数，返回的函数需要有一个返回值，为格式化后的数据。“|”左边的变量作为第一个参数，“:”后面的参数作为第二个及以后的参数。<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name|test:"arg1":"arg2"&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;info|capitalize&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.name = <span class="string">"小明"</span>;</div><div class="line">        $scope.info = <span class="string">"my name is zhangsan"</span>;</div><div class="line">    &#125;]);</div><div class="line">    <span class="comment">//自定义过滤器</span></div><div class="line">    <span class="comment">//需要两个参数</span></div><div class="line">    <span class="comment">// 1、名称</span></div><div class="line">    <span class="comment">// 2、回调函数或者数组</span></div><div class="line">  	app.filter(<span class="string">"test"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">arg,arg1,arg2</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(arg);<span class="comment">//小明</span></div><div class="line">            <span class="built_in">console</span>.log(arg1);<span class="comment">//arg1</span></div><div class="line">            <span class="built_in">console</span>.log(arg2);<span class="comment">//arg2</span></div><div class="line">            <span class="keyword">return</span> <span class="string">'&lt;a href=""&gt;'</span>+arg+<span class="string">'&lt;/a&gt;'</span>;</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">//设置首字母大写</span></div><div class="line">    app.filter(<span class="string">"capitalize"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">input</span>) </span>&#123;</div><div class="line">           <span class="keyword">return</span> input[<span class="number">0</span>].toUpperCase() + input.slice(<span class="number">1</span>);</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/06/H05-数据绑定/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -904,6 +1271,165 @@
 <li>使用ng-controller可以创建一个子作用域。</li>
 <li>存在一个根作用域 <code>$rootScope</code>。<code>$rootScope</code> 这个特殊的对象会在DOM中声明<code>ng-app</code>时被创建。根作用域在整个应用内都可以被访问到。</li>
 <li>当在当前作用域中找不到对应的数据时，会向上查找<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"App"</span> <span class="attr">ng-init</span>=<span class="string">"name='康熙'"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="comment">&lt;!--此处是康熙--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"parent"</span> <span class="attr">ng-controller</span>=<span class="string">"ParentCtrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="comment">&lt;!--此处是雍正--&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"child"</span> <span class="attr">ng-controller</span>=<span class="string">'ChildCtrl'</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="comment">&lt;!--此处是乾隆--&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">        <span class="keyword">var</span> App = angular.module(<span class="string">'App'</span>, []);</div><div class="line">        App.controller(<span class="string">'ParentCtrl'</span>, [<span class="string">'$scope'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</div><div class="line">            $scope.name = <span class="string">'雍正'</span>;</div><div class="line">        &#125;]);</div><div class="line"></div><div class="line">        App.controller(<span class="string">'ChildCtrl'</span>, [<span class="string">'$scope'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">            $scope.name = <span class="string">'乾隆'</span>;<span class="comment">//如果此处不设置，则name为雍正</span></div><div class="line">        &#125;]);</div><div class="line">	<span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/06/H02-AngularJS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/06/H02-AngularJS/" itemprop="url">
+                  AngularJS 过滤器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-06T00:00:00+08:00">
+                2016-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="AngularJS过滤器"><a href="#AngularJS过滤器" class="headerlink" title="AngularJS过滤器"></a>AngularJS过滤器</h1><ul>
+<li>在AngularJs中使用过滤器格式化展示数据。<h2 id="内置过滤器"><a href="#内置过滤器" class="headerlink" title="内置过滤器"></a>内置过滤器</h2></li>
+<li>1、currency ： 将数据格式化为货币格式。默认是<code>$</code>,可设置参数为￥</li>
+<li>2、date ：日期格式化。设置为符合中国的日期，参数为“yyyy-MM-dd hh:mm:ss”</li>
+<li>3、lowercase ：将文本格式化为小写</li>
+<li>4、uppercase ：将文本格式化为大写</li>
+<li>5、number ：数字格式化，可通过参数控制小数位数</li>
+<li>6、json ：将javascript对象转化为json对象</li>
+<li>7、orderBy ：对数组进行排序。第一个参数是排序条件，通常用于对对象进行排序。第二个参数是布尔值，可控制正序（false，默认）和倒序（true）</li>
+<li>8、limitTo ：截取字符串或数组的前几位（正数）或后几位（负数）</li>
+<li>9、filter ：截取数组中满足条件的子集，并返回。条件可以是字符串，对象或函数<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dl</span>  <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dt</span>&gt;</span>过滤器<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 在`&#123;&#123;&#125;&#125;`中使用"|"调用过滤器，使用" : "传递参数 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>价格：&#123;&#123;price|currency:'¥':3&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>时间：&#123;&#123;now|date:'yyyy-MM-dd hh:mm:ss'&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>大写：&#123;&#123;lowstr|uppercase&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>小写：&#123;&#123;upstr|lowercase&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>数字：&#123;&#123;num|number:2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>截取数组：&#123;&#123;list|limitTo:-2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--可以截取汉字--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>截取字符串：&#123;&#123;text|limitTo:2&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--默认false ：正序 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>排序1：&#123;&#123;list|orderBy:'':true&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>排序2：&#123;&#123;arr|orderBy:'age':false&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>对象转json：&#123;&#123;obj|json&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--查找数组中满足条件的元素，返回一个新数组--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dd</span>&gt;</span>指定条件进行数组筛选：&#123;&#123;list|filter:'s'&#125;&#125;<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.price = <span class="number">12.345</span>;</div><div class="line">        $scope.now = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">        $scope.lowstr = <span class="string">"my name is Rose"</span>;</div><div class="line">        $scope.upstr = <span class="string">"WHAt ARe YOU NOng sha LEi"</span>;</div><div class="line">        $scope.num = <span class="number">12.237</span>;</div><div class="line">        $scope.list = [<span class="string">"html"</span>,<span class="string">"css"</span>,<span class="string">"js"</span>,<span class="string">"php"</span>];</div><div class="line">        $scope.text = <span class="string">"你是谁"</span>;</div><div class="line">        $scope.arr = [</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小红"</span>,<span class="attr">age</span>:<span class="number">18</span>,<span class="attr">score</span>:<span class="number">89</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小橙"</span>,<span class="attr">age</span>:<span class="number">16</span>,<span class="attr">score</span>:<span class="number">97</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小黄"</span>,<span class="attr">age</span>:<span class="number">19</span>,<span class="attr">score</span>:<span class="number">93</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小绿"</span>,<span class="attr">age</span>:<span class="number">12</span>,<span class="attr">score</span>:<span class="number">99</span>&#125;,</div><div class="line">            &#123;<span class="attr">name</span>:<span class="string">"小青"</span>,<span class="attr">age</span>:<span class="number">20</span>,<span class="attr">score</span>:<span class="number">100</span>&#125;,</div><div class="line">        ];</div><div class="line">        $scope.obj = &#123;</div><div class="line">            <span class="attr">name</span>:<span class="string">"雍正"</span>,</div><div class="line">            <span class="attr">age</span>:<span class="number">18</span></div><div class="line">        &#125;;</div><div class="line">    &#125;]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="自定义过滤器"><a href="#自定义过滤器" class="headerlink" title="自定义过滤器"></a>自定义过滤器</h2><ul>
+<li>使用filter方法。该方法有两个参数，第一个是过滤器名称，第二个是回调函数或数组</li>
+<li>回调函数需要返回一个函数，返回的函数需要有一个返回值，为格式化后的数据。“|”左边的变量作为第一个参数，“:”后面的参数作为第二个及以后的参数。<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name|test:"arg1":"arg2"&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;info|capitalize&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.name = <span class="string">"小明"</span>;</div><div class="line">        $scope.info = <span class="string">"my name is zhangsan"</span>;</div><div class="line">    &#125;]);</div><div class="line">    <span class="comment">//自定义过滤器</span></div><div class="line">    <span class="comment">//需要两个参数</span></div><div class="line">    <span class="comment">// 1、名称</span></div><div class="line">    <span class="comment">// 2、回调函数或者数组</span></div><div class="line">  	app.filter(<span class="string">"test"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">arg,arg1,arg2</span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(arg);<span class="comment">//小明</span></div><div class="line">            <span class="built_in">console</span>.log(arg1);<span class="comment">//arg1</span></div><div class="line">            <span class="built_in">console</span>.log(arg2);<span class="comment">//arg2</span></div><div class="line">            <span class="keyword">return</span> <span class="string">'&lt;a href=""&gt;'</span>+arg+<span class="string">'&lt;/a&gt;'</span>;</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line">    <span class="comment">//设置首字母大写</span></div><div class="line">    app.filter(<span class="string">"capitalize"</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">input</span>) </span>&#123;</div><div class="line">           <span class="keyword">return</span> input[<span class="number">0</span>].toUpperCase() + input.slice(<span class="number">1</span>);</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
 </ul>
 
           
@@ -1464,597 +1990,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/13/Z02-canvas常用API/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/13/Z02-canvas常用API/" itemprop="url">
-                  canvas常用API
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T00:00:00+08:00">
-                2016-06-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/canvas/" itemprop="url" rel="index">
-                    <span itemprop="name">canvas</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="基本图形绘制"><a href="#基本图形绘制" class="headerlink" title="基本图形绘制"></a>基本图形绘制</h1><h2 id="绘制矩形"><a href="#绘制矩形" class="headerlink" title="绘制矩形"></a>绘制矩形</h2><ul>
-<li>rect();没有自己独立的路径，需要配合stroke()</li>
-<li>strokeRect();有独立的路径，不需要显式的调用stroke()</li>
-<li>fillRect();有独立的路径，不需要显式的进行填充</li>
-<li>clearRect();清空指定的矩形区域<blockquote>
-<p>参数：x,y,width,height</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    ctx.rect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">200</span>,<span class="number">100</span>);</div><div class="line">    <span class="comment">//需要调用stroke()</span></div><div class="line">   	ctx.stroke();</div><div class="line">    <span class="comment">//有独立的路径，不需要显式的调用stroke()</span></div><div class="line">	<span class="comment">//ctx.strokeRect(100,100,200,240);</span></div><div class="line">    <span class="comment">//有独立的路径，不需要显式的进行填充</span></div><div class="line">    ctx.fillRect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">200</span>,<span class="number">100</span>);</div><div class="line">    <span class="comment">//清空指定的矩形区域</span></div><div class="line">    ctx.clearRect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">100</span>,<span class="number">100</span>);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<h2 id="save和restore方法"><a href="#save和restore方法" class="headerlink" title="save和restore方法"></a>save和restore方法</h2><ul>
-<li>save()保存当前绘制的状态</li>
-<li>restore()恢复上次绘制的状态<br><strong>save可以保存多次绘制状态，以栈的形式存储</strong><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    ctx.rect(<span class="number">100</span>,<span class="number">100</span>,<span class="number">200</span>,<span class="number">200</span>);</div><div class="line">    ctx.strokeStyle = <span class="string">"black"</span>;</div><div class="line">    ctx.lineWidth = <span class="number">5</span>;</div><div class="line">    ctx.fillStyle = <span class="string">"orangered"</span>;</div><div class="line">    ctx.stroke();</div><div class="line">    ctx.fill();</div><div class="line">    <span class="comment">//保存上次绘制状态</span></div><div class="line">    <span class="comment">//可以保存多次，以栈格式存储，后进先出</span></div><div class="line">    ctx.save();</div><div class="line">    ctx.beginPath();</div><div class="line">    ctx.rect(<span class="number">200</span>,<span class="number">200</span>,<span class="number">150</span>,<span class="number">150</span>);</div><div class="line">    ctx.stroke();</div><div class="line">    ctx.fillStyle = <span class="string">"yellow"</span>;</div><div class="line">    ctx.fill();</div><div class="line">    ctx.beginPath();</div><div class="line">    <span class="comment">//恢复上次绘制状态</span></div><div class="line">    ctx.restore();</div><div class="line">    ctx.rect(<span class="number">50</span>,<span class="number">50</span>,<span class="number">80</span>,<span class="number">80</span>);</div><div class="line">    ctx.stroke();</div><div class="line">    ctx.fill();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="绘制圆弧"><a href="#绘制圆弧" class="headerlink" title="绘制圆弧"></a>绘制圆弧</h2><blockquote>
-<p>arc(x,y,r,startAngle,endAngle,bool);<br>参数：圆心，半径，起始的角度，结束的角度，是否逆时针。默认是false，顺时针；true：逆时针</p>
-<ul>
-<li>绘制简单圆弧<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="comment">//绘制圆弧 arc</span></div><div class="line">    <span class="comment">//加上moveTo()会加上一条半径</span></div><div class="line">    <span class="comment">//ctx.moveTo(200,200);</span></div><div class="line">    ctx.arc(<span class="number">200</span>,<span class="number">200</span>,<span class="number">100</span>,<span class="number">0</span>,-<span class="built_in">Math</span>.PI/<span class="number">2</span>);<span class="comment">//默认是顺时针false，true表示逆时针</span></div><div class="line">    ctx.stroke();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li><p>绘制带有圆角的矩形</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="comment">/**</span></div><div class="line">     *  绘制连续的路径，如果前面的终点和后面的起点一样，就不需要重新设置moveTo()</div><div class="line">     */</div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    ctx.lineWidth = <span class="number">3</span>;</div><div class="line">    ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">    ctx.lineTo(<span class="number">300</span>,<span class="number">100</span>);</div><div class="line"><span class="comment">//在画圆弧时，上面的直线会对圆弧的绘制造成影响，所以需要从上面直线的终点开始绘制圆弧</span></div><div class="line">    ctx.arc(<span class="number">300</span>,<span class="number">120</span>,<span class="number">20</span>,-<span class="built_in">Math</span>.PI/<span class="number">2</span>,<span class="number">0</span>,<span class="literal">true</span>);</div><div class="line"><span class="comment">//因为圆弧的终点与下一条直线的起始点相同，所以此处不需要moveTo()</span></div><div class="line"><span class="comment">//    ctx.moveTo(320,120);</span></div><div class="line">    ctx.lineTo(<span class="number">320</span>,<span class="number">170</span>);</div><div class="line">    ctx.arc(<span class="number">300</span>,<span class="number">170</span>,<span class="number">20</span>,<span class="number">0</span>,<span class="built_in">Math</span>.PI/<span class="number">2</span>,<span class="literal">true</span>);</div><div class="line"><span class="comment">//    ctx.moveTo(300,190);</span></div><div class="line">    ctx.lineTo(<span class="number">100</span>,<span class="number">190</span>);</div><div class="line">    ctx.arc(<span class="number">100</span>,<span class="number">170</span>,<span class="number">20</span>,<span class="built_in">Math</span>.PI/<span class="number">2</span>,<span class="built_in">Math</span>.PI,<span class="literal">true</span>);</div><div class="line"><span class="comment">//    ctx.moveTo(80,170);</span></div><div class="line">    ctx.lineTo(<span class="number">80</span>,<span class="number">120</span>);</div><div class="line">    ctx.arc(<span class="number">100</span>,<span class="number">120</span>,<span class="number">20</span>,<span class="built_in">Math</span>.PI,<span class="built_in">Math</span>.PI*<span class="number">3</span>/<span class="number">2</span>,<span class="literal">true</span>);</div><div class="line"></div><div class="line">    ctx.stroke();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>封装彩虹</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Rainbow</span>(<span class="params">ctx</span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.ctx = ctx;</div><div class="line">    &#125;</div><div class="line">    Rainbow.prototype.init = <span class="function"><span class="keyword">function</span> (<span class="params">width,rgbs</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> perWidth = width/<span class="number">6</span>;</div><div class="line">        <span class="keyword">this</span>.ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)&#123;</div><div class="line">            <span class="comment">//如果不相等，则每个的进度等于后一个的值减去前一个的值除以总共变化的次数</span></div><div class="line">            <span class="keyword">var</span> r = rgbs[i+<span class="number">1</span>].r==rgbs[i].r?<span class="number">0</span>:(rgbs[i+<span class="number">1</span>].r-rgbs[i].r)/perWidth;</div><div class="line">            <span class="keyword">var</span> g = rgbs[i+<span class="number">1</span>].g==rgbs[i].g?<span class="number">0</span>:(rgbs[i+<span class="number">1</span>].g-rgbs[i].g)/perWidth;</div><div class="line">            <span class="keyword">var</span> b = rgbs[i+<span class="number">1</span>].b==rgbs[i].b?<span class="number">0</span>:(rgbs[i+<span class="number">1</span>].b-rgbs[i].b)/perWidth;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;perWidth;j++)&#123;</div><div class="line">                <span class="comment">//判断每个颜色两次变化是否为0，为0则取固定的值，不为零则在原来的基础上加上每次的变化值</span></div><div class="line">                <span class="keyword">var</span> color1 = r==<span class="number">0</span>?rgbs[i].r:<span class="built_in">parseInt</span>(rgbs[i].r+r*j);</div><div class="line">                <span class="keyword">var</span> color2 = g==<span class="number">0</span>?rgbs[i].g:<span class="built_in">parseInt</span>(rgbs[i].g+g*j);</div><div class="line">                <span class="keyword">var</span> color3 = b==<span class="number">0</span>?rgbs[i].b:<span class="built_in">parseInt</span>(rgbs[i].b+b*j);</div><div class="line">                <span class="keyword">this</span>.ctx.beginPath();</div><div class="line">                <span class="keyword">this</span>.ctx.strokeStyle = <span class="string">"rgb("</span>+color1+<span class="string">","</span>+color2+<span class="string">","</span>+color3+<span class="string">")"</span>;</div><div class="line">                <span class="keyword">this</span>.ctx.moveTo(<span class="number">100</span>,perWidth*i+<span class="number">100</span>+j);</div><div class="line">                <span class="keyword">this</span>.ctx.lineTo(<span class="number">500</span>,perWidth*i+<span class="number">100</span>+j);</div><div class="line">                <span class="keyword">this</span>.ctx.stroke();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">var</span> rgbs = [&#123;<span class="comment">//红</span></div><div class="line">            r:<span class="number">255</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">0</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">0</span></div><div class="line">        &#125;,&#123;<span class="comment">//橙</span></div><div class="line">            r:<span class="number">255</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">127</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">0</span></div><div class="line">        &#125;,&#123;<span class="comment">//黄</span></div><div class="line">            r:<span class="number">255</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">255</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">0</span></div><div class="line">        &#125;,&#123;<span class="comment">//绿</span></div><div class="line">            r:<span class="number">0</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">255</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">0</span></div><div class="line">        &#125;,&#123;<span class="comment">//青</span></div><div class="line">            r:<span class="number">0</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">127</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">255</span></div><div class="line">        &#125;,&#123;<span class="comment">//蓝</span></div><div class="line">            r:<span class="number">0</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">0</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">255</span></div><div class="line">        &#125;,&#123;<span class="comment">//紫</span></div><div class="line">            r:<span class="number">139</span>,</div><div class="line">            <span class="attr">g</span>:<span class="number">0</span>,</div><div class="line">            <span class="attr">b</span>:<span class="number">255</span></div><div class="line">        &#125;];</div><div class="line">    <span class="keyword">var</span> rain = <span class="keyword">new</span> Rainbow(ctx);</div><div class="line">    rain.init(<span class="number">180</span>,rgbs);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="绘制文本"><a href="#绘制文本" class="headerlink" title="绘制文本"></a>绘制文本</h2><ul>
-<li>strokeText()：空心文字</li>
-<li>fillText():实心文字</li>
-<li>文本的对齐方式<ul>
-<li>水平对齐：textAlign –&gt;  left center right start end</li>
-<li>垂直对齐：textBaseline –&gt;  top middle bottom  </li>
-</ul>
-</li>
-<li>获取文本宽度 measureText<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="keyword">var</span> str = <span class="string">"人生如戏"</span>;</div><div class="line">    ctx.font=<span class="string">"48px microsoft yahei"</span>;</div><div class="line">    ctx.textAlign = <span class="string">"center"</span>;</div><div class="line">    ctx.textBaseline = <span class="string">"bottom"</span>;</div><div class="line">    </div><div class="line">    ctx.strokeText(str,<span class="number">100</span>,<span class="number">100</span>);<span class="comment">//空心文字</span></div><div class="line"><span class="comment">//    ctx.fillText(str,100,100);//实心文字</span></div><div class="line"><span class="comment">//在文字下方画一条和文本宽度相等的线</span></div><div class="line">	<span class="keyword">var</span> obj = ctx.measureText(str);</div><div class="line">    ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">    ctx.lineTo(<span class="number">100</span>+obj.width,<span class="number">100</span>);</div><div class="line">    ctx.stroke();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="绘制图片"><a href="#绘制图片" class="headerlink" title="绘制图片"></a>绘制图片</h2><ul>
-<li>drawImage()</li>
-<li><p>三个参数：图片对象   放置的位置(x,y)</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image();</div><div class="line">    img.src = <span class="string">"img/xiang.jpg"</span>;</div><div class="line">    <span class="comment">//必须等图片加载完毕后才能绘制图片</span></div><div class="line">    img.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        ctx.drawImage(img,<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-<p><img src="../img/da.png" alt="csc"></p>
-</li>
-<li><p>五个参数 ：图片对象，放置的位置(x,y),图片的大小(width,height)</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image();</div><div class="line">    img.src = <span class="string">"img/xiang.jpg"</span>;</div><div class="line">    <span class="comment">//必须等图片加载完毕后才能绘制图片</span></div><div class="line">    img.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        ctx.drawImage(img,<span class="number">100</span>,<span class="number">100</span>,<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">        <span class="comment">//会根据设置的参数对图片进行缩放，不会把图片裁剪</span></div><div class="line">    &#125;;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>效果图<br>  <img src="../img/xiao.png" alt="csc"></p>
-</li>
-<li>九个参数：图片对象，图片中的坐标，要显示的图片的宽高，放置的位置，图片的大小<ul>
-<li>可以用于绘制逐帧动画,需要结合setTimeout()或者requestAnimationFrame() <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image();</div><div class="line">    <span class="comment">//需要准备精灵图，让图片进行切换，实现动画效果</span></div><div class="line">    img.src = <span class="string">"img/rabbit.png"</span>;</div><div class="line">    <span class="keyword">var</span> allWidth = <span class="number">160</span>;</div><div class="line">    <span class="keyword">var</span> allHeight = <span class="number">260</span>;</div><div class="line">    <span class="comment">//一共四帧</span></div><div class="line">    <span class="keyword">var</span> num = <span class="number">4</span>;</div><div class="line">    <span class="keyword">var</span> nowIndex = <span class="number">0</span>;</div><div class="line">    <span class="keyword">var</span> perHeight = allHeight/num;</div><div class="line">    <span class="keyword">var</span> perWidth = allWidth/num;</div><div class="line">    img.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        render();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    	<span class="comment">//每次切换时先清空画布</span></div><div class="line">        ctx.clearRect(<span class="number">0</span>,<span class="number">0</span>,cas.width,cas.height);</div><div class="line">	ctx.drawImage(img,perWidth*nowIndex,<span class="number">0</span>,perWidth,perHeight,cas.width/<span class="number">2</span>-perWidth/<span class="number">2</span>,cas.height/<span class="number">2</span>-perHeight/<span class="number">2</span>,perWidth,perHeight);</div><div class="line">        nowIndex++;</div><div class="line">        <span class="keyword">if</span>(nowIndex==<span class="number">4</span>)&#123;</div><div class="line">            nowIndex=<span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        setTimeout(render,<span class="number">100</span>);</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="变换"><a href="#变换" class="headerlink" title="变换"></a>变换</h2><blockquote>
-<p>坐标轴的变换，不影响变换之前绘制的图形，但是会影响变换之后的图形</p>
-<ul>
-<li>translate(x,y):将坐标原点进行位移</li>
-<li>rotate(angle):以坐标原点为中心将坐标轴进行旋转（弧度）</li>
-<li>scale(ratex,ratey):将图形进行缩放</li>
-<li>在同一个画布中绘制一个旋转的正方形和固定的正方形<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="keyword">var</span> speed = <span class="built_in">Math</span>.PI/<span class="number">90</span>;</div><div class="line">    <span class="keyword">var</span> index = <span class="number">0</span>;</div><div class="line">    <span class="comment">//移动坐标原点至画布中心</span></div><div class="line">    ctx.translate(cas.width/<span class="number">2</span>,cas.height/<span class="number">2</span>);</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        ctx.clearRect(-cas.width/<span class="number">2</span>,-cas.height/<span class="number">2</span>,cas.width,cas.height);</div><div class="line">        ctx.strokeRect(-cas.width/<span class="number">2</span>,-cas.height/<span class="number">2</span>,<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">        ctx.save();<span class="comment">//保存的状态包括平移，旋转，缩放和基本样式设置</span></div><div class="line">        ctx.rotate(speed*index);<span class="comment">//以坐标原点为中心进行旋转</span></div><div class="line">        ctx.strokeRect(<span class="number">-50</span>,<span class="number">-50</span>,<span class="number">100</span>,<span class="number">100</span>);<span class="comment">//绘制的是旋转的矩形</span></div><div class="line">        ctx.restore();<span class="comment">//恢复固定的矩形，此时会将rotate重置为0</span></div><div class="line">   <span class="comment">//恢复状态的时候，会将重新设置绘制状态，即将rotate状态重新设置保存时的状态，即为零</span></div><div class="line">   <span class="comment">//恢复原来状态之后，旋转角度依然从零开始，所以要想达到旋转效果，必须逐渐增大角度</span></div><div class="line">        index++;</div><div class="line">        <span class="keyword">if</span>(speed*index &gt; <span class="number">2</span>*<span class="built_in">Math</span>.PI)&#123;</div><div class="line">            index = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        requestAnimationFrame(render);</div><div class="line">    &#125;</div><div class="line">    render();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/10/Z01-canvas基本使用 /">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/10/Z01-canvas基本使用 /" itemprop="url">
-                  canvas基本使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-10T00:00:00+08:00">
-                2016-06-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/canvas/" itemprop="url" rel="index">
-                    <span itemprop="name">canvas</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Canvas基础"><a href="#Canvas基础" class="headerlink" title="Canvas基础"></a>Canvas基础</h1><blockquote>
-<p>canvas : 画布默认宽高是300x150;<br>canvas的宽高要使用canvas标签的属性设置，不能使用css设置</p>
-<ul>
-<li>简单画一条直线<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">height</span>=<span class="string">"400"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="built_in">console</span>.log(cas.height);</div><div class="line">    <span class="built_in">console</span>.log(cas.width);</div><div class="line">    <span class="comment">//获取画图工具</span></div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="comment">//指定画图的起点</span></div><div class="line">    ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">    <span class="comment">//画路径</span></div><div class="line">    ctx.lineTo(<span class="number">300</span>,<span class="number">100</span>);</div><div class="line">    <span class="comment">//描边</span></div><div class="line">    ctx.stroke();</div><div class="line">&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>绘制矩形<blockquote>
-<p><strong>非零环绕原则(填充的原则)：</strong>从闭合区域中画一条线，这条线经过的线条中，如果正向与反向的线条相互抵消，则不填充</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">height</span>=<span class="string">"400"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">   <span class="comment">//绘制正方形</span></div><div class="line">   <span class="comment">//ctx.closePath()作用是闭合路径</span></div><div class="line">   <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">   <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">   ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">   ctx.lineTo(<span class="number">300</span>,<span class="number">100</span>);</div><div class="line">   ctx.lineTo(<span class="number">300</span>,<span class="number">300</span>);</div><div class="line">   ctx.lineTo(<span class="number">100</span>,<span class="number">300</span>);</div><div class="line">   ctx.lineTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">   ctx.closePath();<span class="comment">//闭合路径</span></div><div class="line"><span class="comment">//绘制内部矩形</span></div><div class="line">   ctx.moveTo(<span class="number">150</span>,<span class="number">150</span>);</div><div class="line">   ctx.lineTo(<span class="number">150</span>,<span class="number">250</span>);</div><div class="line">   ctx.lineTo(<span class="number">250</span>,<span class="number">250</span>);</div><div class="line">   ctx.lineTo(<span class="number">250</span>,<span class="number">150</span>);</div><div class="line">   ctx.lineTo(<span class="number">150</span>,<span class="number">150</span>);</div><div class="line">   ctx.closePath();</div><div class="line">   <span class="comment">//设置线的颜色</span></div><div class="line">   ctx.strokeStyle =<span class="string">"red"</span>;</div><div class="line">   <span class="comment">//设置线的宽度</span></div><div class="line">   ctx.lineWidth = <span class="number">10</span>;</div><div class="line">   ctx.stroke();</div><div class="line">   <span class="comment">//填充</span></div><div class="line">   ctx.fill();</div><div class="line"> <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>手动闭合路径和closePath()<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">height</span>=<span class="string">"400"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="comment">//手动闭合路径和closePath()闭合路径</span></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 如果线宽较大，会明显缺角，补上这个角需要多加一个点</div><div class="line">     *closePath()闭合路径可以省略最后一条线</div><div class="line">     */</div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    ctx.lineWidth = <span class="number">10</span>;</div><div class="line">    ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">    ctx.lineTo(<span class="number">300</span>,<span class="number">100</span>);</div><div class="line">    ctx.lineTo(<span class="number">300</span>,<span class="number">300</span>);</div><div class="line">    <span class="comment">//如果使用closePath().可以省略下面1,2两条代码</span></div><div class="line">    ctx.lineTo(<span class="number">100</span>,<span class="number">100</span>);<span class="comment">//1</span></div><div class="line">    <span class="comment">//手动闭合</span></div><div class="line">    ctx.lineTo(<span class="number">101</span>,<span class="number">100</span>);<span class="comment">//2</span></div><div class="line"><span class="comment">//    ctx.closePath();</span></div><div class="line">    ctx.stroke();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></p>
-</blockquote>
-<ul>
-<li>绘制曲线<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">height</span>=<span class="string">"400"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    <span class="comment">//绘制曲线：画一个一个的点，点的路线符合方程曲线的规律</span></div><div class="line">    ctx.moveTo(<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;</div><div class="line">        <span class="keyword">var</span> x = i;</div><div class="line">        <span class="comment">//正弦曲线</span></div><div class="line">        <span class="keyword">var</span> y = <span class="number">100</span>*<span class="built_in">Math</span>.sin(x/<span class="number">50</span>)+<span class="number">100</span>;</div><div class="line">        ctx.lineTo(x,y);</div><div class="line">    &#125;</div><div class="line">    ctx.stroke();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="常用属性"><a href="#常用属性" class="headerlink" title="常用属性"></a>常用属性</h2><ul>
-<li>lineWidth:线宽</li>
-<li>strokeStyle：线的颜色</li>
-<li>fillStyle：填充颜色</li>
-<li>lineCap:线末端的类型，默认是butt，可以设置round、square</li>
-<li>lineJion:相交线的拐点类型，默认是miter，可设置round，bevel</li>
-<li>setLineDash():设置虚线,参数是一个数组，设置黑白切换<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"cas"</span> <span class="attr">style</span>=<span class="string">"border: 1px solid blue;"</span> <span class="attr">width</span>=<span class="string">600</span> <span class="attr">height</span>=<span class="string">400</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> cas = <span class="built_in">document</span>.getElementById(<span class="string">"cas"</span>);</div><div class="line">    <span class="keyword">var</span> ctx = cas.getContext(<span class="string">"2d"</span>);</div><div class="line">    ctx.lineWidth = <span class="number">50</span>;</div><div class="line">    ctx.moveTo(<span class="number">100</span>,<span class="number">100</span>);</div><div class="line">    ctx.lineTo(<span class="number">400</span>,<span class="number">100</span>);</div><div class="line">    ctx.setLineDash([<span class="number">10</span>,<span class="number">15</span>,<span class="number">20</span>]);</div><div class="line">    ctx.stroke();</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/05/12/G03-requirejs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/12/G03-requirejs/" itemprop="url">
-                  requireJS
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-12T00:00:00+08:00">
-                2016-05-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AMD和CMD/" itemprop="url" rel="index">
-                    <span itemprop="name">AMD和CMD</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="requireJs"><a href="#requireJs" class="headerlink" title="requireJs"></a>requireJs</h1><p><strong>AMD（  Asynchronous Module Definition）异步加载模块定义</strong></p>
-<ul>
-<li>当一个网页要引入多个外部文件，且文件之间的依赖关系较强的时候，必须保证文件的加载顺序，并且当浏览器加载外部文件的时候就会停止网页的渲染，加载的文件越多，网页失去响应的时间越长，代码的编写和维护也会很麻烦。</li>
-<li>requirejs实现了js 文件的异步加载，避免网页失去响应</li>
-<li>管理模块之间的依赖性，便于代码的编写和维护</li>
-<li>解决了命名冲突问题（不同模块中的同名变量不会有冲突）<h2 id="requirejs的基本使用"><a href="#requirejs的基本使用" class="headerlink" title="requirejs的基本使用"></a>requirejs的基本使用</h2><strong>注意 : </strong></li>
-<li>必须注意各模块之间的路径问题<h3 id="主模块"><a href="#主模块" class="headerlink" title="主模块"></a>主模块</h3></li>
-<li>如果主模块不依赖于任何模块，其中的js代码可以正常编写​<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- data-main的作用是指定网页程序的主模板，即main.js。这个文件会第一个被require.js加载。main是省略了后缀名js --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"require.js"</span> <span class="attr">data-main</span>=<span class="string">"js/main"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//main.js</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">"abc"</span>);</div></pre></td></tr></table></figure>
-<ul>
-<li>当主模块依赖于其他模块时，需要使用require函数<ul>
-<li>第一个参数[“module1”,”module2”,”module3”]代表的是该模块所依赖的三个模块，第二个参数是回调函数，当前面的模块加载完毕后，会调用该函数，加载的模块会以参数的形式依次传入该回调函数，就可以在回调函数内使用这些模块</li>
-<li>可以直接使用require([“module”]),表示在当前文件中加载模块<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>([<span class="string">"module1"</span>,<span class="string">"module2"</span>,<span class="string">"module3"</span>],<span class="function"><span class="keyword">function</span>(<span class="params">m1,m2,m3</span>)</span>&#123;</div><div class="line">  	<span class="built_in">console</span>.log(m1);</div><div class="line">  	<span class="built_in">console</span>.log(m2);</div><div class="line">  	<span class="built_in">console</span>.log(m3);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="自定义模块加载-require-config"><a href="#自定义模块加载-require-config" class="headerlink" title="自定义模块加载 require.config()"></a>自定义模块加载 require.config()</h3><ul>
-<li>baseUrl: 显示的设置模块查找的根路径，即paths中设置的文件路径从public/js/开始<ul>
-<li>如果不设置baseUrl时，根路径默认为data-main属性设置的入口文件所在的路径</li>
-</ul>
-</li>
-<li>paths: 指定各个模块的加载路径，并为其路径设置一个名字 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">  <span class="attr">baseUrl</span>:<span class="string">"public/js"</span>,</div><div class="line">  <span class="attr">paths</span>:&#123;</div><div class="line">    <span class="attr">jquery</span>:<span class="string">"jquery/jquery.min"</span>,</div><div class="line">    <span class="attr">echarts</span>:<span class="string">"echarts/echarts.min"</span></div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="定义模块"><a href="#定义模块" class="headerlink" title="定义模块"></a>定义模块</h3><ul>
-<li>使用define();<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//这是一个js文件：sum.js</span></div><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a,b</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> a+b;</div><div class="line">  &#125; </div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    <span class="attr">sum</span>:sum</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>main函数加载时用法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//main.js</span></div><div class="line"><span class="built_in">require</span>([<span class="string">"sum"</span>],<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</div><div class="line">  <span class="keyword">var</span> sum = obj.sum(<span class="number">1</span>,<span class="number">2</span>);</div><div class="line">  <span class="built_in">console</span>.log(sum);<span class="comment">//3</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="非规范的模块处理"><a href="#非规范的模块处理" class="headerlink" title="非规范的模块处理"></a>非规范的模块处理</h3><ul>
-<li>使用require.config()设置<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  js/foo.js</span></div><div class="line"><span class="comment">//非规范的模块,即没有使用define定义模块</span></div><div class="line"><span class="keyword">var</span> n = <span class="number">3</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">n</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(n);  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>处理方式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  main.js</span></div><div class="line"><span class="built_in">require</span>.config(&#123;</div><div class="line">  <span class="attr">shim</span>:&#123;</div><div class="line">  </div><div class="line">  	<span class="comment">// 找到模块</span></div><div class="line">    <span class="string">"js/foo"</span>:&#123;</div><div class="line">    </div><div class="line">    	<span class="comment">// 设置该模块所依赖的模块</span></div><div class="line">    	deps:[<span class="string">"jquery"</span>,<span class="string">"common"</span>],</div><div class="line">    	<span class="comment">//导出非规范模块中的成员(无论是变量还是函数)，此处是定义的fn函数</span></div><div class="line">      	exports:<span class="string">"fn"</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h1 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h1><p><strong>Sea.js 中，所有 JavaScript 模块都遵循 CMD（Common Module Definition） 模块定义规范。</strong>     </p>
-<ul>
-<li>在CMD规范中，一个模块就是一个文件<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2></li>
-<li>denfine() ： 定义模块，是一个全局函数  define(factory)</li>
-<li>接收factory参数，可以是函数，对象，也可以是字符串。</li>
-<li>define()也可以接收三个参数。define(id,deps,factory)<ul>
-<li>id : 模块名称</li>
-<li>deps : 模块依赖</li>
-<li>factory : 模块的构造方法，处理模块代码 </li>
-</ul>
-</li>
-<li>当factory为函数时，接收三个参数<ul>
-<li>require: 是一个函数，接收一个参数，为模块名称，用来获取其他模块提供的接口<ul>
-<li>若要异步加载模块 : require.async(id, [callback:可选])</li>
-</ul>
-</li>
-<li>exports : 是一个对象，用来提供对外的模块接口。</li>
-<li>module :　是一个对象，存储着与当前模块相关的一些属性和方法<ul>
-<li>module.url: 根据模块系统的路径解析规则得到的模块绝对路径。 </li>
-<li>一般情况下（没有在 define 中写 id 参数时），module.id 的值就是 module.uri，两者完全相同。</li>
-<li>module.dependencies : 是一个数组，表示当前模块的依赖</li>
-<li>module.exports : exports 是对该对象的一个引用。如果module.exports的指向改变了，那么exports就不在等于module.exports<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>) </span>&#123;</div><div class="line">  <span class="comment">// 模块代码</span></div><div class="line">  <span class="built_in">require</span>(<span class="string">"./model"</span>);</div><div class="line">  exports.foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">  &#125;</div><div class="line">  <span class="built_in">console</span>.log(<span class="built_in">module</span>.exports==exports);<span class="comment">//true</span></div><div class="line">  <span class="built_in">module</span>.exports = <span class="keyword">new</span> Person();</div><div class="line">  <span class="built_in">console</span>.log(<span class="built_in">module</span>.exports==exports);<span class="comment">//false</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2104,7 +2039,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-count">56</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

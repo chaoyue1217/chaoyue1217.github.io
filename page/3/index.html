@@ -260,6 +260,173 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/20/H08-angular生命周期/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/20/H08-angular生命周期/" itemprop="url">
+                  浅析AngularJS的生命周期
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-20T00:00:00+08:00">
+                2016-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="AngularJS的生命周期"><a href="#AngularJS的生命周期" class="headerlink" title="AngularJS的生命周期"></a>AngularJS的生命周期</h2><ul>
+<li>在AngularJS应用启动之前，会以html文本的形式保存在文本编辑器中。应用启动后会进行编译和链接，作用域会和html进行数据绑定。<h3 id="编译阶段"><a href="#编译阶段" class="headerlink" title="编译阶段"></a>编译阶段</h3></li>
+<li>在编译阶段，AngularJS会遍历整个HTML文档并根据JavaScript中的指令定义来处理页面上声明的指令。</li>
+<li>每一个指令中都可能会含有另一个指令，因此，AngularJs进行编译的时候会形成一个模板树，并遍历其中的所有模板。</li>
+<li>一旦对指令和其中的子模板进行遍历或编译，编译后的模板会返回一个叫模板函数的函数。我们可以在模板函数被返回之前，对编译后的DOM树进行操作<ul>
+<li>例如：ng-repeat，它会遍历指定的数组或对象，在数据绑定之前构建出对应的DOM结构。</li>
+</ul>
+</li>
+<li>每个指令都有自己的模板和编译函数，每个模板返回自己的模板函数，模板函数最后会被传递给编译后的DOM树中的每个指令中定义的链接函数。<h3 id="compile编译函数"><a href="#compile编译函数" class="headerlink" title="compile编译函数"></a>compile编译函数</h3></li>
+<li>在模板函数返回之前，我们可以使用compile对编译后的DOM树进行DOM操作。</li>
+<li>compile函数的返回值即链接函数或者链接对象，即link</li>
+<li>本质上，当我们设置了link选项，实际上是创建了一个postLink()链接函数，以便compile()函数可以定义链接函数。</li>
+<li><strong>compile和link选项是互斥的。如果同时设置了这两个选项，那么会把compile<br>所返回的函数当作链接函数，而link选项本身则会被忽略。</strong></li>
+<li>compile的作用是对指令的模板进行转换，常用于自定义指令<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'myApp'</span>,[])</div><div class="line">.directive(<span class="string">'myDirective'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">        <span class="attr">compile</span>:<span class="function"><span class="keyword">function</span>(<span class="params">tEle,tAttrs,transcludeFn</span>)</span>&#123;</div><div class="line">            <span class="comment">//在此处可以进行DOM操作</span></div><div class="line">            <span class="comment">//在此处不能操作$scope     </span></div><div class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">scope,ele,attrs</span>)</span>&#123;</div><div class="line">            <span class="comment">//此处返回的是链接函数，可以在此处处理数据</span></div><div class="line">            <span class="comment">//$scope只有在链接阶段才会绑定到元素上 	</span></div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">link</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">          <span class="comment">//如果设置了compile，在此处设置link会被忽略</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="链接阶段"><a href="#链接阶段" class="headerlink" title="链接阶段"></a>链接阶段</h3><ul>
+<li>链接函数负责将作用域和DOM进行链接。如绑定数据，注册事件</li>
+<li><strong>postlink</strong><ul>
+<li>我们设置的link其实就是postlink</li>
+</ul>
+</li>
+<li><strong>prelink</strong></li>
+<li>prelink会在Postlink之前执行，他在compile之后执行。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'myApp'</span>,[])</div><div class="line">.directive(<span class="string">'myDirective'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span>&#123;</div><div class="line">        <span class="attr">compile</span>:<span class="function"><span class="keyword">function</span>(<span class="params">tEle,tAttrs,transcludeFn</span>)</span>&#123;</div><div class="line">            <span class="comment">//这里进行DOM的操作</span></div><div class="line">            <span class="keyword">return</span> &#123;</div><div class="line">              <span class="attr">pre</span>: <span class="function"><span class="keyword">function</span>(<span class="params">scope, iElem, iAttrs</span>)</span>&#123;</div><div class="line">                <span class="comment">//次处时prelink，在postlink之前，compile之后执行</span></div><div class="line">                <span class="comment">// 在子元素被链接之前执行</span></div><div class="line">                <span class="comment">// 在这里进行Don转换不安全</span></div><div class="line">                <span class="comment">// 之后调用'lihk'函数将无法定位要链接的元素</span></div><div class="line">              &#125;,</div><div class="line">              <span class="attr">post</span>: <span class="function"><span class="keyword">function</span>(<span class="params">scope, iElem, iAttrs</span>)</span>&#123;</div><div class="line">                <span class="comment">//此处即postlink</span></div><div class="line">              &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/15/G04-深入require/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -776,161 +943,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/08/H04-angular/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/08/H04-angular/" itemprop="url">
-                  AngularJS 依赖注入
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-08T00:00:00+08:00">
-                2016-09-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h1><ul>
-<li>AngularJS采用模块化的方式组织代码，将一些通用逻辑封装成一个对象或函数，实现最大程度的复用，这导致了使用者和被使用者之间存在依赖关系。</li>
-<li>一个对象通常有三种方式可以获得对其依赖的控制权：<ul>
-<li>(1) 在内部创建依赖；</li>
-<li>(2) 通过全局变量进行引用；</li>
-<li>(3) 在需要的地方通过参数进行传递。</li>
-</ul>
-</li>
-<li>一般注入是通过参数的形式实现</li>
-<li>依赖注入会事先自动查找依赖关系，并将注入目标告知被依赖的资源。在运行期，注入器会创建依赖的实例，并负责将它传递给依赖的消费者。</li>
-<li>话句话说就是，采用注入的方式，解决依赖的问题<h2 id="行内注入"><a href="#行内注入" class="headerlink" title="行内注入"></a>行内注入</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>, []);</div><div class="line">    <span class="comment">//此方式成为行内依赖注入</span></div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="string">"$http"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.name = <span class="string">"小明"</span>;</div><div class="line">    &#125;]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="推断式注入"><a href="#推断式注入" class="headerlink" title="推断式注入"></a>推断式注入</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>, []);</div><div class="line">    <span class="comment">//推断式依赖注入</span></div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        <span class="comment">//如果没有明确的声明，AngularJS会假定参数名称就是依赖的名称。</span></div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/08/H03-angular/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1070,6 +1082,161 @@
 <li>参数：数组<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"parentCtrl"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--页面上显示  顺治--&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"childCtrl"</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--此处也是 顺治--&gt;</span></div><div class="line">    	<span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>,[]);</div><div class="line">    <span class="comment">/*app.run(["$http","$log",function ($http,$log) &#123;</span></div><div class="line">        $http(&#123;</div><div class="line">            url:"",</div><div class="line">            method:""</div><div class="line">        &#125;).then(function (res) &#123;</div><div class="line"></div><div class="line">        &#125;);</div><div class="line">    &#125;]);*/</div><div class="line">    app.run([<span class="string">"$rootScope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$rootScope</span>) </span>&#123;</div><div class="line">        <span class="comment">//可以初始化全局的数据</span></div><div class="line">        $rootScope.name = <span class="string">"顺治"</span>;</div><div class="line">    &#125;]);</div><div class="line">    <span class="comment">// $rootScope 是一个服务  根作用域</span></div><div class="line">    app.controller(<span class="string">"parentCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">    &#125;]);</div><div class="line">    app.controller(<span class="string">"childCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">    &#125;])</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure></li>
 </ul>
 
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/08/H04-angular/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/08/H04-angular/" itemprop="url">
+                  AngularJS 依赖注入
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-08T00:00:00+08:00">
+                2016-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AngularJS/" itemprop="url" rel="index">
+                    <span itemprop="name">AngularJS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h1><ul>
+<li>AngularJS采用模块化的方式组织代码，将一些通用逻辑封装成一个对象或函数，实现最大程度的复用，这导致了使用者和被使用者之间存在依赖关系。</li>
+<li>一个对象通常有三种方式可以获得对其依赖的控制权：<ul>
+<li>(1) 在内部创建依赖；</li>
+<li>(2) 通过全局变量进行引用；</li>
+<li>(3) 在需要的地方通过参数进行传递。</li>
+</ul>
+</li>
+<li>一般注入是通过参数的形式实现</li>
+<li>依赖注入会事先自动查找依赖关系，并将注入目标告知被依赖的资源。在运行期，注入器会创建依赖的实例，并负责将它传递给依赖的消费者。</li>
+<li>话句话说就是，采用注入的方式，解决依赖的问题<h2 id="行内注入"><a href="#行内注入" class="headerlink" title="行内注入"></a>行内注入</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>, []);</div><div class="line">    <span class="comment">//此方式成为行内依赖注入</span></div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,[<span class="string">"$scope"</span>,<span class="string">"$http"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.name = <span class="string">"小明"</span>;</div><div class="line">    &#125;]);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="推断式注入"><a href="#推断式注入" class="headerlink" title="推断式注入"></a>推断式注入</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-app</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"demoCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">"app"</span>, []);</div><div class="line">    <span class="comment">//推断式依赖注入</span></div><div class="line">    app.controller(<span class="string">"demoCtrl"</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$scope</span>) </span>&#123;</div><div class="line">        <span class="comment">//如果没有明确的声明，AngularJS会假定参数名称就是依赖的名称。</span></div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
           
         
       
@@ -1799,187 +1966,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/10/B04-闭包/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/10/B04-闭包/" itemprop="url">
-                  浅谈闭包
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-10T00:00:00+08:00">
-                2016-08-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">javascript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h1><ul>
-<li>闭包是指有权访问其他函数中的变量的函数</li>
-<li>在我看来，闭包就是在函数中嵌套的函数，用来延长作用域链的，经常用作返回值，以便在函数的的外部也可以接收到函数内部的值。<h2 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h2></li>
-<li>要理解闭包，首先必须理解Javascript特殊的变量作用域。</li>
-<li>变量的作用域无非就是两种：全局变量和局部变量。</li>
-<li><p>Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　alert(n);</div><div class="line">　　&#125;</div><div class="line">　　f1(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>另一方面，在函数外部自然无法读取函数内的局部变量。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　&#125;</div><div class="line">　　alert(n); <span class="comment">// error</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>这里有一个地方需要注意，函数内部声明变量的时候，一定要使用var命令。如果不用的话，你实际上声明了一个全局变量！</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　n=<span class="number">999</span>;</div><div class="line">　　&#125;</div><div class="line">　　f1();</div><div class="line">　　alert(n); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="如何从外部读取局部变量？"><a href="#如何从外部读取局部变量？" class="headerlink" title="如何从外部读取局部变量？"></a>如何从外部读取局部变量？</h3><ul>
-<li><p>那就是在函数的内部，再定义一个函数。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　　　alert(n); <span class="comment">// 999</span></div><div class="line">　　　　&#125;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>在上面的代码中，函数f2就被包括在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不可见的。这就是Javascript语言特有的”链式作用域”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。</p>
-</li>
-<li>既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，我们不就可以在f1外部读取它的内部变量了吗！<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　　　alert(n); </div><div class="line">　　　　&#125;</div><div class="line">　　　　<span class="keyword">return</span> f2;</div><div class="line">　　&#125;</div><div class="line">　　<span class="keyword">var</span> result=f1();</div><div class="line">　　result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="闭包的概念"><a href="#闭包的概念" class="headerlink" title="闭包的概念"></a>闭包的概念</h2><ul>
-<li>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    alert(n);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> f2;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> result=f1();</div><div class="line">result(); <span class="comment">// 999</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="四、闭包的用途"><a href="#四、闭包的用途" class="headerlink" title="四、闭包的用途"></a>四、闭包的用途</h2><ul>
-<li><p>闭包可以用在许多地方。它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">　　<span class="function"><span class="keyword">function</span> <span class="title">f1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　<span class="keyword">var</span> n=<span class="number">999</span>;</div><div class="line">　　　　nAdd=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;n+=<span class="number">1</span>&#125;</div><div class="line">　　　　<span class="function"><span class="keyword">function</span> <span class="title">f2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">　　　　　　alert(n);</div><div class="line">　　　　&#125;</div><div class="line">　　　　<span class="keyword">return</span> f2;</div><div class="line">　　&#125;</div><div class="line">　　<span class="keyword">var</span> result=f1();</div><div class="line">　　result(); <span class="comment">// 999</span></div><div class="line">　　nAdd();</div><div class="line">　　result(); <span class="comment">// 1000</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>在这段代码中，result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。</p>
-</li>
-<li>为什么会这样呢？原因就在于f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被垃圾回收机制（garbage collection）回收。</li>
-<li>这段代码中另一个值得注意的地方，就是”nAdd=function(){n+=1}”这一行，首先在nAdd前面没有使用var关键字，因此nAdd是一个全局变量，而不是局部变量。其次，nAdd的值是一个匿名函数（anonymous function），而这个匿名函数本身也是一个闭包，所以nAdd相当于是一个setter，可以在函数外部对函数内部的局部变量进行操作。<h2 id="使用闭包的注意点"><a href="#使用闭包的注意点" class="headerlink" title="使用闭包的注意点"></a>使用闭包的注意点</h2></li>
-<li>由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</li>
-<li>闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（PublicMethod），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2029,7 +2015,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2040,7 +2026,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

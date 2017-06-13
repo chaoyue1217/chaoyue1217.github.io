@@ -1,0 +1,775 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="ui-router使用方法1angular.module(&quot;myApp&quot;,[&quot;ui.router&quot;]);
+
+和ngRouter服务不同的是
+（1）ui-router可以进行视图的嵌套；
+（2）视图的存放位置使用ui-view来指定，每一个ui-view下面也可以包含自己的ui-view；
+（3）使用config对路由进行配置时，使用的不是$routerProvider而是$stateProvide">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ui-router">
+<meta property="og:url" content="http://yoursite.com/2017/06/03/H11-Angular组件-router/index.html">
+<meta property="og:site_name" content="Shining Moon">
+<meta property="og:description" content="ui-router使用方法1angular.module(&quot;myApp&quot;,[&quot;ui.router&quot;]);
+
+和ngRouter服务不同的是
+（1）ui-router可以进行视图的嵌套；
+（2）视图的存放位置使用ui-view来指定，每一个ui-view下面也可以包含自己的ui-view；
+（3）使用config对路由进行配置时，使用的不是$routerProvider而是$stateProvide">
+<meta property="og:updated_time" content="2017-06-13T14:34:24.203Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ui-router">
+<meta name="twitter:description" content="ui-router使用方法1angular.module(&quot;myApp&quot;,[&quot;ui.router&quot;]);
+
+和ngRouter服务不同的是
+（1）ui-router可以进行视图的嵌套；
+（2）视图的存放位置使用ui-view来指定，每一个ui-view下面也可以包含自己的ui-view；
+（3）使用config对路由进行配置时，使用的不是$routerProvider而是$stateProvide">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/03/H11-Angular组件-router/"/>
+
+
+
+
+
+  <title> ui-router | Shining Moon </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shining Moon</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/03/H11-Angular组件-router/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ui-router
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-03T00:00:00+08:00">
+                2017-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular组件/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular组件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="ui-router"><a href="#ui-router" class="headerlink" title="ui-router"></a>ui-router</h1><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">"myApp"</span>,[<span class="string">"ui.router"</span>]);</div></pre></td></tr></table></figure>
+<ul>
+<li>和ngRouter服务不同的是<ul>
+<li>（1）ui-router可以进行视图的嵌套；</li>
+<li>（2）视图的存放位置使用ui-view来指定，每一个ui-view下面也可以包含自己的ui-view；</li>
+<li>（3）使用config对路由进行配置时，使用的不是$routerProvider而是$stateProvider。</li>
+</ul>
+</li>
+<li>定义路由的方式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> .config(<span class="function"><span class="keyword">function</span>(<span class="params">$stateProvider, $urlRouterProvider</span>) </span>&#123;</div><div class="line">    $stateProvider</div><div class="line">      .state(<span class="string">'start'</span>, &#123;</div><div class="line">        <span class="attr">url</span>: <span class="string">'/start'</span>,</div><div class="line">        <span class="attr">templateUrl</span>: <span class="string">'partials/start.html'</span></div><div class="line">      &#125;)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="路由嵌套"><a href="#路由嵌套" class="headerlink" title="路由嵌套"></a>路由嵌套</h2><ul>
+<li>使用url参数可是实现路由嵌套</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$stateProvider</div><div class="line">  .state('inbox', &#123;</div><div class="line">    url: '/inbox/:inboxId',</div><div class="line">    template: '<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome to your inbox<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">ui-sref</span>=<span class="string">"inbox.priority"</span>&gt;</span>Show priority<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">ui-view</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span>',</div><div class="line">    controller: function($scope, $stateParams) &#123;</div><div class="line">      $scope.inboxId = $stateParams.inboxId;</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">  .state('inbox.priority', &#123;</div><div class="line">    url: '/priority',</div><div class="line">    template: '<span class="tag">&lt;<span class="name">h2</span>&gt;</span>Your priority inbox<span class="tag">&lt;/<span class="name">h2</span>&gt;</span>'</div><div class="line">  &#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>第一个state是平时常见的路由，第二个state是二级路由，即使用”.”来进行子路由的定义。</li>
+</ul>
+<h2 id="abstract抽象模块"><a href="#abstract抽象模块" class="headerlink" title="abstract抽象模块"></a>abstract抽象模块</h2><ul>
+<li>抽象模块不能被激活，但是他的子模块可以。抽象模块提供了一个包括了多个有名的视图的模板，或者它可以传递作用域变量$scope给子模板。</li>
+<li>使用时除了需要添加abstract属性外，其他设置和设定一个常规状态是相同的</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$stateProvider</div><div class="line">  .state(<span class="string">'admin'</span>, &#123;</div><div class="line">    <span class="attr">abstract</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">url</span>: <span class="string">'/admin'</span>,</div><div class="line">    <span class="attr">template</span>: <span class="string">'&lt;div ui-view&gt;&lt;/div&gt;'</span></div><div class="line">  &#125;)</div><div class="line">  .state(<span class="string">'admin.index'</span>, &#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">'/index'</span>,</div><div class="line">    <span class="attr">template</span>: <span class="string">'&lt;h3&gt;Admin index&lt;/h3&gt;'</span></div><div class="line">  &#125;)</div><div class="line">  .state(<span class="string">'admin.users'</span>, &#123;</div><div class="line">    <span class="attr">url</span>: <span class="string">'/users'</span>,</div><div class="line">    <span class="attr">template</span>: <span class="string">'&lt;ul&gt;...&lt;/ul&gt;'</span></div><div class="line">  &#125;);</div></pre></td></tr></table></figure>
+<h2 id="urlRouterProvider"><a href="#urlRouterProvider" class="headerlink" title="$urlRouterProvider"></a>$urlRouterProvider</h2><ul>
+<li>和ngRoute一样，开发者可以在该对象上设定特定的URL被激活时做什么的规则。由于设定好的状态在特定的url被访问是会自动激活，所以$urlRouterProvider没有必要用来管理激活和载入状态。但当需要管理哪些被发生在当前状态之外的作用域scope时它会非常有用，例如在重定向或者安全验证的时候。在模块的设置函数里便可使用$urlRouterProvider。<br><strong>when()</strong></li>
+<li>该函数需要两个参数，第一个是当前的路径，第二个是需要重定向到的路径（或者是需要在路径被访问是运行的函数）。</li>
+<li>如果传递的是函数，在路径被匹配时该函数会被执行，处理器返回如下3个值中的一个<ul>
+<li>（1）falsy，该回应告诉$urlRouter没有匹配到当前url规则，应该尝试匹配新的路径，这样能保证用户访问了正常的路径。 - 字符串，$urlRouter将该字符串当做重定向的路径。 </li>
+<li>（2）TRUE 或者 undefined，该回应告诉$urlRouter，url已被处理</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.config(<span class="function"><span class="keyword">function</span>(<span class="params">$urlRouterProvider</span>) </span>&#123;</div><div class="line">  $urlRouterProvider.when(<span class="string">''</span>, <span class="string">'/inbox'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><strong>otherwise()</strong></p>
+<ul>
+<li>和ngRoute的otherwise()函数相似，在用户提交的路径没有被定义的时候它将重定向到指定的页面。这是个创建’默认‘路径的好方法。otherwise()只接受一个参数，要么函数要么字符串，字符串必须为合法的url路由地址，函数则会在没有任何路径被匹配的时候被运行。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.config(<span class="function"><span class="keyword">function</span>(<span class="params">$urlRouterProvider</span>) </span>&#123;</div><div class="line">  $urlRouterProvider.otherwise(<span class="string">'/'</span>);</div><div class="line">  <span class="comment">// or</span></div><div class="line">  $urlRouterProvider.otherwise(</div><div class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">$injector, $location</span>) </span>&#123;</div><div class="line">      $location.path(<span class="string">'/'</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="stateProvider"><a href="#stateProvider" class="headerlink" title="$stateProvider"></a>$stateProvider</h2><ul>
+<li>有三种方式激活一个状态<ul>
+<li>调用go()方法</li>
+<li>使用ui-sref指示地址</li>
+<li>使用state()导航至进行关联的url</li>
+</ul>
+</li>
+</ul>
+<h3 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//templateUrl的值可以是字符串，也可以是一个函数</span></div><div class="line">$stateProvider.state(<span class="string">'contacts'</span>, &#123;  </div><div class="line">  <span class="attr">templateUrl</span>: <span class="string">'contacts.html'</span>  </div><div class="line">&#125;);</div><div class="line"><span class="comment">//函数</span></div><div class="line">$stateProvider.state(<span class="string">'contacts'</span>, &#123;  </div><div class="line">  <span class="attr">templateUrl</span>: <span class="function"><span class="keyword">function</span> (<span class="params">stateParams</span>)</span>&#123;  </div><div class="line">    <span class="keyword">return</span> <span class="string">'/partials/contacts.'</span> + stateParams.filterBy + <span class="string">'.html'</span>;  </div><div class="line">  &#125;  </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ul>
+<li>可以使用注入功能，但是必须返回html</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$stateProvider.state(<span class="string">'contacts'</span>, &#123;  </div><div class="line">  <span class="attr">templateProvider</span>: <span class="function"><span class="keyword">function</span> (<span class="params">$timeout, $stateParams</span>) </span>&#123;  </div><div class="line">    <span class="keyword">return</span> $timeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;  </div><div class="line">      <span class="keyword">return</span> <span class="string">'&lt;h1&gt;'</span> + $stateParams.contactId + <span class="string">'&lt;/h1&gt;'</span>  </div><div class="line">    &#125;, <span class="number">100</span>);  </div><div class="line">  &#125;  </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h3><ul>
+<li>可以使用控制器<strong>controller</strong>，但是必须要有模板</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$stateProvider.state(<span class="string">'contacts'</span>, &#123;  </div><div class="line">  <span class="attr">template</span>: <span class="string">'&lt;h1&gt;&#123;&#123;title&#125;&#125;&lt;/h1&gt;'</span>,  </div><div class="line">  <span class="attr">controller</span>: <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;  </div><div class="line">    $scope.title = <span class="string">'My Contacts'</span>;  </div><div class="line">  &#125;  </div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="resolve"><a href="#resolve" class="headerlink" title="resolve"></a>resolve</h3><ul>
+<li>resolve可以为控制器提供可选的依赖注入项。</li>
+<li>在controller实例化之前，resolve中的每一个对象都必须 be resolved</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">$stateProvider.state(<span class="string">'myState'</span>, &#123;</div><div class="line">      <span class="attr">resolve</span>:&#123;</div><div class="line">         <span class="comment">// Since it's not a promise, it resolves immediately.</span></div><div class="line">         simpleObj:  <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">return</span> &#123;<span class="attr">value</span>: <span class="string">'simple!'</span>&#125;;</div><div class="line">         &#125;,</div><div class="line">         <span class="comment">// 这是一种典型使用方式</span></div><div class="line">         <span class="comment">// 请给函数注入任何想要的服务依赖，例如 $http</span></div><div class="line">         promiseObj:  <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>)</span>&#123;</div><div class="line">            <span class="keyword">return</span> $http(&#123;<span class="attr">method</span>: <span class="string">'GET'</span>, <span class="attr">url</span>: <span class="string">'/someUrl'</span>&#125;);</div><div class="line">         &#125;,</div><div class="line">         <span class="comment">// 如果想对返回结果进行处理， 可以使用 .then 方法</span></div><div class="line">         <span class="comment">// 这是另一种典型使用方式</span></div><div class="line">         promiseObj2:  <span class="function"><span class="keyword">function</span>(<span class="params">$http</span>)</span>&#123;</div><div class="line">            <span class="keyword">return</span> $http(&#123;<span class="attr">method</span>: <span class="string">'GET'</span>, <span class="attr">url</span>: <span class="string">'/someUrl'</span>&#125;)</div><div class="line">               .then (<span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">                   <span class="keyword">return</span> doSomeStuffFirst(data);</div><div class="line">               &#125;);</div><div class="line">         &#125;,        </div><div class="line">         <span class="comment">// 使用服务名的例子，这将在模块中查找名称为 'translations' 的服务，并返回该服务 </span></div><div class="line">         translations: <span class="string">"translations"</span>,</div><div class="line">         <span class="comment">// 将服务模块作为解决函数的依赖项，通过参数传入</span></div><div class="line">         <span class="comment">// 提示：依赖项 $stateParams 代表 url 中的参数</span></div><div class="line">         translations2: <span class="function"><span class="keyword">function</span>(<span class="params">translations, $stateParams</span>)</span>&#123;</div><div class="line">             translations.getLang($stateParams.lang);</div><div class="line">         &#125;,</div><div class="line">         <span class="attr">greeting</span>: <span class="function"><span class="keyword">function</span>(<span class="params">$q, $timeout</span>)</span>&#123;</div><div class="line">             <span class="keyword">var</span> deferred = $q.defer();</div><div class="line">             $timeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">                 deferred.resolve(<span class="string">'Hello!'</span>);</div><div class="line">             &#125;, <span class="number">1000</span>);</div><div class="line">             <span class="keyword">return</span> deferred.promise;</div><div class="line">         &#125;</div><div class="line">      &#125;,</div><div class="line">      <span class="comment">// 控制器将等待上面的解决项都被解决后才被实例化</span></div><div class="line">      controller: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, simpleObj, promiseObj, promiseObj2, translations, translations2, greeting</span>)</span>&#123;</div><div class="line">          </div><div class="line">          $scope.simple = simpleObj.value;</div><div class="line">          <span class="comment">// 这里可以放心使用 promiseObj 中的对象</span></div><div class="line">          $scope.items = promiseObj.items;</div><div class="line">          $scope.items = promiseObj2.items;</div><div class="line">          $scope.title = translations.getLang(<span class="string">"english"</span>).title;</div><div class="line">          $scope.title = translations2.title;</div><div class="line">          $scope.greeting = greeting;</div><div class="line">      &#125;</div><div class="line">   &#125;)</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/01/Z00-随笔/" rel="next" title="小愚怡情，大愚伤身">
+                <i class="fa fa-chevron-left"></i> 小愚怡情，大愚伤身
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/tx1.jpg"
+               alt="Qcyue" />
+          <p class="site-author-name" itemprop="name">Qcyue</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活，我们是认真的！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ui-router"><span class="nav-number">1.</span> <span class="nav-text">ui-router</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法"><span class="nav-number">1.1.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由嵌套"><span class="nav-number">1.2.</span> <span class="nav-text">路由嵌套</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#abstract抽象模块"><span class="nav-number">1.3.</span> <span class="nav-text">abstract抽象模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#urlRouterProvider"><span class="nav-number">1.4.</span> <span class="nav-text">$urlRouterProvider</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stateProvider"><span class="nav-number">1.5.</span> <span class="nav-text">$stateProvider</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板"><span class="nav-number">1.5.1.</span> <span class="nav-text">模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制器"><span class="nav-number">1.5.2.</span> <span class="nav-text">控制器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resolve"><span class="nav-number">1.5.3.</span> <span class="nav-text">resolve</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qcyue</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

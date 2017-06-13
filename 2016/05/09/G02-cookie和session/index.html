@@ -101,7 +101,7 @@ cookie是浏览器进行状态保持的一种技术
 http是无状态的，无法记录客户端和服务器端的通信状态
 url重写可以解决用户禁用cookie后，依然保持客户端与服务器端的正常通信状态。
 由于 Http 协议的请求过程，是基于TCP/IP的，当客户端请求服务器，服务器处理后，进行响应，这个过程是无状态的。在有些时候，是需要保存一些客户端的请求信息，识别客户端的某些状态，智">
-<meta property="og:updated_time" content="2017-04-12T08:21:08.389Z">
+<meta property="og:updated_time" content="2017-04-24T02:35:55.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cookie">
 <meta name="twitter:description" content="cookie和session
@@ -377,7 +377,7 @@ url重写可以解决用户禁用cookie后，依然保持客户端与服务器�
 <li>cookie的格式是键值对</li>
 <li>多个cookie之间使用分号和空格隔开 ，如 <code>username=zhangsan; age=12</code><h3 id="cookie分类"><a href="#cookie分类" class="headerlink" title="cookie分类"></a>cookie分类</h3></li>
 <li>session cookie   会话cookie  关闭浏览器窗口，cookie就消失</li>
-<li>presistant cookie   持久cookie  需要设置过期时间<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">date.setDate(data.getDate()+<span class="number">5</span>);</div><div class="line"><span class="comment">//设置为从当前时间起五天后过期</span></div><div class="line"><span class="built_in">document</span>.cookie = <span class="string">"age=12;expires="</span>+date.toGMTString();</div><div class="line"><span class="built_in">document</span>.cookie=<span class="string">"username=zhangsan"</span>;<span class="comment">//设置多个cookie，cookie设置是累加的</span></div></pre></td></tr></table></figure>
+<li>presistant cookie   持久cookie  需要设置过期时间<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">date.setDate(date.getDate()+<span class="number">5</span>);</div><div class="line"><span class="comment">//设置为从当前时间起五天后过期</span></div><div class="line"><span class="built_in">document</span>.cookie = <span class="string">"age=12;expires="</span>+date.toGMTString();</div><div class="line"><span class="built_in">document</span>.cookie=<span class="string">"username=zhangsan"</span>;<span class="comment">//设置多个cookie，cookie设置是累加的</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p><strong> 封装cookie</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">   <span class="comment">//设置cookie</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setCookie</span>(<span class="params">key,value,expires</span>) </span>&#123;</div><div class="line">       <span class="built_in">document</span>.cookie = key + <span class="string">"="</span> + value + <span class="string">"; "</span> +<span class="string">"expires="</span>+expires + 	<span class="string">"; path=/"</span>;   <span class="comment">//   path=/  表示在当前的根目录有效</span></div><div class="line">   &#125;</div><div class="line">   <span class="comment">//获取cookie</span></div><div class="line">   <span class="function"><span class="keyword">function</span> <span class="title">getCookie</span>(<span class="params">cname</span>) </span>&#123;</div><div class="line">       <span class="keyword">var</span> cookies = <span class="built_in">document</span>.cookie;</div><div class="line">       <span class="keyword">var</span> arr = cookies.split(<span class="string">"; "</span>);</div><div class="line">       <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</div><div class="line">           <span class="keyword">var</span> kv = arr[i].split(<span class="string">"="</span>);</div><div class="line">           <span class="keyword">if</span>(cname ==kv[<span class="number">0</span>])&#123;</div><div class="line">               <span class="keyword">return</span> kv[<span class="number">1</span>];</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
@@ -439,8 +439,8 @@ url重写可以解决用户禁用cookie后，依然保持客户端与服务器�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/07/F05-面向对象-杂乱知识点/" rel="next" title="面向对象-杂乱知识点">
-                <i class="fa fa-chevron-left"></i> 面向对象-杂乱知识点
+              <a href="/2016/05/07/F04-事件处理机制/" rel="next" title="事件处理机制">
+                <i class="fa fa-chevron-left"></i> 事件处理机制
               </a>
             
           </div>
@@ -523,7 +523,7 @@ url重写可以解决用户禁用cookie后，依然保持客户端与服务器�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -534,7 +534,7 @@ url重写可以解决用户禁用cookie后，依然保持客户端与服务器�
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

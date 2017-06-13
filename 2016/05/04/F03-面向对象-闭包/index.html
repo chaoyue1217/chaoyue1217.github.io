@@ -107,7 +107,7 @@
 
 作用域链
 函数内层作用域可以访问函数外层作用，">
-<meta property="og:updated_time" content="2017-04-12T01:25:49.561Z">
+<meta property="og:updated_time" content="2017-04-24T02:19:12.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="闭包">
 <meta name="twitter:description" content="作用域与闭包作用域
@@ -425,7 +425,7 @@
 <li><strong>闭包的机制领悟</strong></li>
 <li>闭包是能够有权访问其他环境中变量的函数。也就是闭包可以记住它被创建时的环境。</li>
 <li>浏览器用“栈”来维护执行上下文（也就是函数的运行环境），当前正在运行的函数会处于栈顶，当函数执行完毕后会出栈，然后将下一个元素作为当前的上下文。</li>
-<li>当遇到闭包时，外部函数并未出栈，闭包就已经进栈了，所以外部函数还在栈中占据着一块空间。实际上外部函数的闭包数据被存在了堆中，这样才能在闭包执行完毕后（已经出栈后）内部的变量还一直存在。</li>
+<li>当遇到闭包时，外部函数并未出栈，闭包就已经进栈了，所以外部函数还在栈中占据着一块空间。实际上外部函数的数据被存在了堆中，这样才能在闭包执行完毕后（已经出栈后）内部的变量还一直存在。</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//函数a进栈</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> num = <span class="number">1</span>;</div><div class="line"><span class="comment">//当执行到该处时，函数a还未执行完毕，此时，闭包进栈</span></div><div class="line"><span class="comment">//由于栈遵循先入后出的原则，因此在闭包执行之前，函数a不会出栈</span></div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    num++;</div><div class="line">    <span class="built_in">console</span>.log(num);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
@@ -473,8 +473,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/05/07/F04-事件处理机制/" rel="prev" title="事件处理机制">
-                事件处理机制 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/05/07/F05-面向对象-杂乱知识点/" rel="prev" title="面向对象-杂乱知识点">
+                面向对象-杂乱知识点 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -547,7 +547,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -558,7 +558,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

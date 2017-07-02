@@ -1,0 +1,918 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="虽然ng-grid已经升级到了ui-grid，但是由于我们现在正在使用的是ng-grid，因此在这还是对ng-grid做一个总结吧。
+ng-grid的使用很简单，在我看来，只需要按照官方提供的一copy就ok了。
+基本的列表展示
+html
+
+1234567891011121314&amp;lt;html ng-app=&quot;myApp&quot;&amp;gt;      &amp;lt;head lang=&quot;en&quot;&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ngGrid">
+<meta property="og:url" content="http://yoursite.com/2017/06/15/H13-ngGrid/index.html">
+<meta property="og:site_name" content="Shining Moon">
+<meta property="og:description" content="虽然ng-grid已经升级到了ui-grid，但是由于我们现在正在使用的是ng-grid，因此在这还是对ng-grid做一个总结吧。
+ng-grid的使用很简单，在我看来，只需要按照官方提供的一copy就ok了。
+基本的列表展示
+html
+
+1234567891011121314&amp;lt;html ng-app=&quot;myApp&quot;&amp;gt;      &amp;lt;head lang=&quot;en&quot;&amp;gt;">
+<meta property="og:updated_time" content="2017-07-02T09:22:20.501Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ngGrid">
+<meta name="twitter:description" content="虽然ng-grid已经升级到了ui-grid，但是由于我们现在正在使用的是ng-grid，因此在这还是对ng-grid做一个总结吧。
+ng-grid的使用很简单，在我看来，只需要按照官方提供的一copy就ok了。
+基本的列表展示
+html
+
+1234567891011121314&amp;lt;html ng-app=&quot;myApp&quot;&amp;gt;      &amp;lt;head lang=&quot;en&quot;&amp;gt;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/15/H13-ngGrid/"/>
+
+
+
+
+
+  <title> ngGrid | Shining Moon </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shining Moon</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/H13-ngGrid/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ngGrid
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T00:00:00+08:00">
+                2017-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>虽然ng-grid已经升级到了ui-grid，但是由于我们现在正在使用的是ng-grid，因此在这还是对ng-grid做一个总结吧。</p>
+<p>ng-grid的使用很简单，在我看来，只需要按照官方提供的一copy就ok了。</p>
+<h1 id="基本的列表展示"><a href="#基本的列表展示" class="headerlink" title="基本的列表展示"></a>基本的列表展示</h1><ul>
+<li>html</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Getting Started With ngGrid Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"ng-grid.css"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"style.css"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"jquery-1.8.2.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"ng-grid-1.3.2.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-controller</span>=<span class="string">"MyCtrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"gridStyle"</span> <span class="attr">ng-grid</span>=<span class="string">"gridOptions"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>js</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, [<span class="string">'ngGrid'</span>]);</div><div class="line">app.controller(<span class="string">'MyCtrl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</div><div class="line">    <span class="comment">//myData一般为从后台获取的数据，数组格式</span></div><div class="line">    $scope.myData = [&#123;<span class="attr">name</span>: <span class="string">"Moroni"</span>, <span class="attr">age</span>: <span class="number">50</span>&#125;,</div><div class="line">                     &#123;<span class="attr">name</span>: <span class="string">"Tiancum"</span>, <span class="attr">age</span>: <span class="number">43</span>&#125;,</div><div class="line">                     &#123;<span class="attr">name</span>: <span class="string">"Jacob"</span>, <span class="attr">age</span>: <span class="number">27</span>&#125;,</div><div class="line">                     &#123;<span class="attr">name</span>: <span class="string">"Nephi"</span>, <span class="attr">age</span>: <span class="number">29</span>&#125;,</div><div class="line">                     &#123;<span class="attr">name</span>: <span class="string">"Enos"</span>, <span class="attr">age</span>: <span class="number">34</span>&#125;];</div><div class="line">    $scope.gridOptions = &#123; <span class="attr">data</span>: <span class="string">'myData'</span> &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h1 id="使用列配置"><a href="#使用列配置" class="headerlink" title="使用列配置"></a>使用列配置</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Getting Started With ngGrid Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"ng-grid.css"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"style.css"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"jquery-1.8.2.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"ng-grid-1.3.2.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"main.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-controller</span>=<span class="string">"MyCtrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"gridStyle"</span> <span class="attr">ng-grid</span>=<span class="string">"gridOptions"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, [<span class="string">'ngGrid'</span>]);</div><div class="line">    app.controller(<span class="string">'MyCtrl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.myData = [&#123;<span class="attr">name</span>: <span class="string">"Moroni"</span>, <span class="attr">age</span>: <span class="number">50</span>&#125;,</div><div class="line">                         &#123;<span class="attr">name</span>: <span class="string">"Tiancum"</span>, <span class="attr">age</span>: <span class="number">43</span>&#125;,</div><div class="line">                         &#123;<span class="attr">name</span>: <span class="string">"Jacob"</span>, <span class="attr">age</span>: <span class="number">27</span>&#125;,</div><div class="line">                         &#123;<span class="attr">name</span>: <span class="string">"Nephi"</span>, <span class="attr">age</span>: <span class="number">29</span>&#125;,</div><div class="line">                         &#123;<span class="attr">name</span>: <span class="string">"Enos"</span>, <span class="attr">age</span>: <span class="number">34</span>&#125;];</div><div class="line">        $scope.gridOptions = &#123; </div><div class="line">            <span class="attr">data</span>: <span class="string">'myData'</span>,</div><div class="line">            <span class="attr">columnDefs</span>: [&#123;<span class="attr">field</span>:<span class="string">'name'</span>, <span class="attr">displayName</span>:<span class="string">'Name'</span>&#125;, &#123;<span class="attr">field</span>:<span class="string">'age'</span>, <span class="attr">displayName</span>:<span class="string">'Age'</span>&#125;]</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span>&gt;</div></pre></td></tr></table></figure>
+<h1 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-controller</span>=<span class="string">"MyCtrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"gridStyle"</span> <span class="attr">ng-grid</span>=<span class="string">"gridOptions"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, [<span class="string">'ngGrid'</span>]);</div><div class="line">app.controller(<span class="string">'MyCtrl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $http</span>) </span>&#123;</div><div class="line">    $scope.filterOptions = &#123;</div><div class="line">        <span class="attr">filterText</span>: <span class="string">""</span>,</div><div class="line">        <span class="attr">useExternalFilter</span>: <span class="literal">true</span></div><div class="line">    &#125;; </div><div class="line">    $scope.totalServerItems = <span class="number">0</span>;</div><div class="line">    $scope.pagingOptions = &#123;</div><div class="line">        <span class="attr">pageSizes</span>: [<span class="number">250</span>, <span class="number">500</span>, <span class="number">1000</span>],</div><div class="line">        <span class="attr">pageSize</span>: <span class="number">250</span>,</div><div class="line">        <span class="attr">currentPage</span>: <span class="number">1</span></div><div class="line">    &#125;;  </div><div class="line">    $scope.setPagingData = <span class="function"><span class="keyword">function</span>(<span class="params">data, page, pageSize</span>)</span>&#123;  </div><div class="line">        <span class="keyword">var</span> pagedData = data.slice((page - <span class="number">1</span>) * pageSize, page * pageSize);</div><div class="line">        $scope.myData = pagedData;</div><div class="line">        $scope.totalServerItems = data.length;</div><div class="line">        <span class="keyword">if</span> (!$scope.$$phase) &#123;</div><div class="line">            $scope.$apply();</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    $scope.getPagedDataAsync = <span class="function"><span class="keyword">function</span> (<span class="params">pageSize, page, searchText</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> data;</div><div class="line">            <span class="keyword">if</span> (searchText) &#123;</div><div class="line">                <span class="keyword">var</span> ft = searchText.toLowerCase();</div><div class="line">                $http.get(<span class="string">'jsonFiles/largeLoad.json'</span>).success(<span class="function"><span class="keyword">function</span> (<span class="params">largeLoad</span>) </span>&#123;        </div><div class="line">                    data = largeLoad.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</div><div class="line">                        <span class="keyword">return</span> <span class="built_in">JSON</span>.stringify(item).toLowerCase().indexOf(ft) != <span class="number">-1</span>;</div><div class="line">                    &#125;);</div><div class="line">                    $scope.setPagingData(data,page,pageSize);</div><div class="line">                &#125;);            </div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                $http.get(<span class="string">'jsonFiles/largeLoad.json'</span>).success(<span class="function"><span class="keyword">function</span> (<span class="params">largeLoad</span>) </span>&#123;</div><div class="line">                    $scope.setPagingData(largeLoad,page,pageSize);</div><div class="line">                &#125;);</div><div class="line">            &#125;</div><div class="line">        &#125;, <span class="number">100</span>);</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);</div><div class="line">    </div><div class="line">    $scope.$watch(<span class="string">'pagingOptions'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (newVal !== oldVal &amp;&amp; newVal.currentPage !== oldVal.currentPage) &#123;</div><div class="line">          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);</div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="literal">true</span>);</div><div class="line">    $scope.$watch(<span class="string">'filterOptions'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (newVal !== oldVal) &#123;</div><div class="line">          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);</div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="literal">true</span>);</div><div class="line">    </div><div class="line">    $scope.gridOptions = &#123;</div><div class="line">        <span class="attr">data</span>: <span class="string">'myData'</span>,</div><div class="line">        <span class="attr">enablePaging</span>: <span class="literal">true</span>,</div><div class="line">        <span class="attr">showFooter</span>: <span class="literal">true</span>,</div><div class="line">        <span class="attr">totalServerItems</span>: <span class="string">'totalServerItems'</span>,</div><div class="line">        <span class="attr">pagingOptions</span>: $scope.pagingOptions,</div><div class="line">        <span class="attr">filterOptions</span>: $scope.filterOptions</div><div class="line">    &#125;;</div><div class="line">&#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="ng-grid的常用配置API"><a href="#ng-grid的常用配置API" class="headerlink" title="ng-grid的常用配置API"></a>ng-grid的常用配置API</h1><table>
+<thead>
+<tr>
+<th style="text-align:center">属性名</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">data</td>
+<td style="text-align:center">[]</td>
+<td style="text-align:center">用于展示表格的数据</td>
+</tr>
+<tr>
+<td style="text-align:center">enableCellEdit</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">单元格是否可编辑</td>
+</tr>
+<tr>
+<td style="text-align:center">jqueryUITheme</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">是否使用juqeryUI的主题</td>
+</tr>
+<tr>
+<td style="text-align:center">columnDefs</td>
+<td style="text-align:center">undefined</td>
+<td style="text-align:center">对列进行自定义，不设置则按默认的展示</td>
+</tr>
+<tr>
+<td style="text-align:center">enableColumnResize</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">是否可调整列的大小</td>
+</tr>
+<tr>
+<td style="text-align:center">nableSorting</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">是否支持排序</td>
+</tr>
+<tr>
+<td style="text-align:center">headerRowHeight</td>
+<td style="text-align:center">32</td>
+<td style="text-align:center">标题行的高度，以像素为单位</td>
+</tr>
+<tr>
+<td style="text-align:center">headerRowTemplate</td>
+<td style="text-align:center">undefined</td>
+<td style="text-align:center">标题行的模板</td>
+</tr>
+<tr>
+<td style="text-align:center">init</td>
+<td style="text-align:center"><code>function(grid, $scope) { }</code></td>
+<td style="text-align:center">表格初始化后即调用的函数</td>
+</tr>
+<tr>
+<td style="text-align:center">rowHeight</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">行高度</td>
+</tr>
+<tr>
+<td style="text-align:center">rowTemplate</td>
+<td style="text-align:center">rowTemplate见下</td>
+<td style="text-align:center">行模板</td>
+</tr>
+<tr>
+<td style="text-align:center">showColumnMenu</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">启用菜单以选择要显示和分组的列。 如果showColumnMenu和showFilter都为false，则菜单按钮将不显示。</td>
+</tr>
+<tr>
+<td style="text-align:center">sortInfo</td>
+<td style="text-align:center"><code>{ fields: [], directions: [] }</code></td>
+<td style="text-align:center">自定义排序对象</td>
+</tr>
+<tr>
+<td style="text-align:center">multiSelect</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">是否可同时选中多行</td>
+</tr>
+<tr>
+<td style="text-align:center">enableCellEditOnFocus</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">单击单元格聚焦</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>rowTemplate</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-style</span>=<span class="string">"&#123; 'cursor': row.cursor &#125;"</span> <span class="attr">ng-repeat</span>=<span class="string">"col in renderedColumns"</span> <span class="attr">ng-class</span>=<span class="string">"col.colIndex()"</span> <span class="attr">class</span>=<span class="string">"ngCell &#123;&#123;col.cellClass&#125;&#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngVerticalBar"</span> <span class="attr">ng-style</span>=<span class="string">"&#123;height: rowHeight&#125;"</span> <span class="attr">ng-class</span>=<span class="string">"&#123; ngVerticalBarVisible: !$last &#125;"</span>&gt;</span>&amp;nbsp;<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-cell</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>以下配置用于分页</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性名</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">enablePaging</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">是否分页</td>
+</tr>
+<tr>
+<td style="text-align:center">pagingOptions</td>
+<td style="text-align:center"><code>{ pageSizes: [250, 500, 1000], pageSize: 250, totalServerItems: 0, currentPage: 1 }</code></td>
+<td style="text-align:center">配置分页相关属性 pageSizes: 可选的每页展示数 <br> pageSize:当前显示的展示数量 <br> totalServerItems：数据的总条数 <br> currentPage: 当前的页数</td>
+</tr>
+<tr>
+<td style="text-align:center">filterOptions</td>
+<td style="text-align:center"><code>{ filterText: &#39;&#39;, useExternalFilter: false }</code></td>
+<td style="text-align:center">过滤</td>
+</tr>
+</tbody>
+</table>
+<p><strong>自定义列的配置</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性名</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">field</td>
+<td style="text-align:center"><code>&quot;&quot;</code></td>
+<td style="text-align:center">与myData数据中的属性进行关联</td>
+</tr>
+<tr>
+<td style="text-align:center">displayName</td>
+<td style="text-align:center">field</td>
+<td style="text-align:center">要显示的名称，默认是field设置的属性</td>
+</tr>
+<tr>
+<td style="text-align:center">enableCellEdit</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">该列是否可编辑</td>
+</tr>
+<tr>
+<td style="text-align:center">cellClass</td>
+<td style="text-align:center"><code>&#39;&#39;</code></td>
+<td style="text-align:center">给列添加样式类</td>
+</tr>
+<tr>
+<td style="text-align:center">cellTemplate</td>
+<td style="text-align:center">cellTemplate见下</td>
+<td style="text-align:center">该列的模板</td>
+</tr>
+<tr>
+<td style="text-align:center">width</td>
+<td style="text-align:center"><code>&#39;&#39;</code></td>
+<td style="text-align:center">设置列宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">maxWidth</td>
+<td style="text-align:center">9000</td>
+<td style="text-align:center">设置列的最大宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">minWidth</td>
+<td style="text-align:center">50</td>
+<td style="text-align:center">设置列的最小宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">editableCellTemplate</td>
+<td style="text-align:center"><code>&lt;input ng-class=&quot;&#39;colt&#39; + col.index&quot; ng-input=&quot;COL_FIELD&quot; /&gt;</code></td>
+<td style="text-align:center">设置列的编辑状态的模板，当用户使用enableFocusedCellEdit和单元格被聚焦时显示。</td>
+</tr>
+<tr>
+<td style="text-align:center">headerCellTemplate</td>
+<td style="text-align:center">headerTemplate见下</td>
+<td style="text-align:center">设置列标题单元格的模板</td>
+</tr>
+<tr>
+<td style="text-align:center">pinnable</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">列是否可以固定在左边</td>
+</tr>
+<tr>
+<td style="text-align:center">groupable</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">是否允许用户对列进行分组</td>
+</tr>
+<tr>
+<td style="text-align:center">resizable</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">列的大小是否可调整</td>
+</tr>
+<tr>
+<td style="text-align:center">sortable</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">列是否可排序</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>headerTemplate</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngHeaderSortColumn &#123;&#123;col.headerClass&#125;&#125;"</span> <span class="attr">ng-style</span>=<span class="string">"&#123;'cursor': col.cursor&#125;"</span> <span class="attr">ng-class</span>=<span class="string">"&#123; 'ngSorted': !noSortVisible &#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-click</span>=<span class="string">"col.sort($event)"</span> <span class="attr">ng-class</span>=<span class="string">"'colt' + col.index"</span> <span class="attr">class</span>=<span class="string">"ngHeaderText"</span>&gt;</span>&#123;&#123;col.displayName&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngSortButtonDown"</span> <span class="attr">ng-show</span>=<span class="string">"col.showSortButtonDown()"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngSortButtonUp"</span> <span class="attr">ng-show</span>=<span class="string">"col.showSortButtonUp()"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngSortPriority"</span>&gt;</span>&#123;&#123;col.sortPriority&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-class</span>=<span class="string">"&#123; ngPinnedIcon: col.pinned, ngUnPinnedIcon: !col.pinned &#125;"</span> <span class="attr">ng-click</span>=<span class="string">"togglePin(col)"</span> <span class="attr">ng-show</span>=<span class="string">"col.pinnable"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-show</span>=<span class="string">"col.resizable"</span> <span class="attr">class</span>=<span class="string">"ngHeaderGrip"</span> <span class="attr">ng-click</span>=<span class="string">"col.gripClick($event)"</span> <span class="attr">ng-mousedown</span>=<span class="string">"col.gripOnMouseDown($event)"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>cellTemplate</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngCellText"</span> <span class="attr">ng-class</span>=<span class="string">"col.colIndex()"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">ng-cell-text</span>&gt;</span>&#123;&#123;COL_FIELD CUSTOM_FILTERS&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>使用</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$scope.gridOptions = &#123;</div><div class="line">	<span class="attr">data</span>: <span class="string">'myData'</span>,</div><div class="line">	<span class="attr">enableColumnResize</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">showColumnMenu</span>:<span class="literal">true</span>,</div><div class="line">	<span class="attr">columnDefs</span>: </div><div class="line">		[&#123;<span class="attr">field</span>: <span class="string">'name'</span>,<span class="attr">width</span>:<span class="string">"35%"</span>,<span class="attr">displayName</span>: <span class="string">'属	性名'</span>,<span class="attr">enableCellEdit</span>: <span class="literal">true</span>&#125;, </div><div class="line">		&#123;<span class="attr">field</span>:<span class="string">'value'</span>,<span class="attr">width</span>:<span class="string">"35%"</span>, <span class="attr">displayName</span>:<span class="string">'属性值'</span>,<span class="attr">enableCellEdit</span>: <span class="literal">true</span>&#125;,</div><div class="line">		&#123;<span class="attr">field</span>:<span class="string">'applyToGateway'</span>, <span class="attr">displayName</span>:<span class="string">'下发'</span>,<span class="attr">width</span>:<span class="string">'15%'</span>, <span class="attr">enableCellEdit</span>: <span class="literal">false</span>,<span class="attr">cellTemplate</span>:<span class="string">'&lt;input type="checkbox"  ng-model=" row.entity.applyToGateway" style=" width: 24px;height: 24px;margin-top:3px;"&gt;'</span>&#125;,</div><div class="line">		&#123;<span class="attr">displayName</span>:<span class="string">'操作'</span>,<span class="attr">width</span>:<span class="string">'15%'</span>,<span class="attr">cellTemplate</span>:$scope.revise,<span class="attr">enableCellEdit</span>: <span class="literal">false</span>,<span class="attr">cellTemplate</span>:<span class="string">'&lt;a&gt;&lt;span class="glyphicon glyphicon-remove" style="margin-left:3%;margin-top:6px;color:#d9534f " ng-click="Remove(row)"&gt;&lt;/span&gt;&lt;/a&gt; '</span>&#125;]</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/05/H12-Angular懒加载/" rel="next" title="ocLazyload">
+                <i class="fa fa-chevron-left"></i> ocLazyload
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/29/J04-vue实例/" rel="prev" title="vue实例">
+                vue实例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/tx1.jpg"
+               alt="Qcyue" />
+          <p class="site-author-name" itemprop="name">Qcyue</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活，我们是认真的！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本的列表展示"><span class="nav-number">1.</span> <span class="nav-text">基本的列表展示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用列配置"><span class="nav-number">2.</span> <span class="nav-text">使用列配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分页"><span class="nav-number">3.</span> <span class="nav-text">分页</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ng-grid的常用配置API"><span class="nav-number">4.</span> <span class="nav-text">ng-grid的常用配置API</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qcyue</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

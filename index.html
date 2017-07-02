@@ -260,6 +260,662 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/29/J04-vue实例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/29/J04-vue实例/" itemprop="url">
+                  vue实例
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T00:00:00+08:00">
+                2017-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue-从零开始/" itemprop="url" rel="index">
+                    <span itemprop="name">vue--从零开始</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="vue构造器"><a href="#vue构造器" class="headerlink" title="vue构造器"></a>vue构造器</h1><p>每个vue应用都是通过构造函数<code>Vue</code>创建一个Vue的根实例启动的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//选项</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>虽然没有完全遵守MVVM模式，Vue的设计无疑受到了它的启发。因此文档中经常使用vm（ViewModel的简称）这个变量名来表示Vue的实例。</p>
+<p>在实例化Vue时，需要传入一个<strong>选项对象</strong>，它可以包含数据、模板、挂载元素、方法、生命周期钩子等选项。全部的选项可以在API文档中查看。</p>
+<p>可以扩展Vue的构造器，从而用预定义选项创建可复用的组件构造器：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MyComponent = Vue.extend(&#123;</div><div class="line">    <span class="comment">//扩展选项</span></div><div class="line">&#125;)</div><div class="line"><span class="comment">// 所有的MyComponent实例都将以预定义的扩展选项被创建</span></div></pre></td></tr></table></figure>
+<h1 id="属性和方法"><a href="#属性和方法" class="headerlink" title="属性和方法"></a>属性和方法</h1><p>每个Vue实例都会代理其<code>data</code>对象里所有的属性：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">data</span>:data</div><div class="line">&#125;);</div><div class="line">vm.a === data.a; <span class="comment">//  true</span></div><div class="line"></div><div class="line"><span class="comment">//设置属性也会影响到原始数据</span></div><div class="line">vm.a = <span class="number">3</span>；</div><div class="line">data.a <span class="comment">//  3</span></div><div class="line"></div><div class="line"><span class="comment">//反之一样</span></div><div class="line">data.a = <span class="number">2</span>;</div><div class="line">vm.a  <span class="comment">//  2</span></div></pre></td></tr></table></figure>
+<p><strong>注意</strong><br>只有这些被代理的属性是相应的。如果在实例创建之后添加新的属性到实例上，它不会触发视图更新。</p>
+<p>除了data属性，vue实例还暴露了一些有用的实例属性和方法。这是属性和方法都有前缀’$’,以便与代理的data属性区分。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;<span class="attr">a</span>:<span class="number">1</span>&#125;</div><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">data</span>:data</div><div class="line">&#125;)</div><div class="line">vm.$data === data; <span class="comment">// true</span></div><div class="line">vm.$el === <span class="built_in">document</span>.getElementById(<span class="string">'app'</span>); <span class="comment">// true</span></div><div class="line">vm.$watch(<span class="string">'a'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">newVal,oldVal</span>)</span>&#123;</div><div class="line">    <span class="comment">//vm.a变化时的回调函数</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><strong>注意</strong><br>不要在实例属性或者回调函数中使用箭头函数。因为箭头函数绑定父级上下文，所以this不会像预想的一样是vue实例，而是this.myMethod未被定义。</p>
+<h1 id="实例生命周期"><a href="#实例生命周期" class="headerlink" title="实例生命周期"></a>实例生命周期</h1><p>每个vue实例在被创建之前都要经过一系列的初始化过程。例如，实例需要配置数据观测（data observer）、编译模板、挂载实例到DOM，然后在数据变化时更新DOM。在这个过程中，实例也会调用一些<strong>生命周期钩子</strong>，这就给我们提供了执行自定义逻辑的机会。例如，<code>created</code>这个钩子在实例被创建之后调用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">a</span>:<span class="number">1</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">created</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"a is: "</span> + <span class="keyword">this</span>.a);</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>也有一些其他的钩子，在实例生命周期的不同阶段调用，如<code>mounted</code>、<code>update</code>、<code>destroyed</code>。钩子的this指向调用它的Vue实例。</p>
+<ul>
+<li>vue中没有控制器的概念。组件的自定义可以分布在这些钩子中</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/15/H13-ngGrid/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/15/H13-ngGrid/" itemprop="url">
+                  ngGrid
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-15T00:00:00+08:00">
+                2017-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>虽然ng-grid已经升级到了ui-grid，但是由于我们现在正在使用的是ng-grid，因此在这还是对ng-grid做一个总结吧。</p>
+<p>ng-grid的使用很简单，在我看来，只需要按照官方提供的一copy就ok了。</p>
+<h1 id="基本的列表展示"><a href="#基本的列表展示" class="headerlink" title="基本的列表展示"></a>基本的列表展示</h1><ul>
+<li>html</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Getting Started With ngGrid Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"ng-grid.css"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"style.css"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"jquery-1.8.2.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"ng-grid-1.3.2.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-controller</span>=<span class="string">"MyCtrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"gridStyle"</span> <span class="attr">ng-grid</span>=<span class="string">"gridOptions"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>js</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, [<span class="string">'ngGrid'</span>]);</div><div class="line">app.controller(<span class="string">'MyCtrl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</div><div class="line">    <span class="comment">//myData一般为从后台获取的数据，数组格式</span></div><div class="line">    $scope.myData = [&#123;<span class="attr">name</span>: <span class="string">"Moroni"</span>, <span class="attr">age</span>: <span class="number">50</span>&#125;,</div><div class="line">                     &#123;<span class="attr">name</span>: <span class="string">"Tiancum"</span>, <span class="attr">age</span>: <span class="number">43</span>&#125;,</div><div class="line">                     &#123;<span class="attr">name</span>: <span class="string">"Jacob"</span>, <span class="attr">age</span>: <span class="number">27</span>&#125;,</div><div class="line">                     &#123;<span class="attr">name</span>: <span class="string">"Nephi"</span>, <span class="attr">age</span>: <span class="number">29</span>&#125;,</div><div class="line">                     &#123;<span class="attr">name</span>: <span class="string">"Enos"</span>, <span class="attr">age</span>: <span class="number">34</span>&#125;];</div><div class="line">    $scope.gridOptions = &#123; <span class="attr">data</span>: <span class="string">'myData'</span> &#125;;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h1 id="使用列配置"><a href="#使用列配置" class="headerlink" title="使用列配置"></a>使用列配置</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">ng-app</span>=<span class="string">"myApp"</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Getting Started With ngGrid Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span>  </div><div class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"ng-grid.css"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"style.css"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"jquery-1.8.2.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"angular.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"ng-grid-1.3.2.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"main.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-controller</span>=<span class="string">"MyCtrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"gridStyle"</span> <span class="attr">ng-grid</span>=<span class="string">"gridOptions"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, [<span class="string">'ngGrid'</span>]);</div><div class="line">    app.controller(<span class="string">'MyCtrl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>) </span>&#123;</div><div class="line">        $scope.myData = [&#123;<span class="attr">name</span>: <span class="string">"Moroni"</span>, <span class="attr">age</span>: <span class="number">50</span>&#125;,</div><div class="line">                         &#123;<span class="attr">name</span>: <span class="string">"Tiancum"</span>, <span class="attr">age</span>: <span class="number">43</span>&#125;,</div><div class="line">                         &#123;<span class="attr">name</span>: <span class="string">"Jacob"</span>, <span class="attr">age</span>: <span class="number">27</span>&#125;,</div><div class="line">                         &#123;<span class="attr">name</span>: <span class="string">"Nephi"</span>, <span class="attr">age</span>: <span class="number">29</span>&#125;,</div><div class="line">                         &#123;<span class="attr">name</span>: <span class="string">"Enos"</span>, <span class="attr">age</span>: <span class="number">34</span>&#125;];</div><div class="line">        $scope.gridOptions = &#123; </div><div class="line">            <span class="attr">data</span>: <span class="string">'myData'</span>,</div><div class="line">            <span class="attr">columnDefs</span>: [&#123;<span class="attr">field</span>:<span class="string">'name'</span>, <span class="attr">displayName</span>:<span class="string">'Name'</span>&#125;, &#123;<span class="attr">field</span>:<span class="string">'age'</span>, <span class="attr">displayName</span>:<span class="string">'Age'</span>&#125;]</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span>&gt;</div></pre></td></tr></table></figure>
+<h1 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">ng-controller</span>=<span class="string">"MyCtrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"gridStyle"</span> <span class="attr">ng-grid</span>=<span class="string">"gridOptions"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line">    <span class="keyword">var</span> app = angular.module(<span class="string">'myApp'</span>, [<span class="string">'ngGrid'</span>]);</div><div class="line">app.controller(<span class="string">'MyCtrl'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $http</span>) </span>&#123;</div><div class="line">    $scope.filterOptions = &#123;</div><div class="line">        <span class="attr">filterText</span>: <span class="string">""</span>,</div><div class="line">        <span class="attr">useExternalFilter</span>: <span class="literal">true</span></div><div class="line">    &#125;; </div><div class="line">    $scope.totalServerItems = <span class="number">0</span>;</div><div class="line">    $scope.pagingOptions = &#123;</div><div class="line">        <span class="attr">pageSizes</span>: [<span class="number">250</span>, <span class="number">500</span>, <span class="number">1000</span>],</div><div class="line">        <span class="attr">pageSize</span>: <span class="number">250</span>,</div><div class="line">        <span class="attr">currentPage</span>: <span class="number">1</span></div><div class="line">    &#125;;  </div><div class="line">    $scope.setPagingData = <span class="function"><span class="keyword">function</span>(<span class="params">data, page, pageSize</span>)</span>&#123;  </div><div class="line">        <span class="keyword">var</span> pagedData = data.slice((page - <span class="number">1</span>) * pageSize, page * pageSize);</div><div class="line">        $scope.myData = pagedData;</div><div class="line">        $scope.totalServerItems = data.length;</div><div class="line">        <span class="keyword">if</span> (!$scope.$$phase) &#123;</div><div class="line">            $scope.$apply();</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    $scope.getPagedDataAsync = <span class="function"><span class="keyword">function</span> (<span class="params">pageSize, page, searchText</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> data;</div><div class="line">            <span class="keyword">if</span> (searchText) &#123;</div><div class="line">                <span class="keyword">var</span> ft = searchText.toLowerCase();</div><div class="line">                $http.get(<span class="string">'jsonFiles/largeLoad.json'</span>).success(<span class="function"><span class="keyword">function</span> (<span class="params">largeLoad</span>) </span>&#123;        </div><div class="line">                    data = largeLoad.filter(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</div><div class="line">                        <span class="keyword">return</span> <span class="built_in">JSON</span>.stringify(item).toLowerCase().indexOf(ft) != <span class="number">-1</span>;</div><div class="line">                    &#125;);</div><div class="line">                    $scope.setPagingData(data,page,pageSize);</div><div class="line">                &#125;);            </div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                $http.get(<span class="string">'jsonFiles/largeLoad.json'</span>).success(<span class="function"><span class="keyword">function</span> (<span class="params">largeLoad</span>) </span>&#123;</div><div class="line">                    $scope.setPagingData(largeLoad,page,pageSize);</div><div class="line">                &#125;);</div><div class="line">            &#125;</div><div class="line">        &#125;, <span class="number">100</span>);</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);</div><div class="line">    </div><div class="line">    $scope.$watch(<span class="string">'pagingOptions'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (newVal !== oldVal &amp;&amp; newVal.currentPage !== oldVal.currentPage) &#123;</div><div class="line">          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);</div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="literal">true</span>);</div><div class="line">    $scope.$watch(<span class="string">'filterOptions'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (newVal !== oldVal) &#123;</div><div class="line">          $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);</div><div class="line">        &#125;</div><div class="line">    &#125;, <span class="literal">true</span>);</div><div class="line">    </div><div class="line">    $scope.gridOptions = &#123;</div><div class="line">        <span class="attr">data</span>: <span class="string">'myData'</span>,</div><div class="line">        <span class="attr">enablePaging</span>: <span class="literal">true</span>,</div><div class="line">        <span class="attr">showFooter</span>: <span class="literal">true</span>,</div><div class="line">        <span class="attr">totalServerItems</span>: <span class="string">'totalServerItems'</span>,</div><div class="line">        <span class="attr">pagingOptions</span>: $scope.pagingOptions,</div><div class="line">        <span class="attr">filterOptions</span>: $scope.filterOptions</div><div class="line">    &#125;;</div><div class="line">&#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="ng-grid的常用配置API"><a href="#ng-grid的常用配置API" class="headerlink" title="ng-grid的常用配置API"></a>ng-grid的常用配置API</h1><table>
+<thead>
+<tr>
+<th style="text-align:center">属性名</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">data</td>
+<td style="text-align:center">[]</td>
+<td style="text-align:center">用于展示表格的数据</td>
+</tr>
+<tr>
+<td style="text-align:center">enableCellEdit</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">单元格是否可编辑</td>
+</tr>
+<tr>
+<td style="text-align:center">jqueryUITheme</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">是否使用juqeryUI的主题</td>
+</tr>
+<tr>
+<td style="text-align:center">columnDefs</td>
+<td style="text-align:center">undefined</td>
+<td style="text-align:center">对列进行自定义，不设置则按默认的展示</td>
+</tr>
+<tr>
+<td style="text-align:center">enableColumnResize</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">是否可调整列的大小</td>
+</tr>
+<tr>
+<td style="text-align:center">nableSorting</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">是否支持排序</td>
+</tr>
+<tr>
+<td style="text-align:center">headerRowHeight</td>
+<td style="text-align:center">32</td>
+<td style="text-align:center">标题行的高度，以像素为单位</td>
+</tr>
+<tr>
+<td style="text-align:center">headerRowTemplate</td>
+<td style="text-align:center">undefined</td>
+<td style="text-align:center">标题行的模板</td>
+</tr>
+<tr>
+<td style="text-align:center">init</td>
+<td style="text-align:center"><code>function(grid, $scope) { }</code></td>
+<td style="text-align:center">表格初始化后即调用的函数</td>
+</tr>
+<tr>
+<td style="text-align:center">rowHeight</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">行高度</td>
+</tr>
+<tr>
+<td style="text-align:center">rowTemplate</td>
+<td style="text-align:center">rowTemplate见下</td>
+<td style="text-align:center">行模板</td>
+</tr>
+<tr>
+<td style="text-align:center">showColumnMenu</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">启用菜单以选择要显示和分组的列。 如果showColumnMenu和showFilter都为false，则菜单按钮将不显示。</td>
+</tr>
+<tr>
+<td style="text-align:center">sortInfo</td>
+<td style="text-align:center"><code>{ fields: [], directions: [] }</code></td>
+<td style="text-align:center">自定义排序对象</td>
+</tr>
+<tr>
+<td style="text-align:center">multiSelect</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">是否可同时选中多行</td>
+</tr>
+<tr>
+<td style="text-align:center">enableCellEditOnFocus</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">单击单元格聚焦</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>rowTemplate</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-style</span>=<span class="string">"&#123; 'cursor': row.cursor &#125;"</span> <span class="attr">ng-repeat</span>=<span class="string">"col in renderedColumns"</span> <span class="attr">ng-class</span>=<span class="string">"col.colIndex()"</span> <span class="attr">class</span>=<span class="string">"ngCell &#123;&#123;col.cellClass&#125;&#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngVerticalBar"</span> <span class="attr">ng-style</span>=<span class="string">"&#123;height: rowHeight&#125;"</span> <span class="attr">ng-class</span>=<span class="string">"&#123; ngVerticalBarVisible: !$last &#125;"</span>&gt;</span>&amp;nbsp;<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-cell</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>以下配置用于分页</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性名</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">enablePaging</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">是否分页</td>
+</tr>
+<tr>
+<td style="text-align:center">pagingOptions</td>
+<td style="text-align:center"><code>{ pageSizes: [250, 500, 1000], pageSize: 250, totalServerItems: 0, currentPage: 1 }</code></td>
+<td style="text-align:center">配置分页相关属性 pageSizes: 可选的每页展示数 <br> pageSize:当前显示的展示数量 <br> totalServerItems：数据的总条数 <br> currentPage: 当前的页数</td>
+</tr>
+<tr>
+<td style="text-align:center">filterOptions</td>
+<td style="text-align:center"><code>{ filterText: &#39;&#39;, useExternalFilter: false }</code></td>
+<td style="text-align:center">过滤</td>
+</tr>
+</tbody>
+</table>
+<p><strong>自定义列的配置</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性名</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">field</td>
+<td style="text-align:center"><code>&quot;&quot;</code></td>
+<td style="text-align:center">与myData数据中的属性进行关联</td>
+</tr>
+<tr>
+<td style="text-align:center">displayName</td>
+<td style="text-align:center">field</td>
+<td style="text-align:center">要显示的名称，默认是field设置的属性</td>
+</tr>
+<tr>
+<td style="text-align:center">enableCellEdit</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">该列是否可编辑</td>
+</tr>
+<tr>
+<td style="text-align:center">cellClass</td>
+<td style="text-align:center"><code>&#39;&#39;</code></td>
+<td style="text-align:center">给列添加样式类</td>
+</tr>
+<tr>
+<td style="text-align:center">cellTemplate</td>
+<td style="text-align:center">cellTemplate见下</td>
+<td style="text-align:center">该列的模板</td>
+</tr>
+<tr>
+<td style="text-align:center">width</td>
+<td style="text-align:center"><code>&#39;&#39;</code></td>
+<td style="text-align:center">设置列宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">maxWidth</td>
+<td style="text-align:center">9000</td>
+<td style="text-align:center">设置列的最大宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">minWidth</td>
+<td style="text-align:center">50</td>
+<td style="text-align:center">设置列的最小宽度</td>
+</tr>
+<tr>
+<td style="text-align:center">editableCellTemplate</td>
+<td style="text-align:center"><code>&lt;input ng-class=&quot;&#39;colt&#39; + col.index&quot; ng-input=&quot;COL_FIELD&quot; /&gt;</code></td>
+<td style="text-align:center">设置列的编辑状态的模板，当用户使用enableFocusedCellEdit和单元格被聚焦时显示。</td>
+</tr>
+<tr>
+<td style="text-align:center">headerCellTemplate</td>
+<td style="text-align:center">headerTemplate见下</td>
+<td style="text-align:center">设置列标题单元格的模板</td>
+</tr>
+<tr>
+<td style="text-align:center">pinnable</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">列是否可以固定在左边</td>
+</tr>
+<tr>
+<td style="text-align:center">groupable</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">是否允许用户对列进行分组</td>
+</tr>
+<tr>
+<td style="text-align:center">resizable</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">列的大小是否可调整</td>
+</tr>
+<tr>
+<td style="text-align:center">sortable</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">列是否可排序</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>headerTemplate</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngHeaderSortColumn &#123;&#123;col.headerClass&#125;&#125;"</span> <span class="attr">ng-style</span>=<span class="string">"&#123;'cursor': col.cursor&#125;"</span> <span class="attr">ng-class</span>=<span class="string">"&#123; 'ngSorted': !noSortVisible &#125;"</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-click</span>=<span class="string">"col.sort($event)"</span> <span class="attr">ng-class</span>=<span class="string">"'colt' + col.index"</span> <span class="attr">class</span>=<span class="string">"ngHeaderText"</span>&gt;</span>&#123;&#123;col.displayName&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngSortButtonDown"</span> <span class="attr">ng-show</span>=<span class="string">"col.showSortButtonDown()"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngSortButtonUp"</span> <span class="attr">ng-show</span>=<span class="string">"col.showSortButtonUp()"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngSortPriority"</span>&gt;</span>&#123;&#123;col.sortPriority&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-class</span>=<span class="string">"&#123; ngPinnedIcon: col.pinned, ngUnPinnedIcon: !col.pinned &#125;"</span> <span class="attr">ng-click</span>=<span class="string">"togglePin(col)"</span> <span class="attr">ng-show</span>=<span class="string">"col.pinnable"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-show</span>=<span class="string">"col.resizable"</span> <span class="attr">class</span>=<span class="string">"ngHeaderGrip"</span> <span class="attr">ng-click</span>=<span class="string">"col.gripClick($event)"</span> <span class="attr">ng-mousedown</span>=<span class="string">"col.gripOnMouseDown($event)"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>cellTemplate</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ngCellText"</span> <span class="attr">ng-class</span>=<span class="string">"col.colIndex()"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">ng-cell-text</span>&gt;</span>&#123;&#123;COL_FIELD CUSTOM_FILTERS&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>使用</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$scope.gridOptions = &#123;</div><div class="line">	<span class="attr">data</span>: <span class="string">'myData'</span>,</div><div class="line">	<span class="attr">enableColumnResize</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">showColumnMenu</span>:<span class="literal">true</span>,</div><div class="line">	<span class="attr">columnDefs</span>: </div><div class="line">		[&#123;<span class="attr">field</span>: <span class="string">'name'</span>,<span class="attr">width</span>:<span class="string">"35%"</span>,<span class="attr">displayName</span>: <span class="string">'属	性名'</span>,<span class="attr">enableCellEdit</span>: <span class="literal">true</span>&#125;, </div><div class="line">		&#123;<span class="attr">field</span>:<span class="string">'value'</span>,<span class="attr">width</span>:<span class="string">"35%"</span>, <span class="attr">displayName</span>:<span class="string">'属性值'</span>,<span class="attr">enableCellEdit</span>: <span class="literal">true</span>&#125;,</div><div class="line">		&#123;<span class="attr">field</span>:<span class="string">'applyToGateway'</span>, <span class="attr">displayName</span>:<span class="string">'下发'</span>,<span class="attr">width</span>:<span class="string">'15%'</span>, <span class="attr">enableCellEdit</span>: <span class="literal">false</span>,<span class="attr">cellTemplate</span>:<span class="string">'&lt;input type="checkbox"  ng-model=" row.entity.applyToGateway" style=" width: 24px;height: 24px;margin-top:3px;"&gt;'</span>&#125;,</div><div class="line">		&#123;<span class="attr">displayName</span>:<span class="string">'操作'</span>,<span class="attr">width</span>:<span class="string">'15%'</span>,<span class="attr">cellTemplate</span>:$scope.revise,<span class="attr">enableCellEdit</span>: <span class="literal">false</span>,<span class="attr">cellTemplate</span>:<span class="string">'&lt;a&gt;&lt;span class="glyphicon glyphicon-remove" style="margin-left:3%;margin-top:6px;color:#d9534f " ng-click="Remove(row)"&gt;&lt;/span&gt;&lt;/a&gt; '</span>&#125;]</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/05/H12-Angular懒加载/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/05/H12-Angular懒加载/" itemprop="url">
+                  ocLazyload
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-05T00:00:00+08:00">
+                2017-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular组件/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular组件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Angular-懒加载之ocLazyload"><a href="#Angular-懒加载之ocLazyload" class="headerlink" title="Angular 懒加载之ocLazyload"></a>Angular 懒加载之ocLazyload</h1><ul>
+<li>1.ocLazyLoad是AngularJS的第三方库，可以实现模块、控制器及其他依赖的动态加载/按需加载</li>
+<li>2.$ocLazyLoad.load()支持多个文件，可以自定义指定文件类型，可以自定义指定是否缓存在客户端</li>
+<li>3.在 AngularJs 实现动态（懒）加载主要是依赖于3个主js文件</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"angular/1.4.8/angular/angular.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"angular/ui-router/release/angular-ui-router.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"angular/oclazyload/src/ocLazyLoad.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><ul>
+<li>配置ocLazyload</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">var</span> app = angular.module(<span class="string">'pkcms'</span>, [<span class="string">"ui.router"</span>, <span class="string">"oc.lazyLoad"</span>]);</div><div class="line"> app.config([<span class="string">'$ocLazyLoadProvider'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$ocLazyLoadProvider</span>)</span>&#123;</div><div class="line">    $ocLazyLoadProvider.config(&#123;</div><div class="line">        <span class="comment">//loadedModules: ['monitorApp'],//主模块名,和ng.bootstrap(document, ['monitorApp'])相同</span></div><div class="line">       <span class="comment">// jsLoader: requirejs, //使用requirejs去加载文件</span></div><div class="line">        <span class="comment">//files: ['modules/summary','modules/appEngine','modules/alarm','modules/database'], //主模块需要的资源，这里主要子模块的声明文件</span></div><div class="line">        debug: <span class="literal">true</span>,</div><div class="line">        <span class="attr">modules</span>: [</div><div class="line">              &#123;</div><div class="line">                  <span class="attr">name</span>: <span class="string">'ngGrid'</span>,</div><div class="line">                  <span class="attr">files</span>: [</div><div class="line">                      <span class="string">'vendor/modules/ng-grid/ng-grid.min.js'</span>,</div><div class="line">                      <span class="string">'vendor/modules/ng-grid/ng-grid.min.css'</span>,</div><div class="line">                      <span class="string">'vendor/modules/ng-grid/theme.css'</span></div><div class="line">                  ]</div><div class="line">              &#125;,                           </div><div class="line">              &#123;</div><div class="line">                  <span class="attr">name</span>: <span class="string">'ui.select'</span>,</div><div class="line">                  <span class="attr">files</span>: [</div><div class="line">                      <span class="string">'vendor/modules/angular-ui-select/select.min.js'</span>,</div><div class="line">                      <span class="string">'vendor/modules/angular-ui-select/select.min.css'</span></div><div class="line">                  ]</div><div class="line">              &#125;]</div><div class="line">    &#125;);</div><div class="line">&#125;]);</div></pre></td></tr></table></figure>
+<ul>
+<li>配置uiRouter</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'app'</span>)</div><div class="line">  .config([<span class="string">'$stateProvider'</span>, <span class="string">'$urlRouterProvider'</span>,<span class="function"><span class="keyword">function</span> (<span class="params">$stateProvider,$urlRouterProvider</span>) </span>&#123;</div><div class="line">          $urlRouterProvider.otherwise(<span class="string">'/app/main/index'</span>);</div><div class="line">          $stateProvider</div><div class="line">            .state(<span class="string">'app.gateway.gateway'</span>,&#123;</div><div class="line">                <span class="attr">url</span>: <span class="string">'/gateway'</span>,</div><div class="line">                <span class="attr">templateUrl</span>: <span class="string">'tpl/gateway.html'</span>,</div><div class="line">                <span class="attr">resolve</span>: &#123;</div><div class="line">                    <span class="attr">deps</span>: [<span class="string">'$ocLazyLoad'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"> $ocLazyLoad </span>)</span>&#123;</div><div class="line">                        <span class="comment">//加载多个模块或者文件时使用数组</span></div><div class="line">                        <span class="keyword">return</span> $ocLazyLoad.load(<span class="string">'ngGrid'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                            <span class="keyword">return</span> $ocLazyLoad.load(<span class="string">'js/controllers/gateway.js'</span>);</div><div class="line">                          &#125;);</div><div class="line">                      &#125;]</div><div class="line">                  &#125;</div><div class="line">              &#125;)</div><div class="line">  &#125;]);</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/03/H11-Angular组件-router/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1504,531 +2160,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/30/A04-ES6-Promise/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/30/A04-ES6-Promise/" itemprop="url">
-                  Promise
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-30T00:00:00+08:00">
-                2016-12-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><ul>
-<li>用来解决回调函数层层嵌套（回调地狱）的形式存在的缺点。</li>
-</ul>
-<ul>
-<li>使用方法： 创建实例对象</li>
-<li>Promise是全局对象，创建实例对象的时候需要参数，参数是一个匿名函数，匿名函数有两个参数：resolve和reject，两个参数都是方法。</li>
-<li>resolve用于解决异步操作成功后的业务，reject用于解决异步操作失败后的业务<h2 id="Promise对象的三个状态"><a href="#Promise对象的三个状态" class="headerlink" title="Promise对象的三个状态"></a>Promise对象的三个状态</h2></li>
-<li>pending ： 刚创建实例的时候，表示初始状态</li>
-<li>resolved ：resolve方法调用的时候，表示操作成功</li>
-<li>rejected ：reject方法调用的时候，表示操作失败</li>
-<li><strong>状态只能在初始–&gt;成功；或者初始–&gt;失败之间转化。不能逆向转化，成功和失败之间不能转化</strong><h2 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h2><h3 id="then-方法"><a href="#then-方法" class="headerlink" title="then()方法"></a>then()方法</h3></li>
-<li>第一个参数：用于处理操作成功后的业务</li>
-<li>第二个参数：用于处理操作失败后的业务<h3 id="catch-方法"><a href="#catch-方法" class="headerlink" title="catch()方法"></a>catch()方法</h3></li>
-<li>用于处理操作异常（失败）后的业务。参数是一个回调函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</div><div class="line">	<span class="comment">//此时是pending状态</span></div><div class="line">	<span class="keyword">if</span>(<span class="literal">false</span>)&#123;</div><div class="line">		resolve(<span class="string">"成功"</span>);</div><div class="line">		<span class="comment">//此时是resolved状态</span></div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		reject(<span class="string">"失败"</span>);</div><div class="line">		<span class="comment">//此时是rejected状态</span></div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="comment">//js会根据promise的状态选择执行哪个函数</span></div><div class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;<span class="comment">//为resolved状态时执行</span></div><div class="line">	<span class="comment">//此处的参数是resolve的参数，传递给了处理操作成功业务的函数</span></div><div class="line">	<span class="built_in">console</span>.log(res);</div><div class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;<span class="comment">//为rejected状态时执行</span></div><div class="line">	<span class="comment">//此处的参数是reject函数的参数，传递给了处理操作失败业务的函数</span></div><div class="line">	<span class="built_in">console</span>.log(error);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>多级嵌套，并且有依赖的回调函数的处理</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">* 假设foo2的执行依赖foo1，foo3的执行依赖foo2</div><div class="line">*/</div><div class="line"><span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line">		resolve(<span class="string">"成功了"</span>);</div><div class="line"></div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		reject(<span class="string">"失败"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;);</div><div class="line"><span class="comment">//可以使用链式编程，因为每个函数内部都返回了当前实例对象</span></div><div class="line">promise.then(foo1)</div><div class="line">.then(foo2)</div><div class="line">.then(foo3)</div><div class="line">.catch(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(res);</div><div class="line">&#125;);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"foo1执行了"</span>);</div><div class="line">	<span class="keyword">return</span> <span class="string">"foo1"</span>;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo2</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"foo2执行了"</span>);</div><div class="line">	<span class="comment">//foo2接收到的参数是foo1函数的返回值，不必使用函数嵌套就很好的解决了依赖的问题</span></div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"foo1的返回值是:"</span> + res);</div><div class="line">	<span class="keyword">return</span> <span class="string">"foo2"</span>;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo3</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"foo3执行了"</span>);</div><div class="line">	<span class="comment">//foo3接收到的参数是foo2的返回值</span></div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"foo2的返回值是:"</span> + res);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>当then中返回的数据是promise对象时，下一个then中接收到的数据是promise对象中的resolved对象</strong></p>
-<h2 id="对象方法"><a href="#对象方法" class="headerlink" title="对象方法"></a>对象方法</h2><h3 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all()"></a>Promise.all()</h3><ul>
-<li>参数是一个数组，数组的元素是Promise的实例。当数组中的每个实例对象的状态都为resolved时，该函数才有返回。</li>
-<li>如果一个操作需要依赖多个接口请求回来的数据的支持，并且每个接口之间互不依赖，可以使用该方法</li>
-<li>Promise.all和Promise.race()方法会返回一个Promise的实例，保存着promise的状态。所以可以使用实例方法then和catch<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pro1 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</div><div class="line">	setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line">			resolve(<span class="string">"1成功了"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;,<span class="number">3000</span>);</div><div class="line">	</div><div class="line">&#125;);</div><div class="line"><span class="keyword">var</span> pro2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line">		resolve(<span class="string">"2成功了"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;);</div><div class="line"><span class="keyword">var</span> pro3 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line">		resolve(<span class="string">"3成功了"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;);</div><div class="line"><span class="comment">//只有等到所有的实例的状态都为resolved后，才会执行成功的操作，即then中的第一个回调函数。函数的参数是resolve函数的参数构成的数组</span></div><div class="line"><span class="built_in">Promise</span>.all([pro1,pro2,pro3]).then(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(res);<span class="comment">//3s后输出  ["1成功了", "2成功了", "3成功了"]</span></div><div class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</div><div class="line">	<span class="comment">//只要有一个失败就执行该操作，返回第一个失败的结果</span></div><div class="line">  	<span class="built_in">console</span>.log(error);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise. race()"></a>Promise. race()</h3><ul>
-<li>参数是由实例组成的数组，只要有一个实例发生改变就会触发该方法<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pro1 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</div><div class="line">	setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span>(<span class="literal">true</span>)&#123;</div><div class="line">			resolve(<span class="string">"1成功了"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;,<span class="number">3000</span>);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="keyword">var</span> pro2 = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(<span class="literal">false</span>)&#123;</div><div class="line">		resolve(<span class="string">"2成功了"</span>);</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		reject(<span class="string">"2失败了"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;);</div><div class="line"><span class="built_in">Promise</span>.race([pro1,pro2]).then(<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(res);</div><div class="line">&#125;).catch(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(error);<span class="comment">//输出 2失败了</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/26/A03-ES6-string/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/26/A03-ES6-string/" itemprop="url">
-                  string
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-26T00:00:00+08:00">
-                2016-12-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="字符串新特性"><a href="#字符串新特性" class="headerlink" title="字符串新特性"></a>字符串新特性</h1><h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h2><ul>
-<li>使用反引号，即数字1左边的按键</li>
-<li>变量使用<code>${变量}</code>表示<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str1 = <span class="string">"hello"</span>;</div><div class="line"><span class="keyword">var</span> str2 = <span class="string">"world"</span>;</div><div class="line"><span class="keyword">var</span> str = <span class="string">`javascript say <span class="subst">$&#123;str1&#125;</span> to <span class="subst">$&#123;str2&#125;</span>`</span>;</div><div class="line"><span class="built_in">console</span>.log(str);<span class="comment">//javascript hello say world</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>可以多行定义字符串，字符串中的换行、缩进和空格都会保留在输出中</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">`my name is</span></div><div class="line">=======`;</div><div class="line"><span class="built_in">console</span>.log(str); </div><div class="line"><span class="comment">//my name is</span></div><div class="line"><span class="comment">//=======</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>${}中可以放任意的js表达式</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> n1 = <span class="number">11</span>;</div><div class="line"><span class="keyword">var</span> n2 = <span class="number">22</span>;</div><div class="line"><span class="comment">//可以是运算表达式</span></div><div class="line"><span class="keyword">var</span> sum = <span class="string">`sum is <span class="subst">$&#123;n1+n2&#125;</span>`</span>;</div><div class="line"><span class="built_in">console</span>.log(sum);<span class="comment">//sum is 33</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">n1</span>:<span class="number">2</span>,<span class="attr">n2</span>:<span class="number">3</span>&#125;;</div><div class="line"><span class="comment">//可以是逻辑表达式</span></div><div class="line"><span class="keyword">var</span> ret = <span class="string">`n1是否大于n2: <span class="subst">$&#123;obj.n1&gt;obj.n2&#125;</span>`</span>;</div><div class="line"><span class="built_in">console</span>.log(ret);<span class="comment">//n1是否大于n2: false</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> ret = <span class="string">`返回值是: <span class="subst">$&#123;foo()&#125;</span>`</span>;</div><div class="line"><span class="comment">//可以是函数调用</span></div><div class="line"><span class="built_in">console</span>.log(ret);<span class="comment">//返回值是: 我是返回值</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="标签模板"><a href="#标签模板" class="headerlink" title="标签模板"></a>标签模板</h2><ul>
-<li>模板是指字符串模板；标签是指一个函数，一个专门处理模板字符串的函数</li>
-<li>函数调用时不用写()，直接在函数名后面使用模板字符串即可</li>
-<li>标签函数的第一个参数是一个以变量为分隔的数组</li>
-<li>第二个及以后的参数代表出传递的变量<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name = <span class="string">"zhangsan"</span>;</div><div class="line"><span class="keyword">var</span> age = <span class="number">18</span>;</div><div class="line">tagFun<span class="string">`我是<span class="subst">$&#123;name&#125;</span>,今年<span class="subst">$&#123;age&#125;</span>岁了`</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">tagFun</span>(<span class="params">arr,n,a</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(arr);<span class="comment">//["我是", ",今年", "岁了"]</span></div><div class="line">	<span class="built_in">console</span>.log(n);<span class="comment">//zhangsan</span></div><div class="line">	<span class="built_in">console</span>.log(a);<span class="comment">//18</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="函数扩展"><a href="#函数扩展" class="headerlink" title="函数扩展"></a>函数扩展</h2><ul>
-<li>repeat(n) : 将目标字符串重复n次，返回一个新的字符串，不影响原始字符串</li>
-<li>includes() : 判断字符串中是否含有指定字符串，第二个参数可选，表示开始搜索的位置</li>
-<li>startsWith() : 判断指定字符串是否出现在目标字符串的开始位置。 第二个参数可选，表示开始搜索的位置</li>
-<li>endsWith() : 判断指定字符串是否出现在目标字符串的末尾位置。 第二个参数可选，表示针对前N个字符</li>
-<li>codePrintAt() : 用于处理四个字节的字符，返回该字符码点的十进制数</li>
-<li>String.fromCodePrint() : 根据码点的十进制数找到对应的字符</li>
-<li>String.raw() : 返回字符串的原始的样子，不识别任何转义字符。常用作模板字符串处理函数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"my name is Tom"</span>;</div><div class="line"><span class="keyword">var</span> newStr = str.repeat(<span class="number">3</span>);</div><div class="line"><span class="built_in">console</span>.log(newStr);<span class="comment">//my name is Tommy name is Tommy name is Tom</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(str.includes(<span class="string">"n"</span>));<span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(str.includes(<span class="string">"n"</span>,<span class="number">5</span>));<span class="comment">//false</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(str.startsWith(<span class="string">"n"</span>,<span class="number">3</span>));<span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(str.endsWith(<span class="string">"m"</span>));<span class="comment">//true</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.raw<span class="string">`hello\nword`</span>); <span class="comment">//hello\nword</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/25/A03-CS6-number/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/25/A03-CS6-number/" itemprop="url">
-                  number
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-25T00:00:00+08:00">
-                2016-12-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="数值的扩展"><a href="#数值的扩展" class="headerlink" title="数值的扩展"></a>数值的扩展</h1><h2 id="Number-isFinite-Number-isNaN"><a href="#Number-isFinite-Number-isNaN" class="headerlink" title="Number.isFinite(), Number.isNaN()"></a>Number.isFinite(), Number.isNaN()</h2><ul>
-<li>ES6在Number对象上，新提供了Number.isFinite()和Number.isNaN()两个方法。</li>
-<li><p>Number.isFinite()用来检查一个数值是否为有限的（finite）。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.isFinite(<span class="number">15</span>); <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isFinite(<span class="literal">NaN</span>); <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isFinite(<span class="literal">Infinity</span>); <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isFinite(<span class="string">'foo'</span>); <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isFinite(<span class="literal">true</span>); <span class="comment">// false</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>ES5可以通过下面的代码，部署Number.isFinite方法。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">global</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> global_isFinite = global.isFinite;</div><div class="line"></div><div class="line">  <span class="built_in">Object</span>.defineProperty(<span class="built_in">Number</span>, <span class="string">'isFinite'</span>, &#123;</div><div class="line">    <span class="attr">value</span>: <span class="function"><span class="keyword">function</span> <span class="title">isFinite</span>(<span class="params">value</span>) </span>&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">typeof</span> value === <span class="string">'number'</span> &amp;&amp; global_isFinite(value);</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">configurable</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">enumerable</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">writable</span>: <span class="literal">true</span></div><div class="line">  &#125;);</div><div class="line">&#125;)(<span class="keyword">this</span>);</div></pre></td></tr></table></figure>
-</li>
-<li><p>Number.isNaN()用来检查一个值是否为NaN。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.isNaN(<span class="literal">NaN</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="number">15</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="string">'15'</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="literal">true</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="number">9</span>/<span class="literal">NaN</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="string">'true'</span>/<span class="number">0</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isNaN(<span class="string">'true'</span>/<span class="string">'true'</span>) <span class="comment">// true</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>它们与传统的全局方法isFinite()和isNaN()的区别在于，传统方法先调用Number()将非数值的值转为数值，再进行判断，而这两个新方法只对数值有效，Number.isFinite()对于非数值一律返回false, Number.isNaN()只有对于NaN才返回true，非NaN一律返回false。</p>
-</li>
-</ul>
-<h2 id="Number-parseInt-Number-parseFloat"><a href="#Number-parseInt-Number-parseFloat" class="headerlink" title="Number.parseInt(), Number.parseFloat()"></a>Number.parseInt(), Number.parseFloat()</h2><ul>
-<li>ES6将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。</li>
-<li>目的：减少全局性的方法，使语言逐步模块化<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.parseInt === <span class="built_in">parseInt</span> <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.parseFloat === <span class="built_in">parseFloat</span> <span class="comment">// true</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Number-isInteger"><a href="#Number-isInteger" class="headerlink" title="Number.isInteger()"></a>Number.isInteger()</h2><ul>
-<li>Number.isInteger()用来判断一个值是否为整数。需要注意的是，在JavaScript内部，整数和浮点数是同样的储存方法，所以3和3.0被视为同一个值。<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.isInteger(<span class="number">25</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isInteger(<span class="number">25.0</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isInteger(<span class="number">25.1</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isInteger(<span class="string">"15"</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isInteger(<span class="literal">true</span>) <span class="comment">// false</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Number-EPSILON"><a href="#Number-EPSILON" class="headerlink" title="Number.EPSILON"></a>Number.EPSILON</h2><ul>
-<li><p>代表极小的常量Number.EPSILON。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.EPSILON</div><div class="line"><span class="comment">// 2.220446049250313e-16</span></div><div class="line"><span class="built_in">Number</span>.EPSILON.toFixed(<span class="number">20</span>)</div><div class="line"><span class="comment">// '0.00000000000000022204'</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>引入一个这么小的量的目的，在于为浮点数计算，设置一个误差范围。我们知道浮点数计算是不精确的。但是如果这个误差能够小于Number.EPSILON，我们就可以认为得到了正确结果。因此，Number.EPSILON的实质是一个可以接受的误差范围。</p>
-<h2 id="安全整数和Number-isSafeInteger"><a href="#安全整数和Number-isSafeInteger" class="headerlink" title="安全整数和Number.isSafeInteger()"></a>安全整数和Number.isSafeInteger()</h2></li>
-<li>JavaScript能够准确表示的整数范围在-2^53到2^53之间（不含两个端点），超过这个范围，无法精确表示这个值。</li>
-<li>ES6还引入了Number.MAX_SAFE_INTEGER和Number.MIN_SAFE_INTEGER这两个常量，用来表示这个范围的上下限。</li>
-<li><p>Number.isSafeInteger()则是用来判断一个整数是否落在这个范围之内。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="string">'a'</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="literal">null</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="literal">NaN</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="literal">Infinity</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(-<span class="literal">Infinity</span>) <span class="comment">// false</span></div><div class="line"></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="number">3</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="number">1.2</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="number">9007199254740990</span>) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="number">9007199254740992</span>) <span class="comment">// false</span></div><div class="line"></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="built_in">Number</span>.MIN_SAFE_INTEGER - <span class="number">1</span>) <span class="comment">// false</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="built_in">Number</span>.MIN_SAFE_INTEGER) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="built_in">Number</span>.MAX_SAFE_INTEGER) <span class="comment">// true</span></div><div class="line"><span class="built_in">Number</span>.isSafeInteger(<span class="built_in">Number</span>.MAX_SAFE_INTEGER + <span class="number">1</span>) <span class="comment">// false</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>实现</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Number</span>.isSafeInteger = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> (<span class="keyword">typeof</span> n === <span class="string">'number'</span> &amp;&amp;</div><div class="line">    <span class="built_in">Math</span>.round(n) === n &amp;&amp;</div><div class="line">    <span class="built_in">Number</span>.MIN_SAFE_INTEGER &lt;= n &amp;&amp;</div><div class="line">    n &lt;= <span class="built_in">Number</span>.MAX_SAFE_INTEGER);</div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2073,7 +2209,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">63</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2084,7 +2220,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

@@ -260,6 +260,852 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/23/J06-计算属性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/23/J06-计算属性/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-23T19:11:01+08:00">
+                2017-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 模板内的表达式是非常便利的，但是他们实际上只是用于简单的运算。在模板中放入太多的逻辑会让模板过重且难以维护。例如：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    &#123;&#123; message.split('').reverse().join('') &#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p> 在这种情况下，模板不再简单和清晰。在意识到这是反向显示message之前，你不得不再次确认第二遍。当你想要在模板中多次反向显示message的时候，问题会变得更糟糕。</p>
+<p> 这就是对于任何复杂逻辑，你都应当使用计算属性的原因。</p>
+<h1 id="基础例子"><a href="#基础例子" class="headerlink" title="基础例子"></a>基础例子</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Original message: '&#123;&#123;message&#125;&#125;'<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Computed reversed message : '&#123;&#123;reversedMessage&#125;&#125;'<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">message</span>:<span class="string">"hello"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">computed</span>:&#123;</div><div class="line">        <span class="attr">reversedMessage</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>结果：<br>Original message： ‘hello’<br>Computed reversed message: ‘olleH’</p>
+<p>这里我们声明一个计算属性<code>reversedMessage</code>。我们提供的函数将用作属性<code>vm.reversedMessage</code>的getter。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(vm.reversedMessage); <span class="comment">// olleH</span></div><div class="line">vm.message = <span class="string">"Goodbye"</span>;</div><div class="line"><span class="built_in">console</span>.log(vm.reversedMessage); <span class="comment">//  eybdooG</span></div></pre></td></tr></table></figure>
+<p>你可以像绑定普通属性一样在模板中绑定计算属性。vue知道<code>vm.reversedMessage</code>依赖于<br><code>vm.message</code>,因此当<code>vm.message</code>发生改变时，所有依赖于<code>vm.reversedMessage</code>的绑定也会更新。</p>
+<h1 id="计算属性vs-Methods"><a href="#计算属性vs-Methods" class="headerlink" title="计算属性vs Methods"></a>计算属性vs Methods</h1><p>你可能已经注意到我们可以通过调用表达式中的method来达到同样的效果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Reserved message:'&#123;&#123;reversedMessage()&#125;&#125;'<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">methods:&#123;</div><div class="line">    <span class="attr">reversedMessage</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以将同一函数定义为一个method而不是一个计算属性。对于最终的结果，两种方式确实是相同的。然而，不同的是计算属性是基于他们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值。这意味着只要<code>message</code>还没有发生变化，多次访问<code>reversedMessage</code>计算属性会立即返回之前的计算结果，而不必再次执行函数。</p>
+<p>这也同样意味着下面的计算属性将不再更新，因为<code>Date.now()</code>不是响应式依赖：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">computed:&#123;</div><div class="line">    <span class="attr">now</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">Date</span>.now()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>相比而言，只要发生重新渲染，method调用总会执行该函数。</p>
+<p>我们为什么需要缓存？假设我们有一个性能开销比较大的的计算属性 A ，它需要遍历一个极大的数组和做大量的计算。然后我们可能有其他的计算属性依赖于 A 。如果没有缓存，我们将不可避免的多次执行 A 的 getter！如果你不希望有缓存，请用 method 替代。</p>
+<h1 id="computed属性vs-Watched属性"><a href="#computed属性vs-Watched属性" class="headerlink" title="computed属性vs Watched属性"></a>computed属性vs Watched属性</h1><p>vue确实提供了一种更通用的方式来观察和响应vue实例上的数据变动：watch属性。当你有一些数据需要随着其他数据变动而变动时，你很容易滥用<code>watch</code>–特别是如果你之前使用过AngularJS。然而，通常更好的想法是使用computed属性而不是命令式的watch回调。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>&#123;&#123;fullName&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">firstName</span>:<span class="string">'Foo'</span>,</div><div class="line">        <span class="attr">lastName</span>:<span class="string">'Bar'</span>,</div><div class="line">        <span class="attr">fullName</span>:<span class="string">'Foo Bar'</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">watch</span>:&#123;</div><div class="line">        <span class="attr">firstName</span>:<span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.fullName = val + <span class="string">" "</span> + <span class="keyword">this</span>.lastName;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">lastName</span>:<span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.fullName = <span class="keyword">this</span>.firstName + <span class="string">" "</span> + val;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>上面代码是命令式的和重复的。将它与computed属性的版本进行比较：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">firstName</span>:<span class="string">'Foo'</span>,</div><div class="line">        <span class="attr">lastName</span>:<span class="string">'Bar'</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">computed</span>:&#123;</div><div class="line">        <span class="attr">fullName</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">" "</span> + <span class="keyword">this</span>.lastName;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h1 id="计算setter"><a href="#计算setter" class="headerlink" title="计算setter"></a>计算setter</h1><p>计算属性默认只有getter，不过在需要时你也可以提供一个setter：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//....</span></div><div class="line">computed:&#123;</div><div class="line">    <span class="attr">fullName</span>:&#123;</div><div class="line">        <span class="attr">get</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.firstName + <span class="string">" "</span> + <span class="keyword">this</span>.lastName;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">set</span>:<span class="function"><span class="keyword">function</span>(<span class="params">newValue</span>)</span>&#123;</div><div class="line">            <span class="keyword">var</span> names = newValue.split(<span class="string">' '</span>);</div><div class="line">            <span class="keyword">this</span>.firstName = names[<span class="number">0</span>];</div><div class="line">            <span class="keyword">this</span>.lastName = names[names.length<span class="number">-1</span>];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在再运行<code>vm.fullName=&#39;John Doe&#39;</code>时，setter会被调用，<code>vm.firstName</code>和<code>vm.lastName</code>也会相应的被更新。</p>
+<h1 id="观察Watchers"><a href="#观察Watchers" class="headerlink" title="观察Watchers"></a>观察Watchers</h1><p>虽然计算属性在大多数情况下更适合，但是有时也需要一个自定义的watcher。这是为什么vue提供一个更通用的方法通过watch选项，来响应数据的变化。当你想要在数据变化响应时，执行异步操作或开销较大的操作，这是很有用的。<br>例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></div><div class="line">        Ask a yes/no question:</div><div class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">'question'</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; answer &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> watchVm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">question</span>:<span class="string">""</span>,</div><div class="line">        <span class="attr">answer</span>:<span class="string">"I cannot given you an answer until you ask a question"</span></div><div class="line">    &#125;,</div><div class="line">    <span class="attr">watch</span>:&#123;</div><div class="line">        <span class="attr">question</span>:<span class="function"><span class="keyword">function</span>(<span class="params">newQuestion</span>)</span>&#123;</div><div class="line">            <span class="keyword">this</span>.answer = <span class="string">"waiting for you stop typing..."</span>;</div><div class="line">            <span class="keyword">this</span>.getAnswer();</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">methods</span>: &#123;</div><div class="line">        <span class="comment">// _.debounce 是一个通过 lodash 限制操作频率的函数。</span></div><div class="line">        <span class="comment">// 在这个例子中，我们希望限制访问yesno.wtf/api的频率</span></div><div class="line">        <span class="comment">// ajax请求直到用户输入完毕才会发出</span></div><div class="line">        <span class="comment">// 学习更多关于 _.debounce function (and its cousin</span></div><div class="line">        <span class="comment">// _.throttle), 参考: https://lodash.com/docs#debounce</span></div><div class="line">        getAnswer: _.debounce(</div><div class="line">          <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> vm = <span class="keyword">this</span></div><div class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.question.indexOf(<span class="string">'?'</span>) === <span class="number">-1</span>) &#123;</div><div class="line">              vm.answer = <span class="string">'Questions usually contain a question mark. ;-)'</span></div><div class="line">              <span class="keyword">return</span></div><div class="line">            &#125;</div><div class="line">            vm.answer = <span class="string">'Thinking...'</span></div><div class="line">            axios.get(<span class="string">'https://yesno.wtf/api'</span>)</div><div class="line">              .then(<span class="function"><span class="keyword">function</span> (<span class="params">response</span>) </span>&#123;</div><div class="line">                vm.answer = _.capitalize(response.data.answer)</div><div class="line">              &#125;)</div><div class="line">              .catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</div><div class="line">                vm.answer = <span class="string">'Error! Could not reach the API. '</span> + error</div><div class="line">              &#125;)</div><div class="line">          &#125;,</div><div class="line">          <span class="comment">// 这是我们为用户停止输入等待的毫秒数</span></div><div class="line">          <span class="number">500</span></div><div class="line">        )</div><div class="line">      &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>在这个示例中，使用 watch 选项允许我们执行异步操作（访问一个 API），限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这是计算属性无法做到的。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/21/H14-angular-controller通信/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/21/H14-angular-controller通信/" itemprop="url">
+                  angular-controller之间通信
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-21T00:00:00+08:00">
+                2017-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>由于近来canvas图形界面的开发需求，controller之间的通信成了必不可少的一方面。</p>
+<p>在Angular中，controller之间通信的方式主要有三种：</p>
+<ul>
+<li>作用域继承。利用子controller控制父controller上的数据。(父controller中的数据要为引用类型，不能是基本类型。为的是保证数据的变化可以同时反映到不同的controller上)</li>
+<li>注入服务。把需要共享的数据注册为一个service，在需要的controller中注入。</li>
+<li>基于事件。利用angular的事件机制，使用<code>$on</code>、<code>$emit</code>和<code>$broadcast</code>。<br>其中，作用域继承仅限于上下级之间的通信，注入服务和基于事件的机制可以实现任意级别的controller通信。</li>
+</ul>
+<h1 id="作用域继承"><a href="#作用域继承" class="headerlink" title="作用域继承"></a>作用域继承</h1><p>页面：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"parentCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>data in parent controller : &#123;&#123;data.name&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"childCtrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">ng-model</span>=<span class="string">"data.name"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>控制器：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">'demo'</span>,[])</div><div class="line">.controller(<span class="string">"parentCtrl"</span>,[<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</div><div class="line">    $scope.data = &#123;</div><div class="line">        <span class="attr">name</span>: <span class="string">'zhangsan'</span></div><div class="line">    &#125;</div><div class="line">&#125;])</div><div class="line">.controller(<span class="string">"childCtrl"</span>, [<span class="string">"$scope"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</div><div class="line"></div><div class="line">&#125;]);</div></pre></td></tr></table></figure>
+<p>以上是父controller中的数据是引用类型的情况。如果父controller中的数据是基本类型，可通过<code>$scope.$parent.data</code>访问。<br><strong>该方式只适用于父子级别的controller之间的通信</strong></p>
+<h1 id="注入服务"><a href="#注入服务" class="headerlink" title="注入服务"></a>注入服务</h1><p>在Angular中，服务是一个单例，所以在服务中生成一个对象，该对象就可以利用依赖注入的方式在所有的控制器中共享。<br>定义一个service：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">angular.module(<span class="string">"demo"</span>)</div><div class="line">.factory(<span class="string">"Data"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">name</span>: <span class="string">'zhangsan'</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>页面:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"childCtrl1"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>data in child controller 1 : &#123;&#123;data.name&#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">ng-model</span>=<span class="string">"data.name"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"childCtrl2"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>data in child controller 2 : &#123;&#123;data.name&#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">ng-model</span>=<span class="string">"data.name"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>控制器：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">.controller(<span class="string">"childCtrl1"</span>,[<span class="string">"$scope"</span>,<span class="string">"Data"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope,Data</span>)</span>&#123;</div><div class="line">    $scope.data = Data;</div><div class="line">&#125;])</div><div class="line">.controller(<span class="string">"childCtrl2"</span>,[<span class="string">"$scope"</span>,<span class="string">"Data"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope,Data</span>)</span>&#123;</div><div class="line">    $scope.data = Data;</div><div class="line">&#125;])</div></pre></td></tr></table></figure>
+<h1 id="基于事件"><a href="#基于事件" class="headerlink" title="基于事件"></a>基于事件</h1><p>Angular为<code>$scope</code>提供了冒泡和隧道机制，<code>$broadcast</code>会把事件广播给所有子controller，而<code>$emit</code>则会将事件冒泡传递给父controller，<code>$on</code>则是angular的事件监听函数，利用这三者，可以实现上下级和同级(需要构造一个共同的父级control)之间的通信。</p>
+<h2 id="上下级之间"><a href="#上下级之间" class="headerlink" title="上下级之间"></a>上下级之间</h2><p>如果是子controller往父controller上发送事件(从作用域往上发送事件)，使用<code>scope.$emit</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$scope.$emit(<span class="string">"someEvent"</span>,&#123;&#125;);</div></pre></td></tr></table></figure>
+<p>如果是父controller往子controller上发送事件(从作用域往下发送事件)，使用<code>scope.$broadcast</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$scope.$broadcast(<span class="string">"someEvent"</span>, args);</div></pre></td></tr></table></figure>
+<p>无论是<code>$emit</code>还是<code>$broadcast</code>发送的事件，都用<code>$scope.$on</code>来接收：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$scope.$on(<span class="string">"someEvent"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event,data</span>)</span>&#123;</div><div class="line">    <span class="comment">//此处可以获得发送过来的数据data</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="同级之间"><a href="#同级之间" class="headerlink" title="同级之间"></a>同级之间</h2><p>同级之间利用事件通信有两种方式。一种是利用上下级之间事件传播的变形，另一种是借助<code>$rootScope</code>。</p>
+<h3 id="借助父controller"><a href="#借助父controller" class="headerlink" title="借助父controller"></a>借助父controller</h3><p>在子controller中向父controller触发一个事件，然后在父controller中监听事件，再广播给子controller，这样通过事件携带的参数，实现了数据经过父controller，在同级controller之间传播。</p>
+<p>但是要注意，通过父controller作为中介进行传递的话，子controller触发的事件名和父controller广播用的事件名不能一样，否则会进入死循环。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"outerCtrl"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"innerCtrl1"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">ng-model</span>=<span class="string">"name"</span> <span class="attr">ng-change</span>=<span class="string">"change()"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"innerCtrl2"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">ng-model</span>=<span class="string">"name"</span> <span class="attr">ng-change</span>=<span class="string">"change()"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">.controller(<span class="string">"outerCtrl"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</div><div class="line">    $scope.name = <span class="string">'zhangsan'</span>,</div><div class="line">    $scope.$on(<span class="string">"dataChanged"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event,data</span>)</span>&#123;</div><div class="line">        $scope.name = data;</div><div class="line">        <span class="comment">//2. 父ctrl监听到dataChanged事件后，触发changeData事件</span></div><div class="line">        $scope.$broadcast(<span class="string">"changeData"</span>, data);</div><div class="line">    &#125;);</div><div class="line">&#125;)</div><div class="line">.controller(<span class="string">"innerCtrl1"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</div><div class="line">    $scope.change = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">//1. 子controller中数据发生改变之后触发dataChanged事件</span></div><div class="line">        $scope.$emit(<span class="string">"dataChanged"</span>,$scope.name);</div><div class="line">    &#125;</div><div class="line">    $scope.$on(<span class="string">"changeData"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event,data</span>)</span>&#123;</div><div class="line">        $scope.name = data;</div><div class="line">    &#125;)</div><div class="line">&#125;)</div><div class="line">.controller(<span class="string">"innerCtrl2"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">$scope</span>)</span>&#123;</div><div class="line">    $scope.change = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        $scope.$emit(<span class="string">"dataChanged"</span>,$scope.name);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//3. 监听到changeData事件后，改变ctrl2中的数据</span></div><div class="line">    $scope.$on(<span class="string">"changeData"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event,data</span>)</span>&#123;</div><div class="line">        $scope.name = data;</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="借助-rootScope"><a href="#借助-rootScope" class="headerlink" title="借助$rootScope"></a>借助<code>$rootScope</code></h3><p>每个 Angular 应用默认有一个根作用域 <code>$rootScope</code>,根作用域位于最顶层，从它往下挂着各级作用域。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"innerCtrlA"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">ng-model</span>=<span class="string">"name"</span> <span class="attr">ng-change</span>=<span class="string">"change()"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">"innerCtrlB"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">ng-model</span>=<span class="string">"name"</span> <span class="attr">ng-change</span>=<span class="string">"change()"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">.controller(<span class="string">'innerCtrlA'</span>, [<span class="string">'$scope'</span>, <span class="string">'$rootScope'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $rootScope</span>)</span>&#123;</div><div class="line">    $scope.change = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="comment">// 广播事件</span></div><div class="line">        $rootScope.$broadcast(<span class="string">'nameChanged'</span>, $scope.name);</div><div class="line">    &#125;</div><div class="line">    $rootScope.$on(<span class="string">'nameChanged'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event, data</span>)</span>&#123;</div><div class="line">        $scope.name = data;</div><div class="line">    &#125;)</div><div class="line">&#125;])</div><div class="line">.controller(<span class="string">'innerCtrlB'</span>, [<span class="string">'$scope'</span>, <span class="string">'$rootScope'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $rootScope</span>)</span>&#123;</div><div class="line">    $scope.change = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        $rootScope.$broadcast(<span class="string">'nameChanged'</span>, $scope.name);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 监听事件</span></div><div class="line">    $rootScope.$on(<span class="string">'nameChanged'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event, data</span>)</span>&#123;</div><div class="line">        $scope.name = data;</div><div class="line">    &#125;)</div><div class="line">&#125;])</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/17/J08-条件渲染/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/17/J08-条件渲染/" itemprop="url">
+                  条件渲染
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-17T00:00:00+08:00">
+                2017-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue-从零开始/" itemprop="url" rel="index">
+                    <span itemprop="name">vue--从零开始</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="v-if"><a href="#v-if" class="headerlink" title="v-if"></a>v-if</h1><p>在字符串模板中，如Handlebars，我们得像这样写一个条件块：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123;#if ok&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Yes<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">&#123;&#123;/if&#125;&#125;</div></pre></td></tr></table></figure>
+<p>在vue.js，我们使用<code>v-if</code>指令实现同样的功能：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">v-if</span>=<span class="string">"ok"</span>&gt;</span>Yes<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>也可以用<code>v-else</code>添加一个else块：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">v-if</span>=<span class="string">"ok"</span>&gt;</span>Yes<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">v-else</span>&gt;</span>No<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="在-lt-template-gt-中配合v-if条件渲染一整组"><a href="#在-lt-template-gt-中配合v-if条件渲染一整组" class="headerlink" title="在&lt;template&gt;中配合v-if条件渲染一整组"></a>在<code>&lt;template&gt;</code>中配合<code>v-if</code>条件渲染一整组</h2><p>因为<code>v-if</code>是一个指令，需要将它添加到一个元素上。但是如果我们想切换多个元素呢？此时，我们可以把一个<code>&lt;template&gt;</code>元素当做包装元素，并在上面使用<code>v-if</code>。最终的渲染结果不会包含<code>&lt;template&gt;</code>元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-if</span>=<span class="string">"ok"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Paragraph 1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Paragraph 2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="v-else"><a href="#v-else" class="headerlink" title="v-else"></a><code>v-else</code></h2><p>你可以使用<code>v-else</code>指令来表示<code>v-if</code>的else块：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">"Math.random()&gt;0.5"</span>&gt;</span></div><div class="line">    Now you see me</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else</span>&gt;</span></div><div class="line">    Now you don't</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><code>v-else</code>元素必须紧跟在<code>v-if</code>或者<code>v-else-if</code>元素的后面–否则他将不会被识别。</p>
+<h2 id="v-else-if"><a href="#v-else-if" class="headerlink" title="v-else-if"></a><code>v-else-if</code></h2><p><code>v-else-if</code>,顾名思义，充当<code>v-if</code>的else-if块。可以链式地使用多次：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-if</span>=<span class="string">"type === 'A'"</span>&gt;</span></div><div class="line">    A</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else-if</span>=<span class="string">"type === 'B'"</span>&gt;</span></div><div class="line">    B</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else-if</span>=<span class="string">"type === 'C'"</span>&gt;</span></div><div class="line">    C</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-else</span>&gt;</span></div><div class="line">    Not A/B/C</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>类似于<code>v-else</code>,<code>v-else-if</code>必须紧跟在<code>v-if</code>或者<code>v-else-if</code>元素之后。</p>
+<h2 id="用key管理可复用的元素"><a href="#用key管理可复用的元素" class="headerlink" title="用key管理可复用的元素"></a>用key管理可复用的元素</h2><p>vue会尽可能高效的渲染元素，通常会复用已有的元素而不是从头开始渲染。这么做，除了使vue变得非常快之外，还有一些有用的好处。例如，如果你允许用户在不同的登陆方式之间切换：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-if</span>=<span class="string">"loginType === 'username'"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>username<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">placeholder</span>=<span class="string">"Enter your username"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-else</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>Email<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">placeholder</span>=<span class="string">"Enter your eamil address"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>那么在上面的代码中切换<code>loginType</code>将不会清除用户已经输入的内容。因为两个模板使用了相同的元素，<code>input</code>不会被替换掉–仅仅是替换了它的<code>placeholder</code>。</p>
+<p>这样也不总是符合实际需求，所以vue提供了一种方式来声明”这两个元素是完全独立的–不要复用他们”。只需添加一个具有唯一值的<code>key</code>属性即可：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-if</span>=<span class="string">"loginType === 'username'"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>username<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">placeholder</span>=<span class="string">"Enter your username"</span> <span class="attr">key</span>=<span class="string">"username-input"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">v-else</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>Email<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">placeholder</span>=<span class="string">"Enter your eamil address"</span> <span class="attr">key</span>=<span class="string">"eamil-input"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>注意，<code>&lt;label&gt;</code>元素仍然会被高效的复用，因为它们没有添加可以属性。</p>
+<h1 id="v-show"><a href="#v-show" class="headerlink" title="v-show"></a><code>v-show</code></h1><p>另一个用于根据条件展示元素的选项是<code>v-show</code>指令。用法大致一样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">v-show</span>=<span class="string">"ok"</span>&gt;</span>Hello!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>不同的是带有<code>v-show</code>的元素始终会被渲染并保留在DOM中。<code>v-show</code>是简单的切换元素的CSS属性<code>display</code>。</p>
+<p>注意，<code>v-show</code>不支持<code>&lt;template&gt;</code>语法，也不支持<code>v-else</code>。</p>
+<h1 id="v-if-VS-v-show"><a href="#v-if-VS-v-show" class="headerlink" title="v-if VS v-show"></a><code>v-if</code> VS <code>v-show</code></h1><p><code>v-if</code>是真正的条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。</p>
+<p><code>v-if</code>也是惰性的：如果在初始渲染时条件为假，则什么也不做–知道条件第一次变为真时，才会开始渲染条件块。</p>
+<p>相比之下，<code>v-show</code>就简单得多–不管初始条件是什么，元素总是会被渲染，并且只是简单的基于CSS进行切换。</p>
+<p>一般来说，<code>v-if</code>有更高的切换开销，而<code>v-show</code>有更高的渲染开销。因此，如果需要非常频繁的切换，则使用<code>v-show</code>较好；如果在运行时条件不太可能改变，则使用<code>v-if</code>较好。</p>
+<h1 id="v-if与v-for一起使用"><a href="#v-if与v-for一起使用" class="headerlink" title="v-if与v-for一起使用"></a><code>v-if</code>与<code>v-for</code>一起使用</h1><p>当<code>v-if</code>与<code>v-for</code>一起使用时，<code>v-for</code>具有比<code>v-if</code>更高的优先级。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/14/J07-Class与Style绑定/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/14/J07-Class与Style绑定/" itemprop="url">
+                  Class与Style绑定
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-14T00:00:00+08:00">
+                2017-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue-从零开始/" itemprop="url" rel="index">
+                    <span itemprop="name">vue--从零开始</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>数据绑定一个常见需求是操作元素的class列表和他的内联样式。因为他们都是属性，我们可以用v-bind处理他们：只需要计算出表达式最终的字符串。不过，字符串拼接麻烦又易错。因此，在v-bind用于class和style时，vue.js专门增强了它。表达式的结果类型除了字符串之外，还可以是对象或数组。</p>
+<h1 id="绑定HTML-Class"><a href="#绑定HTML-Class" class="headerlink" title="绑定HTML Class"></a>绑定HTML Class</h1><h2 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h2><p>我们可以传给<code>v-bind:class</code>一个对象，以动态的切换class。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123;active:isActive&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>上面的语法表示class<code>active</code>的更新将取决于数据属性<code>isActive</code>是否为真值。</p>
+<p>我们也可以在对象中传入更多属性来动态的切换多个class。此外，<code>v-bind:class</code>指令可以与普通的class属性共存。如下模板：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static"</span></span></div><div class="line">     <span class="attr">v-bind:class</span>=<span class="string">"&#123;active:isActive,'text-danger':hasError&#125;"</span>&gt; </div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如下data：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data:&#123;</div><div class="line">    <span class="attr">isActive</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">hasError</span>:<span class="literal">false</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>渲染为:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static active"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>当isActive或hasError变化时，class列表将相应的更新。例如，如果hasError的值为true，class列表将被渲染为<code>&quot;static active text-danger&quot;</code>。</p>
+<p>你也可以直接绑定数据里的一个对象：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"classObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">data:&#123;</div><div class="line">    <span class="attr">classObject</span>:&#123;</div><div class="line">        <span class="attr">active</span>:<span class="literal">true</span>,</div><div class="line">        <span class="string">'text-danger'</span>: <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>渲染结果和上面一样。我们也可以在这里绑定返回对象的计算属性。这是一个常用且强大的模式。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"classObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">data:&#123;</div><div class="line">    <span class="attr">isActive</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">error</span>:<span class="literal">null</span></div><div class="line">&#125;,</div><div class="line"><span class="attr">computed</span>:&#123;</div><div class="line">    <span class="attr">classObject</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            <span class="attr">active</span>:<span class="keyword">this</span>.isActive &amp;&amp; !<span class="keyword">this</span>.error,</div><div class="line">            <span class="string">'text-danger'</span>:<span class="keyword">this</span>.error &amp;&amp; <span class="keyword">this</span>.error.type === <span class="string">"fatal"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h2><p>我们可以把一个数组传给<code>v-bind:class</code>,以应用一个class列表：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[activeClass,errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">data:</div><div class="line">&#123;</div><div class="line">    <span class="attr">activeClass</span>:<span class="string">"active"</span>,</div><div class="line">    <span class="attr">errorClass</span>:<span class="string">"text-danger"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>渲染为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"active text-danger"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果你也想根据条件切换列表中的class，可以用三元表达式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[isActive?activeClass:'',errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>此例始终添加errorClass,但是只有在isActive是true时添加activeClass。</p>
+<p>不过，当有多个条件class时这样写有些繁琐。可以在数组语法中使用对象语法：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[&#123;active:isActive&#125;,errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="用在组件上"><a href="#用在组件上" class="headerlink" title="用在组件上"></a>用在组件上</h2><p>当你在一个定制的组件上用到class属性的时候，这些类将被添加到根元素上面，这个元素上已经存在的类不会被覆盖。</p>
+<p>例如，如果你声明了这个组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">"my-component"</span>,&#123;</div><div class="line">    <span class="attr">template</span>:<span class="string">"&lt;p class='foo bar'&gt;Hi&lt;/p&gt;"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>然后在使用它的时候添加一些class：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">class</span>=<span class="string">"baz boo"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>html最终被渲染为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"foo bar baz boo"</span>&gt;</span>Hi<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>同样的适用于绑定HTML class：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123;active:isActive&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>当isActive为true的时候，HTML将被渲染为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"foo bar active"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="绑定内联样式"><a href="#绑定内联样式" class="headerlink" title="绑定内联样式"></a>绑定内联样式</h1><h2 id="对象语法-1"><a href="#对象语法-1" class="headerlink" title="对象语法"></a>对象语法</h2><p><code>v-bind:style</code>的对象语法十分直观–看着非常像CSS，其实它是一个JavaScript对象。CSS属性名可以用驼峰式或短横分隔命名：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"&#123;color:activeColor,fontSize:fontSize+'px'&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data:&#123;</div><div class="line">    <span class="attr">activeColor</span>:<span class="string">'red'</span>,</div><div class="line">    <span class="attr">fontSize</span>:<span class="number">30</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>直接绑定到一个样式对象通常更好，让模板更清晰：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"styleObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">data:&#123;</div><div class="line">    <span class="attr">styleObject</span>:&#123;</div><div class="line">        <span class="attr">color</span>:<span class="string">'red'</span>,</div><div class="line">        <span class="attr">fontSize</span>:<span class="string">'13px'</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同样的，对象语法常常结合返回对象的计算属性使用。</p>
+<h2 id="数组语法-1"><a href="#数组语法-1" class="headerlink" title="数组语法"></a>数组语法</h2><p><code>v-bind:style</code>的数组语法可以将多个样式对象应用到一个元素上：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:style</span>=<span class="string">"[baseStyles,overridingStyles]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="自动添加前缀"><a href="#自动添加前缀" class="headerlink" title="自动添加前缀"></a>自动添加前缀</h2><p>当<code>v-bind:style</code>使用需要特定前缀的CSS属性时，如<code>transform</code>,vue.js会自动侦测并添加相应的前缀。</p>
+<h2 id="多重值"><a href="#多重值" class="headerlink" title="多重值"></a>多重值</h2><p>从2.3开始你可以为style绑定中的属性提供一个包含多个值的数组，常用于提供多个带前缀的值：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:style</span>=<span class="string">"&#123;display:['-webkit-box','-ms-flexbox','flex']&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这会渲染数组中最后一个被浏览器支持的值。在这个例子中，如果浏览器支持不带浏览器前缀的flexbox，那么渲染结果会是<code>display:flex</code>。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/30/J05-模板语法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/30/J05-模板语法/" itemprop="url">
+                  模板语法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-30T00:00:00+08:00">
+                2017-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue-从零开始/" itemprop="url" rel="index">
+                    <span itemprop="name">vue--从零开始</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Vue.js使用了基于html的模板语法，允许开发者声明式的将DOM绑定至底层的vue实例的数据。所有的vue.js的语法都是合法的html，所以能被遵循规范的浏览器和html解析器解析。</p>
+<p>在底层的实现上，vue将模板变异成DOM渲染函数。结合响应系统，在应用状态改变时，vue能智能的计算出重新渲染组件的最小代价并应用到DOM操作上。</p>
+<h1 id="插值"><a href="#插值" class="headerlink" title="插值"></a>插值</h1><h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>数据绑定最常见的形式就是“Mustache”语法的文本插值：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Message:&#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>Mustache标签将会被替代为对应数据对象上msg属性的值。无论如何，绑定的数据对象上msg属性发生了变化，插值处的内容都会更新。</p>
+<p>通过使用v-once指令，你也能执行一次性的插值，当数据改变时，插值处的内容不会更新。但请留心这会影响到该节点上左右的数据绑定：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">v-once</span>&gt;</span>This will never change : &#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="纯HTML"><a href="#纯HTML" class="headerlink" title="纯HTML"></a>纯HTML</h2><p>双大括号会将数据解释成纯文本，而非html。为了输出真正的HTML，你需要使用v-html指令：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-html</span>=<span class="string">'rawHtml'</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>被插入的内容都会被当做HTML–数据绑定会被忽略。注意，不能使用v-html来复合局部模板。因为vue不是基于字符串的模板引擎。组件更适合担任UI重用与复合的基本单元。</p>
+<p><strong>你的站点上动态渲染的任意 HTML 可能会非常危险，因为它很容易导致 XSS 攻击。请只对可信内容使用 HTML 插值，绝不要对用户提供的内容插值。</strong></p>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>迄今为止，在我们的模板中，我们一直只绑定简单的属性键值。但实际上，对于所有的数据绑定，vue.js都提供了完全的JavaScript表达式支持。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; number + 1 &#125;&#125;</div><div class="line"></div><div class="line">&#123;&#123;ok ? 'YES' : 'NO'&#125;&#125;</div><div class="line"></div><div class="line">&#123;&#123; message.split('').reverse().join('') &#125;&#125;</div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind</span>=<span class="string">"'list-' + id"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这些表达式会在所属的vue实例的数据作用域下作为javascript被解析。有个限制就是，每个绑定都只能包含单个表达式，所以下面的例子<strong>都不会生效</strong>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 这是语句  不是表达式 --&gt;</span></div><div class="line">&#123;&#123; var a = 1 &#125;&#125;</div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 流控制也不会生效 请使用三元表达式 --&gt;</span></div><div class="line">&#123;&#123; if(ok) &#123; return message &#125; &#125;&#125;</div></pre></td></tr></table></figure>
+<p><strong>模板表达式都被放在沙盒中，只能访问全局变量的一个白名单，如 Math 和 Date 。你不应该在模板表达式中试图访问用户定义的全局变量。</strong></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><p>指令除了带有<code>v-</code>前缀的特殊属性。指令属性的值预期是单一JavaScript表达式（除了<code>v-for</code>）。指令的职责就是当其表达式的值改变时相应的将某些行为应用到DOM上。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">v-if</span>=<span class="string">"seen"</span>&gt;</span>Now you see me<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这里，v-if指令将根据表达式seen的值的真假来移除/插入<code>&lt;p&gt;</code>元素。</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>一些指令能接受一个参数，在指令后以冒号指明。例如，v-bind指令被用来响应的更新html属性：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">"url"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这里href是参数，告知v-bind指令将该元素的href属性与表达式url的值绑定。<br>另一个例子是v-on指令，它用于监听DOM事件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-on:click</span>=<span class="string">"dosomething"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><p>修饰符是以半角句号<code>.</code>指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。例如，<code>.prevent</code>修饰符告诉v-on指令对于触发的事件调用<code>event.preventDefault()</code>:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">v-on:submit.prenvent</span>=<span class="string">"onSubmit"</span>&gt;</span><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><p>vue.js允许你自定义过滤器，可被用作一些常见的文本格式化。过滤器可以用在两个地方：mustache插值和v-bind表达式。过滤器应该被添加在JavaScript表达式的尾部，有管道符指示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; message | capitalize &#125;&#125;</div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:id</span>=<span class="string">"rawId | formatId"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>Vue 2.x 中，过滤器只能在 mustache 绑定和 v-bind 表达式（从 2.1.0 开始支持）中使用，因为过滤器设计目的就是用于文本转换。为了在其他指令中实现更复杂的数据变换，你应该使用计算属性。</strong></p>
+<p>过滤器函数总接受表达式的值作为第一个参数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//...</span></div><div class="line">    filters:&#123;</div><div class="line">        <span class="attr">capitalize</span>:<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</div><div class="line">            <span class="keyword">if</span>(!value) <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">            value = value._toString();</div><div class="line">            <span class="keyword">return</span> value.charAt(<span class="number">0</span>).toUpperCase()+value.slice(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>过滤器可以串联：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; message | filterA | filterB &#125;&#125;</div></pre></td></tr></table></figure>
+<p>过滤器是javascript函数，因此可以接受参数：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&#123; message | filterA('arg1',arg2) &#125;&#125;</div></pre></td></tr></table></figure>
+<p>这里，字符串‘arg1’将传给过滤器作为第二个参数，arg2表达式的值将被求值然后传给过滤器作为第三个参数。</p>
+<h2 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a>缩写</h2><p>v-前缀在模板中是作为一个标示vue特殊属性的明显前缀。当你使用vue<br>.js为现有的标记添加动态行为时他会很有用，但是对于一些经常使用的指令来说有点繁琐。同时，当搭建vue.js管理所有模块的SPA时，v-前缀也就变得没那么重要了。因此，vue.js为两个最为常用的指令提供了特别的缩写：</p>
+<h3 id="v-bind缩写"><a href="#v-bind缩写" class="headerlink" title="v-bind缩写"></a><code>v-bind</code>缩写</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 完整 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">"url"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 缩写 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">:href</span>=<span class="string">"url"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="v-on缩写"><a href="#v-on缩写" class="headerlink" title="v-on缩写"></a><code>v-on</code>缩写</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">&lt;!-- 完整语法 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">v-on:click</span>=<span class="string">"dosomething"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!-- 缩写 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span> @<span class="attr">click</span>=<span class="string">"dosomething"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/29/J04-vue实例/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1265,901 +2111,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/23/J03-vue组件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/23/J03-vue组件/" itemprop="url">
-                  Vue Components
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-23T00:00:00+08:00">
-                2017-01-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><ul>
-<li>使用API注册组件: vue.component()<ul>
-<li>第一个参数是组件的名称</li>
-<li>第二个参数是组件的配置对象</li>
-</ul>
-</li>
-<li><p><strong>一定要在vue进行实例化之前，确保组件已经注册成功</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">card</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">card</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">card</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	Vue.component(<span class="string">"card"</span>,&#123;</div><div class="line">      <span class="attr">template</span>:<span class="string">"&lt;h2&gt;我是一个组件&lt;/h2&gt;&lt;p&gt;2017年2月1日&lt;/p&gt;"</span></div><div class="line">	&#125;);</div><div class="line">	<span class="keyword">new</span> Vue(&#123;</div><div class="line">      <span class="attr">el</span>:<span class="string">"#app"</span></div><div class="line">	&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>每个组件的内容不可能全部一样，此时我们需要传参进行处理</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">card</span> <span class="attr">:detail</span>=<span class="string">"article"</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">Vue.component(<span class="string">"card"</span>,&#123;</div><div class="line">	<span class="attr">props</span>:[<span class="string">'detail'</span>],</div><div class="line">	<span class="attr">template</span>:<span class="string">"&lt;h2&gt;&#123;&#123;detail.title&#125;&#125;&lt;/h2&gt;&lt;p&gt;&#123;&#123;detail.date&#125;&#125;&lt;/p&gt;"</span></div><div class="line">&#125;);</div><div class="line"> <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">   <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">   <span class="attr">data</span>:&#123;</div><div class="line">       <span class="attr">article</span>:&#123;</div><div class="line">           <span class="attr">title</span>:<span class="string">"我是一个标题"</span>,</div><div class="line">           <span class="attr">date</span>:<span class="string">" 2017年03月06日"</span></div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line"> &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>如果创建多个组件，需要对数据进行遍历操作</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">card</span> <span class="attr">v-for</span>=<span class="string">"item in articles"</span> <span class="attr">:detail</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">Vue.component(<span class="string">"card"</span>,&#123;</div><div class="line">	<span class="attr">props</span>:[<span class="string">'detail'</span>],</div><div class="line">	<span class="attr">template</span>:<span class="string">"&lt;h2&gt;&#123;&#123;detail.title&#125;&#125;&lt;/h2&gt;&lt;p&gt;&#123;&#123;detail.date&#125;&#125;&lt;/p&gt;"</span></div><div class="line">&#125;);</div><div class="line"> <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">   <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">   <span class="attr">data</span>:&#123;</div><div class="line">       <span class="attr">articles</span>:[&#123;</div><div class="line">           <span class="attr">title</span>:<span class="string">"我是第一个标题"</span>,</div><div class="line">           <span class="attr">date</span>:<span class="string">" 2014年03月06日"</span></div><div class="line">       &#125;,&#123;</div><div class="line">           <span class="attr">title</span>:<span class="string">"我是第一个标题"</span>,</div><div class="line">           <span class="attr">date</span>:<span class="string">" 2015年03月06日"</span></div><div class="line">       &#125;,&#123;</div><div class="line">           <span class="attr">title</span>:<span class="string">"我是第一个标题"</span>,</div><div class="line">           <span class="attr">date</span>:<span class="string">" 2016年03月06日"</span></div><div class="line">       &#125;]</div><div class="line">   &#125;</div><div class="line"> &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/20/J02-vue指令/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/20/J02-vue指令/" itemprop="url">
-                  Vue 指令
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
-                2017-01-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Vue指令"><a href="#Vue指令" class="headerlink" title="Vue指令"></a>Vue指令</h1><ul>
-<li>v-text ：绑定数据</li>
-<li>v-html ：绑定数据<ul>
-<li>和双花括号作用相同，区别是v-html可以识别标签，可以认为是innerText和innerHTML的区别</li>
-</ul>
-</li>
-<li>v-show ：值为true/false，控制元素的显示和隐藏，检测的是display属性</li>
-<li>v-if ： 值为true/false，控制元素是否显示在页面上，该指令控制的是元素是否存在</li>
-<li>v-else ： 配合v-if使用</li>
-<li><p>v-for ：循环遍历</p>
-<ul>
-<li>v-for除了可以迭代数组，还可以迭代对象和整数 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!--获取每一项和索引--&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">"(item,index)in list"</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">   <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">   <span class="attr">data</span>:&#123;</div><div class="line">       <span class="attr">list</span>:[<span class="string">'Tom'</span>,<span class="string">'John'</span>,<span class="string">'Lisa'</span>]</div><div class="line">   &#125;</div><div class="line">&#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>v-bind ：用于动态绑定DOM元素的属性</p>
-<ul>
-<li>可以简写为“ : ” <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">"link"</span>&gt;</span>百度<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">:href</span>=<span class="string">"link"</span>&gt;</span>百度<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> <span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">link</span>:<span class="string">"http://baidu.com"</span></div><div class="line">    &#125;</div><div class="line"> &#125;);</div><div class="line"> <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>v-on ：事件的监听器</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"say(Tom)"</span>&gt;</span>点击<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> <span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">methods</span>:&#123;</div><div class="line">        say(name)&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'hello '</span>+name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"> &#125;);</div><div class="line"> <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>v-model</strong>  一般用于控制表单数据的双向绑定</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"msg"</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>你输入：&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> <span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">msg</span>:<span class="string">''</span></div><div class="line">    &#125;</div><div class="line"> &#125;);</div><div class="line"> <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>v-once ：只进行一次数据渲染</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"msg"</span>  <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-once</span>&gt;</span>你输入：&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">   <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">   <span class="attr">data</span>:&#123;</div><div class="line">       <span class="attr">msg</span>:<span class="string">'hello'</span></div><div class="line">   &#125;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 页面中只会显示hello  在修改文本框的数据时，也不会进行渲染</span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="Class与style的绑定"><a href="#Class与style的绑定" class="headerlink" title="Class与style的绑定"></a>Class与style的绑定</h1><ul>
-<li>v-bind用于绑定属性，同样用于class和style</li>
-<li>表达式可以是字符串、对象或数组</li>
-<li><p>以class为例</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--当isActive为true时，active才会被添加--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>也可以在对象中传入更多属性用来动态切换多个 class</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static"</span></span></div><div class="line">     <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span>&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>data如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data: &#123;</div><div class="line">  isActive: true,</div><div class="line">  hasError: false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>渲染为</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static active"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>可以在数组里直接绑定一个对象</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"classObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">data: &#123;</div><div class="line">  isActive: true,</div><div class="line">  error: null</div><div class="line">&#125;,</div><div class="line">computed: &#123;</div><div class="line">  classObject: function () &#123;</div><div class="line">    return &#123;</div><div class="line">      active: this.isActive &amp;&amp; !this.error,</div><div class="line">      'text-danger': this.error &amp;&amp; this.error.type === 'fatal',</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><strong>数组</strong></li>
-<li>我们可以把一个数组传给 v-bind: class ，以应用一个 class 列表：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[activeClass, errorClass]"</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data: &#123;</div><div class="line">  activeClass: 'active',</div><div class="line">  errorClass: 'text-danger'</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/20/J01-vue基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/20/J01-vue基础/" itemprop="url">
-                  Vue Basis
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
-                2017-01-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h1><ul>
-<li>vue是一套构建用户界面的渐进式框架</li>
-<li><strong>核心</strong><ul>
-<li>数据驱动</li>
-<li>视图组件化 </li>
-</ul>
-</li>
-<li><strong>MVVM</strong></li>
-<li>View（页面dom） —- ViewModel（监控者） —- Model（数据）</li>
-<li>简单的vue实例<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">      <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">      <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">name</span>:<span class="string">"hello vue"</span></div><div class="line">      &#125;</div><div class="line">	&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="创建实例的步骤"><a href="#创建实例的步骤" class="headerlink" title="创建实例的步骤"></a>创建实例的步骤</h2><ul>
-<li>new Vue()</li>
-<li>设置数据data</li>
-<li>挂载元素</li>
-<li>数据渲染</li>
-<li>每个Vue 实例都会代理其 data 对象里所有的属性<ul>
-<li>只有这些被代理的属性是响应式的，在实例创建之后添加新的实例属性，不会触发视图更新。 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;<span class="attr">name</span>:<span class="string">"John"</span>&#125;;</div><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">data</span>:data</div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(vm.name===data.name);<span class="comment">//true</span></div><div class="line">vm.age = <span class="number">18</span>;<span class="comment">//这条数据在实例化之后添加，不会响应到视图上</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><ul>
-<li><strong>el ：挂载元素</strong></li>
-<li><strong>data ：设置数据</strong></li>
-<li><strong>filters ：过滤器</strong></li>
-<li><p>需求 : 将数据转化成整数再进行渲染</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">数字1：&#123;&#123;num1 | toInt&#125;&#125;</div><div class="line">数字2：&#123;&#123;num2 | toInt&#125;&#125;</div><div class="line">数字3：&#123;&#123;num3 | toInt&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">num1</span>:<span class="number">33.141</span>,</div><div class="line">         <span class="attr">num2</span>:<span class="number">46.212</span>,</div><div class="line">         <span class="attr">num3</span>:<span class="number">78.541</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  filters:&#123;</div><div class="line">      <span class="attr">toInt</span>:<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="built_in">parseInt</span>(value);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>computed：计算属性</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--使用sum读取结果--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">和：&#123;&#123;sum&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">num1</span>:<span class="number">1</span>,</div><div class="line">         <span class="attr">num2</span>:<span class="number">2</span>,</div><div class="line">         <span class="attr">num3</span>:<span class="number">3</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  computed:&#123;</div><div class="line">      <span class="attr">sum</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> num1+num2+num3;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>methods：方法</strong></p>
-</li>
-<li><p>我们可以使用methods定义一些方法，供组件使用</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">&#123;&#123;a&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"plus"</span>&gt;</span>加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">a</span>:<span class="number">1</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  methods:&#123;</div><div class="line">      <span class="attr">plus</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="keyword">this</span>.a++;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>watch：观察</strong></p>
-</li>
-<li>检测数据的变化，并执行相应的操作<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">&#123;&#123;a&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"plus"</span>&gt;</span>加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">a</span>:<span class="number">1</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  methods:&#123;</div><div class="line">      <span class="attr">plus</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="keyword">this</span>.a++;</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">  <span class="attr">watch</span>:&#123;</div><div class="line">    <span class="attr">a</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//代表监听的是数据a</span></div><div class="line">      cosole.log(<span class="string">"a变了："</span>+<span class="keyword">this</span>.a);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/09/A06-ES6-class/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/09/A06-ES6-class/" itemprop="url">
-                  Class
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-09T00:00:00+08:00">
-                2017-01-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><ul>
-<li>ES6增加了类的概念，实际上也是依靠函数function和prototype实现<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2></li>
-<li>constructor方法是构造方法，其中的this指向实例，默认返回实例对象。这个方法是类必须的，如果没有写，js会自动添加一个空方法</li>
-<li>一个类中只能有一个constructor方法</li>
-<li>使用new创建对象的时候，实际上是调用的constructor方法</li>
-<li><strong>必须先声明类再创建实例</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="comment">//contructor方法是构造方法</span></div><div class="line">  	<span class="keyword">constructor</span>(name)&#123;</div><div class="line">  		<span class="comment">//this指向实例对象</span></div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;</div><div class="line">	getName()&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><ul>
-<li>使用static关键字声明</li>
-<li>可以直接使用类名调用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="comment">//contructor方法是构造方法</span></div><div class="line">  	<span class="keyword">constructor</span>(name)&#123;</div><div class="line">  		<span class="comment">//this指向实例对象</span></div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;	</div><div class="line">	<span class="keyword">static</span> getName()&#123;</div><div class="line">		<span class="comment">//此处的this指的是整个Person函数</span></div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>);</div><div class="line">	&#125;</div><div class="line">&#125; </div><div class="line"><span class="keyword">var</span> per = <span class="keyword">new</span> Person(<span class="string">"zhangsan"</span>);</div><div class="line"><span class="built_in">console</span>.log(per.name);<span class="comment">//zhansan</span></div><div class="line">Person.getName();</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><ul>
-<li>使用extends关键字实现继承</li>
-<li><strong>super的使用</strong><ul>
-<li>super()方法必须在constructor中调用</li>
-<li>在constructor中，必须先调用super方法才能使用this，否则会报错</li>
-<li>子类调用父类的方法时，使用super.父类方法()调用。</li>
-<li>子类的super是对父类的引用</li>
-<li>super()方法只能在constructor方法中使用一次。出现两次及以上会报错<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="keyword">constructor</span>(name)&#123;</div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;</div><div class="line">	getName()&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="keyword">constructor</span>(name,age)&#123;</div><div class="line">		<span class="keyword">super</span>(name);</div><div class="line">		<span class="keyword">this</span>.age = age;</div><div class="line">	&#125;</div><div class="line">	getInfo()&#123;</div><div class="line">		<span class="keyword">super</span>.getName();;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="string">"lisi"</span>,<span class="number">17</span>);</div><div class="line">stu.getInfo();</div></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/06/A05-ES6-Set和Map/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/06/A05-ES6-Set和Map/" itemprop="url">
-                  what  are  Set and WeakSet ？
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-06T00:00:00+08:00">
-                2017-01-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Set和WeakSet"><a href="#Set和WeakSet" class="headerlink" title="Set和WeakSet"></a>Set和WeakSet</h1><h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ul>
-<li>Set类似于数组，但是成员的值都是唯一的，没有重复的值</li>
-<li>Set本身是一个构造函数，用来生成Set数据结构。可以接收一个数组或类数组的对象，用来初始化Set</li>
-<li><strong>Set中识别数据类型，即5和“5”不同，但是NaN只能存在一个，{}与{}不同</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]);</div><div class="line"><span class="built_in">console</span>.log(set);<span class="comment">//[1,2,3,4]</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h3><ul>
-<li>constructor : 指向构造函数</li>
-<li>size : 长度<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3></li>
-<li>add : 向Set中添加数据，返回Set</li>
-<li>delete : 删除某个值，返回一个布尔值，表示删除是否成功</li>
-<li>has ： 返回布尔值，表示某个值是否存在</li>
-<li>clear : 清除所有成员，没有返回值<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>();</div><div class="line">set.add(<span class="number">1</span>).add(<span class="number">2</span>).add(<span class="number">2</span>);</div><div class="line">set.size;<span class="comment">//2</span></div><div class="line"></div><div class="line">set.delete(<span class="number">2</span>);<span class="comment">//true</span></div><div class="line">set.delete(<span class="number">2</span>);<span class="comment">//false</span></div><div class="line">set.has(<span class="number">1</span>);<span class="comment">//true</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong> Array.from()可将Set转化成真正的数组</strong></p>
-<h3 id="遍历操作"><a href="#遍历操作" class="headerlink" title="遍历操作"></a>遍历操作</h3><p><strong> Set的遍历顺序就是插入顺序</strong></p>
-<ul>
-<li>keys() : 返回键名的遍历器</li>
-<li>values : 返回键值的遍历器</li>
-<li><strong>由于Set结构没有键名，所以键名和键值是一个</strong></li>
-<li>entries : 返回键值对的遍历器  即【索引+键值】</li>
-<li>forEach()  : 使用回调函数遍历每个成员，没有返回值<h2 id="WeakSet"><a href="#WeakSet" class="headerlink" title="WeakSet"></a>WeakSet</h2></li>
-<li>WeakSet结构与Set类似，也是不重复的值的集合。但是，它与Set有两个区别</li>
-<li>1、WeakSet的成员只能是对象(具有iterable接口的对象)，而不能是其他类型的值</li>
-<li>2、WeakSet中的对象都是弱引用，即垃圾回收机制不考虑WeakSet对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于WeakSet之中。这个特点意味着，无法引用WeakSet的成员，因此WeakSet是不可遍历的</li>
-<li><p>WeakSet是一个构造函数，可以使用new命令，创建WeakSet数据结构。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> <span class="built_in">WeakSet</span>();</div></pre></td></tr></table></figure>
-</li>
-<li><p>作为构造函数，WeakSet可以接受一个数组或类似数组的对象作为参数（实际上，任何具有iterable接口的对象，都可以作为WeakSet的参数）。该数组的所有成员，都会自动成为WeakSet实例对象的成员。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>]];</div><div class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> <span class="built_in">WeakSet</span>(a);</div></pre></td></tr></table></figure>
-</li>
-<li><p>a是一个数组，有两个成员，且两个成员都是对象。a数组的成员是WeakSet的成员，而不是a数组本身</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> b = [<span class="number">1</span>,<span class="number">2</span>];</div><div class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> <span class="built_in">WeakSet</span>(b);<span class="comment">//报错</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>因为b数组成员不是对象，加入WeakSet就会报错</p>
-</li>
-<li>WeakSet结构有以下三个方法。<ul>
-<li>WeakSet.prototype.add(value)：向WeakSet实例添加一个新成员。</li>
-<li>WeakSet.prototype.delete(value)：清除WeakSet实例的指定成员。</li>
-<li>WeakSet.prototype.has(value)：返回一个布尔值，表示某个值是否在WeakSet实例之中。</li>
-</ul>
-</li>
-<li>WeakSet 没有size属性，因为它不可遍历。</li>
-<li>WeakSet不能遍历，是因为成员都是弱引用，随时可能消失，遍历机制无法保证成员的存在，很可能刚刚遍历结束，成员就取不到了。WeakSet的一个用处，是储存DOM节点，而不用担心这些节点从文档移除时，会引发内存泄漏。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2209,7 +2160,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">68</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

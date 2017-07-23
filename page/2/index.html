@@ -260,6 +260,901 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/23/J03-vue组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/23/J03-vue组件/" itemprop="url">
+                  Vue Components
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-23T00:00:00+08:00">
+                2017-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><ul>
+<li>使用API注册组件: vue.component()<ul>
+<li>第一个参数是组件的名称</li>
+<li>第二个参数是组件的配置对象</li>
+</ul>
+</li>
+<li><p><strong>一定要在vue进行实例化之前，确保组件已经注册成功</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">card</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">card</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">card</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	Vue.component(<span class="string">"card"</span>,&#123;</div><div class="line">      <span class="attr">template</span>:<span class="string">"&lt;h2&gt;我是一个组件&lt;/h2&gt;&lt;p&gt;2017年2月1日&lt;/p&gt;"</span></div><div class="line">	&#125;);</div><div class="line">	<span class="keyword">new</span> Vue(&#123;</div><div class="line">      <span class="attr">el</span>:<span class="string">"#app"</span></div><div class="line">	&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>每个组件的内容不可能全部一样，此时我们需要传参进行处理</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">card</span> <span class="attr">:detail</span>=<span class="string">"article"</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">Vue.component(<span class="string">"card"</span>,&#123;</div><div class="line">	<span class="attr">props</span>:[<span class="string">'detail'</span>],</div><div class="line">	<span class="attr">template</span>:<span class="string">"&lt;h2&gt;&#123;&#123;detail.title&#125;&#125;&lt;/h2&gt;&lt;p&gt;&#123;&#123;detail.date&#125;&#125;&lt;/p&gt;"</span></div><div class="line">&#125;);</div><div class="line"> <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">   <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">   <span class="attr">data</span>:&#123;</div><div class="line">       <span class="attr">article</span>:&#123;</div><div class="line">           <span class="attr">title</span>:<span class="string">"我是一个标题"</span>,</div><div class="line">           <span class="attr">date</span>:<span class="string">" 2017年03月06日"</span></div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line"> &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>如果创建多个组件，需要对数据进行遍历操作</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">card</span> <span class="attr">v-for</span>=<span class="string">"item in articles"</span> <span class="attr">:detail</span>=<span class="string">"item"</span>&gt;</span><span class="tag">&lt;/<span class="name">card</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">Vue.component(<span class="string">"card"</span>,&#123;</div><div class="line">	<span class="attr">props</span>:[<span class="string">'detail'</span>],</div><div class="line">	<span class="attr">template</span>:<span class="string">"&lt;h2&gt;&#123;&#123;detail.title&#125;&#125;&lt;/h2&gt;&lt;p&gt;&#123;&#123;detail.date&#125;&#125;&lt;/p&gt;"</span></div><div class="line">&#125;);</div><div class="line"> <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">   <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">   <span class="attr">data</span>:&#123;</div><div class="line">       <span class="attr">articles</span>:[&#123;</div><div class="line">           <span class="attr">title</span>:<span class="string">"我是第一个标题"</span>,</div><div class="line">           <span class="attr">date</span>:<span class="string">" 2014年03月06日"</span></div><div class="line">       &#125;,&#123;</div><div class="line">           <span class="attr">title</span>:<span class="string">"我是第一个标题"</span>,</div><div class="line">           <span class="attr">date</span>:<span class="string">" 2015年03月06日"</span></div><div class="line">       &#125;,&#123;</div><div class="line">           <span class="attr">title</span>:<span class="string">"我是第一个标题"</span>,</div><div class="line">           <span class="attr">date</span>:<span class="string">" 2016年03月06日"</span></div><div class="line">       &#125;]</div><div class="line">   &#125;</div><div class="line"> &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/20/J01-vue基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/20/J01-vue基础/" itemprop="url">
+                  Vue Basis
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
+                2017-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h1><ul>
+<li>vue是一套构建用户界面的渐进式框架</li>
+<li><strong>核心</strong><ul>
+<li>数据驱动</li>
+<li>视图组件化 </li>
+</ul>
+</li>
+<li><strong>MVVM</strong></li>
+<li>View（页面dom） —- ViewModel（监控者） —- Model（数据）</li>
+<li>简单的vue实例<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">	<span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">      <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">      <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">name</span>:<span class="string">"hello vue"</span></div><div class="line">      &#125;</div><div class="line">	&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="创建实例的步骤"><a href="#创建实例的步骤" class="headerlink" title="创建实例的步骤"></a>创建实例的步骤</h2><ul>
+<li>new Vue()</li>
+<li>设置数据data</li>
+<li>挂载元素</li>
+<li>数据渲染</li>
+<li>每个Vue 实例都会代理其 data 对象里所有的属性<ul>
+<li>只有这些被代理的属性是响应式的，在实例创建之后添加新的实例属性，不会触发视图更新。 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;<span class="attr">name</span>:<span class="string">"John"</span>&#125;;</div><div class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">data</span>:data</div><div class="line">&#125;)</div><div class="line"><span class="built_in">console</span>.log(vm.name===data.name);<span class="comment">//true</span></div><div class="line">vm.age = <span class="number">18</span>;<span class="comment">//这条数据在实例化之后添加，不会响应到视图上</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h2><ul>
+<li><strong>el ：挂载元素</strong></li>
+<li><strong>data ：设置数据</strong></li>
+<li><strong>filters ：过滤器</strong></li>
+<li><p>需求 : 将数据转化成整数再进行渲染</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">数字1：&#123;&#123;num1 | toInt&#125;&#125;</div><div class="line">数字2：&#123;&#123;num2 | toInt&#125;&#125;</div><div class="line">数字3：&#123;&#123;num3 | toInt&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">num1</span>:<span class="number">33.141</span>,</div><div class="line">         <span class="attr">num2</span>:<span class="number">46.212</span>,</div><div class="line">         <span class="attr">num3</span>:<span class="number">78.541</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  filters:&#123;</div><div class="line">      <span class="attr">toInt</span>:<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="built_in">parseInt</span>(value);</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>computed：计算属性</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--使用sum读取结果--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">和：&#123;&#123;sum&#125;&#125;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">num1</span>:<span class="number">1</span>,</div><div class="line">         <span class="attr">num2</span>:<span class="number">2</span>,</div><div class="line">         <span class="attr">num3</span>:<span class="number">3</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  computed:&#123;</div><div class="line">      <span class="attr">sum</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> num1+num2+num3;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>methods：方法</strong></p>
+</li>
+<li><p>我们可以使用methods定义一些方法，供组件使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">&#123;&#123;a&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"plus"</span>&gt;</span>加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">a</span>:<span class="number">1</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  methods:&#123;</div><div class="line">      <span class="attr">plus</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="keyword">this</span>.a++;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>watch：观察</strong></p>
+</li>
+<li>检测数据的变化，并执行相应的操作<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">&#123;&#123;a&#125;&#125;</div><div class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"plus"</span>&gt;</span>加1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="keyword">let</span> vm = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="comment">//挂载元素</span></div><div class="line">  el:<span class="string">'#app'</span>,</div><div class="line">    <span class="comment">//实例vm的数据</span></div><div class="line">  data:&#123;</div><div class="line">         <span class="attr">a</span>:<span class="number">1</span></div><div class="line">    &#125;,</div><div class="line">    <span class="comment">//过滤器</span></div><div class="line">  methods:&#123;</div><div class="line">      <span class="attr">plus</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">         <span class="keyword">return</span> <span class="keyword">this</span>.a++;</div><div class="line">      &#125;</div><div class="line">    &#125;,</div><div class="line">  <span class="attr">watch</span>:&#123;</div><div class="line">    <span class="attr">a</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="comment">//代表监听的是数据a</span></div><div class="line">      cosole.log(<span class="string">"a变了："</span>+<span class="keyword">this</span>.a);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  &#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/20/J02-vue指令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/20/J02-vue指令/" itemprop="url">
+                  Vue 指令
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T00:00:00+08:00">
+                2017-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Vue指令"><a href="#Vue指令" class="headerlink" title="Vue指令"></a>Vue指令</h1><ul>
+<li>v-text ：绑定数据</li>
+<li>v-html ：绑定数据<ul>
+<li>和双花括号作用相同，区别是v-html可以识别标签，可以认为是innerText和innerHTML的区别</li>
+</ul>
+</li>
+<li>v-show ：值为true/false，控制元素的显示和隐藏，检测的是display属性</li>
+<li>v-if ： 值为true/false，控制元素是否显示在页面上，该指令控制的是元素是否存在</li>
+<li>v-else ： 配合v-if使用</li>
+<li><p>v-for ：循环遍历</p>
+<ul>
+<li>v-for除了可以迭代数组，还可以迭代对象和整数 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!--获取每一项和索引--&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-for</span>=<span class="string">"(item,index)in list"</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">   <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">   <span class="attr">data</span>:&#123;</div><div class="line">       <span class="attr">list</span>:[<span class="string">'Tom'</span>,<span class="string">'John'</span>,<span class="string">'Lisa'</span>]</div><div class="line">   &#125;</div><div class="line">&#125;);</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>v-bind ：用于动态绑定DOM元素的属性</p>
+<ul>
+<li>可以简写为“ : ” <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">v-bind:href</span>=<span class="string">"link"</span>&gt;</span>百度<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">:href</span>=<span class="string">"link"</span>&gt;</span>百度<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> <span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">link</span>:<span class="string">"http://baidu.com"</span></div><div class="line">    &#125;</div><div class="line"> &#125;);</div><div class="line"> <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>v-on ：事件的监听器</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">v-on:click</span>=<span class="string">"say(Tom)"</span>&gt;</span>点击<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> <span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">methods</span>:&#123;</div><div class="line">        say(name)&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'hello '</span>+name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"> &#125;);</div><div class="line"> <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>v-model</strong>  一般用于控制表单数据的双向绑定</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"msg"</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>你输入：&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"> <span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">msg</span>:<span class="string">''</span></div><div class="line">    &#125;</div><div class="line"> &#125;);</div><div class="line"> <span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>v-once ：只进行一次数据渲染</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"msg"</span>  <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">v-once</span>&gt;</span>你输入：&#123;&#123; msg &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">let</span> app = <span class="keyword">new</span> Vue(&#123;</div><div class="line">   <span class="attr">el</span>:<span class="string">"#app"</span>,</div><div class="line">   <span class="attr">data</span>:&#123;</div><div class="line">       <span class="attr">msg</span>:<span class="string">'hello'</span></div><div class="line">   &#125;</div><div class="line">&#125;);</div><div class="line"><span class="comment">// 页面中只会显示hello  在修改文本框的数据时，也不会进行渲染</span></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Class与style的绑定"><a href="#Class与style的绑定" class="headerlink" title="Class与style的绑定"></a>Class与style的绑定</h1><ul>
+<li>v-bind用于绑定属性，同样用于class和style</li>
+<li>表达式可以是字符串、对象或数组</li>
+<li><p>以class为例</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--当isActive为true时，active才会被添加--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>也可以在对象中传入更多属性用来动态切换多个 class</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static"</span></span></div><div class="line">     <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span>&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>data如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data: &#123;</div><div class="line">  isActive: true,</div><div class="line">  hasError: false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>渲染为</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"static active"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>可以在数组里直接绑定一个对象</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"classObject"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">data: &#123;</div><div class="line">  isActive: true,</div><div class="line">  error: null</div><div class="line">&#125;,</div><div class="line">computed: &#123;</div><div class="line">  classObject: function () &#123;</div><div class="line">    return &#123;</div><div class="line">      active: this.isActive &amp;&amp; !this.error,</div><div class="line">      'text-danger': this.error &amp;&amp; this.error.type === 'fatal',</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>数组</strong></li>
+<li>我们可以把一个数组传给 v-bind: class ，以应用一个 class 列表：<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[activeClass, errorClass]"</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">data: &#123;</div><div class="line">  activeClass: 'active',</div><div class="line">  errorClass: 'text-danger'</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/09/A06-ES6-class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/09/A06-ES6-class/" itemprop="url">
+                  Class
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-09T00:00:00+08:00">
+                2017-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><ul>
+<li>ES6增加了类的概念，实际上也是依靠函数function和prototype实现<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2></li>
+<li>constructor方法是构造方法，其中的this指向实例，默认返回实例对象。这个方法是类必须的，如果没有写，js会自动添加一个空方法</li>
+<li>一个类中只能有一个constructor方法</li>
+<li>使用new创建对象的时候，实际上是调用的constructor方法</li>
+<li><strong>必须先声明类再创建实例</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="comment">//contructor方法是构造方法</span></div><div class="line">  	<span class="keyword">constructor</span>(name)&#123;</div><div class="line">  		<span class="comment">//this指向实例对象</span></div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;</div><div class="line">	getName()&#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><ul>
+<li>使用static关键字声明</li>
+<li>可以直接使用类名调用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="comment">//contructor方法是构造方法</span></div><div class="line">  	<span class="keyword">constructor</span>(name)&#123;</div><div class="line">  		<span class="comment">//this指向实例对象</span></div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;	</div><div class="line">	<span class="keyword">static</span> getName()&#123;</div><div class="line">		<span class="comment">//此处的this指的是整个Person函数</span></div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>);</div><div class="line">	&#125;</div><div class="line">&#125; </div><div class="line"><span class="keyword">var</span> per = <span class="keyword">new</span> Person(<span class="string">"zhangsan"</span>);</div><div class="line"><span class="built_in">console</span>.log(per.name);<span class="comment">//zhansan</span></div><div class="line">Person.getName();</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><ul>
+<li>使用extends关键字实现继承</li>
+<li><strong>super的使用</strong><ul>
+<li>super()方法必须在constructor中调用</li>
+<li>在constructor中，必须先调用super方法才能使用this，否则会报错</li>
+<li>子类调用父类的方法时，使用super.父类方法()调用。</li>
+<li>子类的super是对父类的引用</li>
+<li>super()方法只能在constructor方法中使用一次。出现两次及以上会报错<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="keyword">constructor</span>(name)&#123;</div><div class="line">		<span class="keyword">this</span>.name = name;</div><div class="line">	&#125;</div><div class="line">	getName()&#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="keyword">constructor</span>(name,age)&#123;</div><div class="line">		<span class="keyword">super</span>(name);</div><div class="line">		<span class="keyword">this</span>.age = age;</div><div class="line">	&#125;</div><div class="line">	getInfo()&#123;</div><div class="line">		<span class="keyword">super</span>.getName();;</div><div class="line">		<span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student(<span class="string">"lisi"</span>,<span class="number">17</span>);</div><div class="line">stu.getInfo();</div></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/06/A05-ES6-Set和Map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/01/06/A05-ES6-Set和Map/" itemprop="url">
+                  what  are  Set and WeakSet ？
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-06T00:00:00+08:00">
+                2017-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Set和WeakSet"><a href="#Set和WeakSet" class="headerlink" title="Set和WeakSet"></a>Set和WeakSet</h1><h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ul>
+<li>Set类似于数组，但是成员的值都是唯一的，没有重复的值</li>
+<li>Set本身是一个构造函数，用来生成Set数据结构。可以接收一个数组或类数组的对象，用来初始化Set</li>
+<li><strong>Set中识别数据类型，即5和“5”不同，但是NaN只能存在一个，{}与{}不同</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]);</div><div class="line"><span class="built_in">console</span>.log(set);<span class="comment">//[1,2,3,4]</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h3><ul>
+<li>constructor : 指向构造函数</li>
+<li>size : 长度<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3></li>
+<li>add : 向Set中添加数据，返回Set</li>
+<li>delete : 删除某个值，返回一个布尔值，表示删除是否成功</li>
+<li>has ： 返回布尔值，表示某个值是否存在</li>
+<li>clear : 清除所有成员，没有返回值<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>();</div><div class="line">set.add(<span class="number">1</span>).add(<span class="number">2</span>).add(<span class="number">2</span>);</div><div class="line">set.size;<span class="comment">//2</span></div><div class="line"></div><div class="line">set.delete(<span class="number">2</span>);<span class="comment">//true</span></div><div class="line">set.delete(<span class="number">2</span>);<span class="comment">//false</span></div><div class="line">set.has(<span class="number">1</span>);<span class="comment">//true</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong> Array.from()可将Set转化成真正的数组</strong></p>
+<h3 id="遍历操作"><a href="#遍历操作" class="headerlink" title="遍历操作"></a>遍历操作</h3><p><strong> Set的遍历顺序就是插入顺序</strong></p>
+<ul>
+<li>keys() : 返回键名的遍历器</li>
+<li>values : 返回键值的遍历器</li>
+<li><strong>由于Set结构没有键名，所以键名和键值是一个</strong></li>
+<li>entries : 返回键值对的遍历器  即【索引+键值】</li>
+<li>forEach()  : 使用回调函数遍历每个成员，没有返回值<h2 id="WeakSet"><a href="#WeakSet" class="headerlink" title="WeakSet"></a>WeakSet</h2></li>
+<li>WeakSet结构与Set类似，也是不重复的值的集合。但是，它与Set有两个区别</li>
+<li>1、WeakSet的成员只能是对象(具有iterable接口的对象)，而不能是其他类型的值</li>
+<li>2、WeakSet中的对象都是弱引用，即垃圾回收机制不考虑WeakSet对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于WeakSet之中。这个特点意味着，无法引用WeakSet的成员，因此WeakSet是不可遍历的</li>
+<li><p>WeakSet是一个构造函数，可以使用new命令，创建WeakSet数据结构。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> <span class="built_in">WeakSet</span>();</div></pre></td></tr></table></figure>
+</li>
+<li><p>作为构造函数，WeakSet可以接受一个数组或类似数组的对象作为参数（实际上，任何具有iterable接口的对象，都可以作为WeakSet的参数）。该数组的所有成员，都会自动成为WeakSet实例对象的成员。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>]];</div><div class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> <span class="built_in">WeakSet</span>(a);</div></pre></td></tr></table></figure>
+</li>
+<li><p>a是一个数组，有两个成员，且两个成员都是对象。a数组的成员是WeakSet的成员，而不是a数组本身</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> b = [<span class="number">1</span>,<span class="number">2</span>];</div><div class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> <span class="built_in">WeakSet</span>(b);<span class="comment">//报错</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>因为b数组成员不是对象，加入WeakSet就会报错</p>
+</li>
+<li>WeakSet结构有以下三个方法。<ul>
+<li>WeakSet.prototype.add(value)：向WeakSet实例添加一个新成员。</li>
+<li>WeakSet.prototype.delete(value)：清除WeakSet实例的指定成员。</li>
+<li>WeakSet.prototype.has(value)：返回一个布尔值，表示某个值是否在WeakSet实例之中。</li>
+</ul>
+</li>
+<li>WeakSet 没有size属性，因为它不可遍历。</li>
+<li>WeakSet不能遍历，是因为成员都是弱引用，随时可能消失，遍历机制无法保证成员的存在，很可能刚刚遍历结束，成员就取不到了。WeakSet的一个用处，是储存DOM节点，而不用担心这些节点从文档移除时，会引发内存泄漏。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/30/A04-ES6-Promise/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1125,1154 +2020,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/12/I05-mangoDB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/12/I05-mangoDB/" itemprop="url">
-                  认识认识mongoDB
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-12T00:00:00+08:00">
-                2016-11-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mongoDB/" itemprop="url" rel="index">
-                    <span itemprop="name">mongoDB</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="mongoDB"><a href="#mongoDB" class="headerlink" title="mongoDB"></a>mongoDB</h1><ul>
-<li>mangoDB是一个基于分布式文件存储的数据库</li>
-<li>关系型数据库<ul>
-<li>MySQL</li>
-<li>Oracle</li>
-<li>DB2</li>
-<li>Microsoft SQLServer</li>
-<li>所有的关系型数据库都有表、关系、表中的字段数据，表与表之间的关系</li>
-<li>共同点：必须有表结构才可以操作表</li>
-</ul>
-</li>
-<li>非关系型数据库<ul>
-<li>mongoDB【使用者最多】</li>
-<li>不需要提前设计表结构</li>
-<li>最大的好处是灵活</li>
-<li>存储的是json数据 <h2 id="mongoDB数据存储结构"><a href="#mongoDB数据存储结构" class="headerlink" title="mongoDB数据存储结构"></a>mongoDB数据存储结构</h2></li>
-</ul>
-</li>
-<li>传统的关系型数据库中存储结构<ul>
-<li>一个机器上安装数据库其实就是安装了一个数据服务实例</li>
-<li>一个数据服务实例上可以有多个数据库</li>
-<li>一个数据库中可以有多张表</li>
-<li>一张表中可以存储多条记录数据</li>
-<li>数据服务实例 —&gt; 数据库 —&gt; 表 —&gt; 记录</li>
-</ul>
-</li>
-<li>mongoDB</li>
-<li>一个数据服务中可以有多个数据库</li>
-<li>一个数据库中有多个集合<ul>
-<li>在mongoDB中，把表称之为集合</li>
-<li>集合可以简单理解为一个数组</li>
-</ul>
-</li>
-<li>在一个集合中可以有多个对象（json），在mongoDB中称之为文档<ul>
-<li>称之为bson  <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  a: &#123; </div><div class="line">    users: [</div><div class="line">      &#123; username: 'xxx', password: 'xxx', age: 'xxx', gender: 'xx' &#125;,</div><div class="line">      &#123; username: 'xxx', password: 'xxx', age: 'xxx', gender: 'xx' &#125;</div><div class="line">      &#123; username: 'xxx', password: 'xxx', age: 'xxx', gender: 'xx' &#125;</div><div class="line">      &#123; username: 'xxx', password: 'xxx', age: 'xxx', gender: 'xx' &#125;</div><div class="line">      ...</div><div class="line">    ],</div><div class="line">    articles: [</div><div class="line">      &#123; title: 'xxx', content: '', time: '' &#125;,</div><div class="line">      &#123; title: 'xxx', content: '', time: '' &#125;,</div><div class="line">      &#123; title: 'xxx', content: '', time: '' &#125;,</div><div class="line">      &#123; title: 'xxx', content: '', time: '' &#125;,</div><div class="line">      &#123; title: 'xxx', content: '', time: '' &#125;,</div><div class="line">      ...</div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  b: &#123; </div><div class="line">    users: [</div><div class="line">      &#123; username: 'xxx', password: 'xxx', age: 'xxx', gender: 'xx' &#125;,</div><div class="line">      &#123; username: 'xxx', password: 'xxx', age: 'xxx', gender: 'xx' &#125;</div><div class="line">      &#123; username: 'xxx', password: 'xxx', age: 'xxx', gender: 'xx' &#125;</div><div class="line">      &#123; username: 'xxx', password: 'xxx', age: 'xxx', gender: 'xx' &#125;</div><div class="line">      ...</div><div class="line">    ],</div><div class="line">  &#125;,</div><div class="line">  c: &#123;  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="启动和停止"><a href="#启动和停止" class="headerlink" title="启动和停止"></a>启动和停止</h2><p>可以通过使用安装程序中的 <code>mongod</code> CLI应用程序来启动 MongoDB 服务。<br>直接在控制台输入：<code>mongod</code> 敲回车即可。</p>
-<p>在启动的时候，可以通过 <code>--dbpath</code> 指定数据服务存储数据的目录，<br>如果不指定该目录，<br>默认 <code>mongod</code> 会去执行该命令的当前目录所属磁盘根目录下找<code>/data/db</code> 作为自己的数据存储目录。</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
-<li><code>show dbs</code> 查看当前服务实例上所有的数据库</li>
-<li><code>use 数据库名称</code> 创建数据库并且切换到该数据库<ul>
-<li>连接到数据库之后，默认有一个变量叫做：db，终端默认把 db 赋值给了 test</li>
-</ul>
-</li>
-<li><code>db</code> 查看当前所处的数据库 </li>
-<li><code>db.集合名称.insert(数据文档)</code></li>
-<li><code>show collections</code> 查询指定集合中所有的数据<ul>
-<li>可以通过 <code>db.集合名称.find().pretty()</code> 美化输出格式<ul>
-<li>默认是查询所有，可以通过：<code>db.集合名称.find({查询条件})</code> 按条件查询集合中的数据</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>db.集合名称.update({更新条件}, {要更新的字段})</code><ul>
-<li>更新指定集合数据</li>
-</ul>
-</li>
-<li><code>db.集合名称.remove({删除条件})</code><ul>
-<li>删除指定集合中的数据</li>
-</ul>
-</li>
-</ul>
-<h2 id="node操作mongoDB"><a href="#node操作mongoDB" class="headerlink" title="node操作mongoDB"></a>node操作mongoDB</h2><p>安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm i -S mongodb</div></pre></td></tr></table></figure>
-<p>CRUD：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mongodb = <span class="built_in">require</span>(<span class="string">'mongodb'</span>)</div><div class="line"></div><div class="line"> 连接路径URL</div><div class="line"><span class="keyword">var</span> url = <span class="string">'mongodb://localhost:27017/itcast'</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> MongoClient = mongodb.MongoClient</div><div class="line"></div><div class="line"><span class="comment">// ================== 插入数据 ==================</span></div><div class="line"><span class="comment">// 1. 连接数据库</span></div><div class="line">MongoClient.connect(url, <span class="function"><span class="keyword">function</span> (<span class="params">err, db</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (err) &#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'连接失败'</span>)</div><div class="line">&#125;</div><div class="line">   db</div><div class="line">     .collection(<span class="string">'heros'</span>)</div><div class="line">     .insert(&#123; <span class="attr">name</span>: <span class="string">'张飞'</span>, <span class="attr">gender</span>: <span class="string">'男'</span>, <span class="attr">age</span>: <span class="number">23</span> &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err, result</span>) </span>&#123;</div><div class="line">       <span class="keyword">if</span> (err) &#123;</div><div class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'插入数据失败'</span>)</div><div class="line">       &#125;</div><div class="line">       <span class="built_in">console</span>.log(result)</div><div class="line">       db.close()</div><div class="line">     &#125;)</div><div class="line"> &#125;)</div><div class="line"> <span class="comment">//================== /插入数据 ==================</span></div><div class="line"></div><div class="line"></div><div class="line"> <span class="comment">//================== 查询数据 ==================</span></div><div class="line"> MongoClient.connect(url, <span class="function"><span class="keyword">function</span> (<span class="params">err, db</span>) </span>&#123;</div><div class="line">   <span class="keyword">if</span> (err) &#123;</div><div class="line">     <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'连接失败'</span>)</div><div class="line">   &#125;</div><div class="line"></div><div class="line">    <span class="comment">//查询所有</span></div><div class="line">    db.collection(<span class="string">'heros'</span>).find(&#123;&#125;).toArray(<span class="function"><span class="keyword">function</span> (<span class="params">err, docs</span>) </span>&#123;</div><div class="line">      <span class="keyword">if</span> (err) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'查询数据失败'</span>)</div><div class="line">      &#125;</div><div class="line">      <span class="built_in">console</span>.log(docs)</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    <span class="comment">//按条件查询</span></div><div class="line">   db.collection(<span class="string">'heros'</span>).find(&#123;<span class="attr">name</span>: <span class="string">'张飞'</span>&#125;).toArray(<span class="function"><span class="keyword">function</span> (<span class="params">err, docs</span>) </span>&#123;</div><div class="line">     <span class="keyword">if</span> (err) &#123;</div><div class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'查询数据失败'</span>)</div><div class="line">     &#125;</div><div class="line">     <span class="built_in">console</span>.log(docs)</div><div class="line">   &#125;)</div><div class="line"> &#125;)</div><div class="line"> <span class="comment">//================== /查询数据 ==================</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// ================== 更新数据 ==================</span></div><div class="line"> MongoClient.connect(url, <span class="function"><span class="keyword">function</span> (<span class="params">err, db</span>) </span>&#123;</div><div class="line">   <span class="keyword">if</span> (err) &#123;</div><div class="line">     <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'连接失败'</span>)</div><div class="line">   &#125;</div><div class="line">   db.collection(<span class="string">'heros'</span>).updateOne(&#123;<span class="attr">name</span>: <span class="string">'张飞'</span>&#125;, &#123;</div><div class="line">     <span class="attr">$set</span>: &#123;</div><div class="line">       <span class="attr">age</span>: <span class="number">20</span></div><div class="line">     &#125;</div><div class="line">   &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err, result</span>) </span>&#123;</div><div class="line">     <span class="keyword">if</span> (err) &#123;</div><div class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'更新失败'</span>)</div><div class="line">     &#125;</div><div class="line">     <span class="built_in">console</span>.log(result)</div><div class="line">   &#125;)</div><div class="line"> &#125;)</div><div class="line"><span class="comment">// ================== /更新数据 ==================</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// ================== 删除数据 ==================</span></div><div class="line"> MongoClient.connect(url, <span class="function"><span class="keyword">function</span> (<span class="params">err, db</span>) </span>&#123;</div><div class="line">   <span class="keyword">if</span> (err) &#123;</div><div class="line">     <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'连接失败'</span>)</div><div class="line">   &#125;</div><div class="line">   db.collection(<span class="string">'heros'</span>).deleteOne(&#123;<span class="attr">name</span>: <span class="string">'张飞'</span>&#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err, result</span>) </span>&#123;</div><div class="line">     <span class="keyword">if</span> (err) &#123;</div><div class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'删除失败'</span>)</div><div class="line">     &#125;</div><div class="line">     <span class="built_in">console</span>.log(result)</div><div class="line">   &#125;)</div><div class="line"> &#125;)</div><div class="line"> <span class="comment">// ================== /删除数据 ==================</span></div></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/08/I04-express/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/08/I04-express/" itemprop="url">
-                  学一下express
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-08T00:00:00+08:00">
-                2016-11-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/node/" itemprop="url" rel="index">
-                    <span itemprop="name">node</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --save express</div></pre></td></tr></table></figure>
-<p>hello world：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</div><div class="line"><span class="keyword">var</span> app = express()</div><div class="line"></div><div class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'Hello World!'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">app.listen(<span class="number">3000</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'Example app listening on port 3000!'</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>基本路由：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'Hello World!'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">app.post(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'Got a POST request'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">app.put(<span class="string">'/user'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'Got a PUT request at /user'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">app.delete(<span class="string">'/user'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'Got a DELETE request at /user'</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="Express-中外置路由使用"><a href="#Express-中外置路由使用" class="headerlink" title="Express 中外置路由使用"></a>Express 中外置路由使用</h3><p>router.js 文件代码如下:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1. 加载 express 模块</span></div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</div><div class="line"></div><div class="line"><span class="comment">// 2. 调用 express.Router() 方法，得到一个路由容器实例</span></div><div class="line"><span class="keyword">var</span> router = express.Router()</div><div class="line"></div><div class="line"><span class="comment">// 3. 为 router 添加不同的路由</span></div><div class="line">router.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">  res.send(<span class="string">'hello express'</span>)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">router.get(<span class="string">'/add'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;)</div><div class="line"></div><div class="line">router.get(<span class="string">'/info'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// 4. 将 router 路由容器导出</span></div><div class="line"><span class="built_in">module</span>.exports = router</div></pre></td></tr></table></figure>
-<p>在 app.js 文件中：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</div><div class="line"></div><div class="line"><span class="comment">// 1. 加载路由模块</span></div><div class="line"><span class="keyword">var</span> router = <span class="built_in">require</span>(<span class="string">'./router'</span>)</div><div class="line"></div><div class="line"><span class="keyword">var</span> app = express()</div><div class="line"></div><div class="line"><span class="comment">// 2. 将路由模块导出的路由容器 router 通过 app.use() 方法挂载到 app 实例上</span></div><div class="line"><span class="comment">//    这样的话咱们的 app 实例程序就拥有了 router 的路由了</span></div><div class="line">app.use(router)</div><div class="line"></div><div class="line">app.listen(<span class="number">3000</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'running...'</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="在-Express-中处理静态资源"><a href="#在-Express-中处理静态资源" class="headerlink" title="在 Express 中处理静态资源"></a>在 Express 中处理静态资源</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">app.use(express.static(<span class="string">'public'</span>))</div><div class="line">app.use(express.static(<span class="string">'files'</span>))</div><div class="line"></div><div class="line">app.use(<span class="string">'/public'</span>, express.static(<span class="string">'public'</span>))</div><div class="line">app.use(<span class="string">'/aaa'</span>, express.static(<span class="string">'public'</span>))</div><div class="line"></div><div class="line">app.use(<span class="string">'/static'</span>, express.static(path.join(__dirname, <span class="string">'public'</span>)))</div></pre></td></tr></table></figure>
-<h3 id="在-Express-中使用-ejs-模板引擎"><a href="#在-Express-中使用-ejs-模板引擎" class="headerlink" title="在 Express 中使用 ejs 模板引擎"></a>在 Express 中使用 ejs 模板引擎</h3><p>安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm i -S ejs</div></pre></td></tr></table></figure>
-<p>配置：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">app.set(<span class="string">'view engine'</span>, <span class="string">'ejs'</span>)</div><div class="line"></div><div class="line"><span class="comment">// Express 默认去 views 目录中查找视图模板文件，可以通过下面的 API 修改</span></div><div class="line">app.set(<span class="string">'views'</span>, 模板文件存储路径)</div></pre></td></tr></table></figure>
-<p>如果要自定义修改模板文件的 <code>.ejs</code> 后缀或者修改 <code>&lt;%</code> 语法，则需要通过加载 <code>ejs</code> 模块做详细配置</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/06/B06-性能优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/06/B06-性能优化/" itemprop="url">
-                  图片优化
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-06T00:00:00+08:00">
-                2016-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端优化/" itemprop="url" rel="index">
-                    <span itemprop="name">前端优化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="图片压缩"><a href="#图片压缩" class="headerlink" title="图片压缩"></a>图片压缩</h1><h1 id="使用雪碧图"><a href="#使用雪碧图" class="headerlink" title="使用雪碧图"></a>使用雪碧图</h1><h1 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h1><ul>
-<li>图片的base64编码就是可以将一副图片数据编码成一串字符串，使用该字符串代替图像地址</li>
-<li>图片的下载始终都要向服务器发出请求，要是图片的下载不用向服务器发出请求，base64可以随着 HTML 的下载同时下载到本地.减少https请求。<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//在css里的写法</div><div class="line">#fkbx-spch, #fkbx-hspch &#123;</div><div class="line">  background: url(data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5B…EoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs=) no-repeat center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--在img标签中的写法--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5B…EoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs="</span>&gt;</span></div></pre></td></tr></table></figure>
-<ul>
-<li>什么样的图片可以转为成base64编码？<ul>
-<li>如果图片足够小且因为用处的特殊性无法被制作成雪碧图（CssSprites），在整个网站的复用性很高且基本不会被更新。</li>
-</ul>
-</li>
-</ul>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
-<li>使用 Base64 的好处是能够减少一个图片的HTTP请求，然而，与之同时付出的代价则是 CSS 文件体积的增大。</li>
-</ul>
-<h1 id="base64和雪碧图"><a href="#base64和雪碧图" class="headerlink" title="base64和雪碧图"></a>base64和雪碧图</h1><ul>
-<li>两者的共同点是都是为了减少http请求</li>
-</ul>
-<h2 id="base64-1"><a href="#base64-1" class="headerlink" title="base64"></a>base64</h2><ul>
-<li>无额外请求</li>
-<li>对于极小或者极简单图片</li>
-<li>可像单独图片一样使用，比如背景图片重复使用等</li>
-<li>没有跨域问题，无需考虑缓存、文件头或者cookies问题  </li>
-</ul>
-<h2 id="cssSprites"><a href="#cssSprites" class="headerlink" title="cssSprites"></a>cssSprites</h2><ul>
-<li>页面具有多种风格，需要换肤功能，可使用CssSprites</li>
-<li>网站已经趋于完美，不会再三天两头的改动（例如button大小、颜色等）</li>
-<li>使用时无需重复图形内容</li>
-<li>没有 Base64 编码成本，降低图片更新的维护难度。（但注意 Sprites 同时修改 css 和图片某些时候可能造成负担）</li>
-<li>不会增加 CSS 文件体积</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/06/I03-node/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/06/I03-node/" itemprop="url">
-                  node-module
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-06T00:00:00+08:00">
-                2016-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/node/" itemprop="url" rel="index">
-                    <span itemprop="name">node</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="node-常用模块"><a href="#node-常用模块" class="headerlink" title="node 常用模块"></a>node 常用模块</h1><h2 id="path-模块"><a href="#path-模块" class="headerlink" title="path 模块"></a>path 模块</h2><table>
-<thead>
-<tr>
-<th>方法</th>
-<th>作用</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>path.basename(path[, ext])</td>
-<td>获取一个路径中的文件名部分</td>
-<td></td>
-</tr>
-<tr>
-<td>path.dirname(path)</td>
-<td>获取一个路径中的目录部分</td>
-<td></td>
-</tr>
-<tr>
-<td>path.extname(path)</td>
-<td>获取一个路径中的后缀名部分</td>
-<td></td>
-</tr>
-<tr>
-<td>path.format(pathObject)</td>
-<td>将一个路径对象格式化成一个路径字符串</td>
-<td></td>
-</tr>
-<tr>
-<td>path.isAbsolute(path)</td>
-<td>判断一个路径是否是绝对路径</td>
-<td></td>
-</tr>
-<tr>
-<td>path.join([…paths])</td>
-<td>将多个路径拼接为一个完整的路径</td>
-<td></td>
-</tr>
-<tr>
-<td>path.normalize(path)</td>
-<td>将一个非标准路径转为标准路径</td>
-<td></td>
-</tr>
-<tr>
-<td>path.parse(path)</td>
-<td>将一个字符串路径转为一个路径对象</td>
-<td></td>
-</tr>
-<tr>
-<td>path.sep</td>
-<td>获取当前操作系统的路径分隔符</td>
-</tr>
-</tbody>
-</table>
-<h2 id="fs-模块"><a href="#fs-模块" class="headerlink" title="fs 模块"></a>fs 模块</h2><table>
-<thead>
-<tr>
-<th>API</th>
-<th>作用</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>fs.readFile(file[, options], callback)</td>
-<td>读取文件</td>
-<td></td>
-</tr>
-<tr>
-<td>fs.writeFile(file, data[, options], callback)</td>
-<td>写入文件</td>
-<td></td>
-</tr>
-<tr>
-<td>fs.unlink(path, callback)</td>
-<td>删除文件</td>
-<td></td>
-</tr>
-<tr>
-<td>fs.readdir(path[, options], callback)</td>
-<td>读取目录</td>
-<td></td>
-</tr>
-<tr>
-<td>fs.mkdir(path[, mode], callback)</td>
-<td>创建目录</td>
-<td></td>
-</tr>
-<tr>
-<td>fs.rmdir(path, callback)</td>
-<td>删除目录</td>
-<td></td>
-</tr>
-<tr>
-<td>fs.rename(oldPath, newPath, callback)</td>
-<td>重命名文件或目录</td>
-<td>也可以移动文件或目录</td>
-</tr>
-<tr>
-<td>fs.stat(path, callback)</td>
-<td>获取文件或目录的状态</td>
-<td>例如是否是文件或文件大小等信息</td>
-</tr>
-<tr>
-<td>fs.watch(filename[, options][, listener])</td>
-<td>监视文件或目录</td>
-<td>文件或目录变化会执行对应的 listener</td>
-</tr>
-<tr>
-<td>fs.watchFile(filename[, options], listener)</td>
-<td>监视文件</td>
-<td></td>
-</tr>
-<tr>
-<td>fs.appendFile(file, data[, options], callback)</td>
-<td>向文件追加内容</td>
-<td></td>
-</tr>
-<tr>
-<td>fs.access(path[, mode], callback)</td>
-<td>判断一个路径是否存在</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id="http-模块"><a href="#http-模块" class="headerlink" title="http 模块"></a>http 模块</h2><h3 id="http-模块相关属性及方法"><a href="#http-模块相关属性及方法" class="headerlink" title="http 模块相关属性及方法"></a>http 模块相关属性及方法</h3><ul>
-<li>http.METHODS<ul>
-<li>获取 http 支持的请求方法</li>
-</ul>
-</li>
-<li>http.STATUS_CODES<ul>
-<li>获取 http 模块支持的状态码</li>
-</ul>
-</li>
-<li>http.createClient([port][, host])<ul>
-<li>创建客户端，使用 Node 发送请求</li>
-</ul>
-</li>
-<li>http.createServer([requestListener])<ul>
-<li>创建服务器，接收客户端请求</li>
-</ul>
-</li>
-<li>http.get(options[, callback])<ul>
-<li>发起 get 请求</li>
-</ul>
-</li>
-<li>http.globalAgent</li>
-<li>http.request(options[, callback])<ul>
-<li>发请求</li>
-</ul>
-</li>
-</ul>
-<h3 id="Class-http-Server-服务实例对象"><a href="#Class-http-Server-服务实例对象" class="headerlink" title="Class: http.Server 服务实例对象"></a>Class: http.Server 服务实例对象</h3><p>事件：</p>
-<ul>
-<li>Event: ‘checkContinue’</li>
-<li>Event: ‘checkExpectation’</li>
-<li>Event: ‘clientError’</li>
-<li>Event: ‘close’</li>
-<li>Event: ‘connect’</li>
-<li>Event: ‘connection’</li>
-<li>Event: ‘request’<ul>
-<li>请求事件</li>
-</ul>
-</li>
-<li>Event: ‘upgrade’</li>
-</ul>
-<p>方法：</p>
-<ul>
-<li>server.close([callback])<ul>
-<li>关闭服务器</li>
-</ul>
-</li>
-<li>server.listen(handle[, callback])<ul>
-<li>绑定监听</li>
-</ul>
-</li>
-<li>server.listen(path[, callback])<ul>
-<li>绑定监听</li>
-</ul>
-</li>
-<li>server.listen([port][, hostname][, backlog][, callback])<ul>
-<li>绑定监听</li>
-</ul>
-</li>
-<li>server.listening</li>
-<li>server.maxHeadersCount</li>
-<li>server.setTimeout(msecs, callback)</li>
-<li>server.timeout<h3 id="Class-http-ServerResponse-响应对象"><a href="#Class-http-ServerResponse-响应对象" class="headerlink" title="Class: http.ServerResponse 响应对象"></a>Class: http.ServerResponse 响应对象</h3></li>
-</ul>
-<p>事件：</p>
-<ul>
-<li>Event: ‘close’</li>
-<li>Event: ‘finish’</li>
-</ul>
-<p>方法：</p>
-<ul>
-<li>response.addTrailers(headers)</li>
-<li>response.end([data][, encoding][, callback])<ul>
-<li>结束响应</li>
-</ul>
-</li>
-<li>response.finished</li>
-<li>response.getHeader(name)</li>
-<li>response.headersSent</li>
-<li>response.removeHeader(name)</li>
-<li>response.sendDate</li>
-<li>response.setHeader(name, value)</li>
-<li>response.setTimeout(msecs, callback)</li>
-<li>response.statusCode<ul>
-<li>状态码</li>
-</ul>
-</li>
-<li>response.statusMessage<ul>
-<li>状态短语</li>
-</ul>
-</li>
-<li>response.write(chunk[, encoding][, callback])<ul>
-<li>写入响应流数据</li>
-</ul>
-</li>
-<li>response.writeContinue()</li>
-<li>response.writeHead(statusCode[, statusMessage][, headers])<ul>
-<li>写入响应头</li>
-</ul>
-</li>
-</ul>
-<h3 id="Request（http-IncomingMessage）请求对象"><a href="#Request（http-IncomingMessage）请求对象" class="headerlink" title="Request（http.IncomingMessage）请求对象"></a>Request（http.IncomingMessage）请求对象</h3><p>事件：</p>
-<p>Event: ‘aborted’<br>Event: ‘close’</p>
-<p>方法：</p>
-<ul>
-<li>message.destroy([error])</li>
-<li>message.headers<ul>
-<li>获取请求头</li>
-</ul>
-</li>
-<li>message.httpVersion<ul>
-<li>获取 http 协议版本</li>
-</ul>
-</li>
-<li>message.method<ul>
-<li>获取请求方法</li>
-</ul>
-</li>
-<li>message.rawHeaders</li>
-<li>message.rawTrailers</li>
-<li>message.setTimeout(msecs, callback)</li>
-<li>message.statusCode</li>
-<li>message.statusMessage</li>
-<li>message.socket</li>
-<li>message.trailers</li>
-<li>message.url<ul>
-<li>获取请求路径</li>
-</ul>
-</li>
-</ul>
-<hr>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/04/I02-node/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/04/I02-node/" itemprop="url">
-                  node模块化
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-04T00:00:00+08:00">
-                2016-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/node/" itemprop="url" rel="index">
-                    <span itemprop="name">node</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="node模块化"><a href="#node模块化" class="headerlink" title="node模块化"></a>node模块化</h1><ul>
-<li><p>Node 中的模块化采用了 CommonJS 模块规范，CommonJS 不仅仅是模块规范，它为 JavaScript 制定了很多服务端的所谓的规范（API），例如二进制操作、网络操作等。</p>
-</li>
-<li><p>require()函数中的参数是模块标识符</p>
-</li>
-<li><p>exports是module.exports的引用，即<code>exports=module.exports</code>，一旦给module.exports和exports重新赋值，两者之间的联系就断开了</p>
-</li>
-</ul>
-<h2 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h2><ul>
-<li>核心模块由node环境平台本身提供</li>
-<li>node把绝大多数的API都封装到了一个具名的核心模块中，如“fs”，“http”等</li>
-<li>要使用核心模块必须先加载<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"模块标识名称"</span>);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="第三方模块"><a href="#第三方模块" class="headerlink" title="第三方模块"></a>第三方模块</h3><ul>
-<li>由社区（第三方）提供，可以是公司也可以是个人</li>
-<li>例如：moment  时间处理库</li>
-<li>在node中使用第三方包<ul>
-<li>通过npm下载</li>
-<li>通过require函数引包</li>
-<li>查看第三方包的API文档</li>
-</ul>
-</li>
-</ul>
-<h3 id="自定义模块"><a href="#自定义模块" class="headerlink" title="自定义模块"></a>自定义模块</h3><ul>
-<li>在node中，也提供了一种所谓的JavaScript模块化解决方案（类似于requirejs）</li>
-<li>require是一个函数，可以在node中的任何脚本文件中使用</li>
-<li>在node中，一个文件就是一个模块</li>
-<li>模块天生就是私有的作用域</li>
-</ul>
-<h2 id="模块加载机制"><a href="#模块加载机制" class="headerlink" title="模块加载机制"></a>模块加载机制</h2><ul>
-<li>核心模块</li>
-<li>先看缓存中是否存在，有则直接拿过来</li>
-<li>没有则直接加载</li>
-<li>自定义模块<ul>
-<li>以 <code>./</code> 或者 <code>../</code> 或者 <code>/</code> 或者 <code>c:/xxx</code> 类似于这样的标识路径</li>
-<li><code>/</code> 是当前文件模块所属磁盘根目录</li>
-<li><code>c:/xxx</code> 就是绝对路径</li>
-</ul>
-</li>
-<li>第三方模块：包  （以moment为例）<ul>
-<li>先基于当前文件模块所属目录找 node_modules 目录</li>
-<li>如果找到，则去该目录中找 moment 目录</li>
-<li>如果找到 moment 目录，则找该目录中的 package.json 文件</li>
-<li>如果找到 package.json 文件，则找该文件中的 main 属性</li>
-<li>如果找到 main 属性，则拿到该属性对应的文件路径</li>
-<li>如果找到 moment 目录之后</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>发现没有 package.json </li>
-<li>或者 有 package.json 没有 main 属性</li>
-<li>或者 有 main 属性，但是指向的路径不存在</li>
-<li>则 node 会默认去看一下 moment 目录中有没有 index.js index.node index.json 文件<ul>
-<li>如果找不到 index 或者找不到 moment 或者找不到 node_modules</li>
-<li>则进入上一级目录找 node_moudles 查找规则同上</li>
-<li>如果上一级还找不到，继续向上，一直到当前文件所属磁盘根目录，</li>
-<li>如果最后到磁盘根目录还找不到，最后报错：<code>can not find module xxx</code></li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2322,7 +2069,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">68</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

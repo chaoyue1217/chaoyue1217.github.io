@@ -1,0 +1,800 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="什么是组件组件式vue最强大的功能之一。组件可以扩展HTML元素，封装可重用的代码。在较高层面上，组件式自定义元素，vue的编译器为它添加特殊功能。在有些情况下，组件也可以是原声html元素的形式，以is特性扩展。
+使用组件注册我们可以通过以下方式创建一个vue实例：
+123new Vue(&amp;#123;    el:&quot;#some-element&quot;&amp;#125;)
+要注册一个全局组件，你可以使用Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="组件-1">
+<meta property="og:url" content="http://yoursite.com/2017/07/27/08-组件/index.html">
+<meta property="og:site_name" content="Shining Moon">
+<meta property="og:description" content="什么是组件组件式vue最强大的功能之一。组件可以扩展HTML元素，封装可重用的代码。在较高层面上，组件式自定义元素，vue的编译器为它添加特殊功能。在有些情况下，组件也可以是原声html元素的形式，以is特性扩展。
+使用组件注册我们可以通过以下方式创建一个vue实例：
+123new Vue(&amp;#123;    el:&quot;#some-element&quot;&amp;#125;)
+要注册一个全局组件，你可以使用Vue">
+<meta property="og:updated_time" content="2017-07-27T08:01:11.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="组件-1">
+<meta name="twitter:description" content="什么是组件组件式vue最强大的功能之一。组件可以扩展HTML元素，封装可重用的代码。在较高层面上，组件式自定义元素，vue的编译器为它添加特殊功能。在有些情况下，组件也可以是原声html元素的形式，以is特性扩展。
+使用组件注册我们可以通过以下方式创建一个vue实例：
+123new Vue(&amp;#123;    el:&quot;#some-element&quot;&amp;#125;)
+要注册一个全局组件，你可以使用Vue">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/27/08-组件/"/>
+
+
+
+
+
+  <title> 组件-1 | Shining Moon </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shining Moon</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/27/08-组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                组件-1
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-27T00:00:00+08:00">
+                2017-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue-从零开始/" itemprop="url" rel="index">
+                    <span itemprop="name">vue--从零开始</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="什么是组件"><a href="#什么是组件" class="headerlink" title="什么是组件"></a>什么是组件</h1><p>组件式vue最强大的功能之一。组件可以扩展HTML元素，封装可重用的代码。在较高层面上，组件式自定义元素，vue的编译器为它添加特殊功能。在有些情况下，组件也可以是原声html元素的形式，以<code>is</code>特性扩展。</p>
+<h1 id="使用组件"><a href="#使用组件" class="headerlink" title="使用组件"></a>使用组件</h1><h2 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h2><p>我们可以通过以下方式创建一个vue实例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#some-element"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>要注册一个全局组件，你可以使用<code>Vue.component(tagName,options)</code>,例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">"my-component"</span>,&#123;</div><div class="line">    <span class="comment">//选项</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>组件在注册之后，便可以在父实例的模块中以自定义元素<code>&lt;my-component&gt;&lt;/my-component&gt;</code>的形式使用。要确保在初始化根实例之前注册了组件:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">my-component</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">"my-component"</span>,&#123;</div><div class="line">    <span class="attr">template</span>:<span class="string">"&lt;div&gt;A custom component&lt;/div&gt;"</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"app"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>渲染为:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>A custom component<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="局部注册"><a href="#局部注册" class="headerlink" title="局部注册"></a>局部注册</h2><p>不必在全局注册每个组件。通过使用组件实例选项注册，可以使组件仅在另一个实例/组件的作用域中可用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> child = &#123;</div><div class="line">    <span class="attr">template</span>:<span class="string">"&lt;div&gt;A custom component&lt;/div&gt;"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">components</span>:&#123;</div><div class="line">        <span class="comment">// &lt;my-component&gt;将只在父模板可用</span></div><div class="line">        <span class="string">"my-component"</span>:child</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这种封装也适用于其他可注册的Vue功能，如指令。</p>
+<h2 id="DOM模板解析说明"><a href="#DOM模板解析说明" class="headerlink" title="DOM模板解析说明"></a>DOM模板解析说明</h2><p>当使用DOM作为模板时(例如，将el选项挂载到一个已存在的元素上)，你会受到html的一些限制，因为vue只有在浏览器解析和标准化html后才能获取模板内容。尤其像这些元素<code>&lt;ul&gt;,&lt;ol&gt;,&lt;table&gt;,&lt;select&gt;</code>限制了能被他包裹的元素，而像<code>&lt;option&gt;</code>这样的元素只能出现在某些其他元素内部。</p>
+<p>在自定义组件中使用这些受限制的元素时会导致一些问题，例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">my-row</span>&gt;</span>...<span class="tag">&lt;/<span class="name">my-row</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>自定义组件<code>&lt;my-row&gt;</code>被认为是无效的，因此在渲染的时候会导致错误。变通的方案是使用特殊的is属性。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span> <span class="attr">is</span>=<span class="string">"my-row"</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>应当注意，如果使用来自以下来源之一的字符串模板，这些限制将不适用：</p>
+<ul>
+<li><code>&lt;script type=&quot;text/x-template&quot;&gt;</code></li>
+<li>JavaScript内联模板字符串</li>
+<li><code>.vue</code>组件</li>
+</ul>
+<p>因此，有必要的话请使用字符串模板</p>
+<h2 id="data必须是函数"><a href="#data必须是函数" class="headerlink" title="data必须是函数"></a>data必须是函数</h2><p>通过vue构造器传入的各种选项大多数都可以在组件里用，<code>data</code>是一个例外，它必须是函数。实际上，如果这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">"my-component"</span>,&#123;</div><div class="line">    <span class="attr">template</span>:<span class="string">"&lt;span&gt;&#123;&#123;message&#125;&#125;&lt;/span&gt;"</span>,</div><div class="line">    <span class="attr">data</span>:&#123;</div><div class="line">        <span class="attr">message</span>:<span class="string">"hello"</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>那么Vue会停止，并在控制台发出警告，告诉在组件中<code>data</code>必须是一个函数。理解这种规则的存在意义很有帮助，假设用如下方式来绕开vue警告：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">simple-counter</span>&gt;</span><span class="tag">&lt;/<span class="name">simple-counter</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">simple-counter</span>&gt;</span><span class="tag">&lt;/<span class="name">simple-counter</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">simple-counter</span>&gt;</span><span class="tag">&lt;/<span class="name">simple-counter</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;<span class="attr">counter</span>:<span class="number">0</span>&#125;</div><div class="line">Vue.component(<span class="string">"simple-counter"</span>,&#123;</div><div class="line">    <span class="attr">template</span>:<span class="string">"&lt;button v-on:click='counter += 1'&gt;&#123;&#123;counter&#125;&#125;&lt;/button&gt;"</span></div><div class="line">    data:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> data;</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">    <span class="attr">el</span>:<span class="string">"#app"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>由于三个组件共享了同一个data，因此增加一个counter会影响所有组件。我们可以通过为每个组件返回全新的data对象来解决这个问题。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">data:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">counter</span>:<span class="number">0</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="构成组件"><a href="#构成组件" class="headerlink" title="构成组件"></a>构成组件</h2><p>组件意味着协同工作，通常父子组件会是这样的关系：组件A在它的模板中使用了组件B。它们之间必然需要相互通信：父组件要给子组件传递数据，子组件需要将它内部放生的事情告知给父组件。然而，一个良好的接口中尽可能将父子组件解耦是很重要的，这保证了每个组件可以在相对隔离的环境中书写和理解，也大幅度提高了组件的可维护性和可重用性。</p>
+<p>在Vue中，父子组件的关系可以总结为props down，events up。父组件通过props向下传递数据给子组件，子组件通过events给父组件发送消息。</p>
+<h1 id="Prop"><a href="#Prop" class="headerlink" title="Prop"></a>Prop</h1><h2 id="使用prop传递数据"><a href="#使用prop传递数据" class="headerlink" title="使用prop传递数据"></a>使用prop传递数据</h2><p>组件实例的作用域是孤立的。这意味着不能（也不应该）在子组件的模板内直接饮用父组件的数据。要让子组件使用父组件的数据，我们需要通过子组件的props选项。</p>
+<p>子组件要显式的用<code>prop</code>选项声明它期待获得的数据：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">"child"</span>,&#123;</div><div class="line">    <span class="comment">//声明props</span></div><div class="line">    props:[<span class="string">"message"</span>],</div><div class="line">    <span class="comment">//像data一样，prop可以用在模板内，也可以在vm实例中像“this/message”这样使用</span></div><div class="line">    template:<span class="string">"&lt;span&gt;&#123;&#123;message&#125;&#125;&lt;/span&gt;"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>然后我们可以这样向他传入一个普通字符串：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">child</span> <span class="attr">message</span>=<span class="string">"hello"</span>&gt;</span><span class="tag">&lt;/<span class="name">child</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="camelCase-vs-kebab-case"><a href="#camelCase-vs-kebab-case" class="headerlink" title="camelCase vs.kebab-case"></a>camelCase vs.kebab-case</h2><p>HTML特性是不区分大小写的。所以，当使用的不是字符串模板，camelCased（驼峰式）命名的prop需要转换为相对应的kebab-case（短横线隔开式）命名：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">"child"</span>,&#123;</div><div class="line">    <span class="attr">props</span>:[<span class="string">"myMessage"</span>],</div><div class="line">    <span class="attr">template</span>:<span class="string">"&lt;span&gt;&#123;&#123;myMessage&#125;&#125;&lt;/span&gt;"</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">child</span> <span class="attr">my-message</span>=<span class="string">"hello"</span>&gt;</span><span class="tag">&lt;/<span class="name">child</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>如果使用的是字符串模板，则没有这些限制。</p>
+<h2 id="动态prop"><a href="#动态prop" class="headerlink" title="动态prop"></a>动态prop</h2><p>在模板中，要动态的绑定父组件的是数据到子模板的props，与绑定到任何普通的html特性相类似，就是用<code>v-bind</code>。每当父组件的数据变化时，该变化也会传导给子组件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">v-model</span>=<span class="string">"parentMsg"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">br</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">child</span> <span class="attr">v-bind:my-message</span>=<span class="string">"parentMsg"</span>&gt;</span><span class="tag">&lt;/<span class="name">child</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="字面量语法-VS-动态语法"><a href="#字面量语法-VS-动态语法" class="headerlink" title="字面量语法 VS 动态语法"></a>字面量语法 VS 动态语法</h2><p>常犯的一个错误是使用字面量语法传递数值：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 传递了一个字符串“1” --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">comp</span> <span class="attr">some-prop</span>=<span class="string">"1"</span>&gt;</span><span class="tag">&lt;/<span class="name">comp</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>因为它是一个字面prop，它的值是字符串”1”,而不是number。如果想传递一个世纪的number，需要使用v-bind，从而让它的值被当做JavaScript表达式计算：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">comp</span> <span class="attr">v-bind:some-prop</span>=<span class="string">"1"</span>&gt;</span><span class="tag">&lt;/<span class="name">comp</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="单向数据流"><a href="#单向数据流" class="headerlink" title="单向数据流"></a>单向数据流</h2><p>prop是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来。这是为了防止子组件无意修改了父组件的状态–这会让应用的数据流难以理解。</p>
+<p>另外，每次父组件更新时，子组件的所有prop都会更新为最新值。这意味着你不应该在子组件内部改变prop。如果这样做了，vue会在控制台给出警告。</p>
+<p>为什么我们会有修改prop中数据的冲动呢？通常是这两种原因：</p>
+<p>1、prop作为初始值传入后，子组件像把它当做局部数据来用；<br>2、prop作为初始值传入，由子组件处理成其他数据输出。</p>
+<p>对于这两种原因，正确的应对方式是：<br>1、定义一个局部变量，并用prop的值初始化它：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">props:[<span class="string">"initialCounter"</span>],</div><div class="line"><span class="attr">data</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;<span class="attr">counter</span>:<span class="keyword">this</span>.initialCounter&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2、定义一个计算属性，处理prop的值并返回：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">props:[<span class="string">'size'</span>],</div><div class="line"><span class="attr">computed</span>:&#123;</div><div class="line">    <span class="attr">normalizeSize</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.size.trim.toLowerCase();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 prop 是一个对象或数组，在子组件内部改变它会影响父组件的状态。</strong></p>
+<h2 id="prop验证"><a href="#prop验证" class="headerlink" title="prop验证"></a>prop验证</h2><p>我们可以为组件的props指定验证规则。如果传入的数据不符合规则，vue会发出警告。当组件给其他人使用时，这很有用。</p>
+<p>要指定验证规则，需要用对象的形式，而且不能用字符串数组：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">"example"</span>,&#123;</div><div class="line">    <span class="attr">props</span>:&#123;</div><div class="line">        <span class="comment">//基础类型检测（null的意思是任何类型都可以）</span></div><div class="line">        propA:<span class="built_in">Number</span>,</div><div class="line">        <span class="comment">// 多种类型</span></div><div class="line">        propB:[<span class="built_in">String</span>,<span class="built_in">Number</span>],</div><div class="line">        <span class="comment">//必传且是字符串</span></div><div class="line">        propC:&#123;</div><div class="line">            <span class="attr">type</span>:<span class="built_in">String</span>,</div><div class="line">            <span class="attr">required</span>:<span class="literal">true</span></div><div class="line">        &#125;,</div><div class="line">        <span class="comment">// 数字，有默认值</span></div><div class="line">        propD:&#123;</div><div class="line">            <span class="attr">type</span>:<span class="built_in">Number</span>,</div><div class="line">            <span class="attr">default</span>:<span class="number">100</span></div><div class="line">        &#125;,</div><div class="line">        <span class="attr">propE</span>:&#123;</div><div class="line">            <span class="attr">type</span>:<span class="built_in">Object</span>,</div><div class="line">            <span class="attr">default</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                <span class="keyword">return</span> &#123;<span class="attr">message</span>:<span class="string">"hello"</span>&#125;</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">propF</span>:&#123;</div><div class="line">            <span class="attr">validator</span>:<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</div><div class="line">                <span class="keyword">return</span> value&gt;<span class="number">10</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><code>type</code>可以是下面的原生构造器：</p>
+<ul>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+<li>Function</li>
+<li>Object</li>
+<li>Array</li>
+<li>Symbol<br>type也可以是一个自定义构造器函数，使用<code>instanceof</code>检测。</li>
+</ul>
+<p>当props验证失败，Vue会抛出警告。注意 props会在组件实例创建之前进校验，所以在 default 或 validator 函数里，诸如 data、computed或methods等实例属性还无法使用。</p>
+<h1 id="非prop属性"><a href="#非prop属性" class="headerlink" title="非prop属性"></a>非prop属性</h1><p>所谓非prop属性，就是它可以直接传入组件，而不需要定义响应的prop。</p>
+<p>明确给组件定义prop是传参的推荐方式，但组件的作者并不总能预见到组件被使用的场景。所以，组件可以接收任意传入的属性，这些属性都会被添加到组件的根元素上。</p>
+<p>例如，第三方组件<code>bs-date-input</code>,当它要和一个Bootstrap插件互操作时，需要在这个第三方组件input上添加<code>data-3d-date-picker</code>属性，这时可以把属性直接添加到组件上（不需要事先定义prop）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bs-data-input</span> <span class="attr">data-3d-data-picker</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">bs-data-input</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>添加属性<code>data-3d-date-picker</code>后，它会被自动添加到<code>bs-date-input</code>的根元素上。</p>
+<h2 id="替换-覆盖现有的特性"><a href="#替换-覆盖现有的特性" class="headerlink" title="替换/覆盖现有的特性"></a>替换/覆盖现有的特性</h2><p>想象一下这是<code>bs-date-input</code>的模板：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"date"</span> <span class="attr">class</span>=<span class="string">"form-control"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>为了给该日期选择器插件增加一个特殊的主题，我们可能需要增加一个特殊的class，比如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bs-date-input</span></span></div><div class="line">    <span class="attr">data-3d-date-picker</span>=<span class="string">"true"</span></div><div class="line">    <span class="attr">class</span>=<span class="string">"date-picker-theme-dark"</span></div><div class="line">&gt;<span class="tag">&lt;/<span class="name">bs-date-input</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在这个case中，我们定义了两个不一样的<code>class</code>值：</p>
+<ul>
+<li><code>form-control</code>，来自组件的模板</li>
+<li><code>date-picker-theme-dark</code>，从父组件传进来的 </li>
+</ul>
+<p>对于多数特性来说，传递给组件的值会覆盖组件本身设定的值。即例如传递<code>type=&quot;large&quot;</code>将会覆盖<code>type=&quot;date&quot;</code>且有可能破坏该组件。因此，我们对<code>style</code>和<code>class</code>特性做了合并操作，让最终生成的值为<code>form-control date-picker-theme-dark</code>。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/21/H14-angular-controller通信/" rel="next" title="angular-controller之间通信">
+                <i class="fa fa-chevron-left"></i> angular-controller之间通信
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/28/09-组件/" rel="prev" title="组件-2">
+                组件-2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/tx1.jpg"
+               alt="Qcyue" />
+          <p class="site-author-name" itemprop="name">Qcyue</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活，我们是认真的！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">79</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是组件"><span class="nav-number">1.</span> <span class="nav-text">什么是组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用组件"><span class="nav-number">2.</span> <span class="nav-text">使用组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注册"><span class="nav-number">2.1.</span> <span class="nav-text">注册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局部注册"><span class="nav-number">2.2.</span> <span class="nav-text">局部注册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM模板解析说明"><span class="nav-number">2.3.</span> <span class="nav-text">DOM模板解析说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data必须是函数"><span class="nav-number">2.4.</span> <span class="nav-text">data必须是函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构成组件"><span class="nav-number">2.5.</span> <span class="nav-text">构成组件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Prop"><span class="nav-number">3.</span> <span class="nav-text">Prop</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用prop传递数据"><span class="nav-number">3.1.</span> <span class="nav-text">使用prop传递数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#camelCase-vs-kebab-case"><span class="nav-number">3.2.</span> <span class="nav-text">camelCase vs.kebab-case</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态prop"><span class="nav-number">3.3.</span> <span class="nav-text">动态prop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字面量语法-VS-动态语法"><span class="nav-number">3.4.</span> <span class="nav-text">字面量语法 VS 动态语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单向数据流"><span class="nav-number">3.5.</span> <span class="nav-text">单向数据流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#prop验证"><span class="nav-number">3.6.</span> <span class="nav-text">prop验证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非prop属性"><span class="nav-number">4.</span> <span class="nav-text">非prop属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#替换-覆盖现有的特性"><span class="nav-number">4.1.</span> <span class="nav-text">替换/覆盖现有的特性</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qcyue</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

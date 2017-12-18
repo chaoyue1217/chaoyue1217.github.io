@@ -1,0 +1,752 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="JSP内置对象是web容器创建的一组对象，不适用new关键字就可以使用。
+123456&amp;lt;%int[] value = &amp;#123;6,7,8&amp;#125;;for(int i:value)&amp;#123;    out.println(i);//out为内置对象&amp;#125;%&amp;gt;
+九大内置对象常用：out、request、response、session、application其他：page、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSP内置对象(上)">
+<meta property="og:url" content="http://yoursite.com/2017/10/16/02-jsp内置对象/index.html">
+<meta property="og:site_name" content="Shining Moon">
+<meta property="og:description" content="JSP内置对象是web容器创建的一组对象，不适用new关键字就可以使用。
+123456&amp;lt;%int[] value = &amp;#123;6,7,8&amp;#125;;for(int i:value)&amp;#123;    out.println(i);//out为内置对象&amp;#125;%&amp;gt;
+九大内置对象常用：out、request、response、session、application其他：page、">
+<meta property="og:updated_time" content="2017-10-23T09:04:27.737Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSP内置对象(上)">
+<meta name="twitter:description" content="JSP内置对象是web容器创建的一组对象，不适用new关键字就可以使用。
+123456&amp;lt;%int[] value = &amp;#123;6,7,8&amp;#125;;for(int i:value)&amp;#123;    out.println(i);//out为内置对象&amp;#125;%&amp;gt;
+九大内置对象常用：out、request、response、session、application其他：page、">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/16/02-jsp内置对象/"/>
+
+
+
+
+
+  <title> JSP内置对象(上) | Shining Moon </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shining Moon</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/16/02-jsp内置对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JSP内置对象(上)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T00:00:00+08:00">
+                2017-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JSP/" itemprop="url" rel="index">
+                    <span itemprop="name">JSP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>JSP内置对象是web容器创建的一组对象，不适用new关键字就可以使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;%</div><div class="line"><span class="keyword">int</span>[] value = &#123;<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i:value)&#123;</div><div class="line">    out.println(i);<span class="comment">//out为内置对象</span></div><div class="line">&#125;</div><div class="line">%&gt;</div></pre></td></tr></table></figure>
+<p><strong>九大内置对象</strong><br>常用：out、request、response、session、application<br>其他：page、pageContext、exception、config</p>
+<p><strong>缓冲区</strong><br>内存中的一块区域，用来保存临时数据。</p>
+<h1 id="out对象"><a href="#out对象" class="headerlink" title="out对象"></a>out对象</h1><p>out对象时JspWriter类的实例，是向客户端输出内容的常用对象。<br>常用方法：</p>
+<ul>
+<li>void println()  向客户端打印字符串</li>
+<li>void clear() 清除缓冲区的内容，如果在flush之后调用会抛出异常。</li>
+<li>void clearBuffer()  清除缓冲区的内容，如果在flush之后调用不会抛出异常</li>
+<li>void flush() 将缓冲区内容输出到客户端</li>
+<li>int getBufferSize() 返回缓冲区字节数的大小，不设置则为0</li>
+<li>int getRemaining() 返回缓冲区剩余大小</li>
+<li>boolean isAutoFlush() 缓冲区满时，自动清空还是抛出异常</li>
+<li>void close()  关闭输出流</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%&gt;</div><div class="line">&lt;%</div><div class="line">String path = request.getContextPath();</div><div class="line">String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";</div><div class="line">%&gt;</div><div class="line"></div><div class="line">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;base href="&lt;%=basePath%&gt;"&gt;</div><div class="line">    </div><div class="line">    &lt;title&gt;My JSP 'index.jsp' starting page&lt;/title&gt;</div><div class="line">    &lt;meta http-equiv="pragma" content="no-cache"&gt;</div><div class="line">    &lt;meta http-equiv="cache-control" content="no-cache"&gt;</div><div class="line">    &lt;meta http-equiv="expires" content="0"&gt;    </div><div class="line">    &lt;meta http-equiv="keywords" content="keyword1,keyword2,keyword3"&gt;</div><div class="line">    &lt;meta http-equiv="description" content="This is my page"&gt;</div><div class="line">    &lt;!--</div><div class="line">    &lt;link rel="stylesheet" type="text/css" href="styles.css"&gt;</div><div class="line">    --&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  </div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;h1&gt;out内置对象&lt;/h1&gt;</div><div class="line">    &lt;% </div><div class="line">       out.println("&lt;h2&gt;静夜思&lt;/h2&gt;");</div><div class="line">       out.println("床前明月光&lt;br&gt;");</div><div class="line">       out.println("疑是地上霜&lt;br&gt;");</div><div class="line">       out.flush();</div><div class="line">       //out.clear();//这里会抛出异常。</div><div class="line">       out.clearBuffer();//这里不会抛出异常。</div><div class="line">       out.println("举头望明月&lt;br&gt;");</div><div class="line">       out.println("低头思故乡&lt;br&gt;");</div><div class="line">    </div><div class="line">    %&gt;</div><div class="line">        缓冲区大小：&lt;%=out.getBufferSize() %&gt;byte&lt;br&gt;</div><div class="line">        缓冲区剩余大小：&lt;%=out.getRemaining() %&gt;byte&lt;br&gt;</div><div class="line">       是否自动清空缓冲区：&lt;%=out.isAutoFlush() %&gt;&lt;BR&gt;    </div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h1 id="request对象"><a href="#request对象" class="headerlink" title="request对象"></a>request对象</h1><p>客户端的请求信息被封装在request对象中，通过它才能了解到客户的需求，然后做出响应。它是HttpServletRequest类的实例。request对象具有请求域，即完成客户端的请求之前，该对象一直有效。</p>
+<p>常用方法：</p>
+<ul>
+<li>String getParameter(String name)返回name指定参数的参数值</li>
+<li>String[] getParameterValues(String name)返回包含参数name的所有值的数组</li>
+<li>void setAttribute(String,Object)存储此请求中的属性</li>
+<li>Object getAttribute(String namae) 返回指定属性的属性值</li>
+<li>String getContentType() 得到请求体的MIME类型</li>
+<li>String getProtocol() 返回请求用的协议类型及版本号</li>
+<li>String getServerName() 返回接受请求的服务器主机号</li>
+<li>int getServerPort() 返回服务器接收此请求所用的端口号</li>
+<li>String getCharacterEncoding() 返回字符编码方式</li>
+<li>void setChatacterEncoding() 设置请求的字符编码方式<br><code>request.setChatacterEncoding(&quot;utf-8&quot;)</code>:解决中文乱码问题，但是无法解决url的中文参数问题</li>
+<li>int getContentLength() 返回请求体的长度</li>
+<li>String getRemoteAddr() 返回发送请求的客户端IP地址</li>
+<li>String getRealPath(“请求的页面”) 返回请求的真实路径</li>
+<li>String getContextPath() 返回上下文路径<br><strong>也可以接受url的传参</strong></li>
+</ul>
+<p>发送页面：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%&gt;</div><div class="line">&lt;%</div><div class="line">String path = request.getContextPath();</div><div class="line">String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";</div><div class="line">%&gt;</div><div class="line"></div><div class="line">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;base href="&lt;%=basePath%&gt;"&gt;</div><div class="line">    </div><div class="line">    &lt;title&gt;My JSP 'index.jsp' starting page&lt;/title&gt;</div><div class="line">  &lt;meta http-equiv="pragma" content="no-cache"&gt;</div><div class="line">  &lt;meta http-equiv="cache-control" content="no-cache"&gt;</div><div class="line">  &lt;meta http-equiv="expires" content="0"&gt;    </div><div class="line">  &lt;meta http-equiv="keywords" content="keyword1,keyword2,keyword3"&gt;</div><div class="line">  &lt;meta http-equiv="description" content="This is my page"&gt;</div><div class="line">  &lt;!--</div><div class="line">  &lt;link rel="stylesheet" type="text/css" href="styles.css"&gt;</div><div class="line">  --&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  </div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;h1&gt;用户注册&lt;/h1&gt;</div><div class="line">    &lt;hr&gt;</div><div class="line">    &lt;% </div><div class="line">       int number=-1;</div><div class="line">       //说明用户第一次访问页面，计数器对象还未创建</div><div class="line">       if(application.getAttribute("counter")==null)</div><div class="line">       &#123;</div><div class="line">           application.setAttribute("counter", 0);</div><div class="line">       &#125;</div><div class="line">       number = Integer.parseInt(application.getAttribute("counter").toString());</div><div class="line">       number++;</div><div class="line">       application.setAttribute("counter", number);</div><div class="line">    %&gt;</div><div class="line">    &lt;form name="regForm" action="request.jsp" method="post"&gt;</div><div class="line">    &lt;table&gt;</div><div class="line">      &lt;tr&gt;</div><div class="line">        &lt;td&gt;用户名：&lt;/td&gt;</div><div class="line">        &lt;td&gt;&lt;input type="text" name="username"/&gt;&lt;/td&gt;</div><div class="line">      &lt;/tr&gt;</div><div class="line">      &lt;tr&gt;</div><div class="line">        &lt;td&gt;爱好：&lt;/td&gt;</div><div class="line">        &lt;td&gt;</div><div class="line">           &lt;input type="checkbox" name="favorite" value="read"&gt;读书</div><div class="line">           &lt;input type="checkbox" name="favorite" value="music"&gt;音乐</div><div class="line">           &lt;input type="checkbox" name="favorite" value="movie"&gt;电影</div><div class="line">           &lt;input type="checkbox" name="favorite" value="internet"&gt;上网</div><div class="line">        &lt;/td&gt;</div><div class="line">      &lt;/tr&gt;</div><div class="line">      &lt;tr&gt;</div><div class="line">         &lt;td colspan="2"&gt;&lt;input type="submit" value="提交"/&gt;&lt;/td&gt;</div><div class="line">      &lt;/tr&gt;</div><div class="line">    &lt;/table&gt;</div><div class="line">    &lt;/form&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;br&gt;</div><div class="line">    &lt;a href="request.jsp?username=李四"&gt;测试URL传参数&lt;/a&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>接收页面：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%&gt;</div><div class="line">&lt;%</div><div class="line">String path = request.getContextPath();</div><div class="line">String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";</div><div class="line">%&gt;</div><div class="line"></div><div class="line">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;base href="&lt;%=basePath%&gt;"&gt;</div><div class="line">    </div><div class="line">    &lt;title&gt;My JSP 'index.jsp' starting page&lt;/title&gt;</div><div class="line">    &lt;meta http-equiv="pragma" content="no-cache"&gt;</div><div class="line">    &lt;meta http-equiv="cache-control" content="no-cache"&gt;</div><div class="line">    &lt;meta http-equiv="expires" content="0"&gt;    </div><div class="line">    &lt;meta http-equiv="keywords" content="keyword1,keyword2,keyword3"&gt;</div><div class="line">    &lt;meta http-equiv="description" content="This is my page"&gt;</div><div class="line">    &lt;!--</div><div class="line">    &lt;link rel="stylesheet" type="text/css" href="styles.css"&gt;</div><div class="line">    --&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  </div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;h1&gt;request内置对象&lt;/h1&gt;</div><div class="line">    &lt;% </div><div class="line">       request.setCharacterEncoding("utf-8"); //解决中文乱码问题，无法解决URL传递中文出现的乱码问题。</div><div class="line">       request.setAttribute("password", "123456");</div><div class="line">    </div><div class="line">    %&gt;</div><div class="line">        用户名：&lt;%=request.getParameter("username") %&gt;&lt;br&gt;   </div><div class="line">        爱好 ：</div><div class="line">        &lt;% </div><div class="line">           if(request.getParameterValues("favorite")!=null)</div><div class="line">           &#123;</div><div class="line">               String[] favorites = request.getParameterValues("favorite");</div><div class="line">               for(int i=0;i&lt;favorites.length;i++)</div><div class="line">               &#123;</div><div class="line">                  out.println(favorites[i]+"&amp;nbsp;&amp;nbsp;");</div><div class="line">               &#125;</div><div class="line">            &#125;</div><div class="line">        %&gt;</div><div class="line">         &lt;br&gt;</div><div class="line">         密码：&lt;%=request.getAttribute("password") %&gt;&lt;br&gt; </div><div class="line">         请求体的MIME类型:&lt;%=request.getContentType() %&gt;&lt;br&gt;</div><div class="line">         协议类型及版本号:  &lt;%=request.getProtocol() %&gt;&lt;br&gt;</div><div class="line">         服务器主机名 :&lt;%=request.getServerName() %&gt;&lt;br&gt;</div><div class="line">         服务器端口号：&lt;%=request.getServerPort() %&gt;&lt;BR&gt;</div><div class="line">         请求文件的长度 ：&lt;%=request.getContentLength() %&gt;&lt;BR&gt;</div><div class="line">         请求客户端的IP地址：&lt;%=request.getRemoteAddr() %&gt;&lt;BR&gt;</div><div class="line">         请求的真实路径：&lt;%=request.getRealPath("request.jsp") %&gt;&lt;br&gt;</div><div class="line">         请求的上下文路径：&lt;%=request.getContextPath() %&gt;&lt;BR&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h1 id="response对象"><a href="#response对象" class="headerlink" title="response对象"></a>response对象</h1><p>response对象包含了响应客户请求的有关信息，但在JSP中很少直接用到，它是HttpServletRequest类的实例。response对象具有请求域,即访问一个页面时，该页面内的response对象只能对这次访问有效，其他页面的response对象对当前页面无效。<br>常用方法：<br>String getCharacterEncoding() 返回响应用的是何种编码<br>void setContentType() 设置响应的MIME类型<br>PrintWriter getWriter() 返回一个可以向客户端输出字符的一个对象<br>sendRedirect(java.lang.String location) 对客户端的请求重定向</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page language=<span class="string">"java"</span> <span class="keyword">import</span>=<span class="string">"java.util.*,java.io.*"</span> contentType=<span class="string">"text/html; charset=utf-8"</span>%&gt;</div><div class="line">&lt;%</div><div class="line">  response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</div><div class="line">  out.println(<span class="string">"&lt;h1&gt;response内置对象&lt;/h1&gt;"</span>);</div><div class="line">  out.println(<span class="string">"&lt;hr&gt;"</span>);</div><div class="line"></div><div class="line">  out.flush();<span class="comment">//这句可以保证先输出out的内容</span></div><div class="line"></div><div class="line">  PrintWriter outer = response.getWriter();<span class="comment">//获得输出流对象</span></div><div class="line">  <span class="comment">/* outer对象输出的内容总是提前于内置out对象 */</span></div><div class="line">  outer.println(<span class="string">"这是response对象生成的输出流outer对象"</span>);</div><div class="line"></div><div class="line">  response.sendRedirect(<span class="string">"reg.jsp"</span>);</div><div class="line">%&gt;</div></pre></td></tr></table></figure>
+<h1 id="请求转发与请求重定向"><a href="#请求转发与请求重定向" class="headerlink" title="请求转发与请求重定向"></a>请求转发与请求重定向</h1><p>请求重定向：客户端行为，response.sendRedirect(),本质上等同于两次请求，前一次的请求对象不会保存，地址栏的URL地址会发生改变。</p>
+<p>请求转发：服务器行为，request.getRequestDispatcher().forward(req,res);是一次请求，转发后请求对象会保存，地址栏的URL地址不会改变。请求转发是在同一个request对象里完成的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/11/K05-jsp基础/" rel="next" title="JSP基础">
+                <i class="fa fa-chevron-left"></i> JSP基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/21/03-JSP内置对象(下)/" rel="prev" title="JSP内置对象(下)">
+                JSP内置对象(下) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/tx1.jpg"
+               alt="Qcyue" />
+          <p class="site-author-name" itemprop="name">Qcyue</p>
+           
+              <p class="site-description motion-element" itemprop="description">生活，我们是认真的！</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">79</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#out对象"><span class="nav-number">1.</span> <span class="nav-text">out对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#request对象"><span class="nav-number">2.</span> <span class="nav-text">request对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#response对象"><span class="nav-number">3.</span> <span class="nav-text">response对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#请求转发与请求重定向"><span class="nav-number">4.</span> <span class="nav-text">请求转发与请求重定向</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qcyue</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

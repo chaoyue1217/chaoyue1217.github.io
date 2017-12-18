@@ -798,179 +798,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/06/B06-性能优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qcyue">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/tx1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Shining Moon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/06/B06-性能优化/" itemprop="url">
-                  图片优化
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-06T00:00:00+08:00">
-                2016-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端优化/" itemprop="url" rel="index">
-                    <span itemprop="name">前端优化</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="图片压缩"><a href="#图片压缩" class="headerlink" title="图片压缩"></a>图片压缩</h1><h1 id="使用雪碧图"><a href="#使用雪碧图" class="headerlink" title="使用雪碧图"></a>使用雪碧图</h1><h1 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h1><ul>
-<li>图片的base64编码就是可以将一副图片数据编码成一串字符串，使用该字符串代替图像地址</li>
-<li>图片的下载始终都要向服务器发出请求，要是图片的下载不用向服务器发出请求，base64可以随着 HTML 的下载同时下载到本地.减少https请求。<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//在css里的写法</div><div class="line">#fkbx-spch, #fkbx-hspch &#123;</div><div class="line">  background: url(data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5B…EoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs=) no-repeat center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--在img标签中的写法--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5B…EoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs="</span>&gt;</span></div></pre></td></tr></table></figure>
-<ul>
-<li>什么样的图片可以转为成base64编码？<ul>
-<li>如果图片足够小且因为用处的特殊性无法被制作成雪碧图（CssSprites），在整个网站的复用性很高且基本不会被更新。</li>
-</ul>
-</li>
-</ul>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
-<li>使用 Base64 的好处是能够减少一个图片的HTTP请求，然而，与之同时付出的代价则是 CSS 文件体积的增大。</li>
-</ul>
-<h1 id="base64和雪碧图"><a href="#base64和雪碧图" class="headerlink" title="base64和雪碧图"></a>base64和雪碧图</h1><ul>
-<li>两者的共同点是都是为了减少http请求</li>
-</ul>
-<h2 id="base64-1"><a href="#base64-1" class="headerlink" title="base64"></a>base64</h2><ul>
-<li>无额外请求</li>
-<li>对于极小或者极简单图片</li>
-<li>可像单独图片一样使用，比如背景图片重复使用等</li>
-<li>没有跨域问题，无需考虑缓存、文件头或者cookies问题  </li>
-</ul>
-<h2 id="cssSprites"><a href="#cssSprites" class="headerlink" title="cssSprites"></a>cssSprites</h2><ul>
-<li>页面具有多种风格，需要换肤功能，可使用CssSprites</li>
-<li>网站已经趋于完美，不会再三天两头的改动（例如button大小、颜色等）</li>
-<li>使用时无需重复图形内容</li>
-<li>没有 Base64 编码成本，降低图片更新的维护难度。（但注意 Sprites 同时修改 css 和图片某些时候可能造成负担）</li>
-<li>不会增加 CSS 文件体积</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/06/I03-node/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1331,6 +1158,179 @@
 </li>
 </ul>
 <hr>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/06/B06-性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qcyue">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/tx1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shining Moon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/06/B06-性能优化/" itemprop="url">
+                  图片优化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-06T00:00:00+08:00">
+                2016-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端优化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="图片压缩"><a href="#图片压缩" class="headerlink" title="图片压缩"></a>图片压缩</h1><h1 id="使用雪碧图"><a href="#使用雪碧图" class="headerlink" title="使用雪碧图"></a>使用雪碧图</h1><h1 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h1><ul>
+<li>图片的base64编码就是可以将一副图片数据编码成一串字符串，使用该字符串代替图像地址</li>
+<li>图片的下载始终都要向服务器发出请求，要是图片的下载不用向服务器发出请求，base64可以随着 HTML 的下载同时下载到本地.减少https请求。<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//在css里的写法</div><div class="line">#fkbx-spch, #fkbx-hspch &#123;</div><div class="line">  background: url(data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5B…EoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs=) no-repeat center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--在img标签中的写法--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"data:image/gif;base64,R0lGODlhHAAmAKIHAKqqqsvLy0hISObm5vf394uLiwAAAP///yH5B…EoqQqJKAIBaQOVKHAXr3t7txgBjboSvB8EpLoFZywOAo3LFE5lYs/QW9LT1TRk1V7S2xYJADs="</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li>什么样的图片可以转为成base64编码？<ul>
+<li>如果图片足够小且因为用处的特殊性无法被制作成雪碧图（CssSprites），在整个网站的复用性很高且基本不会被更新。</li>
+</ul>
+</li>
+</ul>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>使用 Base64 的好处是能够减少一个图片的HTTP请求，然而，与之同时付出的代价则是 CSS 文件体积的增大。</li>
+</ul>
+<h1 id="base64和雪碧图"><a href="#base64和雪碧图" class="headerlink" title="base64和雪碧图"></a>base64和雪碧图</h1><ul>
+<li>两者的共同点是都是为了减少http请求</li>
+</ul>
+<h2 id="base64-1"><a href="#base64-1" class="headerlink" title="base64"></a>base64</h2><ul>
+<li>无额外请求</li>
+<li>对于极小或者极简单图片</li>
+<li>可像单独图片一样使用，比如背景图片重复使用等</li>
+<li>没有跨域问题，无需考虑缓存、文件头或者cookies问题  </li>
+</ul>
+<h2 id="cssSprites"><a href="#cssSprites" class="headerlink" title="cssSprites"></a>cssSprites</h2><ul>
+<li>页面具有多种风格，需要换肤功能，可使用CssSprites</li>
+<li>网站已经趋于完美，不会再三天两头的改动（例如button大小、颜色等）</li>
+<li>使用时无需重复图形内容</li>
+<li>没有 Base64 编码成本，降低图片更新的维护难度。（但注意 Sprites 同时修改 css 和图片某些时候可能造成负担）</li>
+<li>不会增加 CSS 文件体积</li>
+</ul>
 
           
         
@@ -2401,7 +2401,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
